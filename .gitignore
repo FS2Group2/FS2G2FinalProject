@@ -1,6 +1,6 @@
 *.class
 *.log
-*.css
+# *.css
 *.ctxt
 *.jar
 *.war
