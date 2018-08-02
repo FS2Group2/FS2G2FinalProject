@@ -8,9 +8,13 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start && npm-run-all -p watch-compile-sass start-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+    "watch-compile-sass": "npm run build-sass && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-sass": "node-sass-chokidar src/ -o src/",
+    "build": "npm run build-sass && react-scripts build",
+    "start-js": "react-scripts start"
+
   }
 }
