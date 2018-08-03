@@ -1,0 +1,6 @@
+  spring:
+      profiles: dev
+  name: port-9000
+  environment: development
+  server:
+      port: 9000
