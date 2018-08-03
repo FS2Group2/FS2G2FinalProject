@@ -1,13 +1,13 @@
 dist: trusty
 
-  language: java
+language: java
 
-  jdk:
+jdk:
   - oraclejdk8
 
-  cache:
-    directories:
+cache:
+  directories:
     - $HOME/.m2
 
-  script:
+script:
   - mvn clean test
