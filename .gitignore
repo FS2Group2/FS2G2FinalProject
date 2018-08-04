@@ -16,4 +16,4 @@ frontend/build/
 node_modules/
 target/
 log/
-*css
+*.css
