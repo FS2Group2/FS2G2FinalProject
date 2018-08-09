@@ -1,8 +1,17 @@
 package peddle.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
 
 @Setter
 @Getter
@@ -10,14 +19,14 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name="transport_type")
+@Table(name = "transport_type")
 public class TransportType {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name="tt_id", unique = true)
+  @Column(name = "tt_id", unique = true)
   private Long id;
 
-  @Column(name="tt_name")
+  @Column(name = "tt_name")
   private String name;
 
   public TransportType(String name) {

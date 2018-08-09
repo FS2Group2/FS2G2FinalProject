@@ -1,8 +1,17 @@
 package peddle.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
 
 @Setter
 @Getter
@@ -10,21 +19,24 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name="wish_list")
+@Table(name = "wish_list")
 public class WishList {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name="w_id", unique = true)
+  @Column(name = "w_id", unique = true)
   private Long id;
 
-  @Column(name="w_user")
+  @Column(name = "w_user")
   private Long user;
 
-  @Column(name="w_event")
+  @Column(name = "w_event")
   private Long event;
-//  @OneToOne
-//  @JoinColumn(name="w_event")
-//  private EventRepository event;
+
+  /*
+  @OneToOne
+  @JoinColumn(name="w_event")
+  private EventRepository event;
+  */
 
   public WishList(Long user, Long event) {
     this.user = user;

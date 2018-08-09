@@ -1,8 +1,20 @@
 package peddle.entities;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
 
 @Setter
 @Getter
@@ -10,39 +22,31 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name="purchase")
+@Table(name = "purchase")
 public class Purchase {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name="p_id")
+  @Column(name = "p_id")
   private Long id;
 
-  @Column(name="p_user")
+  @Column(name = "p_user")
   private Long user;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="p_event")
+  @JoinColumn(name = "p_event")
   private Event event;
-//  @Column(name="p_event")
-//  private Long event;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="p_transfer_to")
+  @JoinColumn(name = "p_transfer_to")
   private Transfer transferTo;
-//  @Column(name="p_transfer_to")
-//  private Long transferTo;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="p_transfer_from")
+  @JoinColumn(name = "p_transfer_from")
   private Transfer transferFrom;
-//  @Column(name="p_transfer_from")
-//  private Long transferFrom;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="p_accommodation")
+  @JoinColumn(name = "p_accommodation")
   private Accommodation accommodation;
-//  @Column(name="p_accommodation")
-//  private Long accommodation;
 
   public Purchase(Long user, Event event, Transfer transferTo, Transfer transferFrom, Accommodation accommodation) {
     this.user = user;

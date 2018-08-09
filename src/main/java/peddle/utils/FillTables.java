@@ -3,11 +3,25 @@ package peddle.utils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import peddle.entities.*;
-import peddle.repository.*;
+
+import peddle.entities.Accommodation;
+import peddle.entities.City;
+import peddle.entities.Event;
+import peddle.entities.EventExtra;
+import peddle.entities.Profile;
+import peddle.entities.Role;
+import peddle.entities.Transfer;
+import peddle.entities.TransportType;
+import peddle.entities.User;
+
+import peddle.repository.AccommodationRepository;
+import peddle.repository.CityRepository;
+import peddle.repository.EventRepository;
+import peddle.repository.RoleRepository;
+import peddle.repository.TransferRepository;
+import peddle.repository.UserRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Configuration
 public class FillTables {
@@ -18,6 +32,7 @@ public class FillTables {
     repository.save(new Role("TRANSFERS_SELLER"));
     repository.save(new Role("ACCOMMODATIONS_SELLER"));
   }
+
   private void addCity(CityRepository repository) {
     repository.save(new City("Kyiv"));
     repository.save(new City("Lviv"));
@@ -33,7 +48,7 @@ public class FillTables {
     repository.save(new Accommodation("Apartment", 2L, 240, city, 1));
   }
 
-  private void addEvent(EventRepository repository) throws Exception{
+  private void addEvent(EventRepository repository) throws Exception {
     repository.save(new Event("Concert",
             new City("Brovary"),
             new SimpleDateFormat("dd/MM/yyyy").parse("03/09/2018"),
@@ -68,25 +83,27 @@ public class FillTables {
             new Profile("Users photo","users info")));
   }
 
-//  private void addPurchase(PurchaseRepository repository) throws Exception {
-//    Event event =              new Event("Concert p",
-//            new City("Brovary p"),
-//            new SimpleDateFormat("dd/MM/yyyy").parse("03/10/2018");
-//
-//            repository.save(1L,
-//                    1L, 250,
-//                    new EventExtra("photo1", "description1"),
-//                    320),
-//            new Transfer(
-//                    new TransportType("Train"), 456, 2235, 2L, 8,
-//                    new City("Paris"),
-//                    new City("Prague")),
-//            new Transfer(
-//                    new TransportType("Train"), 457, 2235, 2L, 8,
-//                    new City("Prague"),
-//                    new City("Paris")),
-//            new Accommodation("Apartment", 2L, 240, new City("Prague"), 1));
-//  }
+  /*
+  private void addPurchase(PurchaseRepository repository) throws Exception {
+    Event event =              new Event("Concert p",
+            new City("Brovary p"),
+            new SimpleDateFormat("dd/MM/yyyy").parse("03/10/2018");
+
+            repository.save(1L,
+                    1L, 250,
+                    new EventExtra("photo1", "description1"),
+                    320),
+            new Transfer(
+                    new TransportType("Train"), 456, 2235, 2L, 8,
+                    new City("Paris"),
+                    new City("Prague")),
+            new Transfer(
+                    new TransportType("Train"), 457, 2235, 2L, 8,
+                    new City("Prague"),
+                    new City("Paris")),
+            new Accommodation("Apartment", 2L, 240, new City("Prague"), 1));
+  }
+  */
 
   @Bean
   public CommandLineRunner role(RoleRepository repository) {
