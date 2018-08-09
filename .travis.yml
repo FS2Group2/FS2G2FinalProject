@@ -8,6 +8,13 @@ jdk:
 cache:
   directories:
     - $HOME/.m2
-
+    - $HOME/.sonar
+    - $HOME/.sonarscanner
 script:
   - mvn clean test
+  - sonar-scanner
+
+addons:
+  sonarcloud:
+    organization: "danit_fs2_final_project_group_2"
+    token: ee024f3109225806fba48006a355b590835c51a3
