@@ -22,8 +22,8 @@ import javax.persistence.GenerationType;
 @Table(name = "transport_type")
 public class TransportType {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "tt_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "tt_id")
   private Long id;
 
   @Column(name = "tt_name")

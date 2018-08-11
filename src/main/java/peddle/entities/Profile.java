@@ -22,8 +22,8 @@ import javax.persistence.GenerationType;
 @Table(name = "profile")
 public class Profile {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "pr_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "pr_id")
   private Long id;
 
   @Column(name = "pr_photo")

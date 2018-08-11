@@ -22,14 +22,14 @@ import javax.persistence.GenerationType;
 @Table(name = "event_extra")
 public class EventExtra {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ei_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ee_id")
   private Long id;
 
-  @Column(name = "ei_photo")
+  @Column(name = "ee_photo")
   private String photo;
 
-  @Column(name = "ei_description")
+  @Column(name = "ee_description")
   private String description;
 
   public EventExtra(String photo, String description) {

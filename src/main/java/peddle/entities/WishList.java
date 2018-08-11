@@ -22,8 +22,8 @@ import javax.persistence.GenerationType;
 @Table(name = "wish_list")
 public class WishList {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "w_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "w_id")
   private Long id;
 
   @Column(name = "w_user")
@@ -31,12 +31,6 @@ public class WishList {
 
   @Column(name = "w_event")
   private Long event;
-
-  /*
-  @OneToOne
-  @JoinColumn(name="w_event")
-  private EventRepository event;
-  */
 
   public WishList(Long user, Long event) {
     this.user = user;
