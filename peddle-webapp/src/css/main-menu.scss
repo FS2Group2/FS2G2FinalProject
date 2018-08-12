@@ -1,19 +1,35 @@
-.main-menu{
+.main-menu {
   display: flex;
+  position: relative;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: rgba(20,30,40,0.1);
+  background-color: rgba(20, 30, 40, 0.1);
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
-  }
-
-.main-menu-li{
-  display: inline-block;
 }
 
-.main-menu-link{
+.main-menu-li {
   display: inline-block;
-  padding: 25px 50px;
+  width: 100%;
+}
+
+.main-menu-link {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 25px 0;
   text-decoration: none;
+  text-transform: uppercase;
   color: #334;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.main-menu-link:hover {
+  color: darkblue;
+  background-color: rgba(255,255,255,0.2);
+}
+.main-menu-link:active{
+  color: #000;
 }
