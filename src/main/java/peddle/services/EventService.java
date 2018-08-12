@@ -1,11 +1,9 @@
 package peddle.services;
 
-import peddle.DTO.EventDTO;
-import peddle.entities.Event;
+import peddle.dto.EventDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface EventService {
-  List<EventDTO> getAll();
+  List<EventDto> getAll();
 }

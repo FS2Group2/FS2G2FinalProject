@@ -1,4 +1,4 @@
-package peddle.DTO;
+package peddle.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class EventDTO {
+public class EventDto {
   private Long id;
   private String name;
   private String city;
@@ -20,7 +20,7 @@ public class EventDTO {
   private int duration;
   private int price;
 
-  public EventDTO(Event event) {
+  public EventDto(Event event) {
     this.id = event.getId();
     this.name = event.getName();
     this.date = event.getDate();
@@ -32,7 +32,7 @@ public class EventDTO {
     if (city != null) {
       this.city = city.getName();
     } else {
-      this.city ="";
+      this.city = "";
     }
   }
 }
