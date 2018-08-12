@@ -68,4 +68,36 @@ public class Event {
     this.eventExtra = eventExtra;
     this.price = price;
   }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public City getCity() {
+    return city;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public Long getOwner() {
+    return owner;
+  }
+
+  public int getDuration() {
+    return duration;
+  }
+
+  public EventExtra getEventExtra() {
+    return eventExtra;
+  }
+
+  public int getPrice() {
+    return price;
+  }
 }
