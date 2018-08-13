@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.FetchType;
 
 import java.util.Date;
 
@@ -28,25 +29,19 @@ import java.util.Date;
 @Table(name = "event")
 public class Event {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "e_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "e_id")
   private Long id;
 
   @Column(name = "e_name")
   private String name;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "e_location")
   private City city;
 
   @Column(name = "e_date")
   private Date date;
-
-  /*
-  @OneToOne
-  @JoinColumn(name="e_owner")
-  private User owner;
-  */
 
   @Column(name = "e_owner")
   private Long owner;
@@ -54,8 +49,11 @@ public class Event {
   @Column(name = "e_duration")
   private int duration;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
+  @OneToOne(
+          fetch = FetchType.LAZY,
+          cascade = CascadeType.ALL,
+          orphanRemoval = true)
+  @JoinColumn(name = "e_extra")
   private EventExtra eventExtra;
 
   @Column(name = "e_price")
@@ -69,5 +67,37 @@ public class Event {
     this.duration = duration;
     this.eventExtra = eventExtra;
     this.price = price;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public City getCity() {
+    return city;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public Long getOwner() {
+    return owner;
+  }
+
+  public int getDuration() {
+    return duration;
+  }
+
+  public EventExtra getEventExtra() {
+    return eventExtra;
+  }
+
+  public int getPrice() {
+    return price;
   }
 }
