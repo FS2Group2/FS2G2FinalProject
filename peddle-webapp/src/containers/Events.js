@@ -7,7 +7,7 @@ import PageNotFound from "./PageNotFound";
 
 class Events extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       error: null,
