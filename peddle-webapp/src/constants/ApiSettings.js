@@ -4,7 +4,7 @@ const apiSettings = {
   apiPath: '/api'
 };
 
-const dataPath = apiSettings.domain + '/' + apiSettings.port + apiSettings.apiPath;
+const dataPath = apiSettings.domain + ':' + apiSettings.port + apiSettings.apiPath;
 
 const dataMap = {
   allEvents: dataPath + '/events',
