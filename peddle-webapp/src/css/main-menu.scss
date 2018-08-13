@@ -1,0 +1,19 @@
+.main-menu{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: rgba(20,30,40,0.1);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  }
+
+.main-menu-li{
+  display: inline-block;
+}
+
+.main-menu-link{
+  display: inline-block;
+  padding: 25px 50px;
+  text-decoration: none;
+  color: #334;
+}
