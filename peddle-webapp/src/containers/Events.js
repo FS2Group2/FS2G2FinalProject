@@ -5,6 +5,7 @@ import EventFilters from '../components/EventFilters';
 import '../css/eventsPage.css';
 import PageNotFound from "./PageNotFound";
 import dataMap from '../constants/ApiSettings';
+import Preloader from "./Preloader";
 
 class Events extends Component {
   constructor(props) {
@@ -13,10 +14,14 @@ class Events extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      events: []
+      events: [],
+      city: ''
     }
   }
 
+  updateCity = (value) => {
+    this.setState({city: value})
+  };
 
   componentDidMount() {
     // const url = dataMap.allEvents;
@@ -46,7 +51,7 @@ class Events extends Component {
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
-      return <div>Loading...</div>
+      return <Preloader/>
     } else {
 
       {
@@ -55,15 +60,16 @@ class Events extends Component {
         });
         cities.sort();
       }
+
       return (
           <div>
             <h2 className='events-header'>Current events</h2>
             <div className='events-page'>
 
               <div className='filters-container'>
-                <EventFilters cities={cities}/>
+                {/*/!*XXXXXX*!/ <p>City:{this.state.city}</p>*/}
+                <EventFilters cities={cities} updateCity={this.updateCity}/>
               </div>
-
               <div className='events-container'>
                 {this.state.events.map(event =>
                     <Link key={event.id} to='/event'>
@@ -77,6 +83,8 @@ class Events extends Component {
       );
     }
   }
+
+
 }
 
 export default Events;
