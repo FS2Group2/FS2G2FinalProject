@@ -7,7 +7,7 @@ import PageNotFound from "./PageNotFound";
 
 class Events extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
 
     this.state = {
@@ -57,7 +57,7 @@ class Events extends Component {
               </div>
 
               <div className='events-container'>
-                {this.state.events.map(event =>
+                {events.map(event =>
                     <Link key={event.id} to='/event'>
                       <Event theEvent={event}/>
                     </Link>)}
