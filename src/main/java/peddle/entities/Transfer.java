@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 
 @Setter
 @Getter
@@ -25,11 +26,11 @@ import javax.persistence.JoinColumn;
 @Table(name = "transfer")
 public class Transfer {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "t_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "t_id")
   private Long id;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "t_type")
   private TransportType transportType;
 
@@ -39,38 +40,27 @@ public class Transfer {
   @Column(name = "t_price")
   private int price;
 
-  /*
-  @OneToOne
-  @JoinColumn(name="t_owner")
-  private User owner;
-  */
-
   @Column(name = "t_owner")
   private Long owner;
 
   @Column(name = "t_duration")
   private int duration;
 
-  /*
-  @Column(name="t_start_time")
-  private Long startTime;
-  */
-
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "t_from")
-  private City from;
+  private City fromCity;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "t_to")
-  private City to;
+  private City toCity;
 
-  public Transfer(TransportType transportType, int number, int price, Long owner, int duration, City from, City to) {
+  public Transfer(TransportType transportType, int number, int price, Long owner, int duration, City fromCity, City toCity) {
     this.transportType = transportType;
     this.number = number;
     this.price = price;
     this.owner = owner;
     this.duration = duration;
-    this.from = from;
-    this.to = to;
+    this.fromCity = fromCity;
+    this.toCity = toCity;
   }
 }
