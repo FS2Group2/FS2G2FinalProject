@@ -1,0 +1,31 @@
+.not-found {
+  display: inline-block;
+  position: relative;
+  left: 22%;
+  width: 50%;
+  height: 200px;
+  margin-top: 20%;
+  padding: 30px;
+  border-radius: 35px;
+  background-color: rgba(255, 255, 255, .6);
+}
+
+.not-found-h2 {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 50px;
+}
+
+.not-found-p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.not-found-img {
+  position: absolute;
+  right: 80px;
+  bottom: -55px;
+  width: 200px;
+  opacity: .7;
+}
