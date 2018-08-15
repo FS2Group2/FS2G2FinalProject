@@ -8,10 +8,16 @@ jdk:
 cache:
   directories:
     - $HOME/.m2
+    - ./peddle-webapp/node_modules/
     - $HOME/.sonar
     - $HOME/.sonarscanner
+
+before_script:
+- npm install --prefix ./peddle-webapp/
+
 script:
   - mvn clean test
+  - npm run build --prefix ./peddle-webapp/
   - sonar-scanner
 
 addons:

@@ -1,0 +1,36 @@
+.main-menu {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: rgba(20, 30, 40, .1);
+}
+
+.main-menu-li {
+  display: inline-block;
+  width: 100%;
+}
+
+.main-menu-link {
+  display: inline-block;
+  width: 100%;
+  padding: 25px 0;
+  transition: all .2s;
+  color: #334;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.main-menu-link:hover {
+  background-color: rgba(255, 255, 255, .2);
+  color: darkblue;
+}
+
+.main-menu-link:active {
+  color: #000;
+}
