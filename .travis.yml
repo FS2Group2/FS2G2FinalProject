@@ -9,9 +9,18 @@ cache:
   directories:
     - $HOME/.m2
     - ./peddle-webapp/node_modules/
+    - $HOME/.sonar
+    - $HOME/.sonarscanner
 
 before_script:
-  - npm install --prefix ./peddle-webapp/
+- npm install --prefix ./peddle-webapp/
+
 script:
   - mvn clean test
   - npm run build --prefix ./peddle-webapp/
+  - sonar-scanner
+
+addons:
+  sonarcloud:
+    organization: "danit_fs2_final_project_group_2"
+    token: ee024f3109225806fba48006a355b590835c51a3
