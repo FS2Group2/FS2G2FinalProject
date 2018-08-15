@@ -22,8 +22,8 @@ import javax.persistence.GenerationType;
 @Table(name = "role")
 public class Role {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "r_id", unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "r_id")
   private Long id;
 
   @Column(name = "r_name")
