@@ -1,5 +1,5 @@
 const apiSettings = {
-  domain: '127.0.0.1',
+  domain: 'http://127.0.0.1',
   port: '9000',
   apiPath: '/api'
 };
