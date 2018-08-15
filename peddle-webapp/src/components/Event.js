@@ -3,6 +3,7 @@ import '../css/event.css'
 
 class Event extends Component {
   render() {
+
     const e = this.props.theEvent;
     var eventDate = new Date(e.date);
     var imgPath = '/img/' + ((e.id % 5) + 1) + '.jpg';
@@ -17,6 +18,7 @@ class Event extends Component {
           <p className='event-item-date'>{eventDate.toLocaleDateString()}</p>
           <p className='event-item-city'>{e.city}</p>
           <h3 className='event-item-price'>${e.price}</h3>
+
         </div>
     );
   }

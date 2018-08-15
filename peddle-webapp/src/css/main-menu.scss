@@ -1,11 +1,11 @@
 .main-menu {
   display: flex;
-  position: relative;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: rgba(20, 30, 40, 0.1);
-  border-top-right-radius: 15px;
+  position: relative;
   border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: rgba(20, 30, 40, .1);
 }
 
 .main-menu-li {
@@ -16,20 +16,21 @@
 .main-menu-link {
   display: inline-block;
   width: 100%;
-  text-align: center;
   padding: 25px 0;
-  text-decoration: none;
-  text-transform: uppercase;
+  transition: all .2s;
   color: #334;
   font-size: 18px;
   font-weight: 700;
-  transition: all 0.2s;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .main-menu-link:hover {
+  background-color: rgba(255, 255, 255, .2);
   color: darkblue;
-  background-color: rgba(255,255,255,0.2);
 }
-.main-menu-link:active{
+
+.main-menu-link:active {
   color: #000;
 }
