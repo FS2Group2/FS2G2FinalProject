@@ -1,45 +1,47 @@
-.event-item{
+.event-item {
   display: inline-block;
   position: relative;
   width: 300px;
   height: 240px;
-  padding: 10px;
   margin: 7px;
-  background-color: rgba(250,250,255,0.6);
+  padding: 10px;
   border-radius: 10px;
+  background-color: rgba(250, 250, 255, .6);
   color: darkslategray;
 }
-.event-item:hover{
-  background-color: rgba(250,250,255,0.8);
+
+.event-item:hover {
+  background-color: rgba(250, 250, 255, .8);
 }
 
-.event-item-img{
+.event-item-img {
   width: 100%;
   border-radius: 7px;
 }
 
-.event-item-name{
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  padding: 5px 5px 5px 20px;
+.event-item-name {
   position: absolute;
   top: 20px;
-  background-color: rgba(0,0,0,0.4);
+  padding: 5px 5px 5px 20px;
+  background-color: rgba(0, 0, 0, .4);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-.event-item-price{
-  font-size: 40px;
-  font-weight: 700;
+.event-item-price {
   position: absolute;
-  padding: 10px 15px 10px 30px;
-  background-color: rgba(255,255,255,0.8);
   right: 0;
+  bottom: 50px;
+  padding: 10px 15px 10px 30px;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
-  bottom: 50px;
+  background-color: rgba(255, 255, 255, .8);
+  font-size: 40px;
+  font-weight: 700;
 }
-.event-item-date{
+
+.event-item-date {
   font-size: 18px;
   text-transform: uppercase;
 }
