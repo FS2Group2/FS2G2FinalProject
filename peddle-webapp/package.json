@@ -37,5 +37,10 @@
   },
   "devDependencies": {
     "stylelint": "^8.4.0"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:9000"
+    }
   }
 }

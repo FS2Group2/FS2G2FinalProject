@@ -1,26 +1,31 @@
 import React, {Component} from 'react';
 
 class EventFilters extends Component {
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    }
+  }
+
   render() {
-    var cities = [];
+    const {updateMyCity} = this.props;
 
     return (
         <div>
-            <p className='filter-label'>City:</p>
-            <select className='filter-input' name="cityFilter" onChange={this.handleChange}>
-              <option selected value=''>Select city</option>
-              {this.props.cities.map(c => <option value={c}>{c}</option>)}
-            </select>
+          <p className='filter-label'>City:</p>
+          <select id='sc' className='filter-input' name="cityFilter"
+                  onChange={() => updateMyCity(document.getElementById('sc').valueOf().value)}>
+            <option selected value=''>Select city</option>
+            {this.props.cities.map(c => <option value={c}>{c}</option>)}
+          </select>
           <form>
             <p className='filter-label'>Date from:</p>
             <input className='filter-input' type="text"/>
             <p className='filter-label'>Date from:</p>
             <input className='filter-input' type="text"/>
             <input type='button' formAction='submit' value='Select'/>
-            <input type='button' formAction='reset' value='Reset' />
+            <input type='button' formAction='reset' value='Reset'/>
           </form>
         </div>
 
