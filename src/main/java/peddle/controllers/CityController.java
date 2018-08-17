@@ -1,4 +1,4 @@
-package peddle.temporary;
+package peddle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -7,33 +7,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import peddle.dto.CityDto;
-import peddle.dto.EventDto;
-import peddle.services.EventServiceImpl;
+import peddle.services.CityServiceImpl;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/map")
+@RequestMapping("/api/city")
 public class CityController {
-
   @Autowired
   private CityServiceImpl cityService;
 
-  @Autowired
-  private EventServiceImpl2 eventService;
-
-  @RequestMapping(path = "/city", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
-  public List<CityDto> getAllCities() {
+  public List<CityDto> getAll() {
     List<CityDto> cities = cityService.getAll();
     return cities;
-  }
-
-  @RequestMapping(path = "/event", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ResponseBody
-  public List<EventDto2> getAllEvents() {
-    List<EventDto2> events = eventService.getAll();
-    return events;
   }
 
 }
