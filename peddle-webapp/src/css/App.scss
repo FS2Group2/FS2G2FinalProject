@@ -6,7 +6,9 @@
 }
 
 .container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 1270px;
   height: 100%;
   margin: 0 auto;
