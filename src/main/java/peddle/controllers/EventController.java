@@ -29,7 +29,7 @@ public class EventController {
   @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
   public List<EventDto> getAllEvents() {
-    List<EventDto> events = eventService.getAllByPage(0,30);
+    List<EventDto> events = eventService.getAllByPage(0,12);
     return events;
   }
 
@@ -42,11 +42,7 @@ public class EventController {
 
   @PostMapping(path = "/filter")
   @ResponseBody
-  public List<EventDto> getEventsFilter(@RequestBody EventFilterDto eventFilterDto) throws ParseException {
-//    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//    Date dateStart = simpleDateFormat.parse("16-08-2018");
-//    Date dateFin = simpleDateFormat.parse("20-08-2018");
-
+  public List<EventDto> getEventsFilter(@RequestBody EventFilterDto eventFilterDto) {
     List<EventDto> events = eventService.getByCity(eventFilterDto);
     return events;
   }

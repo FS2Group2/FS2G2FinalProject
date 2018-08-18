@@ -40,8 +40,11 @@ public class EventServiceImpl implements EventService {
   @Override
   public List<EventDto> getByCity(EventFilterDto eventFilterDto) throws ParseException {
     List<EventDto> eventsDto = new ArrayList<>();
-//    eventRepository.findByDateAfter(eventFilterDto.getDateFin()).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-//    eventRepository.findByDateBetween(eventFilterDto.getDateStart(), eventFilterDto.getDateFin()).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+    /*
+    eventRepository.findByDateAfter(eventFilterDto.getDateFin())
+    .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+    eventRepository.findByDateBetween(eventFilterDto.getDateStart(),
+      eventFilterDto.getDateFin()).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
 
     if (eventFilterDto.getCityId() > 0) {
       eventRepository.findEventByCity_Id(eventFilterDto.getCityId(),
@@ -51,6 +54,14 @@ public class EventServiceImpl implements EventService {
       eventRepository.findAll(PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
               .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
     }
+
+      eventRepository.findEventByCity_Id(eventFilterDto.getCityId(),
+              PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
+              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+  */
+    eventRepository.findEventByCity_Name(eventFilterDto.getCityName(),
+              PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
+              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
 
     return eventsDto;
   }

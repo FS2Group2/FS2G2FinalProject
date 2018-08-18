@@ -18,4 +18,5 @@ public class EventDto {
   private Date date;
   private int duration;
   private int price;
+  private String eventExtraPhoto;
 }

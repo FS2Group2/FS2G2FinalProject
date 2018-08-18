@@ -15,17 +15,9 @@ public class EventFilterDto {
 
   private int page;
   private int pageSize;
-  private Long cityId;
-  private Date dateStart;
-  private Date dateFin;
-
-  public EventFilterDto(int page, int pageSize, Long cityId, Date dateStart, Date dateFin) {
-    this.page = page;
-    this.pageSize = pageSize;
-    this.cityId = cityId;
-    this.dateStart = dateStart;
-    this.dateFin = dateFin;
-  }
+  private String cityName;
+  private String dateStart;
+  private String dateFin;
 
   public int getPage() {
     return page;
@@ -35,15 +27,15 @@ public class EventFilterDto {
     return pageSize;
   }
 
-  public Long getCityId() {
-    return cityId;
+  public String getCityName() {
+    return cityName;
   }
 
-  public Date getDateStart() {
+  public String getDateStart() {
     return dateStart;
   }
 
-  public Date getDateFin() {
+  public String getDateFin() {
     return dateFin;
   }
 }
