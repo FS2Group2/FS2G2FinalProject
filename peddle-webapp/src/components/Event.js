@@ -16,9 +16,8 @@ class Event extends Component {
             <img className='event-item-img' src={imgPath} alt="event-img"/>
           </div>
           <p className='event-item-date'>{eventDate.toLocaleDateString()}</p>
-          <p className='event-item-city'>{e.city}</p>
+          <p className='event-item-city'>{e.cityName}</p>
           <h3 className='event-item-price'>${e.price}</h3>
-
         </div>
     );
   }

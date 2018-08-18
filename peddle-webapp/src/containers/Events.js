@@ -15,17 +15,63 @@ class Events extends Component {
       error: null,
       isLoaded: false,
       events: [],
+      cities: [],
+      citiesList: [],
       targetCity: ''
     }
   }
 
   updateCity(v) {
-    this.setState({targetCity: v})
+    this.setState({targetCity: v});
+    this.doFilter();
   };
 
+  componentWillMount() {
+    const urlAllCities = dataMap.allCities;
+
+    fetch(urlAllCities)
+        .then(res => res.json())
+        .then
+        (
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                cities: result
+              })
+            },
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        );
+  }
+
   componentDidMount() {
-    const url = dataMap.allEvents;
-    // const url = '/events.json';
+    const urlAllEvents = dataMap.allEvents;
+
+    fetch(urlAllEvents)
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                events: result
+              })
+            },
+
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        );
+  };
+
+  doFilter(){
+    const url = dataMap.filteredEvents;
     fetch(url)
         .then(res => res.json())
         .then(
@@ -42,36 +88,27 @@ class Events extends Component {
                 error
               })
             }
-        )
+        );
   };
 
+
   render() {
-    const {error, isLoaded, events, targetCity} = this.state;
-    const cities = [];
-    let eventsLabel = '';
+    const {error, isLoaded, events, cities, targetCity} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
       return <Preloader/>
     } else {
-
-      this.state.events.map(event => {
-        if (cities.findIndex(c => c === event.city) === -1) cities.push(event.city);
-        return cities;
-      });
-      cities.sort();
-
-      if (targetCity) eventsLabel = 'in ' + targetCity;
       return (
           <div>
-            <h2 className='events-header'>Current events {eventsLabel}</h2>
+            <h2 className='events-header'>Current events {targetCity && ('in ' + targetCity)}</h2>
             <div className='events-page'>
               <div className='filters-container'>
                 <EventFilters cities={cities} updateMyCity={this.updateCity.bind(this)}/>
               </div>
               <div className='events-container'>
-                {events.map(event =>
-                    <Link key={event.id} to='/event'>
+                {events[0] && events.map(event =>
+                    <Link key={event.id} to={'/event/' + event.id}>
                       <Event theEvent={event}/>
                     </Link>)}
               </div>
