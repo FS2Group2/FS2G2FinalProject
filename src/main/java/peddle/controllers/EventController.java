@@ -15,8 +15,6 @@ import peddle.dto.PageDto;
 import peddle.services.EventServiceImpl;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -42,24 +40,8 @@ public class EventController {
 
   @PostMapping(path = "/filter")
   @ResponseBody
-  public List<EventDto> getEventsFilter(@RequestBody EventFilterDto eventFilterDto) {
-    List<EventDto> events = eventService.getByCity(eventFilterDto);
+  public List<EventDto> getEventsFilter(@RequestBody EventFilterDto eventFilterDto) throws ParseException {
+    List<EventDto> events = eventService.getByFilter(eventFilterDto);
     return events;
   }
-
-  /*
-  {
-    "page":"1",
-    "pageSize":"5",
-    "cityId": "2",
-    "dateStart":"16-08-2018",
-    "dateFin":"20-08-2018"
-  }
-
-  @GetMapping("/api/event/{id}")
-  public Optional<Event> getEvent(@PathVariable("id") Long id){
-    Optional<Event> event = eventService.getById(id);
-    return event;
-  }
-  */
 }
