@@ -2,6 +2,7 @@ package peddle.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import peddle.dto.CityDto;
 import peddle.repository.CityRepository;
@@ -22,7 +23,7 @@ public class CityServiceImpl implements CityService {
   public List<CityDto> getAll() {
     List<CityDto> cityDto = new ArrayList<>();
 
-    cityRepository.findAll().forEach(city -> cityDto.add(modelMapper.map(city, CityDto.class)));
+    cityRepository.findAll(Sort.by("name")).forEach(city -> cityDto.add(modelMapper.map(city, CityDto.class)));
     return cityDto;
   }
 
