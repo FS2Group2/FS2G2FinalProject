@@ -91,27 +91,27 @@ public class FillTables {
   private List<EventDescription> generateEvents() {
     List<EventDescription> evetns = new ArrayList<>();
     evetns.add(new EventDescription("AFTER-HEDONISM",
-            "photo 1",
+            "photo01.jpg",
             "The final event of the Hedonism Festival - the After-Hedonism party.",
             8,250));
 
     evetns.add(new EventDescription("KORCHFEST",
-            "photo 2",
+            "photo02.jpg",
             "Will host a festival-exhibition of automotive subcultures Korchfest.",
             12,120));
 
     evetns.add(new EventDescription("METHODS OF UPBRINGING SMALL BURIALS",
-            "photo 3",
+            "photo03.jpg",
             "History, after which you will rethink the importance of family relationships.",
             5,400));
 
     evetns.add(new EventDescription("NGRID ARTHUR BAND",
-            "photo 4",
+            "photo04.jpg",
             "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
             4,2500));
 
     evetns.add(new EventDescription("POWER OF UKRAINE",
-            "photo 5",
+            "photo05.jpg",
             "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening! ",
             24,250));
     return evetns;
