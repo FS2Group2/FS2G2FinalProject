@@ -4,25 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 import peddle.dto.AccommodationDto;
-import peddle.services.AccommodationServiceImpl;
+import peddle.services.AccommodationService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/accommodation/city")
+@RequestMapping("/api")
 public class AccommodationController {
 
   @Autowired
-  private AccommodationServiceImpl accommodationService;
+  private AccommodationService accommodationService;
 
-  @PostMapping(path = "/cityName")
+  @PostMapping("/accommodations/city/{cityName}")
   @ResponseBody
-  public List<AccommodationDto> getAccommodations(@RequestBody AccommodationDto accommodationDto) {
-    List<AccommodationDto> dtos = accommodationService
-            .getByCity_Name(accommodationDto.toString());
-    return dtos;
+  public List<AccommodationDto> getAccommodations(@PathVariable String cityName) {
+    List<AccommodationDto> result = accommodationService.getByCityName(cityName);
+    return result;
   }
 }
