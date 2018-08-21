@@ -18,17 +18,38 @@ class Events extends Component {
       events: [],
       cities: [],
       page: 0,
-      pegeSize: 9,
+      pageSize: 9,
       targetCity: '',
-      dateStart: '01/01/2000',
+      dateStart: new Date(Date.now()).toLocaleDateString('en-GB'),
       dateFin: '01/01/2050'
     }
   }
 
-  updateCity(v) {
+  setCity(v) {
     this.setState({targetCity: v});
-    this.doFilter(v);
   };
+
+  setDateStart(ds) {
+    this.setState({dateStart: new Date(ds).toLocaleDateString('en-GB')});
+  };
+
+  setDateFin(df) {
+    this.setState({dateFin: new Date(df).toLocaleDateString('en-GB')});
+  };
+
+  applyFilter() {
+    this.doFilter();
+  };
+
+  resetFilter() {
+    this.setState({
+      targetCity: '',
+      dateStart: new Date(Date.now()).toLocaleDateString('en-GB'),
+      dateFin: '01/01/2050'
+    });
+    this.doFilter();
+  };
+
 
   componentWillMount() {
     const urlAllCities = dataMap.allCities;
@@ -74,13 +95,13 @@ class Events extends Component {
   };
 
 
-  doFilter(city) {
+  doFilter() {
     let filterHeader = new Headers();
     filterHeader.append("Content-Type", "application/JSON");
     let query = {
       page: this.state.page,
-      pageSize: this.state.pegeSize,
-      cityName: city,
+      pageSize: this.state.pageSize,
+      cityName: this.state.targetCity,
       dateStart: this.state.dateStart,
       dateFin: this.state.dateFin
     };
@@ -90,7 +111,7 @@ class Events extends Component {
       body: JSON.stringify(query)
     };
     const url = dataMap.filterEvents;
-
+    console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
         .then(res => res.json())
         .then(
@@ -112,8 +133,8 @@ class Events extends Component {
 
 
   render() {
-    const {targetCity} = this.props.EventsState;
-    const {error, isLoaded, cities, events} = this.state;
+    // const {targetCity} = this.props.EventsState;
+    const {error, isLoaded, cities, events, targetCity} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
@@ -124,11 +145,18 @@ class Events extends Component {
             <h2 className='events-header'>Current events {targetCity && ('in ' + targetCity)}</h2>
             <div className='events-page'>
               <div className='filters-container'>
-                <EventFilters cities={cities} updateMyCity={this.updateCity.bind(this)}/>
+                <EventFilters
+                    cities={cities}
+                    updateMyCity={this.setCity.bind(this)}
+                    setDateFrom={this.setDateStart.bind(this)}
+                    setDateTo={this.setDateFin.bind(this)}
+                    doFilter={this.applyFilter.bind(this)}
+                    resetFilter={this.resetFilter.bind(this)}
+                />
               </div>
               <div className='events-container'>
                 {events[0] && events.map(event =>
-                    <Link key={event.name} to={'/event/' + event.id}>
+                    <Link key={event.id} to={'/event/' + event.id}>
                       <Event theEvent={event}/>
                     </Link>)}
               </div>
