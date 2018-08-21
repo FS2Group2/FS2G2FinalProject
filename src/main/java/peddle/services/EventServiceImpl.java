@@ -3,7 +3,7 @@ package peddle.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 import peddle.dto.EventDto;
@@ -16,6 +16,8 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
 
+  private static final String SORT_ORDER = "date";
+
   @Autowired
   private EventRepository eventRepository;
 
@@ -25,44 +27,82 @@ public class EventServiceImpl implements EventService {
   @Override
   public List<EventDto> getAll() {
     List<EventDto> eventsDto = new ArrayList<>();
-    eventRepository.findAll().forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+    eventRepository.findAll(Sort.by(SORT_ORDER)).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
     return eventsDto;
   }
 
   @Override
   public List<EventDto> getAllByPage(int page, int size) {
     List<EventDto> eventsDto = new ArrayList<>();
-    eventRepository.findAll(PageRequest.of(page,size))
+    eventRepository.findAll(PageRequest.of(page, size, Sort.by(SORT_ORDER)))
             .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
     return eventsDto;
   }
 
   @Override
-  public List<EventDto> getByCity(EventFilterDto eventFilterDto) throws ParseException {
+  public List<EventDto> getByFilter(EventFilterDto eventFilterDto) throws ParseException, java.text.ParseException {
     List<EventDto> eventsDto = new ArrayList<>();
-    /*
-    eventRepository.findByDateAfter(eventFilterDto.getDateFin())
-    .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-    eventRepository.findByDateBetween(eventFilterDto.getDateStart(),
-      eventFilterDto.getDateFin()).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+    PageRequest pageRequest = PageRequest.of(
+            eventFilterDto.getPage(),
+            eventFilterDto.getPageSize(),
+            Sort.by(SORT_ORDER));
 
-    if (eventFilterDto.getCityId() > 0) {
-      eventRepository.findEventByCity_Id(eventFilterDto.getCityId(),
-              PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
-              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+    if (eventFilterDto.getCityName().isEmpty()) {
+      if (eventFilterDto.getDateStart().isEmpty()) {
+        if (eventFilterDto.getDateFin().isEmpty()) {
+          eventRepository.findAll(pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        } else {
+          eventRepository.findEventByDateBefore(
+                  eventFilterDto.getDateFinConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        }
+      } else {
+        if (eventFilterDto.getDateFin().isEmpty()) {
+          eventRepository.findEventByDateAfter(
+                  eventFilterDto.getDateStartConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        } else {
+          eventRepository.findEventByDateBetween(
+                  eventFilterDto.getDateStartConverted(),
+                  eventFilterDto.getDateFinConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        }
+      }
     } else {
-      eventRepository.findAll(PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
-              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+      if (eventFilterDto.getDateStart().isEmpty()) {
+        if (eventFilterDto.getDateFin().isEmpty()) {
+          eventRepository.findEventByCity_Name(
+                  eventFilterDto.getCityName(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        } else {
+          eventRepository.findEventByCity_NameAndDateBefore(
+                  eventFilterDto.getCityName(),
+                  eventFilterDto.getDateFinConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        }
+      } else {
+        if (eventFilterDto.getDateFin().isEmpty()) {
+          eventRepository.findEventByCity_NameAndDateAfter(
+                  eventFilterDto.getCityName(),
+                  eventFilterDto.getDateStartConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        } else {
+          eventRepository.findEventByCity_NameAndDateBetween(
+                  eventFilterDto.getCityName(),
+                  eventFilterDto.getDateStartConverted(),
+                  eventFilterDto.getDateFinConverted(),
+                  pageRequest)
+                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        }
+      }
     }
-
-      eventRepository.findEventByCity_Id(eventFilterDto.getCityId(),
-              PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
-              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-  */
-    eventRepository.findEventByCity_Name(eventFilterDto.getCityName(),
-              PageRequest.of(eventFilterDto.getPage(), eventFilterDto.getPageSize()))
-              .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-
     return eventsDto;
   }
 }

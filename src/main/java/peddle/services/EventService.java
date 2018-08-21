@@ -12,6 +12,6 @@ public interface EventService {
 
   List<EventDto> getAllByPage(int page, int size);
 
-  List<EventDto> getByCity(EventFilterDto eventFilterDto) throws ParseException;
+  List<EventDto> getByFilter(EventFilterDto eventFilterDto) throws ParseException;
 
 }
