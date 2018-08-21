@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class EventDto {
+public class EventDtoRs {
   private Long id;
   private String name;
   private String cityName;

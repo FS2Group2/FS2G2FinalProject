@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class PageDto {
+public class PageDtoRq {
   private int page;
   private int pageSize;
 

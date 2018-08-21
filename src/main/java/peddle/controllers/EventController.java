@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import peddle.dto.EventDto;
-import peddle.dto.EventFilterDto;
-import peddle.dto.PageDto;
+import peddle.dto.EventDtoRs;
+import peddle.dto.EventDtoRq;
+import peddle.dto.PageDtoRq;
 import peddle.services.EventServiceImpl;
 
 import java.text.ParseException;
@@ -26,22 +26,22 @@ public class EventController {
 
   @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
-  public List<EventDto> getAllEvents() {
-    List<EventDto> events = eventService.getAllByPage(0,12);
+  public List<EventDtoRs> getAllEvents() {
+    List<EventDtoRs> events = eventService.getAllByPage(0,12);
     return events;
   }
 
   @PostMapping(path = "/page")
   @ResponseBody
-  public List<EventDto> getEventsPage(@RequestBody PageDto pageDto) {
-    List<EventDto> events = eventService.getAllByPage(pageDto.getPage(), pageDto.getPageSize());
+  public List<EventDtoRs> getEventsPage(@RequestBody PageDtoRq pageDtoRq) {
+    List<EventDtoRs> events = eventService.getAllByPage(pageDtoRq.getPage(), pageDtoRq.getPageSize());
     return events;
   }
 
   @PostMapping(path = "/filter")
   @ResponseBody
-  public List<EventDto> getEventsFilter(@RequestBody EventFilterDto eventFilterDto) throws ParseException {
-    List<EventDto> events = eventService.getByFilter(eventFilterDto);
+  public List<EventDtoRs> getEventsFilter(@RequestBody EventDtoRq eventDtoRq) throws ParseException {
+    List<EventDtoRs> events = eventService.getByFilter(eventDtoRq);
     return events;
   }
 }
