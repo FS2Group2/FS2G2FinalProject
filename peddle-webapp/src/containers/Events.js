@@ -6,6 +6,7 @@ import '../css/eventsPage.css';
 import PageNotFound from "./PageNotFound";
 import dataMap from '../constants/ApiSettings';
 import Preloader from "./Preloader";
+import {connect} from "react-redux";
 
 class Events extends Component {
   constructor(props) {
@@ -16,13 +17,14 @@ class Events extends Component {
       isLoaded: false,
       events: [],
       cities: [],
-      citiesList: [],
+      // citiesList: [],
       targetCity: ''
     }
   }
 
   updateCity(v) {
     this.setState({targetCity: v});
+
     this.doFilter();
   };
 
@@ -70,9 +72,17 @@ class Events extends Component {
         );
   };
 
+
+
+
   doFilter(){
+    let filterHeader =  new Headers();
+    filterHeader.append("Content-Type", "application/JSON");
+    let reqParam = {method: 'POST',
+      headers: filterHeader};
+
     const url = dataMap.filteredEvents;
-    fetch(url)
+    fetch(url, reqParam)
         .then(res => res.json())
         .then(
             (result) => {
@@ -93,7 +103,9 @@ class Events extends Component {
 
 
   render() {
-    const {error, isLoaded, events, cities, targetCity} = this.state;
+    // const {error, isLoaded, events, cities, targetCity} = this.props.EventsState;
+    const {targetCity} = this.props.EventsState;
+    const {error, isLoaded, cities, events} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
@@ -119,4 +131,10 @@ class Events extends Component {
   }
 }
 
-export default Events;
+const mapStateToProps = (state) => {
+  return{
+    EventsState: state.eventReducer
+  }
+};
+
+export default connect(mapStateToProps)(Events);
