@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Preloader from "./Preloader";
+// import Preloader from "./Preloader";
 
 class EventPage extends Component {
   render() {
@@ -7,7 +7,7 @@ class EventPage extends Component {
         <div>
 
         <h2>In this page being purchse event and transfer with accomodation</h2>
-        <Preloader/>
+        <p>Current event is event #{this.props.match.params.eventId}</p>
         </div>
     );
   }

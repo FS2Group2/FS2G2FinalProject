@@ -6,6 +6,7 @@ import '../css/eventsPage.css';
 import PageNotFound from "./PageNotFound";
 import dataMap from '../constants/ApiSettings';
 import Preloader from "./Preloader";
+import {connect} from "react-redux";
 
 class Events extends Component {
   constructor(props) {
@@ -15,18 +16,45 @@ class Events extends Component {
       error: null,
       isLoaded: false,
       events: [],
-      targetCity: ''
+      cities: [],
+      page: 0,
+      pegeSize: 9,
+      targetCity: '',
+      dateStart: '01/01/2000',
+      dateFin: '01/01/2050'
     }
   }
 
   updateCity(v) {
-    this.setState({targetCity: v})
+    this.setState({targetCity: v});
+    this.doFilter(v);
   };
 
+  componentWillMount() {
+    const urlAllCities = dataMap.allCities;
+
+    fetch(urlAllCities)
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                cities: result
+              })
+            },
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        );
+  }
+
   componentDidMount() {
-    const url = dataMap.allEvents;
-    // const url = '/events.json';
-    fetch(url)
+    const urlAllEvents = dataMap.allEvents;
+
+    fetch(urlAllEvents)
         .then(res => res.json())
         .then(
             (result) => {
@@ -42,36 +70,65 @@ class Events extends Component {
                 error
               })
             }
-        )
+        );
   };
 
+
+  doFilter(city) {
+    let filterHeader = new Headers();
+    filterHeader.append("Content-Type", "application/JSON");
+    let query = {
+      page: this.state.page,
+      pageSize: this.state.pegeSize,
+      cityName: city,
+      dateStart: this.state.dateStart,
+      dateFin: this.state.dateFin
+    };
+    let reqParam = {
+      method: 'POST',
+      headers: filterHeader,
+      body: JSON.stringify(query)
+    };
+    const url = dataMap.filterEvents;
+
+    fetch(url, reqParam)
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                events: result
+              })
+            },
+
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        );
+  };
+
+
   render() {
-    const {error, isLoaded, events, targetCity} = this.state;
-    const cities = [];
-    let eventsLabel = '';
+    const {targetCity} = this.props.EventsState;
+    const {error, isLoaded, cities, events} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
       return <Preloader/>
     } else {
-
-      this.state.events.map(event => {
-        if (cities.findIndex(c => c === event.city) === -1) cities.push(event.city);
-        return cities;
-      });
-      cities.sort();
-
-      if (targetCity) eventsLabel = 'in ' + targetCity;
       return (
           <div>
-            <h2 className='events-header'>Current events {eventsLabel}</h2>
+            <h2 className='events-header'>Current events {targetCity && ('in ' + targetCity)}</h2>
             <div className='events-page'>
               <div className='filters-container'>
                 <EventFilters cities={cities} updateMyCity={this.updateCity.bind(this)}/>
               </div>
               <div className='events-container'>
-                {events.map(event =>
-                    <Link key={event.id} to='/event'>
+                {events[0] && events.map(event =>
+                    <Link key={event.name} to={'/event/' + event.id}>
                       <Event theEvent={event}/>
                     </Link>)}
               </div>
@@ -82,4 +139,10 @@ class Events extends Component {
   }
 }
 
-export default Events;
+const mapStateToProps = (state) => {
+  return {
+    EventsState: state.eventReducer
+  }
+};
+
+export default connect(mapStateToProps)(Events);
