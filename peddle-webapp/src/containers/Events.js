@@ -17,15 +17,17 @@ class Events extends Component {
       isLoaded: false,
       events: [],
       cities: [],
-      // citiesList: [],
-      targetCity: ''
+      page: 0,
+      pegeSize: 9,
+      targetCity: '',
+      dateStart: '01/01/2000',
+      dateFin: '01/01/2050'
     }
   }
 
   updateCity(v) {
     this.setState({targetCity: v});
-
-    this.doFilter();
+    this.doFilter(v);
   };
 
   componentWillMount() {
@@ -33,8 +35,7 @@ class Events extends Component {
 
     fetch(urlAllCities)
         .then(res => res.json())
-        .then
-        (
+        .then(
             (result) => {
               this.setState({
                 isLoaded: true,
@@ -73,15 +74,23 @@ class Events extends Component {
   };
 
 
-
-
-  doFilter(){
-    let filterHeader =  new Headers();
+  doFilter(city) {
+    let filterHeader = new Headers();
     filterHeader.append("Content-Type", "application/JSON");
-    let reqParam = {method: 'POST',
-      headers: filterHeader};
+    let query = {
+      page: this.state.page,
+      pageSize: this.state.pegeSize,
+      cityName: city,
+      dateStart: this.state.dateStart,
+      dateFin: this.state.dateFin
+    };
+    let reqParam = {
+      method: 'POST',
+      headers: filterHeader,
+      body: JSON.stringify(query)
+    };
+    const url = dataMap.filterEvents;
 
-    const url = dataMap.filteredEvents;
     fetch(url, reqParam)
         .then(res => res.json())
         .then(
@@ -103,7 +112,6 @@ class Events extends Component {
 
 
   render() {
-    // const {error, isLoaded, events, cities, targetCity} = this.props.EventsState;
     const {targetCity} = this.props.EventsState;
     const {error, isLoaded, cities, events} = this.state;
     if (error) {
@@ -120,7 +128,7 @@ class Events extends Component {
               </div>
               <div className='events-container'>
                 {events[0] && events.map(event =>
-                    <Link key={event.id} to={'/event/' + event.id}>
+                    <Link key={event.name} to={'/event/' + event.id}>
                       <Event theEvent={event}/>
                     </Link>)}
               </div>
@@ -132,7 +140,7 @@ class Events extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     EventsState: state.eventReducer
   }
 };

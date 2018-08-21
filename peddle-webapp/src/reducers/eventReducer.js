@@ -1,4 +1,3 @@
-import {filterEvents} from '../actions/eventsFilter'
 import {EVENTS_FILTER} from "../actions/actionsTypes";
 
 const initialState = {
@@ -10,7 +9,7 @@ const initialState = {
   city: '',
   dateFrom: '22/05/1974',
   dateTo: '30/12/2074'
-}
+};
 
 function eventReducer(state = initialState, action) {
   switch (action.type) {

@@ -12,7 +12,7 @@ const dataMap = {
   allCities: dataPath + '/city/all',
   event: dataPath + '/event/',
   user: dataPath + '/user',
-  filteredEvents: dataPath + '/events/filter/'
+  filterEvents: dataPath + '/events/filter/'
 };
 
 export default dataMap;
