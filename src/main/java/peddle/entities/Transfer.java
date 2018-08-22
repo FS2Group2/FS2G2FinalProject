@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.FetchType;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -43,6 +44,10 @@ public class Transfer {
   @Column(name = "t_owner")
   private Long owner;
 
+  @Column(name = "t_depatr_time")
+  private Date departTime;
+
+
   @Column(name = "t_duration")
   private int duration;
 
@@ -54,11 +59,13 @@ public class Transfer {
   @JoinColumn(name = "t_to")
   private City toCity;
 
-  public Transfer(TransportType transportType, int number, int price, Long owner, int duration, City fromCity, City toCity) {
+  public Transfer(TransportType transportType, int number, int price, Long owner,
+                  Date departTime, int duration, City fromCity, City toCity) {
     this.transportType = transportType;
     this.number = number;
     this.price = price;
     this.owner = owner;
+    this.departTime = departTime;
     this.duration = duration;
     this.fromCity = fromCity;
     this.toCity = toCity;
