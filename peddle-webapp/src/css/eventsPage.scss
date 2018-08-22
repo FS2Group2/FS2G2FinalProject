@@ -1,7 +1,7 @@
 .events-header {
   margin: 5px;
   color: #683317;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   text-align: center;
   text-transform: capitalize;
@@ -14,35 +14,40 @@
 
 .filters-container {
   display: inline-block;
-  width: 270px;
+  width: 176px;
   margin: 7px;
   padding: 5px;
-  border: solid 4px rgba(255, 255, 255, .3);
-  border-radius: 10px;
+  border: solid 2px rgba(255, 255, 255, .3);
+  border-radius: 5px;
 }
 
 .events-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: calc(100vh - 130px);
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 93px);
   overflow: auto;
 }
 
 .filter-label {
   color: rgba(0, 0, 0, .8);
+  font-size: 12px;
   font-weight: 300;
 }
 
 .filter-input {
-  width: 210px;
-  height: 20px;
+  width: 160px;
+  height: 25px;
   margin-top: 2px;
   margin-bottom: 18px;
   border: aliceblue 1px solid;
-  border-radius: 4px;
+  border-radius: 3px;
   outline: none;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, .2);
+  color: #202130;
+  font-size: 12px;
 }
 
 .btn {
@@ -58,3 +63,37 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
+.nav-btn {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 30px;
+  border-radius: 15px;
+  outline: none;
+  background-color: rgba(0, 0, 0, .5);
+  color: whitesmoke;
+  font-size: 12px;
+}
+
+.nav-btn:hover {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.nav-btn:active {
+  background-color: rgba(0, 0, 0, .8);
+  color: #fff;
+}
+
+.next {
+  right: calc(50% - 65px);
+}
+
+.previous {
+  left: calc(50% - 65px);
+}
+
+.page-num {
+  position: absolute;
+  bottom: 0;
+  font-size: 9px;
+}
