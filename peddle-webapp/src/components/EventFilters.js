@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
 
 class EventFilters extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ''
-    }
-  }
-
   render() {
     const {updateMyCity, setDateFrom, setDateTo, doFilter, resetFilter} = this.props;
     const todayDate = new Date(Date.now());
-    let todayToStr = todayDate.getFullYear() + '-' + ('0' + (todayDate.getMonth() + 1)).slice(-2) + '-' + ('0' + todayDate.getDate()).slice(-2);
+    let todayToStr = todayDate.getFullYear() + '-' +
+        ('0' + (todayDate.getMonth() + 1)).slice(-2) + '-' + ('0' + todayDate.getDate()).slice(-2);
 
     return (
         <div>
@@ -34,8 +28,7 @@ class EventFilters extends Component {
             <input className='filter-input btn' type='button' formAction='submit' value='Apply filter'
                    onClick={() => doFilter()}/>
             <input className='filter-input btn' type='button' formAction='reset' value='Reset'
-                   onClick={() => resetFilter()} onMouseDown={() => resetFilter()}
-                   onMouseUp={() => document.getElementById('filter-form').reset()}/>
+                   onClick={() => resetFilter()} onMouseUp={() => document.getElementById('filter-form').reset()}/>
           </form>
         </div>
 

@@ -3,8 +3,8 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   position: relative;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   background-color: rgba(20, 30, 40, .1);
 }
 
@@ -16,14 +16,18 @@
 .main-menu-link {
   display: inline-block;
   width: 100%;
-  padding: 25px 0;
+  padding: 12px 0;
   transition: all .2s;
   color: #334;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.main-menu-link:hover {
+  color: midnightblue;
 }
 
 .main-menu-link:hover {

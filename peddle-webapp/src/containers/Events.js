@@ -18,15 +18,17 @@ class Events extends Component {
       events: [],
       cities: [],
       page: 0,
-      pageSize: 9,
+      pageSize: 12,
       targetCity: '',
       dateStart: new Date(Date.now()).toLocaleDateString('en-GB'),
       dateFin: '01/01/2050'
     }
   }
 
-  setCity(v) {
-    this.setState({targetCity: v});
+  setCity = (v) => {
+    this.setState({targetCity: v}, ()=>{
+      this.doFilter()
+    })
   };
 
   setDateStart(ds) {
@@ -37,19 +39,37 @@ class Events extends Component {
     this.setState({dateFin: new Date(df).toLocaleDateString('en-GB')});
   };
 
-  applyFilter() {
-    this.doFilter();
+  applyFilter = () => {
+    this.setState({
+      page: 0
+    }, () => {
+      this.doFilter()
+    })
   };
 
-  resetFilter() {
+  resetFilter = () => {
     this.setState({
       targetCity: '',
       dateStart: new Date(Date.now()).toLocaleDateString('en-GB'),
       dateFin: '01/01/2050'
-    });
-    this.doFilter();
+    }, () => {
+      this.doFilter()
+    })
   };
 
+  goToNext = () => {
+    this.setState({page: this.state.page + 1}, () => {
+      this.doFilter()
+    })
+  };
+
+  goToPrevious = () => {
+    if (this.state.page > 0) {
+      this.setState({page: this.state.page - 1}, () => {
+        this.doFilter()
+      })
+    }
+  };
 
   componentWillMount() {
     const urlAllCities = dataMap.allCities;
@@ -133,8 +153,7 @@ class Events extends Component {
 
 
   render() {
-    // const {targetCity} = this.props.EventsState;
-    const {error, isLoaded, cities, events, targetCity} = this.state;
+    const {error, isLoaded, cities, events, page} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
@@ -142,7 +161,7 @@ class Events extends Component {
     } else {
       return (
           <div>
-            <h2 className='events-header'>Current events {targetCity && ('in ' + targetCity)}</h2>
+            <h2 className='events-header'>Current events</h2>
             <div className='events-page'>
               <div className='filters-container'>
                 <EventFilters
@@ -159,7 +178,14 @@ class Events extends Component {
                     <Link key={event.id} to={'/event/' + event.id}>
                       <Event theEvent={event}/>
                     </Link>)}
+
+                <input type='button' className='nav-btn previous' value='previous'
+                       onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
+                <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
+                       disabled={!this.state.events[this.state.pageSize-1]}/>
+                <label className='page-num'> Page {page + 1}</label>
               </div>
+
             </div>
           </div>
       );
