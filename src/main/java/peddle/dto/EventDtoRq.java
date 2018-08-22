@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class EventFilterDto {
+public class EventDtoRq {
   private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
   private int page;
