@@ -1,0 +1,144 @@
+.Profile-bg {
+  background-color: white;
+}
+.Profile-header {
+  height: 170px;
+  min-width: 1000px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.Profile-info {
+  width: 500px;
+  display: flex;
+}
+.Profile-info-photo {
+  width: 256px;
+  height: 146px;
+  margin: 10px;
+  display: inline-block;
+}
+.Profile-photo {
+  width: 256px;
+  height: 146px;
+}
+.Profile-info-section {
+  display: inline-block;
+  height: 146px;
+
+}
+.Profile-info-name {
+  font-family: Verdana;
+  font-size: 24px;
+  margin: 10px
+}
+.Profile-info-username {
+  font-family: Verdana;
+  font-size: 18px;
+  margin: 10px;
+
+}
+.Profile-settings {
+  align-content: right;
+  display: inline-block;
+}
+.Profile-settings-photo {
+  height: 50px;
+  width: 50px;
+}
+.Profile-fav-section {
+  height: 170px;
+  min-width: 1000px;
+  margin: 10px;
+}
+.Profile-fav-head {
+  font-family: Verdana;
+  display: inline-block;
+  font-size: 24px;
+}
+.Profile-fav-content {
+  display: inline-block;
+}
+.Profile-fav-element {
+  display: inline-block;
+  width: 256px;
+  height: 146px;
+  margin: 10px;
+}
+Profile-fav-photo {
+  width: 256px;
+  height: 146px;
+}
+.Profile-fav-link-element {
+  margin-top: 120px;
+  font-family: Verdana;
+  font-size: 20px;
+}
+.Profile-cart-section {
+  margin: 10px;
+}
+.Profile-cart-head {
+  font-family: Verdana;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.Profile-cart-content {
+
+}
+.Profile-cart-event-element {
+
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding: 10px;
+}
+.Profile-cart-element-photo {
+  height: 146px;
+  width: 250px;
+  display: inline-block;
+}
+.Profile-cart-event-photo {
+  height: 146px;
+  width: 250px;
+}
+.Profile-cart-event-info {
+  height: 146px;
+  margin-left: 10px;
+  display: inline-block;
+}
+.Profile-cart-extended-event-info {
+  align-content: right;
+}
+.Profile-cart-event-rating {
+  height: 38px;
+  display: inline-block;
+  width: 170px;
+}
+.Profile-event-rating-photo {
+  width: 178px;
+  height: 38px;
+}
+.Profile-cart-extended-info-details {
+  font-family: Verdana;
+  font-size: 18px;
+  margin-top: 25px;
+}
+.Profile-cart-extended-info-price {
+  font-family: Verdana;
+  margin: 0px;
+  font-size: 24px;
+}
+.Profile-cart-event-element-info {
+  display: flex;
+}
+.Profile-cart-event-name {
+  font-family: Verdana;
+  font-size: 24px;
+  margin: 0px;
+}
+.Profile-cart-event-company {
+  font-family: Verdana;
+  font-size: 18px;
+  margin: 10px;
+}
