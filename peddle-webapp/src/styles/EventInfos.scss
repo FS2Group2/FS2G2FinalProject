@@ -1,0 +1,62 @@
+
+.Event-bg {
+
+}
+.Event-info-ph {
+display: inline-block;
+  margin: 10px;
+}
+.Event-info-element {
+  display: inline-block;
+}
+.Event-header {
+  width: 1000px;
+  border: 1px solid;
+  height: 170px;
+}
+.Event-info-photo {
+  width: 256px;
+  height: 146px;
+  border: 1px solid;
+
+}
+.Event-info {
+  margin-top: 0 auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  border: 1px solid;
+}
+.Event-info-date {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: Verdana;
+  font-size: 18px;
+  display: inline-block;
+}
+.Event-info-rating {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  border: 1px solid;
+}
+.Event-info-rating-photo {
+  width: 178px;
+  height: 38px;
+}
+.Event-info-name {
+  font-family: Verdana;
+  font-size: 24px;
+  padding: 0px;
+}
+.Event-info-location {
+  font-family: Verdana;
+  font-size: 20px;
+}
+.Event-info-company {
+  font-family: Verdana;
+  font-size: 18px;
+}
+body {
+  background-color: white;
+}
