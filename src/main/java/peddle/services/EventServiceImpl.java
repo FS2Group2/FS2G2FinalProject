@@ -6,10 +6,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
+import peddle.configuration.ErrorConstants;
+import peddle.configuration.UserException;
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
+import peddle.dto.UserEventDto;
 import peddle.entities.Event;
+import peddle.entities.User;
 import peddle.repository.EventRepository;
+import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,12 @@ public class EventServiceImpl implements EventService {
 
   @Autowired
   private ModelMapper modelMapper;
+
+  private final UserRepository userRepository;
+
+  public EventServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @Override
   public List<EventDtoRs> getAll() {
@@ -73,5 +84,28 @@ public class EventServiceImpl implements EventService {
             .collect(Collectors.toList());
 
     return eventsDtoRs;
+  }
+
+  @Override
+  public List<EventDtoRs> getAllByUserId(Long userId) {
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+    return user.getEvents().stream()
+            .map(event -> modelMapper.map(event, EventDtoRs.class)).collect(Collectors.toList());
+  }
+
+  @Override
+  public void addNewEventToUser(UserEventDto userEventDto) {
+    User user = userRepository.findById(userEventDto.getUserId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+
+    Event event = eventRepository.findById(userEventDto.getEventId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().add(event);
+    userRepository.save(user);
+
+    event.getUsers().add(user);
+    eventRepository.save(event);
   }
 }
