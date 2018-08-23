@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
+import peddle.dto.EventFullDtoRs;
 import peddle.dto.PageDtoRq;
 import peddle.dto.UserEventDto;
 import peddle.services.EventServiceImpl;
@@ -66,5 +66,11 @@ public class EventController {
   @ResponseBody
   public void deleteEventFromUser(@RequestBody UserEventDto userEventDto) {
     eventService.deleteBadEventFromUser(userEventDto);
+    
+  @GetMapping(path = "/info/{id}")
+  @ResponseBody
+  public EventFullDtoRs getById(@PathVariable("id") Long id) {
+    EventFullDtoRs event = eventService.getById(id);
+    return event;
   }
 }

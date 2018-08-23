@@ -6,7 +6,7 @@ import Events from "./containers/Events";
 import About from "./containers/About";
 import Profile from "./containers/Profile";
 import Login from "./containers/Login";
-import EventPage from "./containers/EventPage";
+import EventPurchasePage from "./containers/EventPurchasePage";
 import PageNotFound from "./containers/PageNotFound";
 import AppFooter from "./containers/AppFooter";
 
@@ -22,7 +22,7 @@ class App extends Component {
                 <Route exact path='/about' component={About}/>
                 <Route exact path='/profile' component={Profile}/>
                 <Route exact path='/login' component={Login}/>
-                <Route exact path='/event' component={EventPage}/>
+                <Route exact path='/event/:eventId' component={EventPurchasePage}/>
                 <Route path='/' component={PageNotFound}/>
               </Switch>
             </div>
