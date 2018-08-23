@@ -111,6 +111,14 @@ public class EventServiceImpl implements EventService {
 
   @Override
   public void deleteBadEventFromUser(UserEventDto userEventDto) {
+    User user = userRepository.findById(userEventDto.getUserId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+
+    Event event = eventRepository.findById(userEventDto.getEventId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().remove(event);
+    userRepository.save(user);
 
   }
 }

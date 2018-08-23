@@ -62,7 +62,7 @@ public class EventController {
     eventService.addNewEventToUser(userEventDto);
   }
 
-  @PostMapping("/add-event-to-user")
+  @PostMapping("/delete-event-from-user")
   @ResponseBody
   public void deleteEventFromUser(@RequestBody UserEventDto userEventDto) {
     eventService.deleteBadEventFromUser(userEventDto);
