@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
+import peddle.dto.EventFullDtoRs;
 import peddle.entities.Event;
 import peddle.repository.EventRepository;
 
@@ -39,7 +40,7 @@ public class EventServiceImpl implements EventService {
   public List<EventDtoRs> getAllByPage(int page, int size) {
     List<EventDtoRs> eventsDto = new ArrayList<>();
     eventRepository.findAll(PageRequest.of(page, size, Sort.by(SORT_ORDER)))
-            .forEach(event -> eventsDto.add(modelMapper.map(event, EventDtoRs.class)));
+        .forEach(event -> eventsDto.add(modelMapper.map(event, EventDtoRs.class)));
     return eventsDto;
   }
 
@@ -47,31 +48,36 @@ public class EventServiceImpl implements EventService {
   public List<EventDtoRs> getByFilter(EventDtoRq eventDtoRq) {
     List<Event> events;
     PageRequest pageRequest = PageRequest.of(
-            eventDtoRq.getPage(),
-            eventDtoRq.getPageSize(),
-            Sort.by(SORT_ORDER));
+        eventDtoRq.getPage(),
+        eventDtoRq.getPageSize(),
+        Sort.by(SORT_ORDER));
 
     try {
       if (eventDtoRq.getCityName().isEmpty()) {
         events = eventRepository.findEventByDateBetween(
-                eventDtoRq.getDateStartConverted(),
-                eventDtoRq.getDateFinConverted(),
-                pageRequest);
+            eventDtoRq.getDateStartConverted(),
+            eventDtoRq.getDateFinConverted(),
+            pageRequest);
       } else {
         events = eventRepository.findEventByCity_NameAndDateBetween(
-                eventDtoRq.getCityName(),
-                eventDtoRq.getDateStartConverted(),
-                eventDtoRq.getDateFinConverted(),
-                pageRequest);
+            eventDtoRq.getCityName(),
+            eventDtoRq.getDateStartConverted(),
+            eventDtoRq.getDateFinConverted(),
+            pageRequest);
       }
     } catch (ParseException e) {
       throw new BadRequestException("Bad date in request");
     }
 
     List<EventDtoRs> eventsDtoRs = events.stream()
-            .map(event -> modelMapper.map(event, EventDtoRs.class))
-            .collect(Collectors.toList());
+        .map(event -> modelMapper.map(event, EventDtoRs.class))
+        .collect(Collectors.toList());
 
     return eventsDtoRs;
+  }
+
+  @Override
+  public EventFullDtoRs getById(Long id) {
+    return modelMapper.map(eventRepository.findEventById(id), EventFullDtoRs.class);
   }
 }

@@ -2,15 +2,20 @@ package peddle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
+import peddle.dto.EventFullDtoRs;
 import peddle.dto.PageDtoRq;
 import peddle.services.EventServiceImpl;
 
@@ -43,5 +48,12 @@ public class EventController {
   public List<EventDtoRs> getEventsFilter(@RequestBody EventDtoRq eventDtoRq) throws ParseException {
     List<EventDtoRs> events = eventService.getByFilter(eventDtoRq);
     return events;
+  }
+
+  @GetMapping(path = "/info/{id}")
+  @ResponseBody
+  public EventFullDtoRs getById(@PathVariable("id") Long id) {
+    EventFullDtoRs event = eventService.getById(id);
+    return event;
   }
 }
