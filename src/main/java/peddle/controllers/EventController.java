@@ -66,6 +66,7 @@ public class EventController {
   @ResponseBody
   public void deleteEventFromUser(@RequestBody UserEventDto userEventDto) {
     eventService.deleteBadEventFromUser(userEventDto);
+  }
     
   @GetMapping(path = "/info/{id}")
   @ResponseBody
