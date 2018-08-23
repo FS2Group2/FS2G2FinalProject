@@ -10,7 +10,7 @@ const dataPath = apiSettings.apiPath;
 const dataMap = {
   allEvents: dataPath + '/events/all',
   allCities: dataPath + '/city/all',
-  event: dataPath + '/event/',
+  event: dataPath + '/event/info/',
   user: dataPath + '/user',
   filterEvents: dataPath + '/events/filter/'
 };
