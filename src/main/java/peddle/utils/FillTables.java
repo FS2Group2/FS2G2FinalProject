@@ -21,12 +21,10 @@ import peddle.repository.CityRepository;
 import peddle.repository.PurchaseRepository;
 import peddle.repository.EventRepository;
 import peddle.repository.RoleRepository;
-import peddle.repository.TransferRepository;
 import peddle.repository.TransportTypeRepository;
 import peddle.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
