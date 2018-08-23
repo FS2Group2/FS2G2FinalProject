@@ -123,6 +123,7 @@ public class EventServiceImpl implements EventService {
 
     user.getEvents().remove(event);
     userRepository.save(user);
+  }
 
   public EventFullDtoRs getById(Long id) {
     return modelMapper.map(eventRepository.findEventById(id), EventFullDtoRs.class);
