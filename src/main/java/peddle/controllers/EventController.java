@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
-import peddle.dto.EventFullDtoRs;
+import peddle.dto.EventFullDtoRsv;
 import peddle.dto.PageDtoRq;
 import peddle.dto.UserEventDto;
 import peddle.services.EventServiceImpl;
