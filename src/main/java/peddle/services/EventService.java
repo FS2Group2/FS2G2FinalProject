@@ -17,4 +17,6 @@ public interface EventService {
   List<EventDtoRs> getAllByUserId(Long userId);
 
   void addNewEventToUser(UserEventDto userEventDto);
+
+  void deleteBadEventFromUser(UserEventDto userEventDto);
 }

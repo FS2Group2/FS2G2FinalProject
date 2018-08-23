@@ -108,4 +108,9 @@ public class EventServiceImpl implements EventService {
     event.getUsers().add(user);
     eventRepository.save(event);
   }
+
+  @Override
+  public void deleteBadEventFromUser(UserEventDto userEventDto) {
+
+  }
 }
