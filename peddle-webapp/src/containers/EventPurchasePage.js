@@ -14,7 +14,8 @@ class EventPurchasePage extends Component {
       eventId: this.props.match.params.eventId,
       error: null,
       isLoaded: false,
-      event: {}
+      event: {},
+      accommodations: []
     }
   }
 
@@ -28,6 +29,38 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 event: result
+              },()=>(this.fetchData()) )
+            },
+
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        )
+  };
+
+  fetchData() {
+    const header = new Headers();
+    header.append("Content-Type", "application/JSON");
+    const cityName = this.state.event.cityName;
+    let reqParam = {
+      method: 'POST',
+      headers: header,
+      body: ''
+    };
+
+    const url = dataMap.accommodations + cityName;
+    console.log(url);
+    console.log('request params:' + JSON.stringify(reqParam));
+    fetch(url, reqParam)
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                accommodations: result
               })
             },
 
@@ -38,7 +71,7 @@ class EventPurchasePage extends Component {
               })
             }
         );
-  };
+  }
 
   render() {
     return (
@@ -48,7 +81,7 @@ class EventPurchasePage extends Component {
               <EventInfo event={this.state.event}/>
             </div>
             <div className='accommodation-container'>
-              <Accommodations/>
+              <Accommodations accommodations={this.state.accommodations}/>
             </div>
             <div className='transfer-container transfer-to'>
               <Transfers transferHeader='transfer to:'/>

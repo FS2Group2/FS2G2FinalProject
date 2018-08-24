@@ -12,7 +12,8 @@ const dataMap = {
   allCities: dataPath + '/city/all',
   event: dataPath + '/events/info/',
   user: dataPath + '/user',
-  filterEvents: dataPath + '/events/filter/'
+  filterEvents: dataPath + '/events/filter/',
+  accommodations: dataPath + '/accommodations/city/'
 };
 
 export default dataMap;
