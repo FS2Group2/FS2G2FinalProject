@@ -90,7 +90,6 @@ public class EventServiceImpl implements EventService {
   }
 
   @Override
-
     public List<EventDtoRs> getAllByUserId(Long userId) {
     User user = userRepository.findById(userId)
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
