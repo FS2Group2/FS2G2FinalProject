@@ -2,21 +2,20 @@ package peddle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-//import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
 import peddle.dto.EventFullDtoRs;
 import peddle.dto.PageDtoRq;
+import peddle.dto.UserEventDto;
 import peddle.services.EventServiceImpl;
 
 import java.text.ParseException;
@@ -32,7 +31,7 @@ public class EventController {
   @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
   public List<EventDtoRs> getAllEvents() {
-    List<EventDtoRs> events = eventService.getAllByPage(0,12);
+    List<EventDtoRs> events = eventService.getAllByPage(0, 12);
     return events;
   }
 
@@ -50,6 +49,25 @@ public class EventController {
     return events;
   }
 
+  @GetMapping("/user-events/{userId}")
+  @ResponseBody
+  public List<EventDtoRs> getAllUserEvents(@PathVariable Long userId) {
+    List<EventDtoRs> events = eventService.getAllByUserId(userId);
+    return events;
+  }
+
+  @PostMapping("/add-event-to-user")
+  @ResponseBody
+  public void addEventToUser(@RequestBody UserEventDto userEventDto) {
+    eventService.addNewEventToUser(userEventDto);
+  }
+
+  @PostMapping("/delete-event-from-user")
+  @ResponseBody
+  public void deleteEventFromUser(@RequestBody UserEventDto userEventDto) {
+    eventService.deleteBadEventFromUser(userEventDto);
+  }
+    
   @GetMapping(path = "/info/{id}")
   @ResponseBody
   public EventFullDtoRs getById(@PathVariable("id") Long id) {
