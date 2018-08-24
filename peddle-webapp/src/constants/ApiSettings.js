@@ -10,9 +10,11 @@ const dataPath = apiSettings.apiPath;
 const dataMap = {
   allEvents: dataPath + '/events/all',
   allCities: dataPath + '/city/all',
-  event: dataPath + '/event/info/',
+  event: dataPath + '/events/info/',
   user: dataPath + '/user',
   filterEvents: dataPath + '/events/filter/'
 };
 
 export default dataMap;
+
+export const eventImgPath = '/img/';

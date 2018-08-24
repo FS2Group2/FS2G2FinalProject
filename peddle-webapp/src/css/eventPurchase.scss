@@ -1,0 +1,108 @@
+.event-purchase-page {
+  display: block;
+}
+
+.container-header-p {
+  color: #6b6b6b;
+  font-size: 10px;
+}
+
+.event-extra-container {
+  display: block;
+  margin: 5px;
+  border: #515151 solid 1px;
+}
+
+.accommodation-container {
+  display: block;
+  margin: 5px;
+  border: #515151 solid 1px;
+}
+
+.transfer-container {
+  display: block;
+  margin: 5px;
+  border: #515151 solid 1px;
+}
+
+.transfer-to {
+  border: #515151 solid 1px;
+  background-color: #baffab;
+}
+
+.transfer-from {
+  background-color: #9990ff;
+}
+
+.purchase-summary {
+  display: block;
+  margin: 5px;
+  border: #515151 solid 1px;
+}
+
+.event-photo-container {
+  display: inline-block;
+  padding: 4px;
+  border: #6b6b6b solid 1px;
+}
+
+.event-info {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  height: 100%;
+  padding: 7px;
+}
+
+.event-description {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+}
+
+.event-purchase {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+  padding: 7px;
+  border-left: gray solid 1px;
+}
+
+.event-info-header {
+  color: #5f0202;
+  font-size: 18px;
+}
+
+.event-info-city {
+  color: #790202;
+  font-size: 12px;
+}
+
+.event-info-date {
+  color: #790202;
+  font-size: 12px;
+}
+
+.event-info-p {
+  color: #1d1e2d;
+  font-size: 12px;
+}
+
+.event-photo {
+  height: 200px;
+}
+
+.event-price {
+  color: #0b0a30;
+  font-size: 20px;
+}
+
+.add-to-cart {
+  padding: 7px;
+  border: #808080 solid 1px;
+  border-radius: 4px;
+  outline: none;
+  color: #373737;
+}
