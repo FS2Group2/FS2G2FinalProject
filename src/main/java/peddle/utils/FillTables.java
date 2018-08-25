@@ -26,7 +26,6 @@ import peddle.repository.TransportTypeRepository;
 import peddle.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
