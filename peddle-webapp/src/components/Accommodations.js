@@ -6,7 +6,7 @@ class Accommodations extends Component {
     const {accommodations} = this.props;
     return (
         <div>
-          <p className='container-header-p'>Accommodations in the event city:</p>
+          <p className='container-header-p'>Accommodations in {this.props.city}:</p>
           {accommodations.map(accommodation =>
               <div className='accommodation-item'>
                 <div className='accommodation-item-hotel'>
@@ -18,7 +18,7 @@ class Accommodations extends Component {
                 <div className='accommodation-item-min-time'>
                   <p><span className='accommodation-item-header'>duration: </span>{accommodation.minOrderTime} hours</p>
                 </div>
-                <input type="button" className='btn purchase-accommodation' value='add to cart'/>
+                <input type="button" className='btn purchase-btn' value='add to cart'/>
               </div>
           )}
 
