@@ -15,5 +15,5 @@ class ProfileDetails extends Component {
         }
 
 }
-
+/*trtrtr*/
 export default ProfileDetails;
