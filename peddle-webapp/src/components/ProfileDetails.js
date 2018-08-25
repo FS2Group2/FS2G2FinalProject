@@ -7,9 +7,11 @@ class ProfileDetails extends Component {
     render() {
             return (
                 <div>
-                    <p>Name: {this.props.User.username}</p>
-                    <p> Email: {this.props.User.user_email}</p>
-                    <p>Location: {this.props.User.user_location}</p>
+                    <p>Name: {this.props.user.name}</p>
+                    <p> Email: {this.props.user.email}</p>
+                    <p>Location: {this.props.user.cityName}</p>
+                    <p>Info: {this.props.user.profileInfo}</p>
+                    <img src={this.props.user.profilePhoto} alt="ProfileAvatar"/>
                 </div>
             );
         }

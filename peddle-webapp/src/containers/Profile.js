@@ -7,11 +7,13 @@ class Profile extends Component{
     constructor() {
         super();
         this.state = ({
-            User: {
-                u_id: 1,
-                username: "Bobby Axelrod",
-                user_email: "baxe@gmail.com",
-                user_location: "New York/NY/USA"
+            user: {
+                id: 1,
+                name: "Bobby Axelrod",
+                email: "baxe@gmail.com",
+                cityName: "New York/NY/USA",
+                profilePhoto: "/test.png",
+                profileInfo: "A self made Wall Street billionaire with one of the most successful hedge funds in the business, Bobby Axelrod enjoys all the trappings of his success: mansions, a private jet, a helicopter, and a personal chef. But he also doesn't forget his humble roots, or the fact that he survived 9/11 by a fluke. Although Axe's intentions are good, the temptations of greed and power are enormous and the lines between right and wrong in high finance are blurry at best. He is a shrewd enough player to never reveal his full hand to anybody."
             }
         })
     };
@@ -23,11 +25,7 @@ class Profile extends Component{
         <p>
             Profile details
         </p>
-            <ProfileDetails
-                u_id={this.state.u_id}
-                username={this.state.username}
-                user_email={this.state.user_email}
-                user_location= {this.state.user_location}
+            <ProfileDetails user = {this.state.user}
             />
 
         </div>
