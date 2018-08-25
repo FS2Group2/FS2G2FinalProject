@@ -5,6 +5,7 @@ import EventInfo from "../components/EventInfo";
 import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import PurchaseSummary from "../components/PurchaseSummary";
+import {connect} from "react-redux";
 
 
 class EventPurchasePage extends Component {
@@ -15,7 +16,7 @@ class EventPurchasePage extends Component {
       error: null,
       isLoaded: false,
       event: {},
-      accommodations: []
+      accommodations: [],
     }
   }
 
@@ -29,7 +30,7 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 event: result
-              },()=>(this.fetchData()) )
+              },()=>(this.fetchAccomodations()) )
             },
 
             (error) => {
@@ -41,7 +42,7 @@ class EventPurchasePage extends Component {
         )
   };
 
-  fetchData() {
+  fetchAccomodations() {
     const header = new Headers();
     header.append("Content-Type", "application/JSON");
     const cityName = this.state.event.cityName;
@@ -73,7 +74,41 @@ class EventPurchasePage extends Component {
         );
   }
 
+  fetchTransfer(cityFrom, cityTo,dateTo, dateFrom) {
+    const header = new Headers();
+    header.append("Content-Type", "application/JSON");
+    const cityName = this.state.event.cityName;
+    let reqParam = {
+      method: 'POST',
+      headers: header,
+      body: ''
+    };
+
+    const url = dataMap.transfer;
+    console.log(url);
+    console.log('request params:' + JSON.stringify(reqParam));
+    fetch(url, reqParam)
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                accommodations: result
+              })
+            },
+
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              })
+            }
+        );
+  }
+
   render() {
+    const eventCity = this.state.event.cityName;
+    const userCity = this.props.currentUser.cityName;
     return (
         <Fragment>
           <div className='event-purchase-page'>
@@ -84,10 +119,10 @@ class EventPurchasePage extends Component {
               <Accommodations accommodations={this.state.accommodations}/>
             </div>
             <div className='transfer-container transfer-to'>
-              <Transfers transferHeader='transfer to:'/>
+              <Transfers cityFrom = {userCity} cityTo = {eventCity} />
             </div>
             <div className='transfer-container transfer-from'>
-              <Transfers transferHeader='transfer from:'/>
+              <Transfers cityFrom = {eventCity} cityTo = {userCity} />
             </div>
             <div className='purchase-summary'>
               <PurchaseSummary/>
@@ -100,4 +135,10 @@ class EventPurchasePage extends Component {
   }
 }
 
-export default EventPurchasePage;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.userReducer
+  }
+};
+
+export default connect(mapStateToProps)(EventPurchasePage);

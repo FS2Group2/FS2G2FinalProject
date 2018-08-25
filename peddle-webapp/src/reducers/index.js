@@ -1,9 +1,10 @@
-import {combineReducers} from 'redux'
-import eventReducer from '../reducers/eventReducer'
-
+import {combineReducers} from 'redux';
+import eventReducer from './eventReducer';
+import userReducer from "./userReducer";
 
 const reducer = combineReducers({
-  eventReducer
-})
+  eventReducer,
+  userReducer
+});
 
 export default reducer;
