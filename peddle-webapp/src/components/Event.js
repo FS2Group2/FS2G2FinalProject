@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import '../css/event.css'
+import '../css/event.css';
+import {eventImgPath} from '../constants/ApiSettings'
 
 class Event extends Component {
   render() {
 
     const e = this.props.theEvent;
-    var eventDate = new Date(e.date);
-    var imgPath = '/img/' + ((e.id % 5) + 1) + '.jpg';
+    let eventDate = new Date(e.date);
+    let imgPath = eventImgPath+e.eventExtraPhoto;
 
 
     return (
