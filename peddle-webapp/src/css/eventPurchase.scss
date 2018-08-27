@@ -10,13 +10,11 @@
 .event-extra-container {
   display: block;
   margin: 5px;
-  border: #515151 solid 1px;
 }
 
 .accommodation-container {
   display: block;
-  margin: 5px;
-  border: #515151 solid 1px;
+  margin: 15px;
 }
 
 .transfer-container {
@@ -101,6 +99,48 @@
 
 .add-to-cart {
   padding: 7px;
+  border: #808080 solid 1px;
+  border-radius: 4px;
+  outline: none;
+  color: #373737;
+}
+
+.accommodation-item {
+  display: flex;
+  border-bottom: #373737 solid 1px;
+  font-size: 12px;
+}
+
+.accommodation-item-header {
+  color: #504451;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.accommodation-item-hotel {
+  width: 170px;
+  padding: 3px 5px 3px 7px;
+  color: #5f0202;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.accommodation-item-price {
+  width: 150px;
+  padding: 3px 5px 3px 7px;
+  text-align: center;
+}
+
+.accommodation-item-min-time {
+  width: 100px;
+  padding: 3px 5px 3px 7px;
+  text-align: center;
+}
+
+.purchase-accommodation {
+  margin-bottom: 3px;
+  margin-left: 50px;
+  padding: 5px;
   border: #808080 solid 1px;
   border-radius: 4px;
   outline: none;
