@@ -44,6 +44,7 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 event: result
+
               }, () => (this.fetchAccommodations()))
             },
 
@@ -177,6 +178,7 @@ class EventPurchasePage extends Component {
 
             <div className='accommodation-container'>
               <Accommodations accommodations={this.state.accommodations} city={eventCity}/>
+
             </div>
 
             <div className='transfer-container transfer-to'>

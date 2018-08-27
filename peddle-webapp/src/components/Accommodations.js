@@ -7,6 +7,7 @@ class Accommodations extends Component {
     return (
         <div>
           <p className='container-header-p'>Accommodations in {this.props.city}:</p>
+
           {accommodations.map(accommodation =>
               <div className='accommodation-item'>
                 <div className='accommodation-item-hotel'>
