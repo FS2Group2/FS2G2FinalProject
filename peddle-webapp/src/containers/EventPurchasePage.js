@@ -19,10 +19,10 @@ class EventPurchasePage extends Component {
       accommodations: [],
       transferToEvent: [],
       transferFromEvent: [],
-      purchasedEvent:{},
-      purchasedAccommodation:{},
-      purchasedTransferTo:{},
-      purchasedTransferFrom:{}
+      purchasedEvent: {},
+      purchasedAccommodation: {},
+      purchasedTransferTo: {},
+      purchasedTransferFrom: {}
     }
   }
 
@@ -46,7 +46,19 @@ class EventPurchasePage extends Component {
   };
 
   addEventToBasket = () => {
-    this.setState({purchasedEvent :this.state.event})
+    this.setState({purchasedEvent: this.state.event})
+  };
+
+  addAccommodationToBasket = (acc) => {
+    this.setState({purchasedAccommodation: acc})
+  };
+
+  addTransferToToBasket = (tr) => {
+    this.setState({purchasedTransferTo: tr})
+  };
+
+  addTransferFromToBasket = (tr) => {
+    this.setState({purchasedTransferFrom: tr})
   };
 
   componentDidMount() {
@@ -163,6 +175,7 @@ class EventPurchasePage extends Component {
     // debugger
     const eventCity = this.state.event.cityName;
     const userCity = this.props.currentUser.cityName;
+    const {purchasedEvent, purchasedAccommodation, purchasedTransferTo, purchasedTransferFrom} = this.state;
 
     return (
         <Fragment>
@@ -172,19 +185,23 @@ class EventPurchasePage extends Component {
             </div>
 
             <div className='accommodation-container'>
-              <Accommodations accommodations={this.state.accommodations} city={eventCity}/>
+              <Accommodations accommodations={this.state.accommodations} city={eventCity}
+                              addA={this.addAccommodationToBasket.bind(this)}/>
             </div>
 
             <div className='transfer-container transfer-to'>
-              <Transfers cityFrom={userCity} cityTo={eventCity} transfers={this.state.transferToEvent}/>
+              <Transfers cityFrom={userCity} cityTo={eventCity} transfers={this.state.transferToEvent}
+                         addTransfer={this.addTransferToToBasket.bind(this)}/>
             </div>
 
             <div className='transfer-container transfer-from'>
-              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={this.state.transferFromEvent}/>
+              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={this.state.transferFromEvent}
+                         addTransfer={this.addTransferFromToBasket.bind(this)}/>
             </div>
 
-            <div className='purchase-summary'>
-              <PurchaseSummary/>
+            <div>
+              <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
+                               transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}/>
             </div>
           </div>
 
