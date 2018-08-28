@@ -20,3 +20,4 @@ const dataMap = {
 export default dataMap;
 
 export const eventImgPath = '/img/';
+export const userPhotoPath = '/img/users/';

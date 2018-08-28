@@ -1,0 +1,28 @@
+.profile-detail {
+  display: flex;
+  padding: 15px;
+}
+
+.user-photo-container {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.user-photo {
+  height: 200px;
+}
+
+.user-info-container {
+  margin-left: 25px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.user-info-name {
+  font-size: 18px;
+  font-weight: 700;
+}
