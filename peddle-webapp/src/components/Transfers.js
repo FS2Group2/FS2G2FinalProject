@@ -9,7 +9,7 @@ class Transfers extends Component {
   };
 
   render() {
-    const {cityFrom, cityTo, transfers} = this.props;
+    const {cityFrom, cityTo, transfers, addTransfer} = this.props;
 
     return (
         <div>
@@ -53,7 +53,8 @@ class Transfers extends Component {
                     <span className='transfer-item-header'>Ticket price: </span>${t.price}
                   </p>
                 </div>
-                <input type="button" className='btn purchase-btn transfer-btn' value='Buy ticket'/>
+                <input type="button" className='btn purchase-btn transfer-btn' value='Buy ticket'
+                onClick={()=>addTransfer(t)}/>
               </div>
           )}
         </div>

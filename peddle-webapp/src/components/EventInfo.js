@@ -19,7 +19,7 @@ class EventInfo extends Component {
           </div>
           <div className='event-purchase'>
             <h2 className='event-price'>Price: ${event.price}</h2>
-            <input type="button" className='btn add-to-cart' value='Add to cart'/>
+            <input type="button" className='btn add-to-cart' value='Add to cart' onClick={this.props.add}/>
           </div>
         </div>
     )
