@@ -1,11 +1,11 @@
 import {USER_LOGIN} from "../actions/actionsTypes";
 
 const initialState = {
-  id: '77',
+  id: '1',
   name: 'Huan Antonio Samaranch',
   email: 'hoolio@gmail.com',
   cityName: 'Kyiv',
-  profilePhoto: '',
+  profilePhoto: '1.jpg',
   profileInfo: 'Very old man with glasses on the head'
 };
 

@@ -1,21 +1,25 @@
 import React, {Component} from 'react';
-//import dataMap from '../constants/ApiSettings';
-//import { connect } from 'react-redux';
+import {userPhotoPath} from '../constants/ApiSettings';
+import '../css/profile.css'
 
 
 class ProfileDetails extends Component {
-    render() {
-            return (
-                <div>
-                    <p>Name: {this.props.user.name}</p>
-                    <p> Email: {this.props.user.email}</p>
-                    <p>Location: {this.props.user.cityName}</p>
-                    <p>Info: {this.props.user.profileInfo}</p>
-                    <img src={this.props.user.profilePhoto} alt="ProfileAvatar"/>
-                </div>
-            );
-        }
-
+  render() {
+    const {name, email, cityName, profileInfo, profilePhoto} = this.props.user;
+    return (
+          <div className='profile-detail'>
+            <div className="user-photo-container">
+              <img className='user-photo' src={userPhotoPath + profilePhoto} alt="ProfileAvatar"/>
+            </div>
+            <div className="user-info-container">
+              <p className='user-info-name'>Name: {name}</p>
+              <p> Email: {email}</p>
+              <p>Location: {cityName}</p>
+              <p>Info: {profileInfo}</p>
+            </div>
+          </div>
+    );
+  }
 }
-/*trtrtr*/
+
 export default ProfileDetails;
