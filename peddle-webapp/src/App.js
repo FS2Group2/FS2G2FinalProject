@@ -9,6 +9,7 @@ import Login from "./containers/Login";
 import EventPurchasePage from "./containers/EventPurchasePage";
 import PageNotFound from "./containers/PageNotFound";
 import AppFooter from "./containers/AppFooter";
+import RegisterPage from "./containers/RegisterPage"
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
                 <Route path='/profile' component={Profile}/>
                 <Route exact path='/login' component={Login}/>
                 <Route exact path='/event/:eventId' component={EventPurchasePage}/>
+                <Route exact path="/register" component={RegisterPage} />
                 <Route path='/' component={PageNotFound}/>
               </Switch>
             </div>
