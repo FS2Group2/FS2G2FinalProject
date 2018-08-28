@@ -291,12 +291,12 @@ public class FillTables {
 
         userRepository.save(new User("Alex", "alex@gmail.com","passAlex",
                 citys.get(0), roles.get(1),
-                new Profile("Alex photo","Alex info"),
+                new Profile("photo_user01.jpg","Alex info"),
                 new ArrayList<>(), new ArrayList<>()));
 
         userRepository.save(new User("Jon", "jon@gmail.com","passJon",
                 citys.get(2), roles.get(1),
-                new Profile("Jon photo","Jon info"),
+                new Profile("photo_user02.jpg","Jon info"),
                 new ArrayList<>(), new ArrayList<>()));
 
         System.out.println("Added users to User table");
