@@ -14,8 +14,8 @@ class Profile extends Component {
           <ProfileDetails user={user}/>
           <div className="lists-container">
             <nav>
-              <Link to={path}>My wishlist</Link>
-              <Link to={path + '/purchases'}>My purchases</Link>
+              <Link to={path}><div className='link-to-list'>My wishlist </div></Link>
+              <Link to={path + '/purchases'}><div className='link-to-list'>My purchases </div></Link>
             </nav>
           </div>
           <Switch>

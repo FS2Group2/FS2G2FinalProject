@@ -4,12 +4,12 @@
 }
 
 .user-photo-container {
-  width: 200px;
-  height: 200px;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .user-photo {
@@ -25,4 +25,9 @@
 .user-info-name {
   font-size: 18px;
   font-weight: 700;
+}
+
+.link-to-list {
+  display: inline-block;
+  padding: 5px 20px;
 }
