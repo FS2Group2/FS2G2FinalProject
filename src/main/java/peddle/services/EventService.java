@@ -1,17 +1,26 @@
 package peddle.services;
 
-import peddle.dto.EventDto;
-import peddle.dto.EventFilterDto;
+import peddle.dto.EventDtoRs;
+import peddle.dto.EventDtoRq;
+import peddle.dto.UserEventDto;
+import peddle.dto.EventFullDtoRs;
 
-import java.text.ParseException;
 import java.util.List;
 
 public interface EventService {
 
-  List<EventDto> getAll();
+  List<EventDtoRs> getAll();
 
-  List<EventDto> getAllByPage(int page, int size);
+  List<EventDtoRs> getAllByPage(int page, int size);
 
-  List<EventDto> getByFilter(EventFilterDto eventFilterDto) throws ParseException;
+  List<EventDtoRs> getByFilter(EventDtoRq eventDtoRq);
+
+  List<EventDtoRs> getAllByUserId(Long userId);
+
+  void addNewEventToUser(UserEventDto userEventDto);
+
+  void deleteBadEventFromUser(UserEventDto userEventDto);
+
+  EventFullDtoRs getById(Long id);
 
 }

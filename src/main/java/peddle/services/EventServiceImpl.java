@@ -4,14 +4,26 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
-import peddle.dto.EventDto;
-import peddle.dto.EventFilterDto;
+import peddle.configuration.BadRequestException;
+import peddle.configuration.ErrorConstants;
+import peddle.configuration.UserException;
+
+import peddle.dto.EventDtoRs;
+import peddle.dto.EventDtoRq;
+import peddle.dto.UserEventDto;
+import peddle.dto.EventFullDtoRs;
+
+import peddle.entities.Event;
+import peddle.entities.User;
 import peddle.repository.EventRepository;
+import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import java.text.ParseException;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -24,85 +36,95 @@ public class EventServiceImpl implements EventService {
   @Autowired
   private ModelMapper modelMapper;
 
+  private final UserRepository userRepository;
+
+  public EventServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
   @Override
-  public List<EventDto> getAll() {
-    List<EventDto> eventsDto = new ArrayList<>();
-    eventRepository.findAll(Sort.by(SORT_ORDER)).forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+  public List<EventDtoRs> getAll() {
+    List<EventDtoRs> eventsDto = new ArrayList<>();
+    eventRepository.findAll(Sort.by(SORT_ORDER)).forEach(event -> eventsDto.add(modelMapper.map(event, EventDtoRs.class)));
     return eventsDto;
   }
 
   @Override
-  public List<EventDto> getAllByPage(int page, int size) {
-    List<EventDto> eventsDto = new ArrayList<>();
+  public List<EventDtoRs> getAllByPage(int page, int size) {
+    List<EventDtoRs> eventsDto = new ArrayList<>();
     eventRepository.findAll(PageRequest.of(page, size, Sort.by(SORT_ORDER)))
-            .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
+        .forEach(event -> eventsDto.add(modelMapper.map(event, EventDtoRs.class)));
     return eventsDto;
   }
 
   @Override
-  public List<EventDto> getByFilter(EventFilterDto eventFilterDto) throws ParseException, java.text.ParseException {
-    List<EventDto> eventsDto = new ArrayList<>();
+  public List<EventDtoRs> getByFilter(EventDtoRq eventDtoRq) {
+    List<Event> events;
     PageRequest pageRequest = PageRequest.of(
-            eventFilterDto.getPage(),
-            eventFilterDto.getPageSize(),
-            Sort.by(SORT_ORDER));
+        eventDtoRq.getPage(),
+        eventDtoRq.getPageSize(),
+        Sort.by(SORT_ORDER));
 
-    if (eventFilterDto.getCityName().isEmpty()) {
-      if (eventFilterDto.getDateStart().isEmpty()) {
-        if (eventFilterDto.getDateFin().isEmpty()) {
-          eventRepository.findAll(pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        } else {
-          eventRepository.findEventByDateBefore(
-                  eventFilterDto.getDateFinConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        }
+    try {
+      if (eventDtoRq.getCityName().isEmpty()) {
+        events = eventRepository.findEventByDateBetween(
+            eventDtoRq.getDateStartConverted(),
+            eventDtoRq.getDateFinConverted(),
+            pageRequest);
       } else {
-        if (eventFilterDto.getDateFin().isEmpty()) {
-          eventRepository.findEventByDateAfter(
-                  eventFilterDto.getDateStartConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        } else {
-          eventRepository.findEventByDateBetween(
-                  eventFilterDto.getDateStartConverted(),
-                  eventFilterDto.getDateFinConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        }
+        events = eventRepository.findEventByCity_NameAndDateBetween(
+            eventDtoRq.getCityName(),
+            eventDtoRq.getDateStartConverted(),
+            eventDtoRq.getDateFinConverted(),
+            pageRequest);
       }
-    } else {
-      if (eventFilterDto.getDateStart().isEmpty()) {
-        if (eventFilterDto.getDateFin().isEmpty()) {
-          eventRepository.findEventByCity_Name(
-                  eventFilterDto.getCityName(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        } else {
-          eventRepository.findEventByCity_NameAndDateBefore(
-                  eventFilterDto.getCityName(),
-                  eventFilterDto.getDateFinConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        }
-      } else {
-        if (eventFilterDto.getDateFin().isEmpty()) {
-          eventRepository.findEventByCity_NameAndDateAfter(
-                  eventFilterDto.getCityName(),
-                  eventFilterDto.getDateStartConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        } else {
-          eventRepository.findEventByCity_NameAndDateBetween(
-                  eventFilterDto.getCityName(),
-                  eventFilterDto.getDateStartConverted(),
-                  eventFilterDto.getDateFinConverted(),
-                  pageRequest)
-                  .forEach(event -> eventsDto.add(modelMapper.map(event, EventDto.class)));
-        }
-      }
+    } catch (ParseException e) {
+      throw new BadRequestException("Bad date in request");
     }
-    return eventsDto;
+
+    List<EventDtoRs> eventsDtoRs = events.stream()
+        .map(event -> modelMapper.map(event, EventDtoRs.class))
+        .collect(Collectors.toList());
+
+    return eventsDtoRs;
+  }
+
+  @Override
+    public List<EventDtoRs> getAllByUserId(Long userId) {
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+    return user.getEvents().stream()
+            .map(event -> modelMapper.map(event, EventDtoRs.class)).collect(Collectors.toList());
+  }
+
+  @Override
+  public void addNewEventToUser(UserEventDto userEventDto) {
+    User user = userRepository.findById(userEventDto.getUserId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+
+    Event event = eventRepository.findById(userEventDto.getEventId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().add(event);
+    userRepository.save(user);
+
+    event.getUsers().add(user);
+    eventRepository.save(event);
+  }
+
+  @Override
+  public void deleteBadEventFromUser(UserEventDto userEventDto) {
+    User user = userRepository.findById(userEventDto.getUserId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+
+    Event event = eventRepository.findById(userEventDto.getEventId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().remove(event);
+    userRepository.save(user);
+  }
+
+  public EventFullDtoRs getById(Long id) {
+    return modelMapper.map(eventRepository.findEventById(id), EventFullDtoRs.class);
   }
 }

@@ -26,11 +26,12 @@ import peddle.repository.TransportTypeRepository;
 import peddle.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.GregorianCalendar;
+import java.util.Arrays;
 
 
 @Configuration
@@ -117,10 +118,26 @@ public class FillTables {
     return evetns;
   }
 
+  private Date getCurrentDate() {
+    Calendar cal = new GregorianCalendar();
+    cal.clear(Calendar.HOUR_OF_DAY);
+    cal.clear(Calendar.MINUTE);
+    cal.clear(Calendar.SECOND);
+    cal.clear(Calendar.MILLISECOND);
+    return cal.getTime();
+  }
+
   private Date addDays(Date date, int days) {
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
     cal.add(Calendar.DATE, days);
+    return cal.getTime();
+  }
+
+  private Date addHours(Date date, int hours) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    cal.add(Calendar.HOUR, hours);
     return cal.getTime();
   }
 
@@ -129,11 +146,9 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        roleRepository.save(new Role("ADMIN"));
-        roleRepository.save(new Role("CUSTOMER"));
-        roleRepository.save(new Role("EVENTS_SELLER"));
-        roleRepository.save(new Role("TRANSFERS_SELLER"));
-        roleRepository.save(new Role("ACCOMMODATIONS_SELLER"));
+        Arrays.asList("ADMIN", "CUSTOMER", "EVENTS_SELLER",
+                "TRANSFERS_SELLER", "ACCOMMODATIONS_SELLER")
+                .forEach(role ->  roleRepository.save(new Role(role)));
         System.out.println("Added data to Role table");
       }
     };
@@ -144,19 +159,10 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        cityRepository.save(new City("Kyiv"));
-        cityRepository.save(new City("Lviv"));
-        cityRepository.save(new City("Dnipro"));
-        cityRepository.save(new City("Kharkiv"));
-        cityRepository.save(new City("Odessa"));
-        cityRepository.save(new City("Ivano-Frankivsk"));
-        cityRepository.save(new City("Chernivci"));
-        cityRepository.save(new City("Mikolayv"));
-        cityRepository.save(new City("Kriviy Rig"));
-        cityRepository.save(new City("Kherson"));
-        cityRepository.save(new City("Giromyr"));
-        cityRepository.save(new City("Chernigiv"));
-        cityRepository.save(new City("Uman"));
+        Arrays.asList("Kyiv", "Lviv", "Dnipro", "Kharkiv", "Odessa",
+                "Ivano-Frankivsk", "Chernivci", "Mikolayv", "Kriviy Rig", "Kherson",
+                "Giromyr", "Chernigiv", "Uman")
+                .forEach(city ->  cityRepository.save(new City(city)));
         System.out.println("Added data to City table");
       }
     };
@@ -167,9 +173,8 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        transportTypeRepository.save(new TransportType("Fly"));
-        transportTypeRepository.save(new TransportType("Train"));
-        transportTypeRepository.save(new TransportType("Bus"));
+        Arrays.asList("Fly", "Train", "Bus")
+                .forEach(transport ->  transportTypeRepository.save(new TransportType(transport)));
         System.out.println("Added data to TransportType table");
       }
     };
@@ -238,20 +243,35 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
+        final int DaysSchedule = 30;
         List<TransportType> transportTypes = new ArrayList<>();
         transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
         List<City> cities = new ArrayList<>();
         cityRepository.findAll().forEach(city -> cities.add(city) );
-        int numberOfTranspotr = 22;
+        int numberOfTranspotr = 2;
         for (int i = 0; i < cities.size(); i++) {
           for (int j = i + 1; j < cities.size(); j++) {
-            int typeOfTransport = i % transportTypes.size();
-            transferRepository.save(new Transfer(transportTypes.get(typeOfTransport),
-                    ++numberOfTranspotr, 2235, 0L, 8,
-                    cities.get(i), cities.get(j)));
-            transferRepository.save(new Transfer(transportTypes.get(typeOfTransport),
-                    ++numberOfTranspotr, 2235, 0L, 8,
-                    cities.get(j), cities.get(i)));
+            for (int k = 0; k < transportTypes.size(); k++) {
+              Date currentDate = getCurrentDate();
+              currentDate = addDays(currentDate, -2);
+              for (int l = 0; l < DaysSchedule ; l++) {
+                int hours = (int) (Math.random() * 23);
+                int duration = (int) (Math.random() * 12);
+
+                transferRepository.save(new Transfer(transportTypes.get(k),
+                        ++numberOfTranspotr, 2235, 0L,
+                        addHours(currentDate, hours), duration,
+                        cities.get(i), cities.get(j)));
+
+                hours = (int) (Math.random() * 23);
+                transferRepository.save(new Transfer(transportTypes.get(k),
+                        ++numberOfTranspotr, 2235, 0L,
+                        addHours(currentDate, hours + duration), duration,
+                        cities.get(j), cities.get(i)));
+
+                currentDate = addDays(currentDate, 1);
+              }
+            }
           }
         }
         System.out.println("Added data to Transfer table");

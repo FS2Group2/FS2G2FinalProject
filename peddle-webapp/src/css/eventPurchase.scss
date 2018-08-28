@@ -1,0 +1,191 @@
+.event-purchase-page {
+  display: block;
+}
+
+.container-header-p {
+  color: #373737;
+  font-size: 12px;
+}
+
+.event-extra-container {
+  display: block;
+  margin: 5px;
+}
+
+.accommodation-container {
+  display: block;
+  margin: 15px;
+  background-color: rgba(255, 255, 255, .6);
+}
+
+.transfer-container {
+  display: block;
+  margin: 15px;
+  border: white solid 1px;
+}
+
+.transfer-to {
+  background-color: rgba(255, 255, 255, .8);
+}
+
+.transfer-from {
+  background-color: rgba(255, 255, 255, .8);
+}
+
+.purchase-summary {
+  display: block;
+  margin: 5px;
+  border: #515151 solid 1px;
+}
+
+.event-photo-container {
+  display: inline-block;
+  padding: 4px;
+  border: #6b6b6b solid 1px;
+}
+
+.event-info {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  height: 100%;
+  padding: 7px;
+}
+
+.event-description {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+}
+
+.event-purchase {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+  padding: 7px;
+  border-left: gray solid 1px;
+}
+
+.event-info-header {
+  color: #5f0202;
+  font-size: 18px;
+}
+
+.event-info-city {
+  color: #790202;
+  font-size: 12px;
+}
+
+.event-info-date {
+  color: #790202;
+  font-size: 12px;
+}
+
+.event-info-p {
+  color: #1d1e2d;
+  font-size: 12px;
+}
+
+.event-photo {
+  height: 200px;
+}
+
+.event-price {
+  color: #0b0a30;
+  font-size: 20px;
+}
+
+.add-to-cart {
+  padding: 7px;
+  border: #808080 solid 1px;
+  border-radius: 4px;
+  outline: none;
+  color: #373737;
+}
+
+.accommodation-item {
+  display: flex;
+  //border-bottom: #373737 solid 1px;
+  font-size: 12px;
+}
+
+.accommodation-item-header {
+  color: #504451;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.accommodation-item-hotel {
+  width: 170px;
+  padding: 3px 5px 3px 7px;
+  color: #5f0202;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.accommodation-item-price {
+  width: 150px;
+  padding: 3px 5px 3px 7px;
+  text-align: center;
+}
+
+.accommodation-item-min-time {
+  width: 100px;
+  padding: 3px 5px 3px 7px;
+  text-align: center;
+}
+
+.purchase-btn {
+  margin-bottom: 3px;
+  margin-left: 50px;
+  padding: 5px 7px;
+  border: #808080 solid 1px;
+  border-radius: 4px;
+  outline: none;
+  color: #373737;
+}
+
+.transfer-item {
+  display: flex;
+  margin: 3px;
+  font-size: 12px;
+}
+
+.transfer-item-header {
+  color: #373737;
+  font-style: italic;
+}
+
+.transportTypeName {
+  width: 100px;
+}
+
+.transfer-time {
+  width: 180px;
+}
+
+.transfer-duration {
+  width: 120px;
+}
+
+.depart-city {
+  min-width: 170px;
+}
+
+.transfer-number {
+  min-width: 80px;
+}
+
+.arrival-city {
+  width: 150px;
+}
+
+.transfer-price {
+  width: 120px;
+}
+
+.transfer-btn {
+  padding: 3px 7px;
+}
