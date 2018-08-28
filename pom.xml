@@ -6,7 +6,7 @@
 
     <groupId>fs2</groupId>
     <artifactId>peddle</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
