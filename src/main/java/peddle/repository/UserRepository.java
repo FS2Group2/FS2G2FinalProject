@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import peddle.entities.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+  User findByNameIgnoreCase(String name);
 }

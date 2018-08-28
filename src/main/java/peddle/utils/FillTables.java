@@ -224,7 +224,7 @@ public class FillTables {
         Date currentDate = new Date();
 
         for (int i = 0; i < cities.size(); i++) {
-          int n = i % maxEvents;
+          int n = (i % maxEvents) + 1;
           for (int j = 0; j < n; j++) {
             eventRepository.save(new Event(events.get(j).name, cities.get(i), currentDate,
                     0L, events.get(j).duration,
@@ -259,13 +259,13 @@ public class FillTables {
                 int duration = (int) (Math.random() * 12);
 
                 transferRepository.save(new Transfer(transportTypes.get(k),
-                        ++numberOfTranspotr, 2235, 0L,
+                        ++numberOfTranspotr, 235, 0L,
                         addHours(currentDate, hours), duration,
                         cities.get(i), cities.get(j)));
 
                 hours = (int) (Math.random() * 23);
                 transferRepository.save(new Transfer(transportTypes.get(k),
-                        ++numberOfTranspotr, 2235, 0L,
+                        ++numberOfTranspotr, 283, 0L,
                         addHours(currentDate, hours + duration), duration,
                         cities.get(j), cities.get(i)));
 
