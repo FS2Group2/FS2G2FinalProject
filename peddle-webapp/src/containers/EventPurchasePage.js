@@ -18,13 +18,17 @@ class EventPurchasePage extends Component {
       event: {},
       accommodations: [],
       transferToEvent: [],
-      transferFromEvent: []
+      transferFromEvent: [],
+      purchasedEvent: {},
+      purchasedAccommodation: {},
+      purchasedTransferTo: {},
+      purchasedTransferFrom: {}
     }
   }
 
   dateEventEnd = (n) => {
     let date = new Date(this.state.event.date);
-    date.setDate(date.getDate() + Math.ceil(this.state.event.duration / 24)+n);
+    date.setDate(date.getDate() + Math.ceil(this.state.event.duration / 24) + n);
     return date.toLocaleDateString('en-GB');
   };
 
@@ -32,6 +36,29 @@ class EventPurchasePage extends Component {
     let date = new Date(this.state.event.date);
     date.setDate(date.getDate() - n);
     return date.toLocaleDateString('en-GB');
+  };
+
+  resultError = (error) => {
+    this.setState({
+      isLoaded: true,
+      error
+    })
+  };
+
+  addEventToBasket = () => {
+    this.setState({purchasedEvent: this.state.event})
+  };
+
+  addAccommodationToBasket = (acc) => {
+    this.setState({purchasedAccommodation: acc})
+  };
+
+  addTransferToToBasket = (tr) => {
+    this.setState({purchasedTransferTo: tr})
+  };
+
+  addTransferFromToBasket = (tr) => {
+    this.setState({purchasedTransferFrom: tr})
   };
 
   componentDidMount() {
@@ -44,17 +71,22 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 event: result
-
-              }, () => (this.fetchAccommodations()))
-            },
-
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
               })
-            }
+            }, this.resultError
         )
+        .then(() => (this.fetchAccommodations()))
+        .then(() => {
+          this.fetchTransferToEvent(
+              this.dateBeforeEvent(1),
+              this.dateBeforeEvent(0)
+          )
+        })
+        .then(() => {
+          this.fetchTransferFromEvent(
+              this.dateEventEnd(0),
+              this.dateEventEnd(1)
+          )
+        })
   };
 
   fetchAccommodations() {
@@ -75,18 +107,8 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 accommodations: result
-              }, ()=>{this.fetchTransferToEvent(
-                  this.dateBeforeEvent(1),
-                  this.dateBeforeEvent(0)
-                  )})
-            },
-
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
               })
-            }
+            }, this.resultError
         );
   }
 
@@ -115,19 +137,9 @@ class EventPurchasePage extends Component {
               this.setState({
                 isLoaded: true,
                 transferToEvent: result
-              },
-                  ()=>{this.fetchTransferFromEvent(
-                      this.dateEventEnd(0),
-                      this.dateEventEnd(1)
-                  )})
-            },
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
               })
-            }
-        );
+            }, this.resultError
+        )
   }
 
   fetchTransferFromEvent(dateFrom, dateTo) {
@@ -145,8 +157,8 @@ class EventPurchasePage extends Component {
       body: JSON.stringify(query)
     };
     const url = dataMap.transfer;
-    console.log(url);
-    console.log('request params:' + JSON.stringify(reqParam));
+    // console.log(url);
+    // console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
         .then(res => res.json())
         .then(
@@ -155,42 +167,41 @@ class EventPurchasePage extends Component {
                 isLoaded: true,
                 transferFromEvent: result
               })
-            },
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              })
-            }
+            }, this.resultError
         );
   }
 
   render() {
+    // debugger
     const eventCity = this.state.event.cityName;
     const userCity = this.props.currentUser.cityName;
+    const {purchasedEvent, purchasedAccommodation, purchasedTransferTo, purchasedTransferFrom} = this.state;
 
     return (
         <Fragment>
           <div className='event-purchase-page'>
             <div className='event-extra-container'>
-              <EventInfo event={this.state.event}/>
+              <EventInfo event={this.state.event} add={this.addEventToBasket.bind(this)}/>
             </div>
 
             <div className='accommodation-container'>
-              <Accommodations accommodations={this.state.accommodations} city={eventCity}/>
-
+              <Accommodations accommodations={this.state.accommodations} city={eventCity}
+                              addA={this.addAccommodationToBasket.bind(this)}/>
             </div>
 
             <div className='transfer-container transfer-to'>
-              <Transfers cityFrom={userCity} cityTo={eventCity} transfers={this.state.transferToEvent}/>
+              <Transfers cityFrom={userCity} cityTo={eventCity} transfers={this.state.transferToEvent}
+                         addTransfer={this.addTransferToToBasket.bind(this)}/>
             </div>
 
             <div className='transfer-container transfer-from'>
-              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={this.state.transferFromEvent}/>
+              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={this.state.transferFromEvent}
+                         addTransfer={this.addTransferFromToBasket.bind(this)}/>
             </div>
 
-            <div className='purchase-summary'>
-              <PurchaseSummary/>
+            <div>
+              <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
+                               transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}/>
             </div>
           </div>
 
