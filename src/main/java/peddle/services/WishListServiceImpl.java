@@ -9,6 +9,7 @@ import peddle.dto.EventDtoRs;
 import peddle.dto.WishListDto;
 import peddle.entities.User;
 import peddle.entities.WishList;
+import peddle.repository.UserRepository;
 import peddle.repository.WishListRepository;
 
 import java.util.List;
@@ -20,17 +21,17 @@ public class WishListServiceImpl implements WishListService {
   @Autowired
   private ModelMapper modelMapper;
 
-  private final WishListRepository wishListRepository;
+  private final UserRepository userRepository;
 
-  public WishListServiceImpl(WishListRepository wishListRepository) {
-    this.wishListRepository = wishListRepository;
+  public WishListServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
   }
 
-
+  @Override
   public List<EventDtoRs> getAllByUserId(Long userId) {
-    WishList wishList = wishListRepository.findById(userId)
+    User user = userRepository.findById(userId)
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
-    return wishList.getEvents().stream()
+    return user.getEvents().stream()
             .map(event -> modelMapper.map(event, EventDtoRs.class)).collect(Collectors.toList());
   }
 

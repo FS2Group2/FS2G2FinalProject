@@ -31,18 +31,16 @@ public class WishList {
   @Column(name = "w_user")
   private Long user;
 
+  public Long getEvent() {
+    return event;
+  }
+
   @Column(name = "w_event")
   private Long event;
 
   public WishList(Long user, Long event) {
     this.user = user;
     this.event = event;
-  }
-
-  private List<Event> events;
-
-  public List<Event> getEvents() {
-    return events;
   }
 
 }
