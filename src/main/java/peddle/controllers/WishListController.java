@@ -2,7 +2,6 @@ package peddle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import peddle.dto.EventDtoRq;
 import peddle.dto.EventDtoRs;
 import peddle.services.WishListService;
 
