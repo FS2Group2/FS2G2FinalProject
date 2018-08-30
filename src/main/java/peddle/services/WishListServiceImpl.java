@@ -6,9 +6,12 @@ import org.springframework.stereotype.Service;
 import peddle.configuration.ErrorConstants;
 import peddle.configuration.UserException;
 import peddle.dto.EventDtoRs;
+import peddle.dto.UserEventDto;
 import peddle.dto.WishListDto;
+import peddle.entities.Event;
 import peddle.entities.User;
 import peddle.entities.WishList;
+import peddle.repository.EventRepository;
 import peddle.repository.UserRepository;
 import peddle.repository.WishListRepository;
 
@@ -17,6 +20,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class WishListServiceImpl implements WishListService {
+
+  @Autowired
+  private EventRepository eventRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -37,11 +43,28 @@ public class WishListServiceImpl implements WishListService {
 
   @Override
   public void addNewEventToUser(WishListDto wishListDto) {
+    User user = userRepository.findById(wishListDto.getUserId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
+    Event event = eventRepository.findById(wishListDto.getEventId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().add(event);
+    userRepository.save(user);
+
+    event.getUsers().add(user);
+    eventRepository.save(event);
   }
 
   @Override
   public void deleteBadEventFromUser(WishListDto wishListDto) {
+    User user = userRepository.findById(wishListDto.getUserId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
+    Event event = eventRepository.findById(wishListDto.getEventId())
+            .orElseThrow(()-> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
+
+    user.getEvents().remove(event);
+    userRepository.save(user);
   }
 }
