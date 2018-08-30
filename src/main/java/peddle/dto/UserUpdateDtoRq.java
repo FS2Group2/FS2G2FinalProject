@@ -4,17 +4,16 @@ import lombok.Data;
 
 @Data
 public class UserUpdateDtoRq {
-  private Long id;
+  private Long userId;
   private String name;
   /*
   private String firstName;
   private String lastName;
   */
   private String email;
-  private Long cityId;
-  private String cityName;
-  private Long roleId;
-  private String roleName;
+  private String password;
+  private Long city;
+  private Long role;
   private String profilePhoto;
   private String profileInfo;
 }

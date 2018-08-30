@@ -50,17 +50,25 @@ public class UserServiceImpl implements UserService {
       user.setCity(city);
       Role role = roleRepository.findById(userAddDtoRq.getRole()).get();
       user.setRole(role);
-      User user2 = userRepository.save(user);
-      return modelMapper.map(user2, UserDtoRs.class);
+      User userNew = userRepository.save(user);
+      return modelMapper.map(userNew, UserDtoRs.class);
     }
   }
 
   @Override
   public UserDtoRs updateUser(UserUpdateDtoRq userUpdateDtoRq) {
-    User user = userRepository.findById(userUpdateDtoRq.getId()).get();
+    User user = userRepository.findById(userUpdateDtoRq.getUserId()).get();
     modelMapper.map(userUpdateDtoRq, user);
-    User user2 = userRepository.save(user);
-    return modelMapper.map(user2, UserDtoRs.class);
+    if (cityRepository.findById(userUpdateDtoRq.getCity()).isPresent()) {
+      City city = cityRepository.findById(userUpdateDtoRq.getCity()).get();
+      user.setCity(city);
+    }
+    if (roleRepository.findById(userUpdateDtoRq.getRole()).isPresent()) {
+      Role role = roleRepository.findById(userUpdateDtoRq.getRole()).get();
+      user.setRole(role);
+    }
+    User userNew = userRepository.save(user);
+    return modelMapper.map(userNew, UserDtoRs.class);
   }
 
 }
