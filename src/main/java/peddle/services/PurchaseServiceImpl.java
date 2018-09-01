@@ -4,9 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
+import peddle.configuration.ErrorConstants;
+import peddle.configuration.UserException;
+import peddle.dto.PurchaseAddDto;
 import peddle.dto.PurchaseDtoRs;
+import peddle.entities.Event;
 import peddle.entities.Purchase;
 import peddle.entities.User;
+import peddle.repository.EventRepository;
 import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -18,6 +23,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private EventRepository eventRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -36,5 +44,15 @@ public class PurchaseServiceImpl implements PurchaseService {
       purchasesDtoRs.add(purchaseDto);
     });
     return purchasesDtoRs;
+  }
+
+  @Override
+  public void addPurchaseToUser(PurchaseAddDto purchaseAddDto) {
+    User user = userRepository.findById(purchaseAddDto.getId())
+            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+    //List<Purchase> purchases = user.getPurchases();
+    Event event = eventRepository.findEventById(purchaseAddDto.getEventId());
+    user.getEvents().add(event);
+    userRepository.save(user);
   }
 }
