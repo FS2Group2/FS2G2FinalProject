@@ -53,7 +53,7 @@ public class PurchaseServiceImpl implements PurchaseService {
   }
 
   @Override
-  public void addPurchaseToUser(PurchaseAddDto purchaseAddDto) {
+  public List<PurchaseDtoRs> addPurchaseToUser(PurchaseAddDto purchaseAddDto) {
     User user = userRepository.findById(purchaseAddDto.getId())
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
     //List<Purchase> purchases = user.getPurchases();
@@ -71,7 +71,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     List<Purchase> result = user.getPurchases();
     result.add(purchase);
     user.setPurchases(result);
-    userRepository.save(user);
+
+    User userResult = userRepository.save(user);
+    return getAllPurchase(userResult.getId());
+    //result = userResult.getPurchases();
+
 
   }
 }
