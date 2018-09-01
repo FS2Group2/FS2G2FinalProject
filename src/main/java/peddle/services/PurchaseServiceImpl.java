@@ -77,6 +77,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     user.setPurchases(result);
 
     User userResult = userRepository.save(user);
+
     return getAllPurchase(userResult.getId());
   }
 }
