@@ -8,10 +8,10 @@ import peddle.configuration.ErrorConstants;
 import peddle.configuration.UserException;
 import peddle.dto.PurchaseAddDto;
 import peddle.dto.PurchaseDtoRs;
-import peddle.entities.Event;
-import peddle.entities.Purchase;
-import peddle.entities.User;
+import peddle.entities.*;
+import peddle.repository.AccommodationRepository;
 import peddle.repository.EventRepository;
+import peddle.repository.TransferRepository;
 import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -26,6 +26,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Autowired
   private EventRepository eventRepository;
+
+  @Autowired
+  private TransferRepository transferRepository;
+
+  @Autowired
+  private AccommodationRepository accommodationRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -51,8 +57,21 @@ public class PurchaseServiceImpl implements PurchaseService {
     User user = userRepository.findById(purchaseAddDto.getId())
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
     //List<Purchase> purchases = user.getPurchases();
+    Transfer transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
+            .orElseThrow(()->new BadRequestException("not found"));
+    Transfer transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
+            .orElseThrow(()-> new BadRequestException("not found"));
+    Accommodation accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
+            .orElseThrow(()->new BadRequestException("error!!"));
+
     Event event = eventRepository.findEventById(purchaseAddDto.getEventId());
-    user.getEvents().add(event);
+
+    Purchase purchase = new Purchase(event, transferTo, transferFrom, accommodation);
+
+    List<Purchase> result = user.getPurchases();
+    result.add(purchase);
+    user.setPurchases(result);
     userRepository.save(user);
+
   }
 }
