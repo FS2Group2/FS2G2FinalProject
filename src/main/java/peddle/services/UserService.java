@@ -1,13 +1,13 @@
 package peddle.services;
 
 import peddle.dto.UserAddDtoRq;
-import peddle.dto.UserDtoRq;
+import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserDtoRs;
 import peddle.dto.UserUpdateDtoRq;
 
 public interface UserService {
 
-  UserDtoRs getUserByName(UserDtoRq userDtoRq);
+  UserDtoRs getUserByName(UserLoginDtoRq userLoginDtoRq);
 
   UserDtoRs addUser(UserAddDtoRq userAddDtoRq);
 

@@ -26,13 +26,17 @@ public class Profile {
   @Column(name = "pr_id")
   private Long id;
 
+  @Column(name = "pr_city_living")
+  private String cityLiving;
+
   @Column(name = "pr_photo")
   private String photo;
 
   @Column(name = "pr_info")
   private String info;
 
-  public Profile(String photo, String info) {
+  public Profile(String cityLiving, String photo, String info) {
+    this.cityLiving = cityLiving;
     this.photo = photo;
     this.info = info;
   }

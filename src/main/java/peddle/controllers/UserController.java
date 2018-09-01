@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import peddle.dto.UserAddDtoRq;
-import peddle.dto.UserDtoRq;
+import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserDtoRs;
 import peddle.dto.UserUpdateDtoRq;
 import peddle.services.UserServiceImpl;
@@ -21,8 +21,8 @@ public class UserController {
 
   @PostMapping(path = "")
   @ResponseBody
-  public UserDtoRs getUserByName(@RequestBody UserDtoRq userDtoRq) {
-    UserDtoRs user = userService.getUserByName(userDtoRq);
+  public UserDtoRs getUserByName(@RequestBody UserLoginDtoRq userLoginDtoRq) {
+    UserDtoRs user = userService.getUserByName(userLoginDtoRq);
     return user;
   }
 

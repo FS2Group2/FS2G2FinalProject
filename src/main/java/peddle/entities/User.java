@@ -38,13 +38,11 @@ public class User {
   @Column(name = "u_name")
   private String name;
 
-  /*
   @Column(name = "u_first_name")
   private String firstName;
 
   @Column(name = "u_last_name")
   private String lastName;
-  */
 
   @Column(name = "u_email")
   private String email;
@@ -82,10 +80,12 @@ public class User {
           inverseJoinColumns = {@JoinColumn(name = "w_event", nullable = false)})
   private List<Event> events;
 
-  public User(String name, String email, String password,
+  public User(String name, String firstName, String lastName, String email, String password,
               City city, Role role, Profile profile,
               List<Purchase> purchases, List<Event> events) {
     this.name = name;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.city = city;
