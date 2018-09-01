@@ -58,11 +58,11 @@ public class PurchaseServiceImpl implements PurchaseService {
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
     //List<Purchase> purchases = user.getPurchases();
     Transfer transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
-            .orElseThrow(()->new BadRequestException("not found"));
+            .orElseThrow(() -> new BadRequestException("not found"));
     Transfer transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
-            .orElseThrow(()-> new BadRequestException("not found"));
+            .orElseThrow(() -> new BadRequestException("not found"));
     Accommodation accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
-            .orElseThrow(()->new BadRequestException("error!!"));
+            .orElseThrow(() -> new BadRequestException("error!!"));
 
     Event event = eventRepository.findEventById(purchaseAddDto.getEventId());
 
@@ -74,8 +74,5 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     User userResult = userRepository.save(user);
     return getAllPurchase(userResult.getId());
-    //result = userResult.getPurchases();
-
-
   }
 }
