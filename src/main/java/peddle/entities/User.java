@@ -80,7 +80,9 @@ public class User {
           inverseJoinColumns = {@JoinColumn(name = "w_event", nullable = false)})
   private List<Event> events;
 
-  public User(String name, String firstName, String lastName, String email, String password, City city, Role role, Profile profile, List<Purchase> purchases, List<Event> events) {
+  public User(String name, String firstName, String lastName, String email, String password,
+              City city, Role role, Profile profile,
+              List<Purchase> purchases, List<Event> events) {
     this.name = name;
     this.firstName = firstName;
     this.lastName = lastName;

@@ -289,21 +289,21 @@ public class FillTables {
         List<City> citys = new ArrayList<>();
         cityRepository.findAll().forEach(city -> citys.add(city));
 
-                userRepository.save(new User("Alex",
-                "First name Alex",
-                "Last name Alex",
-                "alex@gmail.com","pwdAlex",
-                citys.get(0), roles.get(1),
-                new Profile("New Vasiyki","userphoto01.jpg","Alex info"),
-                new ArrayList<>(), new ArrayList<>()));
+        userRepository.save(new User("Alex",
+            "First name Alex",
+            "Last name Alex",
+            "alex@gmail.com","pwdAlex",
+             citys.get(0), roles.get(1),
+             new Profile("New Vasiyki","userphoto01.jpg","Alex info"),
+             new ArrayList<>(), new ArrayList<>()));
 
         userRepository.save(new User("Jon",
-                "First name Jon",
-                "Last name Jon",
-                "jon@gmail.com","pwdJon",
-                citys.get(2), roles.get(1),
-                new Profile("New Vasiyki 2","userphoto02.jpg","Jon info"),
-                new ArrayList<>(), new ArrayList<>()));
+             "First name Jon",
+             "Last name Jon",
+             "jon@gmail.com","pwdJon",
+             citys.get(2), roles.get(1),
+             new Profile("New Vasiyki 2","userphoto02.jpg","Jon info"),
+             new ArrayList<>(), new ArrayList<>()));
 
         System.out.println("Added users to User table");
       }
