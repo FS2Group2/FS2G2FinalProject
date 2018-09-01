@@ -20,7 +20,6 @@ import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
@@ -60,11 +59,13 @@ public class PurchaseServiceImpl implements PurchaseService {
   public List<PurchaseDtoRs> addPurchaseToUser(PurchaseAddDto purchaseAddDto) {
     User user = userRepository.findById(purchaseAddDto.getId())
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
-    //List<Purchase> purchases = user.getPurchases();
+
     Transfer transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
             .orElseThrow(() -> new BadRequestException("not found"));
+
     Transfer transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
             .orElseThrow(() -> new BadRequestException("not found"));
+
     Accommodation accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
             .orElseThrow(() -> new BadRequestException("error!!"));
 
