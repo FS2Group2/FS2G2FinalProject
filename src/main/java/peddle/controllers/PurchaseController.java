@@ -26,10 +26,8 @@ public class PurchaseController {
 
   @PostMapping("/add")
   @ResponseBody
-  public void addPurchase(@RequestBody PurchaseAddDto purchaseAddDto) {
-    purchaseService.addPurchaseToUser(purchaseAddDto);
-
+  public List<PurchaseDtoRs> addPurchase(@RequestBody PurchaseAddDto purchaseAddDto) {
+    return purchaseService.addPurchaseToUser(purchaseAddDto);
   }
-
 
 }
