@@ -1,4 +1,4 @@
-.login-box {
+.register-box {
   width: 444px;
   margin-left: 350px;
   margin-top: 64px;
@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .52);
 }
-.login-box-header-left {
+.register-box-header-left {
   font-family: Verdana;
   font-size: 20px;
   color: white;
@@ -15,11 +15,7 @@
   margin-bottom: 10px;
 
 }
-.warning-text {
-  font-family: Verdana;
-  font-size: 18px;
-}
-.login-input-box {
+.register-input-box {
   width: 284px;
   height: 46px;
   margin-bottom: 9px;
@@ -39,31 +35,7 @@
 ::placeholder {
   color: white;
 }
-.login-help-block {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  opacity: 1;
-  transition: opacity 0.6s;
-}
-.warn-close {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.warn-close:hover {
-  color: black;
-}
-
-.login-btn {
+.reg-btn {
   width: 322px;
   height: 46px;
   display: block;
@@ -74,7 +46,7 @@
   background-color: rgba(20, 30, 40, 0.1);
   text-align: center;
 }
-.login-reg-link {
+.register-login-link {
   text-decoration: none;
   font-family: Verdana;
   font-size: 18px;
