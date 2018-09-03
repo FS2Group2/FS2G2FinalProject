@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
+import java.util.Arrays;
+import java.util.List;
 
 @Setter
 @Getter
@@ -29,6 +31,10 @@ public class WishList {
   @Column(name = "w_user")
   private Long user;
 
+  public Long getEvent() {
+    return event;
+  }
+
   @Column(name = "w_event")
   private Long event;
 
@@ -36,4 +42,5 @@ public class WishList {
     this.user = user;
     this.event = event;
   }
+
 }

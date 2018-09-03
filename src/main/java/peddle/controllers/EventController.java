@@ -15,7 +15,6 @@ import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
 import peddle.dto.EventFullDtoRs;
 import peddle.dto.PageDtoRq;
-import peddle.dto.UserEventDto;
 import peddle.services.EventServiceImpl;
 
 import java.text.ParseException;
@@ -49,25 +48,6 @@ public class EventController {
     return events;
   }
 
-  @GetMapping("/user-events/{userId}")
-  @ResponseBody
-  public List<EventDtoRs> getAllUserEvents(@PathVariable Long userId) {
-    List<EventDtoRs> events = eventService.getAllByUserId(userId);
-    return events;
-  }
-
-  @PostMapping("/add-event-to-user")
-  @ResponseBody
-  public void addEventToUser(@RequestBody UserEventDto userEventDto) {
-    eventService.addNewEventToUser(userEventDto);
-  }
-
-  @PostMapping("/delete-event-from-user")
-  @ResponseBody
-  public void deleteEventFromUser(@RequestBody UserEventDto userEventDto) {
-    eventService.deleteBadEventFromUser(userEventDto);
-  }
-    
   @GetMapping(path = "/info/{id}")
   @ResponseBody
   public EventFullDtoRs getById(@PathVariable("id") Long id) {
