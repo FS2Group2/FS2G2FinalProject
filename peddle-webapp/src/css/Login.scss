@@ -91,3 +91,20 @@
   text-align: left;
   text-decoration: none;
 }
+
+.login-msg {
+  text-align: center;
+}
+
+.error-msg {
+  padding: 5px;
+  color: #9b0002;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.success-msg {
+  padding: 30px;
+  font-size: 14px;
+  font-weight: 700;
+}
