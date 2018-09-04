@@ -6,14 +6,14 @@
 .user-photo-container {
   display: flex;
   justify-content: center;
-  width: 200px;
-  height: 200px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   overflow: hidden;
 }
 
 .user-photo {
-  height: 200px;
+  height: 75px;
 }
 
 .user-info-container {
@@ -25,9 +25,15 @@
 .user-info-name {
   font-size: 18px;
   font-weight: 700;
+  font-family: Verdana sans-serif;
 }
 
 .link-to-list {
   display: inline-block;
-  padding: 5px 20px;
+  margin-left: 10px;
+}
+.profile-event-content {
+  margin-left: 10px;
+  font-family: Verdana sans-serif;
+  font-size: 18px;
 }
