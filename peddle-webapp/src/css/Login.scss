@@ -11,13 +11,13 @@
 .login-box-header-left {
   margin-bottom: 10px;
   margin-left: 200px;
-  font-family: Verdana;
   color: white;
+  font-family: Verdana sans-serif;
   font-size: 20px;
 }
 
 .warning-text {
-  font-family: Verdana;
+  font-family: Verdana sans-serif;
   font-size: 18px;
 }
 
@@ -32,7 +32,7 @@
   border-radius: 3px;
   background-color: rgba(220, 220, 220, .7);
   color: #434343;
-  font-family: Verdana;
+  font-family: Verdana sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -45,22 +45,22 @@
 
 .login-help-block {
   display: flex;
-  padding: 20px;
   justify-content: space-between;
-  background-color: #f44336;
   margin-bottom: 15px;
-  color: white;
+  padding: 20px;
   transition: opacity .6s;
+  background-color: #f44336;
+  color: white;
   opacity: 1;
 }
 
 .warn-close {
   margin-left: 15px;
   float: right;
+  transition: .3s;
   color: white;
   font-size: 22px;
   font-weight: bold;
-  transition: .3s;
   line-height: 20px;
   cursor: pointer;
 }
@@ -83,11 +83,11 @@
 
 .login-reg-link {
   margin-top: 10px;
-  font-family: Verdana;
   margin-bottom: 10px;
-  text-decoration: none;
   margin-left: 350px;
-  font-size: 18px;
   color: white;
+  font-family: Verdana sans-serif;
+  font-size: 18px;
   text-align: left;
+  text-decoration: none;
 }
