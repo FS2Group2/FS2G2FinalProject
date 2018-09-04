@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Login.css'
 import dataMap from "../constants/ApiSettings";
-import {applyMiddleware as dispatch} from "redux";
+// import {applyMiddleware as dispatch} from "redux";
 import {connect} from "react-redux";
-import {USER_LOGIN} from "../actions/actionsTypes";
+// import {USER_LOGIN} from "../actions/actionsTypes";
 
 class Login extends Component {
   constructor(props) {
