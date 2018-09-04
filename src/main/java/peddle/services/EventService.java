@@ -15,12 +15,6 @@ public interface EventService {
 
   List<EventDtoRs> getByFilter(EventDtoRq eventDtoRq);
 
-  List<EventDtoRs> getAllByUserId(Long userId);
-
-  void addNewEventToUser(UserEventDto userEventDto);
-
-  void deleteBadEventFromUser(UserEventDto userEventDto);
-
   EventFullDtoRs getById(Long id);
 
 }

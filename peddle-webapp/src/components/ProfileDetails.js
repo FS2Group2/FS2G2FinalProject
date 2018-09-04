@@ -12,10 +12,11 @@ class ProfileDetails extends Component {
               <img className='user-photo' src={userPhotoPath + profilePhoto} alt="ProfileAvatar"/>
             </div>
             <div className="user-info-container">
-              <p className='user-info-name'>Name: {name}</p>
-              <p> Email: {email}</p>
-              <p>Location: {cityName}</p>
-              <p>Info: {profileInfo}</p>
+                <p className='user-info-name'>{name}</p>
+                <p>{email}</p>
+                <p>City: {cityName}</p>
+                <p>Info</p>
+                <p>{profileInfo}</p>
             </div>
           </div>
     );
