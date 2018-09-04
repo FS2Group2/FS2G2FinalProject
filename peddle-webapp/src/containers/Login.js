@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
-import '../css/loginPage.css';
+import  '../css/Login.css'
 import dataMap from "../constants/ApiSettings";
 
 class Login extends Component{
@@ -31,7 +31,19 @@ class Login extends Component{
 //      this.findUser()
   };
 
+closeWarning() {
+    let close = document.getElementsByClassName("warn-close");
+    let i;
 
+    for (i = 0; i < close.length; i++) {
+        // When someone clicks on a close button
+        close[i].onclick = function(){
+            let div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+        }
+    }
+}
   findUser() {
       let loginHeader = new Headers();
       loginHeader.append("Content-Type", "application/JSON");
@@ -70,23 +82,30 @@ class Login extends Component{
   render(){
       const { username, password, submitted } = this.state;
       return(
+          <div>
           <div className="login-box">
-            <div className="main-box-header">
-              <div className="main-box-stick"></div>
-              <p className="main-box-header-left">Log In</p>
-              <Link to="/register">Sign Up</Link>
+            <div className="login-box-header">
+              <p className="login-box-header-left">Log In</p>
             </div>
-            <input className="input-box" type="text" name="username" placeholder="You Name"
+            <input className="login-input-box" type="text" name="username" placeholder="Your Name"
                  value={username} onChange={this.handleChange}/>
               {submitted && !username &&
-              <div className="help-block">Username is required</div>
+              <div className="login-help-block">
+                  <p className="warning-text">Username is required</p>
+                  <span className="warn-close"  onClick={this.closeWarning}>&times;</span>
+              </div>
               }
-            <input className="input-box" type="password" name="password" placeholder="Password"
+            <input className="login-input-box" type="password" name="password" placeholder="Password"
                value={password} onChange={this.handleChange}/>
               {submitted && !password &&
-              <div className="help-block">Password is required</div>
+              <div className="login-help-block">
+                  <p className="warning-text">Password is required</p>
+                  <span className="warn-close" onClick={this.closeWarning}>&times;</span>
+              </div>
               }
-            <input className="button-create" type="button" value="Login" onClick={this.handleSubmit} />
+            <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit} />
+              <Link to="/register" className="login-reg-link">Sign Up</Link>
+          </div>
           </div>
       )
   }
