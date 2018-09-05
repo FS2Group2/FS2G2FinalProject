@@ -1,6 +1,6 @@
 import { ADD_TO_PURCHACE_LIST,LOAD_PURCHACE_LIST, REMOVE_FROM_PURCHACE_LIST} from "../actions/actionsTypes";
 
-function wishListReducer(state=[], action) {
+function purchaseReducer(state=[], action) {
     switch (action.type) {
         case LOAD_PURCHACE_LIST:
             return Object.assign({}, state, action.data);
