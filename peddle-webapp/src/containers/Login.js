@@ -5,6 +5,7 @@ import dataMap from "../constants/ApiSettings";
 import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
+import {loadPurchaceList} from "../actions/purchaceActions";
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class Login extends Component {
       username: '',
       password: '',
       userInf: '',
-      wishlist: []
+      wishlist: [],
+      purchace:[],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -104,7 +106,22 @@ class Login extends Component {
               this.props.loadWishListToStore(result)
             })
   }
-
+    loadPurchaceList(userId) {
+        let header = new Headers();
+        header.append("Content-Type", "application/JSON");
+        let reqParam = {
+            method: 'GET',
+            headers: header
+        };
+        const url = dataMap.purchace + userId;
+        console.log('request params:' + JSON.stringify(reqParam));
+        fetch(url, reqParam)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.props.loadPurchaceListToStore(result)
+                })
+    }
 
   render() {
     const {username, password, submitted, userInf} = this.state;
@@ -159,7 +176,11 @@ const mapDispatchToProps = dispatch => {
     },
     loadWishListToStore: data => {
       dispatch(loadWishList(data))
+    },
+    loadPurchaceListToStore: data => {
+      dispatch(loadPurchaceList(data))
     }
+
   }
 };
 
