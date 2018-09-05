@@ -212,7 +212,7 @@ class EventPurchasePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userReducer
+    currentUser: state.userReducer.currentUser
   }
 };
 
