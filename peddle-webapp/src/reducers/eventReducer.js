@@ -1,4 +1,4 @@
-import {EVENTS_FILTER, CHOOSE_EVENT} from "../actions/actionsTypes";
+import {EVENTS_FILTER, CHOSEN_EVENT} from "../actions/actionsTypes";
 
 const initialState = {
   city: '',
@@ -10,8 +10,8 @@ const initialState = {
 function eventReducer(state = initialState, action) {
   switch (action.type) {
     case EVENTS_FILTER:
-      return {event: action.data};
-    case CHOOSE_EVENT:
+      return state;
+    case CHOSEN_EVENT:
       let event = action.data;
       return state.concat(event);
     default:

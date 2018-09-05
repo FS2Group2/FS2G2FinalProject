@@ -1,25 +1,24 @@
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
-import '../css/loginPage.css';
+import  '../css/Register.css'
 
 
 class RegisterPage extends Component {
     render(){
         return(
-            <div className="login-box">
-                <div className="main-box-header">
-                    <div className="main-box-stick"></div>
-                    <p className="main-box-header-left">Sign Up</p>
-                    <Link to="/login">Login</Link>
+            <div className="register-box">
+                <div className="register-box-header">
+                    <p className="register-box-header-left">Sign Up</p>
                 </div>
-                <input className="input-box" type="text" name="login" placeholder="You Name"/>
+                <input className="register-input-box" type="text" name="login" placeholder="You Name"/>
                        {/*value={this.state.login} onChange={this.onLoginChange}/>*/}
-                <input className="input-box" type="email" name="Email" placeholder="Email"/>
-                <input className="input-box" type="password" name="pass1" placeholder="Choose Password"/>
-                <input className="input-box" type="password" name="pass2" placeholder="Confirm Password"/>
+                <input className="register-input-box" type="email" name="Email" placeholder="Email"/>
+                <input className="register-input-box" type="password" name="pass1" placeholder="Choose Password"/>
+                <input className="register-input-box" type="password" name="pass2" placeholder="Confirm Password"/>
                        {/*// value={this.state.password} onChange={this.onPasswordChange}/>*/}
-                <input className="button-create" type="button" value="Register"/>
+                <input className="reg-btn" type="button" value="Register"/>
                        {/*// onClick={this.goLogin} />*/}
+                <Link to="/login" className="register-login-link">Login</Link>
             </div>
         )
     }
