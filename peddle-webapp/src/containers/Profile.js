@@ -7,7 +7,7 @@ import Wishlist from "../components/Wishlist";
 
 class Profile extends Component {
   render() {
-    const user = this.props.currentUser;
+    const user = this.props.userState.currentUser;
     const path = this.props.match.path;
     return (
         <div>
@@ -22,9 +22,7 @@ class Profile extends Component {
             <Route exact path={path} component={Wishlist}/>
             <Route exact path={path + '/purchases'} component={MyPurchases}/>
           </Switch>
-
         </div>
-
 
     )
   }
@@ -32,7 +30,8 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userReducer
+    userState: state.userReducer,
+    wishlist: state.wishListReducer
   }
 };
 
