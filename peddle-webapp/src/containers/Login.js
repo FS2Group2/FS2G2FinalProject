@@ -146,7 +146,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  userState: state.userReducer
+  userState: state.userReducer,
+  wishlist: state.wishListReducer
 });
 
 const mapDispatchToProps = dispatch => {
