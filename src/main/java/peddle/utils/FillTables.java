@@ -15,15 +15,17 @@ import peddle.entities.Role;
 import peddle.entities.Transfer;
 import peddle.entities.TransportType;
 import peddle.entities.User;
+import peddle.entities.Category;
 
 import peddle.repository.AccommodationRepository;
 import peddle.repository.CityRepository;
-import peddle.repository.PurchaseRepository;
-import peddle.repository.EventRepository;
 import peddle.repository.RoleRepository;
-import peddle.repository.TransferRepository;
+import peddle.repository.EventRepository;
 import peddle.repository.TransportTypeRepository;
+import peddle.repository.TransferRepository;
 import peddle.repository.UserRepository;
+import peddle.repository.PurchaseRepository;
+import peddle.repository.CategoryRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -60,6 +62,9 @@ public class FillTables {
 
   @Autowired
   private PurchaseRepository purchaseRepository;
+
+  @Autowired
+  private CategoryRepository categoryRepository;
 
   private class Hotel {
     private String name;
@@ -176,6 +181,18 @@ public class FillTables {
         Arrays.asList("Fly", "Train", "Bus")
                 .forEach(transport ->  transportTypeRepository.save(new TransportType(transport)));
         System.out.println("Added data to TransportType table");
+      }
+    };
+  }
+
+  @Bean
+  public CommandLineRunner addCategoryType() {
+    return new CommandLineRunner() {
+      @Override
+      public void run(String... args) throws Exception {
+        Arrays.asList("Music", "Art", "Sports", "Science")
+                .forEach(category -> categoryRepository.save(new Category(category)));
+        System.out.println("Added  data to Category table");
       }
     };
   }

@@ -35,6 +35,10 @@ public class Event {
   @JoinColumn(name = "e_location")
   private City city;
 
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "e_category")
+  private Category category;
+
   @Column(name = "e_date")
   private Date date;
 
