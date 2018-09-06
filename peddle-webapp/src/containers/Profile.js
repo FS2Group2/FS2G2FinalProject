@@ -5,6 +5,7 @@ import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 import {loadPurchaceList} from "../actions/purchaceActions";
+import dataMap from'../constants/ApiSettings'
 
 class Profile extends Component {
     loadPurchaceList(userId) {
@@ -23,7 +24,7 @@ class Profile extends Component {
                     this.props.loadPurchaceListToStore(result)
                 })
     }
-    
+
     render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
