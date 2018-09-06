@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -147,7 +146,6 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   userState: state.userReducer,
-  wishlist: state.wishListReducer
 });
 
 const mapDispatchToProps = dispatch => {

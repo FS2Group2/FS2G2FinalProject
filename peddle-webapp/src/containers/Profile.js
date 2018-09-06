@@ -50,7 +50,8 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     userState: state.userReducer,
-    purchace: state.purchaceReducer,
+    purchase: state.purchaceReducer,
+    wishlist: state.wishListReducer
   }
 };
 const mapDispatchToProps = dispatch => {
