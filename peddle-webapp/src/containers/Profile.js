@@ -4,7 +4,6 @@ import connect from "react-redux/es/connect/connect";
 import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
-import dataMap from "../constants/ApiSettings";
 import {loadPurchaceList} from "../actions/purchaceActions";
 
 class Profile extends Component {
