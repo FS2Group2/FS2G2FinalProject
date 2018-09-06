@@ -5,7 +5,7 @@ import dataMap from "../constants/ApiSettings";
 import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
-import {loadPurchaceList} from "../actions/purchaceActions";
+
 
 class Login extends Component {
   constructor(props) {

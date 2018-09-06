@@ -8,23 +8,6 @@ import dataMap from "../constants/ApiSettings";
 import {loadPurchaceList} from "../actions/purchaceActions";
 
 class Profile extends Component {
-    loadPurchaceList(userId) {
-        let header = new Headers();
-        header.append("Content-Type", "application/JSON");
-        let reqParam = {
-            method: 'GET',
-            headers: header
-        };
-        const url = dataMap.purchace + userId;
-        console.log('request params:' + JSON.stringify(reqParam));
-        fetch(url, reqParam)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.props.loadPurchaceListToStore(result)
-                })
-    }
-
     render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
