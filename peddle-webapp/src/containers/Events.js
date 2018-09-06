@@ -153,7 +153,7 @@ class Events extends Component {
 
 
   render() {
-    const {error, isLoaded, cities, events, page} = this.state;
+    const {error, isLoaded, cities, events} = this.state;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
@@ -161,7 +161,7 @@ class Events extends Component {
     } else {
       return (
           <div>
-            <h2 className='events-header'>Current events</h2>
+            <h2 className='events-header'>upcoming events in Ukraine</h2>
             <div className='events-page'>
               <div className='filters-container'>
                 <EventFilters
@@ -183,7 +183,7 @@ class Events extends Component {
                        onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
                 <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
                        disabled={!this.state.events[this.state.pageSize-1]}/>
-                <label className='page-num'> Page {page + 1}</label>
+                {/*<label className='page-num'> Page {page + 1}</label>*/}
               </div>
 
             </div>
