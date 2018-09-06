@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
 
+import peddle.configuration.ErrorConstants;
 import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
 import peddle.dto.EventFullDtoRs;
@@ -68,7 +69,7 @@ public class EventServiceImpl implements EventService {
                 pageRequest);
       }
     } catch (ParseException e) {
-      throw new BadRequestException("Bad date in request");
+      throw new BadRequestException(ErrorConstants.ERR_DATA_DOES_NOT_EXIST);
     }
 
     List<EventDtoRs> eventsDtoRs = events.stream()
