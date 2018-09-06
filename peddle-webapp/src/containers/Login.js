@@ -18,7 +18,6 @@ class Login extends Component {
       password: '',
       userInf: '',
       wishlist: [],
-      purchace:[],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -106,22 +105,6 @@ class Login extends Component {
               this.props.loadWishListToStore(result)
             })
   }
-    loadPurchaceList(userId) {
-        let header = new Headers();
-        header.append("Content-Type", "application/JSON");
-        let reqParam = {
-            method: 'GET',
-            headers: header
-        };
-        const url = dataMap.purchace + userId;
-        console.log('request params:' + JSON.stringify(reqParam));
-        fetch(url, reqParam)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.props.loadPurchaceListToStore(result)
-                })
-    }
 
   render() {
     const {username, password, submitted, userInf} = this.state;
@@ -176,9 +159,6 @@ const mapDispatchToProps = dispatch => {
     },
     loadWishListToStore: data => {
       dispatch(loadWishList(data))
-    },
-    loadPurchaceListToStore: data => {
-      dispatch(loadPurchaceList(data))
     }
 
   }

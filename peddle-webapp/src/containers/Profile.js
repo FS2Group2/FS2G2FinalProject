@@ -4,9 +4,30 @@ import connect from "react-redux/es/connect/connect";
 import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
+import dataMap from "../constants/ApiSettings";
+import {changeUser, setLoggedIn} from "../actions/userActions";
+import {loadWishList} from "../actions/wishListActions";
+import {loadPurchaceList} from "../actions/purchaceActions";
 
 class Profile extends Component {
-  render() {
+    loadPurchaceList(userId) {
+        let header = new Headers();
+        header.append("Content-Type", "application/JSON");
+        let reqParam = {
+            method: 'GET',
+            headers: header
+        };
+        const url = dataMap.purchace + userId;
+        console.log('request params:' + JSON.stringify(reqParam));
+        fetch(url, reqParam)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.props.loadPurchaceListToStore(result)
+                })
+    }
+
+    render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
     return (
@@ -35,5 +56,13 @@ const mapStateToProps = (state) => {
     purchace: state.purchaceReducer,
   }
 };
+const mapDispatchToProps = dispatch => {
+    return {
+        loadPurchaseListToStore: data => {
+            dispatch(loadPurchaceList(data))
+        }
 
-export default connect(mapStateToProps)(Profile);
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps())(Profile);
