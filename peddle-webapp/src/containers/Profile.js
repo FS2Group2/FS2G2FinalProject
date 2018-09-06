@@ -5,8 +5,6 @@ import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 import dataMap from "../constants/ApiSettings";
-import {changeUser, setLoggedIn} from "../actions/userActions";
-import {loadWishList} from "../actions/wishListActions";
 import {loadPurchaceList} from "../actions/purchaceActions";
 
 class Profile extends Component {
@@ -52,7 +50,6 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     userState: state.userReducer,
-    wishlist: state.wishListReducer,
     purchace: state.purchaceReducer,
   }
 };
