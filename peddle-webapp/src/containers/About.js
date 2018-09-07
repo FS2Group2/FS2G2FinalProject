@@ -16,10 +16,4 @@ class About extends Component{
   }
 }
 
-const mapStateToProps = (state) => {
-  return{
-    EventsState: state.eventReducer
-  }
-};
-
-export default connect(mapStateToProps)(About);
+export default About;

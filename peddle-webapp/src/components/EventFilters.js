@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
 
 class EventFilters extends Component {
   render() {
-    const {updateMyCity, setDateFrom, setDateTo, doFilter, resetFilter} = this.props;
+    const {cities, updateMyCity, setDateFrom, setDateTo, doFilter, resetFilter} = this.props;
     const todayDate = new Date(Date.now());
     let todayToStr = todayDate.getFullYear() + '-' +
         ('0' + (todayDate.getMonth() + 1)).slice(-2) + '-' + ('0' + todayDate.getDate()).slice(-2);
-
     return (
         <div>
           <form id='filter-form'>
@@ -14,7 +14,7 @@ class EventFilters extends Component {
             <select id='sc' className='filter-input' name="cityFilter"
                     onChange={() => updateMyCity(document.getElementById('sc').valueOf().value)}>
               <option selected value=''>Select city</option>
-              {this.props.cities.map(c => <option value={c.name}>{c.name}</option>)}
+              {cities[0] && cities.map(c => <option value={c.name}>{c.name}</option>)}
             </select>
 
             <p className='filter-label'>Date from:</p>
@@ -36,4 +36,11 @@ class EventFilters extends Component {
   }
 }
 
-export default EventFilters;
+const mapStateToProps = (state) => {
+  return {
+    cities: state.fillListsReducer
+  }
+};
+
+
+export default connect(mapStateToProps)(EventFilters);
