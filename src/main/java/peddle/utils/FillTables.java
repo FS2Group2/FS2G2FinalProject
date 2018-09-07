@@ -99,27 +99,27 @@ public class FillTables {
     evetns.add(new EventDescription("AFTER-HEDONISM",
             "photo01.jpg",
             "The final event of the Hedonism Festival - the After-Hedonism party.",
-            8,250));
+            8, 250));
 
     evetns.add(new EventDescription("KORCHFEST",
             "photo02.jpg",
             "Will host a festival-exhibition of automotive subcultures Korchfest.",
-            12,120));
+            12, 120));
 
     evetns.add(new EventDescription("METHODS OF UPBRINGING SMALL BURIALS",
             "photo03.jpg",
             "History, after which you will rethink the importance of family relationships.",
-            5,400));
+            5, 400));
 
     evetns.add(new EventDescription("NGRID ARTHUR BAND",
             "photo04.jpg",
             "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
-            4,2500));
+            4, 2500));
 
     evetns.add(new EventDescription("POWER OF UKRAINE",
             "photo05.jpg",
             "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening! ",
-            24,250));
+            24, 250));
     return evetns;
   }
 
@@ -153,7 +153,7 @@ public class FillTables {
       public void run(String... args) throws Exception {
         Arrays.asList("ADMIN", "CUSTOMER", "EVENTS_SELLER",
                 "TRANSFERS_SELLER", "ACCOMMODATIONS_SELLER")
-                .forEach(role ->  roleRepository.save(new Role(role)));
+                .forEach(role -> roleRepository.save(new Role(role)));
         System.out.println("Added data to Role table");
       }
     };
@@ -167,7 +167,7 @@ public class FillTables {
         Arrays.asList("Kyiv", "Lviv", "Dnipro", "Kharkiv", "Odessa",
                 "Ivano-Frankivsk", "Chernivci", "Mikolayv", "Kriviy Rig", "Kherson",
                 "Giromyr", "Chernigiv", "Uman")
-                .forEach(city ->  cityRepository.save(new City(city)));
+                .forEach(city -> cityRepository.save(new City(city)));
         System.out.println("Added data to City table");
       }
     };
@@ -179,7 +179,7 @@ public class FillTables {
       @Override
       public void run(String... args) throws Exception {
         Arrays.asList("Fly", "Train", "Bus")
-                .forEach(transport ->  transportTypeRepository.save(new TransportType(transport)));
+                .forEach(transport -> transportTypeRepository.save(new TransportType(transport)));
         System.out.println("Added data to TransportType table");
       }
     };
@@ -190,8 +190,19 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        Arrays.asList("Music", "Art", "Sports", "Science")
-                .forEach(category -> categoryRepository.save(new Category(category)));
+        List<Category> categories = new ArrayList<>();
+
+        categories.add(new Category("Sports", "sports.jpg"));
+        categories.add(new Category("Festivals", "festivals.jpg"));
+        categories.add(new Category("Concerts", "concerts.jpg"));
+        categories.add(new Category("Theatre", "theatre.jpg"));
+        categories.add(new Category("Exhibitions", "exhibitions.jpg"));
+        categories.add(new Category("Industrial Exhibitions", "industrialExhibitions.jpg"));
+        categories.add(new Category("Cultural Exhibitions", "culturalExhibitions.jpg"));
+        for (int i = 0; i < categories.size(); i++) {
+          categoryRepository.save(new Category(categories.get(i).getName(),
+                  categories.get(i).getPhoto()));
+        }
         System.out.println("Added  data to Category table");
       }
     };
@@ -204,7 +215,7 @@ public class FillTables {
       @Transactional
       public void run(String... args) throws Exception {
         List<City> cities = new ArrayList<>();
-        cityRepository.findAll().forEach(city -> cities.add(city) );
+        cityRepository.findAll().forEach(city -> cities.add(city));
 
         List<Hotel> hotels = new ArrayList<>();
         hotels.add(new Hotel("Hilton", 630, 24));
@@ -234,7 +245,11 @@ public class FillTables {
       @Override
       public void run(String... args) throws Exception {
         List<City> cities = new ArrayList<>();
-        cityRepository.findAll().forEach(city -> cities.add(city) );
+        cityRepository.findAll().forEach(city -> cities.add(city));
+
+        List<Category> categories = new ArrayList<>();
+        categoryRepository.findAll().forEach(category -> categories.add(category));
+
         List<EventDescription> events = generateEvents();
 
         int maxEvents = events.size();
@@ -243,7 +258,8 @@ public class FillTables {
         for (int i = 0; i < cities.size(); i++) {
           int n = (i % maxEvents) + 1;
           for (int j = 0; j < n; j++) {
-            eventRepository.save(new Event(events.get(j).name, cities.get(i), currentDate,
+            eventRepository.save(new Event(events.get(j).name, cities.get(i),
+                    categories.get(j), currentDate,
                     0L, events.get(j).duration,
                     new EventExtra(events.get(j).photo, events.get(j).description),
                     events.get(j).price));
@@ -264,14 +280,14 @@ public class FillTables {
         List<TransportType> transportTypes = new ArrayList<>();
         transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
         List<City> cities = new ArrayList<>();
-        cityRepository.findAll().forEach(city -> cities.add(city) );
+        cityRepository.findAll().forEach(city -> cities.add(city));
         int numberOfTranspotr = 2;
         for (int i = 0; i < cities.size(); i++) {
           for (int j = i + 1; j < cities.size(); j++) {
             for (int k = 0; k < transportTypes.size(); k++) {
               Date currentDate = getCurrentDate();
               currentDate = addDays(currentDate, -2);
-              for (int l = 0; l < DaysSchedule ; l++) {
+              for (int l = 0; l < DaysSchedule; l++) {
                 int hours = (int) (Math.random() * 23);
                 int duration = (int) (Math.random() * 12);
 
@@ -307,20 +323,20 @@ public class FillTables {
         cityRepository.findAll().forEach(city -> citys.add(city));
 
         userRepository.save(new User("Alex",
-            "First name Alex",
-            "Last name Alex",
-            "alex@gmail.com","pwdAlex",
-             citys.get(0), roles.get(1),
-             new Profile("New Vasiyki","userphoto01.jpg","Alex info"),
-             new ArrayList<>(), new ArrayList<>()));
+                "First name Alex",
+                "Last name Alex",
+                "alex@gmail.com", "pwdAlex",
+                citys.get(0), roles.get(1),
+                new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
+                new ArrayList<>(), new ArrayList<>()));
 
         userRepository.save(new User("Jon",
-             "First name Jon",
-             "Last name Jon",
-             "jon@gmail.com","pwdJon",
-             citys.get(2), roles.get(1),
-             new Profile("New Vasiyki 2","userphoto02.jpg","Jon info"),
-             new ArrayList<>(), new ArrayList<>()));
+                "First name Jon",
+                "Last name Jon",
+                "jon@gmail.com", "pwdJon",
+                citys.get(2), roles.get(1),
+                new Profile("New Vasiyki 2", "userphoto02.jpg", "Jon info"),
+                new ArrayList<>(), new ArrayList<>()));
 
         System.out.println("Added users to User table");
       }
@@ -340,7 +356,7 @@ public class FillTables {
         List<Transfer> transfers = new ArrayList<>();
         transferRepository.findAll().forEach(transfer -> transfers.add(transfer));
         List<Accommodation> accommodations = new ArrayList<>();
-        accommodationRepository.findAll().forEach(accommodation -> accommodations.add(accommodation) );
+        accommodationRepository.findAll().forEach(accommodation -> accommodations.add(accommodation));
 
         User user1 = users.get(0);
         List<Purchase> purchases = user1.getPurchases();
@@ -349,7 +365,7 @@ public class FillTables {
                 transfers.get(0), transfers.get(1),
                 accommodations.get(1)));
 
-        purchases.add(new Purchase( events.get(1),
+        purchases.add(new Purchase(events.get(1),
                 transfers.get(2), transfers.get(1),
                 accommodations.get(2)));
 

@@ -63,9 +63,11 @@ public class Event {
 
   public Event(){}
 
-  public Event(String name, City city, Date date, Long owner, int duration, EventExtra eventExtra, int price) {
+  public Event(String name, City city, Category category, Date date, Long owner,
+               int duration, EventExtra eventExtra, int price) {
     this.name = name;
     this.city = city;
+    this.category = category;
     this.date = date;
     this.owner = owner;
     this.duration = duration;

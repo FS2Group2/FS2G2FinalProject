@@ -24,8 +24,11 @@ public class Category {
   @Column(name = "cat_image")
   private String photo;
 
-  public Category(String name) {
+  public Category(){}
+
+  public Category(String name, String photo) {
     this.name = name;
+    this.photo = photo;
   }
 
 }
