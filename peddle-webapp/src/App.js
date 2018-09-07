@@ -10,6 +10,7 @@ import EventPurchasePage from "./containers/EventPurchasePage";
 import PageNotFound from "./containers/PageNotFound";
 import AppFooter from "./containers/AppFooter";
 import RegisterPage from "./containers/RegisterPage"
+import Categories from "./containers/Categories";
 
 class App extends Component {
   render() {
@@ -19,7 +20,8 @@ class App extends Component {
             <div>
               <MainMenu/>
               <Switch>
-                <Route exact path='/' component={Events}/>
+                <Route exact path='/events/:categoryId' component={Events}/>
+                <Route exact path='/' component={Categories}/>
                 <Route exact path='/about' component={About}/>
                 <Route path='/profile' component={Profile}/>
                 <Route exact path='/login' component={Login}/>

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
+import peddle.configuration.ErrorConstants;
 import peddle.dto.TransferDtoRs;
 import peddle.dto.TransferDtoRq;
 import peddle.entities.Transfer;
@@ -54,7 +55,7 @@ public class TransferServiceImpl implements TransferService {
               transferDtoRq.getDateFromConverted(),
               transferDtoRq.getDateToConverted());
     } catch (ParseException e) {
-      throw new BadRequestException("Bad date in request");
+      throw new BadRequestException(ErrorConstants.ERR_DATA_DOES_NOT_EXIST);
     }
 
     List<TransferDtoRs> transfersDto = transfers.stream()
