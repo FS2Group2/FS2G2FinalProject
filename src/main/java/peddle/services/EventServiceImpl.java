@@ -12,7 +12,9 @@ import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
 import peddle.dto.EventFullDtoRs;
 
+import peddle.entities.Category;
 import peddle.entities.Event;
+import peddle.repository.CategoryRepository;
 import peddle.repository.EventRepository;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class EventServiceImpl implements EventService {
 
   @Autowired
   private EventRepository eventRepository;
+
+  @Autowired
+  CategoryRepository categoryRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -82,4 +87,14 @@ public class EventServiceImpl implements EventService {
   public EventFullDtoRs getById(Long id) {
     return modelMapper.map(eventRepository.findEventById(id), EventFullDtoRs.class);
   }
+
+  @Override
+  public List<EventDtoRs> getEventsByCategoryId(Long categoryId) {
+    List<EventDtoRs> eventDtoRs = new ArrayList<>();
+    Category category = categoryRepository.findById(categoryId).orElseThrow(() ->
+            new BadRequestException(ErrorConstants.ERR_CATEGORY_NOT_FOUND));
+    eventRepository.findEventByCategory(category).forEach(event -> eventDtoRs.add(modelMapper.map(event, EventDtoRs.class)));
+    return eventDtoRs;
+  }
+
 }
