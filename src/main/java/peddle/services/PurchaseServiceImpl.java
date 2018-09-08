@@ -41,7 +41,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Override
   public List<PurchaseDtoRs> getAllPurchase(Long id) {
-    User user = userRepository.findById(id).orElseThrow(() -> new BadRequestException("No such user"));
+    User user = userRepository.findById(id).orElseThrow(() ->
+            new BadRequestException(ErrorConstants.ERR_USER_NOT_FOUND));
     List<Purchase> purchases = user.getPurchases();
     List<PurchaseDtoRs> purchasesDtoRs = new ArrayList<>();
     purchases.forEach(purchase -> {
@@ -61,13 +62,13 @@ public class PurchaseServiceImpl implements PurchaseService {
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
     Transfer transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
-            .orElseThrow(() -> new BadRequestException("not found"));
+            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
 
     Transfer transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
-            .orElseThrow(() -> new BadRequestException("not found"));
+            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
 
     Accommodation accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
-            .orElseThrow(() -> new BadRequestException("error!!"));
+            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_ACCOMMODATION_NOT_FOUND));
 
     Event event = eventRepository.findEventById(purchaseAddDto.getEventId());
 

@@ -74,7 +74,7 @@ public class EventServiceImpl implements EventService {
                 pageRequest);
       }
     } catch (ParseException e) {
-      throw new BadRequestException("Bad date in request");
+      throw new BadRequestException(ErrorConstants.ERR_DATA_DOES_NOT_EXIST);
     }
 
     List<EventDtoRs> eventsDtoRs = events.stream()
