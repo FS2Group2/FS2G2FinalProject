@@ -10,7 +10,9 @@ class Category extends Component {
           <div className="category-img-container">
             <img src={categoryImgPath + category.categoryImg} alt="" className="category-img"/>
           </div>
-
+<p className="events-count">
+  {category.count + ' events'}
+</p>
         </div>
     )
   }
