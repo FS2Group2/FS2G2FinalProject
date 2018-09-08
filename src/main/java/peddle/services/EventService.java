@@ -17,4 +17,6 @@ public interface EventService {
 
   EventFullDtoRs getById(Long id);
 
+  List<EventDtoRs> getEventsByCategoryId(Long categoryId);
+
 }
