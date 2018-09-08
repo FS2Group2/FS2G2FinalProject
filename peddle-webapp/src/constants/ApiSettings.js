@@ -16,7 +16,7 @@ const dataMap = {
   accommodations: dataPath + '/accommodations/city/',
   transfer: dataPath + '/transfer',
   wishlist: dataPath + '/wishlist/user-events/',
-  purchace: dataPath + '/purchase/'
+  purchace: dataPath + '/purchase/all/'
 };
 
 export default dataMap;

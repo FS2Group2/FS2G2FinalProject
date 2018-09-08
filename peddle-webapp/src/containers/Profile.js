@@ -4,31 +4,18 @@ import connect from "react-redux/es/connect/connect";
 import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
-import {loadPurchaceList} from "../actions/purchaceActions";
-import dataMap from'../constants/ApiSettings'
 
 class Profile extends Component {
-    loadPurchaceList(userId) {
-        let header = new Headers();
-        header.append("Content-Type", "application/JSON");
-        let reqParam = {
-            method: 'GET',
-            headers: header
-        };
-        const url = dataMap.purchace + userId;
-        console.log('request params:' + JSON.stringify(reqParam));
-        fetch(url, reqParam)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.props.loadPurchaceListToStore(result)
-                })
-    }
 
     render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
     return (
+        !user.id?
+            <div>
+            <p>Please, log in!</p>
+            </div>
+            :
         <div>
           <ProfileDetails user={user}/>
           <div className="lists-container">
@@ -49,18 +36,8 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userState: state.userReducer,
-    purchase: state.purchaceReducer,
-    wishlist: state.wishListReducer
+    userState: state.userReducer
   }
 };
-const mapDispatchToProps = dispatch => {
-    return {
-        loadPurchaseListToStore: data => {
-            dispatch(loadPurchaceList(data))
-        }
 
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps())(Profile);
+export default connect(mapStateToProps)(Profile);

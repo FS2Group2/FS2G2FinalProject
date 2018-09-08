@@ -8,7 +8,7 @@ const reducer = combineReducers({
   eventReducer,
   userReducer,
   wishListReducer,
-  purchaseReducer,
+  purchaseReducer
 });
 
 export default reducer;

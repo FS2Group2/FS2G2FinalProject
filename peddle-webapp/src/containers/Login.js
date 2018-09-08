@@ -16,7 +16,7 @@ class Login extends Component {
       username: '',
       password: '',
       userInf: '',
-      wishlist: [],
+      wishlist: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -145,7 +145,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  userState: state.userReducer,
+  userState: state.userReducer
 });
 
 const mapDispatchToProps = dispatch => {

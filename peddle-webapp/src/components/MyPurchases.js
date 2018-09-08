@@ -1,17 +1,58 @@
 import React, {Component} from 'react';
 import '../css/profile.css'
 import "../constants/ApiSettings.js"
-class MyPurchases extends Component{
+import {connect} from "react-redux";
+import {loadPurchaceList} from "../actions/purchaceActions";
+import dataMap from "../constants/ApiSettings";
+
+class MyPurchases extends Component {
+
+    loadPurchaseList() {
+        let header = new Headers();
+        header.append("Content-Type", "application/JSON");
+        let reqParam = {
+            method: 'GET',
+            headers: header
+        };
+        const url = dataMap.purchace + this.props.userState.currentUser.id;
+        console.log('request params:' + JSON.stringify(reqParam));
+        fetch(url, reqParam)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.props.loadPurchaseListToStore(result)
+                })
+    }
+
+    componentDidMount(){
+        this.loadPurchaseList();
+    }
+
     render() {
         return (
             <ul>
-                    <li>purchace test</li>
+                <li>My purchases:</li>
             </ul>
-
         );
+    }
+
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        userState: state.userReducer,
+        purchase: state.purchaseReducer
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadPurchaseListToStore: data => {
+            dispatch(loadPurchaceList(data))
+        }
 
     }
-    ///******
-}
-///******
-export default MyPurchases;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPurchases);
