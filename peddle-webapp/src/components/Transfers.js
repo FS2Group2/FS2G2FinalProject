@@ -14,7 +14,7 @@ class Transfers extends Component {
     return (
         <div>
           <p className='container-header-p'>Transfer from {cityFrom} to {cityTo}</p>
-          {transfers.map(t =>
+          {transfers[0] && transfers.map(t =>
               <div className='transfer-item'>
                 <div className='transportTypeName'>
                   <p>

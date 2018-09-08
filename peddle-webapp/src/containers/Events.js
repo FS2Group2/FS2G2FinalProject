@@ -7,6 +7,8 @@ import PageNotFound from "./PageNotFound";
 import dataMap from '../constants/ApiSettings';
 import Preloader from "./Preloader";
 import {connect} from "react-redux";
+import {chooseEvent} from "../actions/eventActions";
+import {fillCitiesList} from "../actions/fillListsActions";
 
 class Events extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class Events extends Component {
   }
 
   setCity = (v) => {
-    this.setState({targetCity: v}, ()=>{
+    this.setState({targetCity: v}, () => {
       this.doFilter()
     })
   };
@@ -78,10 +80,11 @@ class Events extends Component {
         .then(res => res.json())
         .then(
             (result) => {
-              this.setState({
-                isLoaded: true,
-                cities: result
-              })
+              this.props.getAllCities(result)
+              // this.setState({
+              //   isLoaded: true,
+              //   cities: result
+              // })
             },
             (error) => {
               this.setState({
@@ -153,7 +156,8 @@ class Events extends Component {
 
 
   render() {
-    const {error, isLoaded, cities, events} = this.state;
+    const {error, isLoaded, events} = this.state;
+    const {setChosenEvent} = this.props;
     if (error) {
       return <PageNotFound/>
     } else if (!isLoaded) {
@@ -165,7 +169,6 @@ class Events extends Component {
             <div className='events-page'>
               <div className='filters-container'>
                 <EventFilters
-                    cities={cities}
                     updateMyCity={this.setCity.bind(this)}
                     setDateFrom={this.setDateStart.bind(this)}
                     setDateTo={this.setDateFin.bind(this)}
@@ -175,14 +178,14 @@ class Events extends Component {
               </div>
               <div className='events-container'>
                 {events[0] && events.map(event =>
-                    <Link key={event.id} to={'/event/' + event.id}>
+                    <Link key={event.id} to={'/event/' + event.id} onClick={() => setChosenEvent(event.id)}>
                       <Event theEvent={event}/>
                     </Link>)}
 
                 <input type='button' className='nav-btn previous' value='previous'
                        onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
                 <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
-                       disabled={!this.state.events[this.state.pageSize-1]}/>
+                       disabled={!this.state.events[this.state.pageSize - 1]}/>
                 {/*<label className='page-num'> Page {page + 1}</label>*/}
               </div>
 
@@ -195,8 +198,20 @@ class Events extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    EventsState: state.eventReducer
+    eventsState: state.eventReducer,
+    // allCities: state.fillListsReducer
   }
 };
 
-export default connect(mapStateToProps)(Events);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setChosenEvent: (userId) => {
+      dispatch(chooseEvent(userId))
+    },
+    getAllCities: (citiesList) => {
+      dispatch(fillCitiesList(citiesList))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Events);

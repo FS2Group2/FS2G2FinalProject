@@ -11,7 +11,7 @@ class Categories extends Component {
       {id: 3, name: "concerts", count: 4, categoryImg: "concerts.jpg"},
       {id: 4, name: "theatre", count: 4, categoryImg: "theatre.jpg"},
       {id: 5, name: "Industrial Exhibitions", count: 7, categoryImg: "industrialExhibitions.jpg"},
-      {id: 6, name: "Cultural Exhibitions", count: 2, categoryImg: "culturalExhibitions.jpg"}
+      {id: 6, name: "Art Exhibitions", count: 2, categoryImg: "culturalExhibitions.jpg"}
     ];
 
     return (
@@ -19,7 +19,7 @@ class Categories extends Component {
           <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
           <div className='categories-container'>
             <Link className='link-to-all-events' to='/events/all'> See all events </Link>
-            {categories.map(cat => <Link className='link' to={'/events/' + cat.id}><Category category={cat}/></Link>)}
+            {categories.map(cat => <Link key={cat.id} className='link' to={'/events/' + cat.id}><Category category={cat}/></Link>)}
           </div>
         </div>
 
