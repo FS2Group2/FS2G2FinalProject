@@ -6,10 +6,16 @@ import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 
 class Profile extends Component {
-  render() {
+
+    render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
     return (
+        !user.id?
+            <div>
+            <p>Please, log in!</p>
+            </div>
+            :
         <div>
           <ProfileDetails user={user}/>
           <div className="lists-container">
@@ -30,8 +36,7 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userState: state.userReducer,
-    wishlist: state.wishListReducer
+    userState: state.userReducer
   }
 };
 

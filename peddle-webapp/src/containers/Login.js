@@ -105,7 +105,6 @@ class Login extends Component {
             })
   }
 
-
   render() {
     const {username, password, submitted, userInf} = this.state;
     const {userState} = this.props;
@@ -160,6 +159,7 @@ const mapDispatchToProps = dispatch => {
     loadWishListToStore: data => {
       dispatch(loadWishList(data))
     }
+
   }
 };
 
