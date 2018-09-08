@@ -6,7 +6,7 @@ import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import PurchaseSummary from "../components/PurchaseSummary";
 import {connect} from "react-redux";
-import {setCityForTransferToEvent, setCityFotTransferToEvent} from "../actions/transferActions";
+import {setCityForTransferToEvent} from "../actions/transferActions";
 
 
 class EventPurchasePage extends Component {
@@ -173,7 +173,7 @@ class EventPurchasePage extends Component {
 
   setTransferCity = (v) => {
     // this.setState({transferCity: v})
-    this.props.setCityForTransferToEvent(v),
+    this.props.setCityForTransferToEvent(v);
     this.fetchTransferToEvent(
         this.dateBeforeEvent(1),
         this.dateBeforeEvent(0)
@@ -244,6 +244,6 @@ const mapDispatcToProps = (dispatch) => {
   return {
     setCityForTransferToEvent: (city) => dispatch(setCityForTransferToEvent(city))
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatcToProps)(EventPurchasePage);
