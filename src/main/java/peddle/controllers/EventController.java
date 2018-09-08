@@ -15,6 +15,7 @@ import peddle.dto.EventDtoRs;
 import peddle.dto.EventDtoRq;
 import peddle.dto.EventFullDtoRs;
 import peddle.dto.PageDtoRq;
+import peddle.services.CategoryService;
 import peddle.services.EventServiceImpl;
 
 import java.text.ParseException;
@@ -27,7 +28,8 @@ public class EventController {
   @Autowired
   private EventServiceImpl eventService;
 
-  @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @RequestMapping(path = "/all", method = RequestMethod.GET,
+          produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
   public List<EventDtoRs> getAllEvents() {
     List<EventDtoRs> events = eventService.getAllByPage(0, 12);
@@ -54,4 +56,11 @@ public class EventController {
     EventFullDtoRs event = eventService.getById(id);
     return event;
   }
+
+  @GetMapping(path = "/bycategory/{id}")
+  @ResponseBody
+  public List<EventDtoRs> getEventsByCategoryId(@PathVariable("id") Long id) {
+    return eventService.getEventsByCategoryId(id);
+  }
+
 }

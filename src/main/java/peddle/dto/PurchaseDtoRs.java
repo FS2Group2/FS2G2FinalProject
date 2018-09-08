@@ -13,6 +13,8 @@ public class PurchaseDtoRs {
   private String eventCityName;
   private Date eventDate;
   private int eventPrice;
+  private Long categoryId;
+  private String categoryName;
 
   private Long transfertoId;
   private String transfertoTransporttypeName;

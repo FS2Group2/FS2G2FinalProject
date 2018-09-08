@@ -35,6 +35,10 @@ public class Event {
   @JoinColumn(name = "e_location")
   private City city;
 
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "e_category")
+  private Category category;
+
   @Column(name = "e_date")
   private Date date;
 
@@ -59,9 +63,11 @@ public class Event {
 
   public Event(){}
 
-  public Event(String name, City city, Date date, Long owner, int duration, EventExtra eventExtra, int price) {
+  public Event(String name, City city, Category category, Date date, Long owner,
+               int duration, EventExtra eventExtra, int price) {
     this.name = name;
     this.city = city;
+    this.category = category;
     this.date = date;
     this.owner = owner;
     this.duration = duration;
