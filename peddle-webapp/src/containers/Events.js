@@ -8,7 +8,6 @@ import dataMap from '../constants/ApiSettings';
 import Preloader from "./Preloader";
 import {connect} from "react-redux";
 import {chooseEvent} from "../actions/eventActions";
-import {fillCitiesList} from "../actions/fillListsActions";
 
 class Events extends Component {
   constructor(props) {
@@ -73,50 +72,27 @@ class Events extends Component {
     }
   };
 
-  componentWillMount() {
-    const urlAllCities = dataMap.allCities;
-
-    fetch(urlAllCities)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.props.getAllCities(result)
-              // this.setState({
-              //   isLoaded: true,
-              //   cities: result
-              // })
-            },
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              })
-            }
-        );
-  }
-
   componentDidMount() {
     const urlAllEvents = dataMap.allEvents;
 
     fetch(urlAllEvents)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                events: result
-              })
-            },
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            events: result
+          })
+        },
 
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              })
-            }
-        );
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      );
   };
-
 
   doFilter() {
     let filterHeader = new Headers();
@@ -136,24 +112,23 @@ class Events extends Component {
     const url = dataMap.filterEvents;
     console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                events: result
-              })
-            },
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            events: result
+          })
+        },
 
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              })
-            }
-        );
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      );
   };
-
 
   render() {
     const {error, isLoaded, events} = this.state;
@@ -164,33 +139,33 @@ class Events extends Component {
       return <Preloader/>
     } else {
       return (
-          <div>
-            <h2 className='events-header'>upcoming events in Ukraine</h2>
-            <div className='events-page'>
-              <div className='filters-container'>
-                <EventFilters
-                    updateMyCity={this.setCity.bind(this)}
-                    setDateFrom={this.setDateStart.bind(this)}
-                    setDateTo={this.setDateFin.bind(this)}
-                    doFilter={this.applyFilter.bind(this)}
-                    resetFilter={this.resetFilter.bind(this)}
-                />
-              </div>
-              <div className='events-container'>
-                {events[0] && events.map(event =>
-                    <Link key={event.id} to={'/event/' + event.id} onClick={() => setChosenEvent(event.id)}>
-                      <Event theEvent={event}/>
-                    </Link>)}
-
-                <input type='button' className='nav-btn previous' value='previous'
-                       onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
-                <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
-                       disabled={!this.state.events[this.state.pageSize - 1]}/>
-                {/*<label className='page-num'> Page {page + 1}</label>*/}
-              </div>
-
+        <div>
+          <h2 className='events-header'>upcoming events in Ukraine</h2>
+          <div className='events-page'>
+            <div className='filters-container'>
+              <EventFilters
+                updateMyCity={this.setCity.bind(this)}
+                setDateFrom={this.setDateStart.bind(this)}
+                setDateTo={this.setDateFin.bind(this)}
+                doFilter={this.applyFilter.bind(this)}
+                resetFilter={this.resetFilter.bind(this)}
+              />
             </div>
+            <div className='events-container'>
+              {events[0] && events.map(event =>
+                <Link key={event.id} to={'/event/' + event.id} onClick={() => setChosenEvent(event.id)}>
+                  <Event theEvent={event}/>
+                </Link>)}
+
+              <input type='button' className='nav-btn previous' value='previous'
+                     onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
+              <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
+                     disabled={!this.state.events[this.state.pageSize - 1]}/>
+              {/*<label className='page-num'> Page {page + 1}</label>*/}
+            </div>
+
           </div>
+        </div>
       );
     }
   }
@@ -198,8 +173,7 @@ class Events extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    eventsState: state.eventReducer,
-    // allCities: state.fillListsReducer
+    eventsState: state.eventReducer
   }
 };
 
@@ -207,11 +181,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setChosenEvent: (userId) => {
       dispatch(chooseEvent(userId))
-    },
-    getAllCities: (citiesList) => {
-      dispatch(fillCitiesList(citiesList))
     }
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);

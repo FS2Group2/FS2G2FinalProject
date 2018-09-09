@@ -38,7 +38,7 @@ class EventFilters extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cities: state.fillListsReducer
+    cities: state.fillListsReducer.cities
   }
 };
 

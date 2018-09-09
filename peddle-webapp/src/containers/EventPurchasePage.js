@@ -235,7 +235,7 @@ class EventPurchasePage extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userReducer.currentUser,
-    allCities: state.fillListsReducer,
+    allCities: state.fillListsReducer.cities,
     transferProps: state.transferReducer
   }
 };
