@@ -24,19 +24,33 @@ class MyPurchases extends Component {
                 })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.loadPurchaseList();
     }
 
     render() {
+        const {purchaseState} = this.props;
         return (
             <ul>
-                <li>My purchases:</li>
+                <li>
+                    <p>1</p>
+                </li>
+                <div>
+                    {purchaseState[0] && purchaseState.map(p =>
+                        <div>
+                            <p>{p.eventName}</p>
+                            <p>{p.cityName}</p>
+                            <p>{p.eventDate}</p>
+                            <p>___</p>
+                        </div>
+                    )}
+                </div>
             </ul>
-        );
+        )
+        ///******
     }
-
 }
+
 
 
 const mapStateToProps = (state) => {
