@@ -19,4 +19,6 @@ public interface EventService {
 
   List<EventDtoRs> getEventsByCategoryId(Long categoryId);
 
+  int getNumberOfEventsByCategoryId(Long categoryId);
+
 }
