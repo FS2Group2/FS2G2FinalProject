@@ -1,11 +1,16 @@
-import {FILL_CITIES_LIST} from "../actions/actionsTypes";
+import {FILL_CATEGORIES_LIST, FILL_CITIES_LIST} from "../actions/actionsTypes";
 
-const initialState = [];
+const initialState = {
+  cities: [],
+  categories: []
+};
 
 function fillListsReducer(state = initialState, action) {
   switch (action.type) {
     case FILL_CITIES_LIST:
-      return action.citiesList;
+      return {...state, cities: action.citiesList};
+    case FILL_CATEGORIES_LIST:
+      return {...state, categories: action.categoriesList};
     default:
       return state;
   }

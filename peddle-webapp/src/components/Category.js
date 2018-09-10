@@ -8,10 +8,10 @@ class Category extends Component {
         <div className="category-item">
           <h3 className={'category-name'}>{category.name}</h3>
           <div className="category-img-container">
-            <img src={categoryImgPath + category.categoryImg} alt="" className="category-img"/>
+            <img src={categoryImgPath + category.photo} alt="" className="category-img"/>
           </div>
 <p className="events-count">
-  {category.count + ' events'}
+  {category.count && category.count + ' events'}
 </p>
         </div>
     )
