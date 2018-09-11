@@ -14,10 +14,14 @@ const dataMap = {
   user: dataPath + '/user',
   filterEvents: dataPath + '/events/filter/',
   accommodations: dataPath + '/accommodations/city/',
-  transfer: dataPath + '/transfer'
+  transfer: dataPath + '/transfer',
+  wishlist: dataPath + '/wishlist/user-events/',
+  purchace: dataPath + '/purchase/all/',
+  categoryPath: dataPath + "/categories/all"
 };
 
 export default dataMap;
 
 export const eventImgPath = '/img/';
+export const categoryImgPath = '/img/categories/';
 export const userPhotoPath = '/img/users/';

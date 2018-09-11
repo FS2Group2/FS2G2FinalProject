@@ -6,10 +6,16 @@ import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 
 class Profile extends Component {
-  render() {
-    const user = this.props.currentUser;
+
+    render() {
+    const user = this.props.userState.currentUser;
     const path = this.props.match.path;
     return (
+        !user.id?
+            <div>
+            <p>Please, log in!</p>
+            </div>
+            :
         <div>
           <ProfileDetails user={user}/>
           <div className="lists-container">
@@ -22,9 +28,7 @@ class Profile extends Component {
             <Route exact path={path} component={Wishlist}/>
             <Route exact path={path + '/purchases'} component={MyPurchases}/>
           </Switch>
-
         </div>
-
 
     )
   }
@@ -32,7 +36,7 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userReducer
+    userState: state.userReducer
   }
 };
 

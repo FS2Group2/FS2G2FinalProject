@@ -6,6 +6,7 @@ import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import PurchaseSummary from "../components/PurchaseSummary";
 import {connect} from "react-redux";
+import {setCityForTransferToEvent} from "../actions/transferActions";
 
 
 class EventPurchasePage extends Component {
@@ -22,7 +23,7 @@ class EventPurchasePage extends Component {
       purchasedEvent: {},
       purchasedAccommodation: {},
       purchasedTransferTo: {},
-      purchasedTransferFrom: {}
+      purchasedTransferFrom: {},
     }
   }
 
@@ -114,8 +115,9 @@ class EventPurchasePage extends Component {
 
   fetchTransferToEvent(dateFrom, dateTo) {
     const header = new Headers();
+    let cityFrom = this.props.transferProps.cityTransferToEvent||this.props.currentUser.cityName;
     const query = {
-      cityFrom: this.props.currentUser.cityName,
+      cityFrom: cityFrom,
       cityTo: this.state.event.cityName,
       dateFrom: dateFrom,
       dateTo: dateTo
@@ -157,8 +159,6 @@ class EventPurchasePage extends Component {
       body: JSON.stringify(query)
     };
     const url = dataMap.transfer;
-    // console.log(url);
-    // console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
         .then(res => res.json())
         .then(
@@ -171,31 +171,53 @@ class EventPurchasePage extends Component {
         );
   }
 
+  setTransferCity = (v) => {
+    // this.setState({transferCity: v})
+    this.props.setCityForTransferToEvent(v);
+    this.fetchTransferToEvent(
+        this.dateBeforeEvent(1),
+        this.dateBeforeEvent(0)
+    )
+  };
+
   render() {
-    // debugger
     const eventCity = this.state.event.cityName;
     const userCity = this.props.currentUser.cityName;
-    const {purchasedEvent, purchasedAccommodation, purchasedTransferTo, purchasedTransferFrom} = this.state;
-
+    const {
+      event, purchasedEvent, purchasedAccommodation, transferToEvent, transferFromEvent,
+      accommodations, purchasedTransferTo, purchasedTransferFrom
+    } = this.state;
+    const {allCities, transferProps} = this.props;
     return (
         <Fragment>
           <div className='event-purchase-page'>
             <div className='event-extra-container'>
-              <EventInfo event={this.state.event} add={this.addEventToBasket.bind(this)}/>
+              <EventInfo event={event} add={this.addEventToBasket.bind(this)}/>
             </div>
 
             <div className='accommodation-container'>
-              <Accommodations accommodations={this.state.accommodations} city={eventCity}
+              <Accommodations accommodations={accommodations} city={eventCity}
                               addA={this.addAccommodationToBasket.bind(this)}/>
             </div>
 
+            {/*===> select city for transfer ===>*/}
+
+            <div className="select-transfer-city">
+              <p>Choose city for transfer or log in to use your default city:</p>
+              <select id='transferCity' className='filter-input' name="cityFilter"
+                      onChange={() => this.setTransferCity(document.getElementById('transferCity').valueOf().value)}>
+                <option selected value=''>Select city</option>
+                {allCities[0] && allCities.map(c => <option value={c.name}>{c.name}</option>)}
+              </select>
+            </div>
+
             <div className='transfer-container transfer-to'>
-              <Transfers cityFrom={userCity} cityTo={eventCity} transfers={this.state.transferToEvent}
+              <Transfers cityFrom={transferProps.cityTransferToEvent} cityTo={eventCity} transfers={transferToEvent}
                          addTransfer={this.addTransferToToBasket.bind(this)}/>
             </div>
 
             <div className='transfer-container transfer-from'>
-              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={this.state.transferFromEvent}
+              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={transferFromEvent}
                          addTransfer={this.addTransferFromToBasket.bind(this)}/>
             </div>
 
@@ -212,8 +234,16 @@ class EventPurchasePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userReducer
+    currentUser: state.userReducer.currentUser,
+    allCities: state.fillListsReducer.cities,
+    transferProps: state.transferReducer
   }
 };
 
-export default connect(mapStateToProps)(EventPurchasePage);
+const mapDispatcToProps = (dispatch) => {
+  return {
+    setCityForTransferToEvent: (city) => dispatch(setCityForTransferToEvent(city))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatcToProps)(EventPurchasePage);
