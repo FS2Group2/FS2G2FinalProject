@@ -1,18 +1,15 @@
 package peddle.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import peddle.dto.UserAddDtoRq;
 import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserDtoRs;
 import peddle.dto.UserUpdateDtoRq;
-import peddle.entities.User;
 import peddle.repository.UserRepository;
 import peddle.services.UserServiceImpl;
 
