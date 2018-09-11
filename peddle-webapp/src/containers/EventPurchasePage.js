@@ -6,7 +6,13 @@ import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import PurchaseSummary from "../components/PurchaseSummary";
 import {connect} from "react-redux";
-import {setCityForTransferToEvent} from "../actions/transferActions";
+import {
+  setCityForTransferFromEvent,
+  setCityForTransferToEvent,
+  setDatesForTransferFromEvent,
+  setDatesForTransferToEvent,
+  setEventCity
+} from "../actions/transferActions";
 
 
 class EventPurchasePage extends Component {
@@ -63,31 +69,45 @@ class EventPurchasePage extends Component {
   };
 
   componentDidMount() {
+    const {
+      setEventCity, isLogged, currentUser,
+      setCityForTransferToEvent, setCityForTransferFromEvent,
+      setDatesForTransferToEvent, setDatesForTransferFromEvent
+    } = this.props;
+
     const urlEvent = dataMap.event + this.state.eventId;
 
     fetch(urlEvent)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                event: result
-              })
-            }, this.resultError
-        )
-        .then(() => (this.fetchAccommodations()))
-        .then(() => {
-          this.fetchTransferToEvent(
-              this.dateBeforeEvent(1),
-              this.dateBeforeEvent(0)
-          )
-        })
-        .then(() => {
-          this.fetchTransferFromEvent(
-              this.dateEventEnd(0),
-              this.dateEventEnd(1)
-          )
-        })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            event: result
+          }, () => {
+            setEventCity(result.cityName);
+            if (isLogged) {
+              setCityForTransferToEvent(currentUser.cityName);
+              setCityForTransferFromEvent(currentUser.cityName);
+            }
+            setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
+            setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
+          })
+        }, this.resultError
+      )
+      .then(() => (this.fetchAccommodations()))
+    // .then(() => {
+    //   this.fetchTransferToEvent(
+    //     this.dateBeforeEvent(1),
+    //     this.dateBeforeEvent(0)
+    //   )
+    // })
+    // .then(() => {
+    //   this.fetchTransferFromEvent(
+    //     this.dateEventEnd(0),
+    //     this.dateEventEnd(1)
+    //   )
+    // })
   };
 
   fetchAccommodations() {
@@ -102,132 +122,150 @@ class EventPurchasePage extends Component {
 
     const url = dataMap.accommodations + cityName;
     fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                accommodations: result
-              })
-            }, this.resultError
-        );
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            accommodations: result
+          })
+        }, this.resultError
+      );
   }
 
-  fetchTransferToEvent(dateFrom, dateTo) {
-    const header = new Headers();
-    let cityFrom = this.props.transferProps.cityTransferToEvent||this.props.currentUser.cityName;
-    const query = {
-      cityFrom: cityFrom,
-      cityTo: this.state.event.cityName,
-      dateFrom: dateFrom,
-      dateTo: dateTo
-    };
-    header.append("Content-Type", "application/JSON");
-    let reqParam = {
-      method: 'POST',
-      headers: header,
-      body: JSON.stringify(query)
-    };
+  // fetchTransferToEvent(dateFrom, dateTo) {
+  //   const header = new Headers();
+  //   let cityFrom = this.props.transferProps.cityTransferDepartToEvent || this.props.currentUser.cityName;
+  //   const query = {
+  //     cityFrom: cityFrom,
+  //     cityTo: this.state.event.cityName,
+  //     dateFrom: dateFrom,
+  //     dateTo: dateTo
+  //   };
+  //   header.append("Content-Type", "application/JSON");
+  //   let reqParam = {
+  //     method: 'POST',
+  //     headers: header,
+  //     body: JSON.stringify(query)
+  //   };
+  //
+  //   const url = dataMap.transfer;
+  //   console.log(url);
+  //   console.log('request params:' + JSON.stringify(reqParam));
+  //   fetch(url, reqParam)
+  //     .then(res => res.json())
+  //     .then(
+  //       (result) => {
+  //         this.setState({
+  //           isLoaded: true,
+  //           transferToEvent: result
+  //         })
+  //       }, this.resultError
+  //     )
+  // }
 
-    const url = dataMap.transfer;
-    console.log(url);
-    console.log('request params:' + JSON.stringify(reqParam));
-    fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                transferToEvent: result
-              })
-            }, this.resultError
-        )
-  }
+  // fetchTransferFromEvent(dateFrom, dateTo) {
+  //   const header = new Headers();
+  //   const query = {
+  //     cityTo: this.props.currentUser.cityName,
+  //     cityFrom: this.state.event.cityName,
+  //     dateFrom: dateFrom,
+  //     dateTo: dateTo
+  //   };
+  //   header.append("Content-Type", "application/JSON");
+  //   let reqParam = {
+  //     method: 'POST',
+  //     headers: header,
+  //     body: JSON.stringify(query)
+  //   };
+  //   const url = dataMap.transfer;
+  //   fetch(url, reqParam)
+  //     .then(res => res.json())
+  //     .then(
+  //       (result) => {
+  //         this.setState({
+  //           isLoaded: true,
+  //           transferFromEvent: result
+  //         })
+  //       }, this.resultError
+  //     );
+  // }
 
-  fetchTransferFromEvent(dateFrom, dateTo) {
-    const header = new Headers();
-    const query = {
-      cityTo: this.props.currentUser.cityName,
-      cityFrom: this.state.event.cityName,
-      dateFrom: dateFrom,
-      dateTo: dateTo
-    };
-    header.append("Content-Type", "application/JSON");
-    let reqParam = {
-      method: 'POST',
-      headers: header,
-      body: JSON.stringify(query)
-    };
-    const url = dataMap.transfer;
-    fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                transferFromEvent: result
-              })
-            }, this.resultError
-        );
-  }
-
-  setTransferCity = (v) => {
-    // this.setState({transferCity: v})
-    this.props.setCityForTransferToEvent(v);
-    this.fetchTransferToEvent(
-        this.dateBeforeEvent(1),
-        this.dateBeforeEvent(0)
-    )
-  };
+  setTransferCityTo = (v) => this.props.setCityForTransferToEvent(v);
+  setTransferCityFrom = (v) => this.props.setCityForTransferFromEvent(v);
 
   render() {
     const eventCity = this.state.event.cityName;
-    const userCity = this.props.currentUser.cityName;
     const {
-      event, purchasedEvent, purchasedAccommodation, transferToEvent, transferFromEvent,
+      event, purchasedEvent, purchasedAccommodation,
       accommodations, purchasedTransferTo, purchasedTransferFrom
     } = this.state;
     const {allCities, transferProps} = this.props;
     return (
-        <Fragment>
-          <div className='event-purchase-page'>
-            <div className='event-extra-container'>
-              <EventInfo event={event} add={this.addEventToBasket.bind(this)}/>
-            </div>
-
-            <div className='accommodation-container'>
-              <Accommodations accommodations={accommodations} city={eventCity}
-                              addA={this.addAccommodationToBasket.bind(this)}/>
-            </div>
-
-            {/*===> select city for transfer ===>*/}
-
-            <div className="select-transfer-city">
-              <p>Choose city for transfer or log in to use your default city:</p>
-              <select id='transferCity' className='filter-input' name="cityFilter"
-                      onChange={() => this.setTransferCity(document.getElementById('transferCity').valueOf().value)}>
-                <option selected value=''>Select city</option>
-                {allCities[0] && allCities.map(c => <option value={c.name}>{c.name}</option>)}
-              </select>
-            </div>
-
-            <div className='transfer-container transfer-to'>
-              <Transfers cityFrom={transferProps.cityTransferToEvent} cityTo={eventCity} transfers={transferToEvent}
-                         addTransfer={this.addTransferToToBasket.bind(this)}/>
-            </div>
-
-            <div className='transfer-container transfer-from'>
-              <Transfers cityFrom={eventCity} cityTo={userCity} transfers={transferFromEvent}
-                         addTransfer={this.addTransferFromToBasket.bind(this)}/>
-            </div>
-
-            <div>
-              <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
-                               transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}/>
-            </div>
+      <Fragment>
+        <div className='event-purchase-page'>
+          <div className='event-extra-container'>
+            <EventInfo event={event} add={this.addEventToBasket.bind(this)}/>
           </div>
 
-        </Fragment>
+          <div className='accommodation-container'>
+            <Accommodations accommodations={accommodations} city={eventCity}
+                            addA={this.addAccommodationToBasket.bind(this)}/>
+          </div>
+
+          {/*===> SELECT CITY FOR TRANSFER TO EVENT ===>*/}
+
+          <div className="select-transfer-city">
+            <p>Choose city for transfer or log in to use your default city:</p>
+            <select id='transferCityTo' className='filter-input' name="cityFilter"
+                    onChange={() => this.setTransferCityTo(document.getElementById('transferCityTo').valueOf().value)}>
+              <option selected value=''>Select city</option>
+              {allCities[0] && allCities.map(c => <option value={c.name}>{c.name}</option>)}
+            </select>
+          </div>
+
+          {/*=======TRANSFER TO EVENT CITY=== (==>>>)*/}
+
+          <div className='transfer-container transfer-to'>
+            <Transfers cityFrom={transferProps.cityTransferDepartToEvent}
+                       cityTo={transferProps.eventCity}
+                       dateFrom={transferProps.dateTransferToEvent1}
+                       dateTo={transferProps.dateTransferToEvent2}
+                       transferType='FORWARD'
+                       addTransfer={this.addTransferToToBasket.bind(this)}/>
+          </div>
+
+          {/*===> SELECT CITY FOR TRANSFER FROM EVENT===>*/}
+
+          <div className="select-transfer-city">
+            <p>Choose city for transfer or log in to use your default city:</p>
+            <select id='transferCityFrom' className='filter-input' name="cityFilter"
+                    onChange={() => this.setTransferCityFrom(document.getElementById('transferCityFrom').valueOf().value)}>
+              <option selected value=''>Select city</option>
+              {allCities[0] && allCities.map(c => <option value={c.name}>{c.name}</option>)}
+            </select>
+          </div>
+
+          {/*=======TRANSFER FROM EVENT CITY==== (<<<==)*/}
+
+          <div className='transfer-container transfer-from'>
+            <Transfers cityFrom={transferProps.eventCity}
+                       cityTo={transferProps.cityTransferArrivalFromEvent}
+                       dateFrom={transferProps.dateTransferFromEvent1}
+                       dateTo={transferProps.dateTransferFromEvent2}
+                       transferType='BACKWARD'
+                       addTransfer={this.addTransferFromToBasket.bind(this)}/>
+          </div>
+
+          {/*===PURCHASE SUMMARY===*/}
+
+          <div>
+            <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
+                             transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}/>
+          </div>
+        </div>
+
+      </Fragment>
     );
   }
 }
@@ -235,15 +273,22 @@ class EventPurchasePage extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.userReducer.currentUser,
+    isLogged: state.userReducer.loggedIn,
     allCities: state.fillListsReducer.cities,
     transferProps: state.transferReducer
   }
 };
 
-const mapDispatcToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setCityForTransferToEvent: (city) => dispatch(setCityForTransferToEvent(city))
+    // === CITIES ===
+    setCityForTransferToEvent: (city) => dispatch(setCityForTransferToEvent(city)),
+    setCityForTransferFromEvent: (city) => dispatch(setCityForTransferFromEvent(city)),
+    setEventCity: (city) => dispatch(setEventCity(city)),
+    // === DATES ===
+    setDatesForTransferToEvent: (date1, date2) => dispatch(setDatesForTransferToEvent(date1, date2)),
+    setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
   }
 };
 
-export default connect(mapStateToProps, mapDispatcToProps)(EventPurchasePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EventPurchasePage);
