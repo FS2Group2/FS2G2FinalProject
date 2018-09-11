@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import peddle.entities.Accommodation;
 import peddle.entities.City;
 import peddle.entities.Event;
@@ -65,6 +66,9 @@ public class FillTables {
 
   @Autowired
   private CategoryRepository categoryRepository;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   private class Hotel {
     private String name;
@@ -325,7 +329,7 @@ public class FillTables {
         userRepository.save(new User("Alex",
                 "First name Alex",
                 "Last name Alex",
-                "alex@gmail.com", "pwdAlex",
+                "alex@gmail.com", passwordEncoder.encode("pwdAlex"),
                 citys.get(0), roles.get(1),
                 new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
                 new ArrayList<>(), new ArrayList<>()));
@@ -333,7 +337,7 @@ public class FillTables {
         userRepository.save(new User("Jon",
                 "First name Jon",
                 "Last name Jon",
-                "jon@gmail.com", "pwdJon",
+                "jon@gmail.com", passwordEncoder.encode("pwdJon"),
                 citys.get(2), roles.get(1),
                 new Profile("New Vasiyki 2", "userphoto02.jpg", "Jon info"),
                 new ArrayList<>(), new ArrayList<>()));
