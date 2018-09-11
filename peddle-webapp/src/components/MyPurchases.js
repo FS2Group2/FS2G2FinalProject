@@ -29,14 +29,14 @@ class MyPurchases extends Component {
     }
 
     render() {
-        const {purchaseState} = this.props;
+        const {purchase} = this.props;
         return (
             <ul>
                 <li>
                     <p>1</p>
                 </li>
                 <div>
-                    {purchaseState[0] && purchaseState.map(p =>
+                    {purchase[0] && purchase.map(p =>
                         <div>
                             <p>{p.eventName}</p>
                             <p>{p.cityName}</p>
