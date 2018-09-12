@@ -18,7 +18,6 @@ public class CategoryController {
   CategoryService categoryService;
 
   @GetMapping("/categories/all")
-  @ResponseBody
   public List<CategoryDto> getAllCategories() {
     List<CategoryDto> categoryDtos = categoryService.getAll();
     return categoryDtos;
