@@ -16,6 +16,8 @@ class Logout extends Component {
   logout = () => {
     const {history, setLoggedIn, changeUser, clearWishList, clearPurchaseList} = this.props;
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('logged');
+    localStorage.removeItem('usr');
     this.setState({loggedOut: true});
 
     setTimeout(() => {history.push('/login');
@@ -23,15 +25,16 @@ class Logout extends Component {
       changeUser({});
       clearWishList();
       clearPurchaseList();
-    }, 3000);
+    }, 2000);
   };
 
   render() {
 
     return (
       <div className="about-page-root">
-        {this.state.loggedOut && <p className='logout-msg'>Good buy, {this.props.userState.currentUser.name}! Waiting for you again!</p>}
-        <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>
+        {this.state.loggedOut ? <p className='logout-msg'>Good buy,
+          {this.props.userState.currentUser.name}! Waiting for you again!</p> :
+        <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>}
       </div>
     )
   }

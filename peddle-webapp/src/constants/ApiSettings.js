@@ -12,6 +12,7 @@ const dataMap = {
   allCities: dataPath + '/city/all',
   event: dataPath + '/events/info/',
   user: dataPath + '/user',
+  login: dataPath + '/user/login',
   filterEvents: dataPath + '/events/filter/',
   accommodations: dataPath + '/accommodations/city/',
   transfer: dataPath + '/transfer',

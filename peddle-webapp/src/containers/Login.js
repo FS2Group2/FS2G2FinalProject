@@ -15,8 +15,8 @@ class Login extends Component {
       userId: 0,
       username: '',
       password: '',
-      userInf: '',
-      wishlist: []
+      wishlist: [],
+      error: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,8 +31,8 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({submitted: true});
-    // const {username, password} = this.state;
-    this.findUser()
+    this.login();
+    // this.findUser()
   };
 
   closeWarning() {
@@ -51,8 +51,7 @@ class Login extends Component {
     }
   }
 
-  findUser() {
-    const {changeUser, setLoggedIn} = this.props;
+  login() {
     let loginHeader = new Headers();
     loginHeader.append("Content-Type", "application/JSON");
     let query = {
@@ -64,23 +63,43 @@ class Login extends Component {
       headers: loginHeader,
       body: JSON.stringify(query)
     };
-    const url = dataMap.user;
+    const url = dataMap.login;
     console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
       .then(res => res.json())
-      // .then(res => res.accessToken ? localStorage.setItem('accessToken', res.accessToken) : console.log('no token'))
-      // .then(() => localStorage.getItem('accessToken')
-      //   ? setTimeout(() => this.props.history.push('/'), 1000) : null)
+      .then(res => res.accessToken ?
+        localStorage.setItem('accessToken', res.accessToken) : this.setState({error: 'error'}))
+      .then(() => localStorage.getItem('accessToken')
+        ? this.findUser() : null)
+
+  };
+
+  findUser() {
+    const {changeUser, setLoggedIn} = this.props;
+    let query = {
+      name: this.state.username,
+      // password: this.state.password
+    };
+    let reqParam = {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify(query)
+    };
+    const url = dataMap.user;
+    fetch(url, reqParam)
+      .then(res => res.json())
       .then(
         (result) => {
           if (result.id) {
             changeUser(result);
             setLoggedIn(true);
+            localStorage.setItem('logged', '1');
+            localStorage.setItem('usr', result.name);
           }
           this.setState({
-            isLoaded: true,
-            userInf: result
-          }, () => this.loadWishList(result.id))
+            isLoaded: true
+          }, () => this.loadWishList(result.id), setTimeout(() => this.props.history.push('/'), 2000))
+
         },
 
         (error) => {
@@ -109,7 +128,7 @@ class Login extends Component {
   }
 
   render() {
-    const {username, password, submitted, userInf} = this.state;
+    const {username, password, submitted, error} = this.state;
     const {userState} = this.props;
     return (
       userState.currentUser.id ?
@@ -139,7 +158,7 @@ class Login extends Component {
             </div>
             }
             <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
-            {userInf.error && <p className='login-msg error-msg'>{userInf.message}</p>}
+            {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
             <Link to="/register" className="login-reg-link">Sign Up</Link>
           </div>
         </div>
