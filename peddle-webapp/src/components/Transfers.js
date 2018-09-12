@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import dataMap from "../constants/ApiSettings";
+import dataMap, {authHeaders} from "../constants/ApiSettings";
 import {connect} from "react-redux";
 
 class Transfers extends Component {
@@ -19,11 +19,10 @@ class Transfers extends Component {
     return t;
   };
 
-  componentDidUpdate(prevProps){
-    if(prevProps.transferProps.cityTransferDepartToEvent!==this.props.transferProps.cityTransferDepartToEvent||
-      prevProps.transferProps.cityTransferArrivalFromEvent!==this.props.transferProps.cityTransferArrivalFromEvent){
+  componentDidUpdate(prevProps) {
+    if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
+      prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent) {
       let url = dataMap.transfer;
-      const header = new Headers();
       const {transferType, transferProps} = this.props;
       let cityFrom, cityTo, dateFrom, dateTo;
       if (transferType === 'FORWARD') {
@@ -43,10 +42,10 @@ class Transfers extends Component {
         dateFrom: dateFrom,
         dateTo: dateTo
       };
-      header.append("Content-Type", "application/JSON");
+
       let reqParam = {
         method: 'POST',
-        headers: header,
+        headers: authHeaders,
         body: JSON.stringify(query)
       };
 

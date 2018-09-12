@@ -25,3 +25,9 @@ export default dataMap;
 export const eventImgPath = '/img/';
 export const categoryImgPath = '/img/categories/';
 export const userPhotoPath = '/img/users/';
+
+export const authHeaders = {
+  'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+};

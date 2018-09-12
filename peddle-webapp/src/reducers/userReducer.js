@@ -10,7 +10,7 @@ function userReducer(state = initialState, action) {
     case USER_LOGIN:
       return Object.assign({}, state, {currentUser: action.user});
     case LOGGED_IN:
-      return Object.assign({}, state, {loggedIn: true});
+      return {...state, loggedIn: action.isLogged};
     default:
       return state;
   }
