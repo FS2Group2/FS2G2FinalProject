@@ -1,14 +1,17 @@
 import React, {Component, Fragment} from 'react';
 import {fillCategoriesList, fillCitiesList} from "../actions/fillListsActions";
 import {connect} from "react-redux";
-import dataMap from "../constants/ApiSettings";
+import dataMap, {authHeaders} from "../constants/ApiSettings";
 
 class LoadListsComponent extends Component {
   componentDidMount() {
     const urlAllCities = dataMap.allCities;
     const urlAllCategories = dataMap.categoryPath;
-
-    fetch(urlAllCities)
+    let reqParam = {
+      method: 'GET',
+      headers: authHeaders
+    };
+    fetch(urlAllCities, reqParam)
       .then(res => res.json())
       .then(
         (result) => {
@@ -16,7 +19,7 @@ class LoadListsComponent extends Component {
         }
       );
 
-    fetch(urlAllCategories)
+    fetch(urlAllCategories, reqParam)
       .then(res => res.json())
       .then(
         (result) => {

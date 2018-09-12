@@ -4,7 +4,7 @@ import Event from '../components/Event';
 import EventFilters from '../components/EventFilters';
 import '../css/eventsPage.css';
 import PageNotFound from "./PageNotFound";
-import dataMap from '../constants/ApiSettings';
+import dataMap, {authHeaders} from '../constants/ApiSettings';
 import Preloader from "./Preloader";
 import {connect} from "react-redux";
 import {chooseEvent} from "../actions/eventActions";
@@ -74,8 +74,11 @@ class Events extends Component {
 
   componentDidMount() {
     const urlAllEvents = dataMap.allEvents;
-
-    fetch(urlAllEvents)
+    let reqParam = {
+      method: 'GET',
+      headers: authHeaders
+    };
+    fetch(urlAllEvents,reqParam )
       .then(res => res.json())
       .then(
         (result) => {
@@ -95,8 +98,8 @@ class Events extends Component {
   };
 
   doFilter() {
-    let filterHeader = new Headers();
-    filterHeader.append("Content-Type", "application/JSON");
+    // let filterHeader = new Headers();
+    // filterHeader.append("Content-Type", "application/JSON");
     let query = {
       page: this.state.page,
       pageSize: this.state.pageSize,
@@ -106,7 +109,7 @@ class Events extends Component {
     };
     let reqParam = {
       method: 'POST',
-      headers: filterHeader,
+      headers: authHeaders,
       body: JSON.stringify(query)
     };
     const url = dataMap.filterEvents;
