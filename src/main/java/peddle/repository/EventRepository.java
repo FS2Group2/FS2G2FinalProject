@@ -20,5 +20,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   List<Event> findEventByCategoryIdAndDateBetween(Long id, Date dateStart, Date dateFin, Pageable pageable);
 
-  List<Event> findEventByCategory_IdAndCity_NameAndDateBetween(Long id, String name, Date dateStart, Date dateFin, Pageable pageable);
+  List<Event> findEventByCategory_IdAndCity_NameAndDateBetween(Long id, String name, Date dateStart, Date dateFin,
+                                                               Pageable pageable);
 }
