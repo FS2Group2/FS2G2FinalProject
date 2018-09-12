@@ -2,12 +2,18 @@ package peddle.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
 import peddle.configuration.ErrorConstants;
+import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserAddDtoRq;
-import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserDtoRs;
+import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserUpdateDtoRq;
 import peddle.entities.City;
 import peddle.entities.Role;
@@ -15,6 +21,9 @@ import peddle.entities.User;
 import peddle.repository.CityRepository;
 import peddle.repository.RoleRepository;
 import peddle.repository.UserRepository;
+import peddle.security.JwtTokenProvider;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,9 +37,14 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private RoleRepository roleRepository;
 
+  @Autowired
+  AuthenticationManager authenticationManager;
 
   @Autowired
   private ModelMapper modelMapper;
+
+  @Autowired
+  JwtTokenProvider tokenProvider;
 
   @Override
   public UserDtoRs getUserByName(UserLoginDtoRq userLoginDtoRq) {
@@ -70,4 +84,18 @@ public class UserServiceImpl implements UserService {
     return modelMapper.map(userNew, UserDtoRs.class);
   }
 
+  public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
+    Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
+
+    Authentication authentication = authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(
+            userLoginDtoRq.getName(),
+            userLoginDtoRq.getPassword()
+        )
+    );
+
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    String jwt = tokenProvider.generateToken(authentication);
+    return ResponseEntity.ok(new JwtAuthenticationRs(jwt));
+  }
 }

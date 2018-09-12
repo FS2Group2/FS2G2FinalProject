@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
 import '../css/About.css'
+
 class About extends Component{
   render(){
     return(
@@ -16,10 +16,4 @@ class About extends Component{
   }
 }
 
-const mapStateToProps = (state) => {
-  return{
-    EventsState: state.eventReducer
-  }
-};
-
-export default connect(mapStateToProps)(About);
+export default About;

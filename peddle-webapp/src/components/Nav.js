@@ -7,7 +7,7 @@ class Nav extends Component {
     return (
         <div className={this.props.navStyle}>
           {this.props.navLinks.map(link =>
-              <li className="main-menu-li" key={link.url}>
+              link.text&&<li className="main-menu-li" key={link.url}>
                 <Link className="main-menu-link" to={link.url}>{link.text}</Link>
               </li>
           )}

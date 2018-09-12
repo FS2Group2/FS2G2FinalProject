@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.FetchType;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Setter
@@ -93,6 +94,10 @@ public class User {
     this.profile = profile;
     this.purchases = purchases;
     this.events = events;
+  }
+
+  public List<String> getRoles() {
+    return Arrays.asList("ROLE_USER");
   }
 
   public void setPurchases(List<Purchase> purchases) {
