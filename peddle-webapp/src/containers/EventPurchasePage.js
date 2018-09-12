@@ -80,7 +80,7 @@ class EventPurchasePage extends Component {
       method: 'GET',
       headers: authHeaders
     };
-    fetch(urlEvent)
+    fetch(urlEvent, reqParam)
       .then(res => res.json())
       .then(
         (result) => {
