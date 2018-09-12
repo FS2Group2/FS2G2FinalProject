@@ -61,18 +61,32 @@ public class EventServiceImpl implements EventService {
             Sort.by(SORT_ORDER));
 
     try {
-      if (eventDtoRq.getCityName().isEmpty()) {
+      if (eventDtoRq.getCityName().isEmpty() && eventDtoRq.getCategoryId() == 0) {
         events = eventRepository.findEventByDateBetween(
                 eventDtoRq.getDateStartConverted(),
                 eventDtoRq.getDateFinConverted(),
                 pageRequest);
-      } else {
+      } else if (eventDtoRq.getCityName().isEmpty() && eventDtoRq.getCategoryId() != 0) {
+        events = eventRepository.findEventByCategoryIdAndDateBetween(
+                eventDtoRq.getCategoryId(),
+                eventDtoRq.getDateStartConverted(),
+                eventDtoRq.getDateFinConverted(),
+                pageRequest);
+      } else if (eventDtoRq.getCategoryId() == 0) {
         events = eventRepository.findEventByCity_NameAndDateBetween(
                 eventDtoRq.getCityName(),
                 eventDtoRq.getDateStartConverted(),
                 eventDtoRq.getDateFinConverted(),
                 pageRequest);
+      } else {
+        events = eventRepository.findEventByCategory_IdAndCity_NameAndDateBetween(
+                eventDtoRq.getCategoryId(),
+                eventDtoRq.getCityName(),
+                eventDtoRq.getDateStartConverted(),
+                eventDtoRq.getDateFinConverted(),
+                pageRequest);
       }
+
     } catch (ParseException e) {
       throw new BadRequestException(ErrorConstants.ERR_DATA_DOES_NOT_EXIST);
     }
@@ -95,6 +109,12 @@ public class EventServiceImpl implements EventService {
             new BadRequestException(ErrorConstants.ERR_CATEGORY_NOT_FOUND));
     eventRepository.findEventByCategory(category).forEach(event -> eventDtoRs.add(modelMapper.map(event, EventDtoRs.class)));
     return eventDtoRs;
+  }
+
+  @Override
+  public int getNumberOfEventsByCategoryId(Long categoryId) {
+    int size = getEventsByCategoryId(categoryId).size();
+    return size;
   }
 
 }

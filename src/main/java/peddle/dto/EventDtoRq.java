@@ -19,6 +19,7 @@ public class EventDtoRq {
   private String cityName;
   private String dateStart;
   private String dateFin;
+  private Long categoryId;
 
   public Date getDateStartConverted() throws ParseException {
     return dateFormat.parse(this.dateStart);
