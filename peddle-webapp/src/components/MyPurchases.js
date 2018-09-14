@@ -7,7 +7,6 @@ import dataMap, {authHeaders} from "../constants/ApiSettings";
 
 class MyPurchases extends Component {
 
- purchase-renderer
     loadPurchaseList() {
         let header = new Headers();
         header.append("Content-Type", "application/JSON");
@@ -48,7 +47,6 @@ class MyPurchases extends Component {
                 </div>
             </ul>
         )
-        ///******
     }
     
   loadPurchaseList() {
@@ -78,7 +76,6 @@ class MyPurchases extends Component {
     );
   }
 
-master
 }
 
 
