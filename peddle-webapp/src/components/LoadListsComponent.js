@@ -1,28 +1,39 @@
 import React, {Component, Fragment} from 'react';
 import {fillCategoriesList, fillCitiesList} from "../actions/fillListsActions";
 import {connect} from "react-redux";
-import dataMap from "../constants/ApiSettings";
+import dataMap, {authHeaders} from "../constants/ApiSettings";
+import {changeUser, setLoggedIn} from "../actions/userActions";
 
 class LoadListsComponent extends Component {
   componentDidMount() {
     const urlAllCities = dataMap.allCities;
     const urlAllCategories = dataMap.categoryPath;
+    const {getAllCities, getAllCategories, setLoggedIn} = this.props;
 
-    fetch(urlAllCities)
+    let reqParam = {
+      method: 'GET',
+      headers: authHeaders
+    };
+    fetch(urlAllCities, reqParam)
       .then(res => res.json())
       .then(
         (result) => {
-          this.props.getAllCities(result)
+          getAllCities(result)
         }
       );
 
-    fetch(urlAllCategories)
+    fetch(urlAllCategories, reqParam)
       .then(res => res.json())
       .then(
         (result) => {
-          this.props.getAllCategories(result)
+          getAllCategories(result)
         }
       );
+
+    if(localStorage.getItem('logged') && localStorage.getItem('accessToken')){
+      setLoggedIn(true);
+    }
+
   }
 
   render() {
@@ -37,8 +48,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     getAllCategories: (categoriesList) => {
       dispatch(fillCategoriesList(categoriesList))
+    },
+    setLoggedIn: isLogged => {
+      dispatch(setLoggedIn(isLogged))
+    },
+    changeUser: user => {
+      dispatch(changeUser(user))
     }
   }
+
 };
 
 const mapStateToProps = (state) => {

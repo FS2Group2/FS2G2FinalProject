@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Login.css'
-import dataMap from "../constants/ApiSettings";
+import dataMap, {authHeaders} from "../constants/ApiSettings";
 import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
@@ -15,8 +15,8 @@ class Login extends Component {
       userId: 0,
       username: '',
       password: '',
-      userInf: '',
-      wishlist: []
+      wishlist: [],
+      error: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,8 +31,8 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.setState({submitted: true});
-    // const {username, password} = this.state;
-    this.findUser()
+    this.login();
+    // this.findUser()
   };
 
   closeWarning() {
@@ -51,8 +51,7 @@ class Login extends Component {
     }
   }
 
-  findUser() {
-    const {changeUser, setLoggedIn} = this.props;
+  login() {
     let loginHeader = new Headers();
     loginHeader.append("Content-Type", "application/JSON");
     let query = {
@@ -64,28 +63,51 @@ class Login extends Component {
       headers: loginHeader,
       body: JSON.stringify(query)
     };
-    const url = dataMap.user;
+    const url = dataMap.login;
     console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              if (result.id) {
-                changeUser(result);
-                setLoggedIn(true);
-              }
-              this.setState({
-                isLoaded: true,
-                userInf: result
-              }, () => this.loadWishList(result.id))
-            },
+      .then(res => res.json())
+      .then(res => res.accessToken ?
+        localStorage.setItem('accessToken', res.accessToken) : this.setState({error: 'error'}))
+      .then(() => localStorage.getItem('accessToken')
+        ? this.findUser() : null)
 
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              })
-            })
+  };
+
+  findUser() {
+    const {changeUser, setLoggedIn} = this.props;
+    let query = {
+      name: this.state.username,
+      // password: this.state.password
+    };
+    let reqParam = {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify(query)
+    };
+    const url = dataMap.user;
+    fetch(url, reqParam)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          if (result.id) {
+            changeUser(result);
+            setLoggedIn(true);
+            localStorage.setItem('logged', '1');
+            localStorage.setItem('usr', result.name);
+          }
+          this.setState({
+            isLoaded: true
+          }, () => this.loadWishList(result.id), setTimeout(() => this.props.history.push('/'), 2000))
+
+        },
+
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        })
   };
 
   loadWishList(userId) {
@@ -93,53 +115,53 @@ class Login extends Component {
     header.append("Content-Type", "application/JSON");
     let reqParam = {
       method: 'GET',
-      headers: header
+      headers: authHeaders
     };
     const url = dataMap.wishlist + userId;
     console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.props.loadWishListToStore(result)
-            })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.props.loadWishListToStore(result)
+        })
   }
 
   render() {
-    const {username, password, submitted, userInf} = this.state;
+    const {username, password, submitted, error} = this.state;
     const {userState} = this.props;
     return (
-        userState.currentUser.id ?
-            <div className="login-box">
-              <h2 className='login-msg success-msg'> Hello, {userState.currentUser.name}!</h2>
+      userState.currentUser.id ?
+        <div className="login-box">
+          <h2 className='login-msg success-msg'> Hello, {userState.currentUser.name}!</h2>
+        </div>
+        :
+        <div>
+          <div className="login-box">
+            <div className="login-box-header">
+              <p className="login-box-header-left">Log In</p>
             </div>
-            :
-            <div>
-              <div className="login-box">
-                <div className="login-box-header">
-                  <p className="login-box-header-left">Log In</p>
-                </div>
-                <input className="login-input-box" type="text" name="username" placeholder="Your Name"
-                       value={username} onChange={this.handleChange}/>
-                {submitted && !username &&
-                <div className="login-help-block">
-                  <p className="warning-text">Username is required</p>
-                  <span className="warn-close" onClick={this.closeWarning}>&times;</span>
-                </div>
-                }
-                <input className="login-input-box" type="password" name="password" placeholder="Password"
-                       value={password} onChange={this.handleChange}/>
-                {submitted && !password &&
-                <div className="login-help-block">
-                  <p className="warning-text">Password is required</p>
-                  <span className="warn-close" onClick={this.closeWarning}>&times;</span>
-                </div>
-                }
-                <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
-                {userInf.error && <p className='login-msg error-msg'>{userInf.message}</p>}
-                <Link to="/register" className="login-reg-link">Sign Up</Link>
-              </div>
+            <input className="login-input-box" type="text" name="username" placeholder="Your Name"
+                   value={username} onChange={this.handleChange}/>
+            {submitted && !username &&
+            <div className="login-help-block">
+              <p className="warning-text">Username is required</p>
+              <span className="warn-close" onClick={this.closeWarning}>&times;</span>
             </div>
+            }
+            <input className="login-input-box" type="password" name="password" placeholder="Password"
+                   value={password} onChange={this.handleChange}/>
+            {submitted && !password &&
+            <div className="login-help-block">
+              <p className="warning-text">Password is required</p>
+              <span className="warn-close" onClick={this.closeWarning}>&times;</span>
+            </div>
+            }
+            <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
+            {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
+            <Link to="/register" className="login-reg-link">Sign Up</Link>
+          </div>
+        </div>
     )
   }
 }
