@@ -1,6 +1,6 @@
 import {
   FILL_CATEGORIES_LIST,
-  FILL_CITIES_LIST, LOAD_WISHLIST,
+  FILL_CITIES_LIST, LOAD_EVENTS, LOAD_WISHLIST,
   SET_FETCH_ERROR,
   SET_FETCH_PENDING,
   SET_FETCH_SUCCESS, USER_LOGIN
@@ -74,9 +74,16 @@ export function setFetchData(fetchData, dataType) {
         type: LOAD_WISHLIST,
         payload: fetchData
       };
-case 'LOAD_USER':
+
+    case 'LOAD_USER':
       return {
         type: USER_LOGIN,
+        payload: fetchData
+      };
+
+    case 'LOAD_EVENTS':
+      return {
+        type: LOAD_EVENTS,
         payload: fetchData
       };
 
