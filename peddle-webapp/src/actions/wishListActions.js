@@ -1,7 +1,7 @@
 import {ADD_TO_WISHLIST, LOAD_WISHLIST, REMOVE_FROM_WISHLIST} from "./actionsTypes";
 
 export function loadWishList(wishlist) {
-  return{ type: LOAD_WISHLIST, data: wishlist}
+  return{ type: LOAD_WISHLIST, payload: wishlist}
 }
 
 export function addToWishList(event) {

@@ -14,7 +14,7 @@ class EventFilters extends Component {
             <select id='sc' className='filter-input' name="cityFilter"
                     onChange={() => updateMyCity(document.getElementById('sc').valueOf().value)}>
               <option selected value=''>Select city</option>
-              {cities[0] && cities.map(c => <option value={c.name}>{c.name}</option>)}
+              {cities[0] && cities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
             </select>
 
             <p className='filter-label'>Date from:</p>

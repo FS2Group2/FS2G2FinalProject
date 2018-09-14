@@ -8,7 +8,7 @@ const initialState = {
 function userReducer(state = initialState, action) {
   switch (action.type) {
     case USER_LOGIN:
-      return Object.assign({}, state, {currentUser: action.user});
+      return Object.assign({}, state, {currentUser: action.payload});
     case LOGGED_IN:
       return {...state, loggedIn: action.isLogged};
     default:

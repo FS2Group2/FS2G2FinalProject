@@ -18,6 +18,7 @@ class Logout extends Component {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('logged');
     localStorage.removeItem('usr');
+    localStorage.removeItem('uid');
     this.setState({loggedOut: true});
 
     setTimeout(() => {history.push('/login');
