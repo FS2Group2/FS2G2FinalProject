@@ -12,6 +12,7 @@ import AppFooter from "./containers/AppFooter";
 import RegisterPage from "./containers/RegisterPage"
 import Categories from "./containers/Categories";
 import LoadListsComponent from "./components/LoadListsComponent";
+import Logout from "./containers/Logout";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path='/about' component={About}/>
               <Route path='/profile' component={Profile}/>
               <Route exact path='/login' component={Login}/>
+              <Route exact path='/logout' component={Logout}/>
               <Route exact path='/event/:eventId' component={EventPurchasePage}/>
               <Route exact path="/register" component={RegisterPage}/>
               <Route path='/' component={PageNotFound}/>

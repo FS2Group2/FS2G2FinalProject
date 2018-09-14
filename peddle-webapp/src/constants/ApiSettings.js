@@ -12,6 +12,7 @@ const dataMap = {
   allCities: dataPath + '/city/all',
   event: dataPath + '/events/info/',
   user: dataPath + '/user',
+  login: dataPath + '/user/login',
   filterEvents: dataPath + '/events/filter/',
   accommodations: dataPath + '/accommodations/city/',
   transfer: dataPath + '/transfer',
@@ -25,3 +26,9 @@ export default dataMap;
 export const eventImgPath = '/img/';
 export const categoryImgPath = '/img/categories/';
 export const userPhotoPath = '/img/users/';
+
+export const authHeaders = {
+  'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+};
