@@ -78,7 +78,6 @@ class Login extends Component {
     const {changeUser, setLoggedIn} = this.props;
     let query = {
       name: this.state.username,
-      // password: this.state.password
     };
     let reqParam = {
       method: 'POST',
@@ -95,6 +94,7 @@ class Login extends Component {
             setLoggedIn(true);
             localStorage.setItem('logged', '1');
             localStorage.setItem('usr', result.name);
+            localStorage.setItem('uid', result.id);
           }
           this.setState({
             isLoaded: true

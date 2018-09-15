@@ -7,6 +7,10 @@ const apiSettings = {
 // const dataPath = apiSettings.domain + ':' + apiSettings.port + apiSettings.apiPath;
 const dataPath = apiSettings.apiPath;
 
+export const eventImgPath = '/img/';
+export const categoryImgPath = '/img/categories/';
+export const userPhotoPath = '/img/users/';
+
 const dataMap = {
   allEvents: dataPath + '/events/all',
   allCities: dataPath + '/city/all',
@@ -22,10 +26,6 @@ const dataMap = {
 };
 
 export default dataMap;
-
-export const eventImgPath = '/img/';
-export const categoryImgPath = '/img/categories/';
-export const userPhotoPath = '/img/users/';
 
 export const authHeaders = {
   'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
