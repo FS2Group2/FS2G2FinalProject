@@ -3,14 +3,21 @@ import {connect} from "react-redux";
 
 class EventFilters extends Component {
   render() {
-    const {cities, updateMyCity, setDateFrom, setDateTo, doFilter, resetFilter} = this.props;
+    const {cities, updateMyCity, setDateFrom, setDateTo, doFilter, resetFilter, selectCategory, categories} = this.props;
     const todayDate = new Date(Date.now());
     let todayToStr = todayDate.getFullYear() + '-' +
         ('0' + (todayDate.getMonth() + 1)).slice(-2) + '-' + ('0' + todayDate.getDate()).slice(-2);
     return (
         <div>
           <form id='filter-form'>
-            <p className='filter-label'>City:</p>
+            <p className='filter-label'>Category:</p>
+            <select id='cat' className='filter-input' defaultValue={'Select category'} value='0' name="categoryFilter"
+                    onChange={() => selectCategory(document.getElementById('cat').valueOf().value)}>
+              <option  >Select category</option>
+              {categories[0] && categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
+            </select>
+
+           <p className='filter-label'>City:</p>
             <select id='sc' className='filter-input' name="cityFilter"
                     onChange={() => updateMyCity(document.getElementById('sc').valueOf().value)}>
               <option selected value=''>Select city</option>
@@ -38,7 +45,8 @@ class EventFilters extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cities: state.fillListsReducer.cities
+    cities: state.fillListsReducer.cities,
+    categories: state.fillListsReducer.categories
   }
 };
 

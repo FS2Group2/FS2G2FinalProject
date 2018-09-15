@@ -3,7 +3,7 @@ import {SET_FETCH_ERROR, SET_FETCH_PENDING, SET_FETCH_SUCCESS} from "../actions/
 const initReducer = {
   isLoginSuccess: false,
   isLoginPending: false,
-  loginError: null
+  fetchError: null
   // userData: null
 };
 
@@ -21,7 +21,7 @@ export default function fetchDataReducer(state = initReducer, action) {
 
     case SET_FETCH_ERROR:
       return { ...state,
-        loginError: action.payload
+        fetchError: action.payload
       };
     //
     // case SET_FETCH_DATA:

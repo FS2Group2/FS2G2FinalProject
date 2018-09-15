@@ -4,9 +4,10 @@ import Event from '../components/Event';
 import EventFilters from '../components/EventFilters';
 import '../css/eventsPage.css';
 import PageNotFound from "./PageNotFound";
-import dataMap, {authHeaders} from '../constants/ApiSettings';
 import Preloader from "./Preloader";
 import {connect} from "react-redux";
+import {fetchDataFromApi} from "../actions/fetchDataActions";
+import {eventsByFilter} from "../constants/queryTypes";
 import {chooseEvent} from "../actions/eventActions";
 
 class Events extends Component {
@@ -16,10 +17,11 @@ class Events extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      events: [],
-      cities: [],
+      // events: [],
+      // cities: [],
       page: 0,
       pageSize: 12,
+      categoryId: 0,
       targetCity: '',
       dateStart: new Date(Date.now()).toLocaleDateString('en-GB'),
       dateFin: '01/01/2050'
@@ -28,6 +30,12 @@ class Events extends Component {
 
   setCity = (v) => {
     this.setState({targetCity: v}, () => {
+      this.doFilter()
+    })
+  };
+
+  setCategory = (v) => {
+    this.setState({categoryId: v}, () => {
       this.doFilter()
     })
   };
@@ -73,74 +81,31 @@ class Events extends Component {
   };
 
   componentDidMount() {
-    const urlAllEvents = dataMap.allEvents;
-    let reqParam = {
-      method: 'GET',
-      headers: authHeaders
-    };
-    fetch(urlAllEvents,reqParam )
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            events: result
-          })
-        },
-
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          })
-        }
-      );
+    const category = this.props.match.params.categoryId;
+    category.toString() === "all" ?
+      this.setState({categoryId: 0}, () => this.doFilter()) : this.setState({categoryId: category}, () => this.doFilter());
   };
 
   doFilter() {
-    // let filterHeader = new Headers();
-    // filterHeader.append("Content-Type", "application/JSON");
+    const {page, categoryId, pageSize, targetCity, dateStart, dateFin} = this.state;
+    const {fetchDataFromApi} = this.props;
     let query = {
-      page: this.state.page,
-      pageSize: this.state.pageSize,
-      cityName: this.state.targetCity,
-      dateStart: this.state.dateStart,
-      dateFin: this.state.dateFin
+      page: page,
+      pageSize: pageSize,
+      cityName: targetCity,
+      dateStart: dateStart,
+      dateFin: dateFin,
+      categoryId: categoryId
     };
-    let reqParam = {
-      method: 'POST',
-      headers: authHeaders,
-      body: JSON.stringify(query)
-    };
-    const url = dataMap.filterEvents;
-    console.log('request params:' + JSON.stringify(reqParam));
-    fetch(url, reqParam)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            events: result
-          })
-        },
-
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          })
-        }
-      );
+    fetchDataFromApi(eventsByFilter, query);
   };
 
   render() {
-    const {error, isLoaded, events} = this.state;
-    const {setChosenEvent} = this.props;
-    if (error) {
-      return <PageNotFound/>
-    } else if (!isLoaded) {
+    const {setChosenEvent, isLoginPending, isLoginSuccess} = this.props;
+    const events = this.props.eventsState.events;
+    if (isLoginPending) {
       return <Preloader/>
-    } else {
+    } else if (isLoginSuccess) {
       return (
         <div>
           <h2 className='events-header'>upcoming events in Ukraine</h2>
@@ -152,6 +117,7 @@ class Events extends Component {
                 setDateTo={this.setDateFin.bind(this)}
                 doFilter={this.applyFilter.bind(this)}
                 resetFilter={this.resetFilter.bind(this)}
+                selectCategory={this.setCategory.bind(this)}
               />
             </div>
             <div className='events-container'>
@@ -163,27 +129,36 @@ class Events extends Component {
               <input type='button' className='nav-btn previous' value='previous'
                      onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>
               <input type='button' className='nav-btn next' value='next' onClick={this.goToNext.bind(this)}
-                     disabled={!this.state.events[this.state.pageSize - 1]}/>
-              {/*<label className='page-num'> Page {page + 1}</label>*/}
+                     disabled={!events[this.state.pageSize - 1]}/>
             </div>
 
           </div>
         </div>
       );
     }
+    else {
+      return setTimeout(() => <PageNotFound/>, 1000)
+    }
+
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    eventsState: state.eventReducer
+    eventsState: state.eventReducer,
+    isLoginSuccess: state.fetchDataReducer.isLoginSuccess,
+    isLoginPending: state.fetchDataReducer.isLoginPending,
+    fetchError: state.fetchDataReducer.fetchError
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setChosenEvent: (userId) => {
-      dispatch(chooseEvent(userId))
+    fetchDataFromApi: (queryType, query) => {
+      dispatch(fetchDataFromApi(queryType, query))
+    },
+    setChosenEvent: (eventId) => {
+      dispatch(chooseEvent(eventId))
     }
   }
 };
