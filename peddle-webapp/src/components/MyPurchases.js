@@ -3,16 +3,14 @@ import '../css/profile.css'
 import "../constants/ApiSettings.js"
 import {connect} from "react-redux";
 import {loadPurchaceList} from "../actions/purchaceActions";
-import dataMap from "../constants/ApiSettings";
+import dataMap, {authHeaders} from "../constants/ApiSettings";
 
 class MyPurchases extends Component {
 
     loadPurchaseList() {
-        let header = new Headers();
-        header.append("Content-Type", "application/JSON");
         let reqParam = {
             method: 'GET',
-            headers: header
+            headers: authHeaders
         };
         const url = dataMap.purchace + this.props.userState.currentUser.id;
         console.log('request params:' + JSON.stringify(reqParam));
