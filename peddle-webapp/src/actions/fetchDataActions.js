@@ -34,9 +34,7 @@ export function fetchDataFromApi(queryType, query) {
     dispatch(setFetchPending(true));
     dispatch(setFetchSuccess(false));
     dispatch(setFetchError(null));
-    // dispatch(setFetchData(null));
     let responseStatus = false;
-    console.log(apiUrl, method, query);
     fetchData(apiUrl, method, query)
       .then(response => {
         dispatch(setFetchPending(false));

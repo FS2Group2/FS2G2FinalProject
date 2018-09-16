@@ -19,52 +19,62 @@ class Transfers extends Component {
     return t;
   };
 
+  fetchTransfer() {
+    let url = dataMap.transfer;
+    const {transferType, transferProps} = this.props;
+    let cityFrom, cityTo, dateFrom, dateTo;
+    if (transferType === 'FORWARD') {
+      cityFrom = transferProps.cityTransferDepartToEvent;
+      cityTo = transferProps.eventCity;
+      dateFrom = transferProps.dateTransferToEvent1;
+      dateTo = transferProps.dateTransferToEvent2;
+    } else if (transferType === 'BACKWARD') {
+      cityFrom = transferProps.eventCity;
+      cityTo = transferProps.cityTransferArrivalFromEvent;
+      dateFrom = transferProps.dateTransferFromEvent1;
+      dateTo = transferProps.dateTransferFromEvent2;
+    }
+    const query = {
+      cityFrom: cityFrom,
+      cityTo: cityTo,
+      dateFrom: dateFrom,
+      dateTo: dateTo
+    };
+
+    let reqParam = {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify(query)
+    };
+
+    fetch(url, reqParam)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(reqParam);
+          this.setState({
+            isLoaded: true,
+            transfers: result
+          })
+        }, (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          })
+        }
+      )
+
+  }
+
+  componentDidMount(){
+    this.fetchTransfer()
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
       prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent) {
-      let url = dataMap.transfer;
-      const {transferType, transferProps} = this.props;
-      let cityFrom, cityTo, dateFrom, dateTo;
-      if (transferType === 'FORWARD') {
-        cityFrom = transferProps.cityTransferDepartToEvent;
-        cityTo = transferProps.eventCity;
-        dateFrom = transferProps.dateTransferToEvent1;
-        dateTo = transferProps.dateTransferToEvent2;
-      } else if (transferType === 'BACKWARD') {
-        cityFrom = transferProps.eventCity;
-        cityTo = transferProps.cityTransferArrivalFromEvent;
-        dateFrom = transferProps.dateTransferFromEvent1;
-        dateTo = transferProps.dateTransferFromEvent2;
-      }
-      const query = {
-        cityFrom: cityFrom,
-        cityTo: cityTo,
-        dateFrom: dateFrom,
-        dateTo: dateTo
-      };
+      this.fetchTransfer()
 
-      let reqParam = {
-        method: 'POST',
-        headers: authHeaders,
-        body: JSON.stringify(query)
-      };
-
-      fetch(url, reqParam)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            console.log(reqParam);
-            this.setState({
-              isLoaded: true,
-              transfers: result
-            })
-          }, (error) => {
-            this.setState({
-              isLoaded: true,
-              error
-            })
-          }
-        )
     }
   }
 

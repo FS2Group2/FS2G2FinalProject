@@ -22,7 +22,7 @@ class App extends Component {
           <div>
             <MainMenu/>
             <Switch>
-              <Route exact path='/events/:categoryId' component={Events}/>
+              <Route exact path='/events' component={Events}/>
               <Route exact path='/' component={Categories}/>
               <Route exact path='/about' component={About}/>
               <Route path='/profile' component={Profile}/>
