@@ -73,7 +73,7 @@ class Events extends Component {
           <h2 className='events-header'>upcoming events in Ukraine</h2>
           <div className='events-page'>
             <div className='filters-container'>
-              <EventFilters style={''}/>
+              <EventFilters filterStyle={''}/>
             </div>
             <div className='events-container'>
               {events[0] && events.map(event =>

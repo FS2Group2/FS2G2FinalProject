@@ -21,7 +21,7 @@ class EventFilters extends Component {
   };
 
   render() {
-    const {categories, cities, filter, setFilterCategory, setFilterCity, filterReset, style} = this.props;
+    const {categories, cities, filter, setFilterCategory, setFilterCity, filterReset, filterStyle} = this.props;
 
     function dayToStr(day) {
       return day[6] + day[7] + day[8] + day[9] + '-' + day[3] + day[4] + '-' + day[0] + day[1];
@@ -29,12 +29,12 @@ class EventFilters extends Component {
 
     return (
       <div>
-        <form className={'filter' + style} id='filter-form'>
+        <form className={'filter' + filterStyle} id='filter-form'>
           {
-            (style !== '-horizontal') &&
+            (filterStyle !== '-horizontal') &&
             <Fragment>
-              <p className={'filter-label' + style}>Category:</p>
-              <select id='cat' className={'filter-input'+style} value={filter.category} name="categoryFilter"
+              <p className={'filter-label' + filterStyle}>Category:</p>
+              <select id='cat' className={'filter-input'+filterStyle} value={filter.category} name="categoryFilter"
                       onChange={() => setFilterCategory(document.getElementById('cat').valueOf().value)}>
                 <option value='0'>All</option>
                 {categories[0] && categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
@@ -43,8 +43,8 @@ class EventFilters extends Component {
           }
 
           <div>
-            <p className={'filter-label' + style}>City:</p>
-            <select id='sc' className={'filter-input'+style} name="cityFilter" value={filter.city}
+            <p className={'filter-label' + filterStyle}>City:</p>
+            <select id='sc' className={'filter-input'+filterStyle} name="cityFilter" value={filter.city}
                     onChange={() => setFilterCity(document.getElementById('sc').valueOf().value)}>
               <option value=''>Select city</option>
               {cities[0] && cities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
@@ -52,26 +52,26 @@ class EventFilters extends Component {
           </div>
 
           <div>
-            <p className={'filter-label' + style}>Date from:</p>
-            <input className={'filter-input'+style} type="date" id='date-from'
+            <p className={'filter-label' + filterStyle}>Date from:</p>
+            <input className={'filter-input'+filterStyle} type="date" id='date-from'
                    defaultValue={dayToStr(filter.dateStart)}
                    min={dayToStr(filter.dateStart)}
                    onChange={() => this.setDateStart(document.getElementById('date-from').valueOf().value)}/>
           </div>
 
           <div>
-            <p className={'filter-label' + style}>Date to:</p>
-            <input className={'filter-input'+style} type="date" id='date-to'
+            <p className={'filter-label' + filterStyle}>Date to:</p>
+            <input className={'filter-input'+filterStyle} type="date" id='date-to'
                    defaultValue={dayToStr(filter.dateFin)}
                    min={dayToStr(filter.dateStart)}
                    onChange={() => this.setDateFin(document.getElementById('date-to').valueOf().value)}/>
           </div>
 
           <div>
-            <Link to={'/events'}><input className={'filter-input'+style + ' btn'+style} type='button' formAction='submit'
+            <Link to={'/events'}><input className={'filter-input'+style + ' btn'+filterStyle} type='button' formAction='submit'
                                         value='Apply filter'/>
             </Link>
-            <input className={'filter-input'+style + ' btn'+style} type='button' formAction='reset' value='Reset'
+            <input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='reset' value='Reset'
                    onClick={() => filterReset()} onMouseUp={() => document.getElementById('filter-form').reset()}/>
           </div>
 

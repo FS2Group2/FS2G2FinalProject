@@ -16,7 +16,7 @@ class Categories extends Component {
         <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
         <div>
           <div className="filter-container-horizontal">
-            <EventFilters style={'-horizontal'}/>
+            <EventFilters filterStyle={'-horizontal'}/>
           </div>
 
           <div className='categories-container'>
