@@ -68,7 +68,7 @@ class EventFilters extends Component {
           </div>
 
           <div>
-            <Link to={'/events'}><input className={'filter-input'+style + ' btn'+filterStyle} type='button' formAction='submit'
+            <Link to={'/events'}><input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='submit'
                                         value='Apply filter'/>
             </Link>
             <input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='reset' value='Reset'
