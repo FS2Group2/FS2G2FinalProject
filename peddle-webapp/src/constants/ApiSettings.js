@@ -9,6 +9,7 @@ const dataPath = apiSettings.apiPath;
 
 export const eventImgPath = '/img/';
 export const categoryImgPath = '/img/categories/';
+export const categoryIconPath = '/img/categories/icons/';
 export const userPhotoPath = '/img/users/';
 
 const dataMap = {
