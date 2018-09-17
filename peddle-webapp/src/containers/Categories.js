@@ -5,16 +5,35 @@ import Category from "../components/Category";
 import {connect} from "react-redux";
 import {setFilterCategory} from "../actions/filterActions";
 import EventFilters from "../components/EventFilters";
+import {eventImgPath} from "../constants/ApiSettings";
 
 class Categories extends Component {
   render() {
-    const {categories, setFilterCategory} = this.props;
+    const {categories, setFilterCategory, topEvents} = this.props;
     setFilterCategory(0);
     return (
-
       <div className="categories-page">
         <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
+
+        {topEvents[0] &&
+        <div className="top-events-container">
+          <h3 className="top-events-container-header">Top events</h3>
+
+          <div className="events-line">
+            {topEvents.map((event) =>
+              <Link to={'/event/' + event.id} title={event.name} className={'link-to-top-event'}>
+                <div className="event-thumbnail-container">
+                  <img src={eventImgPath + event.eventExtraPhoto} className={'event-thumbnail'} alt=""/>
+                </div>
+              </Link>
+            )}
+          </div>
+
+        </div>
+        }
+
         <div>
+          {/*==== HORIZONTAL FILTER ======*/}
           <div className="filter-container-horizontal">
             <EventFilters filterStyle={'-horizontal'}/>
           </div>
@@ -35,7 +54,8 @@ class Categories extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.fillListsReducer.categories
+    categories: state.fillListsReducer.categories,
+    topEvents: state.fillListsReducer.topEvents
   }
 };
 
