@@ -22,9 +22,9 @@ class MyPurchases extends Component {
                 })
     }
 
-    componentDidMount() {
-        this.loadPurchaseList();
-    }
+  componentDidMount() {
+    this.loadPurchaseList();
+  }
 
     render() {
         const {purchase} = this.props;
@@ -50,21 +50,20 @@ class MyPurchases extends Component {
 }
 
 
-
 const mapStateToProps = (state) => {
-    return {
-        userState: state.userReducer,
-        purchase: state.purchaseReducer
-    }
+  return {
+    userState: state.userReducer,
+    purchase: state.purchaseReducer
+  }
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        loadPurchaseListToStore: data => {
-            dispatch(loadPurchaceList(data))
-        }
-
+  return {
+    loadPurchaseListToStore: data => {
+      dispatch(loadPurchaceList(data))
     }
+
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyPurchases);

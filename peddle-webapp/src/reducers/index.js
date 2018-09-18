@@ -6,6 +6,7 @@ import purchaseReducer from "./purchaseReducer"
 import fillListsReducer from "./fillListsReducer";
 import transferReducer from "./transferReducer";
 import fetchDataReducer from "./fetchDataReducer";
+import filterReducer from "./filterReducer";
 
 const reducer = combineReducers({
   eventReducer,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   purchaseReducer,
   fillListsReducer,
   transferReducer,
-  fetchDataReducer
+  fetchDataReducer,
+  filterReducer
 });
 
 export default reducer;

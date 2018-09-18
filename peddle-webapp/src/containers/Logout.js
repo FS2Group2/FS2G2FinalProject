@@ -35,7 +35,11 @@ class Logout extends Component {
       <div className="about-page-root">
         {this.state.loggedOut ? <p className='logout-msg'>Good buy,
           {this.props.userState.currentUser.name}! Waiting for you again!</p> :
-        <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>}
+          <div>
+            <p className="logout-msg">Are you sure you want to quit?</p>
+            <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>
+          </div>}
+
       </div>
     )
   }

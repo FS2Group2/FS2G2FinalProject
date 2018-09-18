@@ -64,7 +64,6 @@ class Login extends Component {
       body: JSON.stringify(query)
     };
     const url = dataMap.login;
-    console.log('request params:' + JSON.stringify(reqParam));
     fetch(url, reqParam)
       .then(res => res.json())
       .then(res => res.accessToken ?
@@ -81,7 +80,11 @@ class Login extends Component {
     };
     let reqParam = {
       method: 'POST',
-      headers: authHeaders,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(query)
     };
     const url = dataMap.user;
@@ -89,6 +92,7 @@ class Login extends Component {
       .then(res => res.json())
       .then(
         (result) => {
+          console.log(result);
           if (result.id) {
             changeUser(result);
             setLoggedIn(true);
@@ -98,7 +102,7 @@ class Login extends Component {
           }
           this.setState({
             isLoaded: true
-          }, () => this.loadWishList(result.id), setTimeout(() => this.props.history.push('/'), 2000))
+          }, () => this.loadWishList(result.id), setTimeout(() => this.props.history.push('/'), 1500))
 
         },
 
