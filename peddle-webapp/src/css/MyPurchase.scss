@@ -1,12 +1,36 @@
-.purchase-list-element {
+.purchase-list {
   margin-top: 10px;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
-.purchase-element-name-section {
-  display: inline-block;
+.purchase-list-titles {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.test {
-  display: inline-block;
+.purchase-list-element {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, .6);
+}
+
+.element-name {
+
+}
+
+.element-city {
+
+}
+
+.element-sum {
+
 }
