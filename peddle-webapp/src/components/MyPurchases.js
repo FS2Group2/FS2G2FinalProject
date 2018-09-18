@@ -21,7 +21,6 @@ class MyPurchases extends Component {
                     this.props.loadPurchaseListToStore(result)
                 })
     }
-
   componentDidMount() {
     this.loadPurchaseList();
   }
@@ -30,17 +29,28 @@ class MyPurchases extends Component {
         const {purchase} = this.props;
         return (
                 <div className="purchase-list">
+                    <div className="purchase-list-titles">
+                    <div className="element-title-name">
+                        <span >Name</span>
+                    </div>
+                    <div className="element-title-city">
+                        <span >City</span>
+                    </div>
+                    <div className="element-title-sum">
+                        <span >$</span>
+                    </div>
+                    </div>
                     {purchase[0] && purchase.map(p =>
                         <div className="purchase-list-element">
-                            <div className="purchase-element-name-section">
-                            <p className="test">{p.eventName}</p>
-                            </div>
-                            <div className="purchase-element-city-section">
-                            <p className="test">{p.eventCityName}</p>
-                            </div>
-                            <div className="purchase-element-sum-section">
-                            <p className="test">{p.summ}</p>
-                            </div>
+                                    <div className="element-name">
+                                        <span >{p.eventName}</span>
+                                    </div>
+                                    <div className="element-city">
+                                        <span >{p.eventCityName}</span>
+                                    </div>
+                                    <div className="element-sum">
+                                        <span >{p.summ}</span>
+                                    </div>
                         </div>
                     )}
                 </div>
