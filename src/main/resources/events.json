@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "AFTER-HEDONISM",
+    "Category": "Sports",
+    "Description": "The final event of the Hedonism Festival - the After-Hedonism party.",
+    "Photo": "photo01.jpg",
+    "Duration": 8,
+    "Price": 250
+  },
+  {
+    "Name": "KORCHFEST",
+    "Category": "Sports",
+    "Description": "Will host a festival-exhibition of automotive subcultures Korchfest.",
+    "Photo": "photo02.jpg",
+    "Duration": 12,
+    "Price": 120
+  },
+  {
+    "Name": "METHODS OF UPBRINGING SMALL BURIALS",
+    "Category": "Festivals",
+    "Description": "History, after which you will rethink the importance of family relationships.",
+    "Photo": "photo03.jpg",
+    "Duration": 5,
+    "Price": 400
+  },
+  {
+    "Name": "NGRID ARTHUR BAND",
+    "Category": "Festivals",
+    "Description": "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
+    "Photo": "photo04.jpg",
+    "Duration": 4,
+    "Price": 2500
+  },
+  {
+    "Name": "POWER OF UKRAINE",
+    "Category": "Arts",
+    "Description": "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening!",
+    "Photo": "photo05.jpg",
+    "Duration": 24,
+    "Price": 250
+  }
+]
