@@ -1,9 +1,16 @@
 import {
   FILL_CATEGORIES_LIST,
-  FILL_CITIES_LIST, LOAD_EVENTS, LOAD_TOP_EVENTS, LOAD_WISHLIST,
+  FILL_CITIES_LIST,
+  LOAD_EVENT_INFO,
+  LOAD_EVENTS,
+  LOAD_TOP_EVENTS,
+  LOAD_TRANSFERS_BACKWARD,
+  LOAD_TRANSFERS_FORWARD,
+  LOAD_WISHLIST,
   SET_FETCH_ERROR,
   SET_FETCH_PENDING,
-  SET_FETCH_SUCCESS, USER_LOGIN
+  SET_FETCH_SUCCESS,
+  USER_LOGIN
 } from "./actionsTypes";
 import {fetchData} from "../components/fetchData";
 
@@ -29,7 +36,10 @@ export function setFetchError(fetchError) {
 }
 
 export function fetchDataFromApi(queryType, query) {
-  const {apiUrl, method, dataType} = queryType;
+  let {apiUrl, method, dataType} = queryType;
+  if(method.toLowerCase()==='get' && query){
+    apiUrl=apiUrl+query.toString()
+  }
   return dispatch => {
     dispatch(setFetchPending(true));
     dispatch(setFetchSuccess(false));
@@ -88,6 +98,24 @@ export function setFetchData(fetchData, dataType) {
     case 'LOAD_EVENTS':
       return {
         type: LOAD_EVENTS,
+        payload: fetchData
+      };
+
+    case 'EVENT_INFO':
+      return{
+      type: LOAD_EVENT_INFO,
+      payload: fetchData
+      };
+
+    case 'TRANSFERS_FORWARD':
+      return{
+        type: LOAD_TRANSFERS_FORWARD,
+        payload: fetchData
+      };
+
+    case 'TRANSFERS_BACKWARD':
+      return{
+        type: LOAD_TRANSFERS_BACKWARD,
         payload: fetchData
       };
 

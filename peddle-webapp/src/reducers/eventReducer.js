@@ -1,8 +1,9 @@
-import {CHOSEN_EVENT, LOAD_EVENTS} from "../actions/actionsTypes";
+import {CHOSEN_EVENT, LOAD_EVENT_INFO, LOAD_EVENTS} from "../actions/actionsTypes";
 
 const initialState = {
-   event: '',
-  events:[]
+  event: '',
+  eventInfo: {},
+  events: []
 };
 
 function eventReducer(state = initialState, action) {
@@ -10,7 +11,9 @@ function eventReducer(state = initialState, action) {
     case CHOSEN_EVENT:
       return {...state, event: action.eventId};
     case LOAD_EVENTS:
-      return{...state, events: action.payload};
+      return {...state, events: action.payload};
+    case LOAD_EVENT_INFO:
+      return {...state, eventInfo: action.payload};
     default:
       return state;
   }
