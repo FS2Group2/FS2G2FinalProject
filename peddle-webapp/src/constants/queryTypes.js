@@ -5,3 +5,4 @@ export const categoriesList = {apiUrl: dataMap.categoryPath, method: 'GET', data
 export const wishList = {apiUrl: dataMap.wishlist+localStorage.getItem("uid"), method: 'GET', dataType: 'LOAD_WISH_LIST'};
 export const userData = {apiUrl: dataMap.user, method: 'post', dataType: 'LOAD_USER'};
 export const eventsByFilter = {apiUrl: dataMap.filterEvents, method: 'post', dataType: 'LOAD_EVENTS'};
+export const topEvents = {apiUrl: dataMap.filterEvents, method: 'post', dataType: 'TOP_EVENTS'};
