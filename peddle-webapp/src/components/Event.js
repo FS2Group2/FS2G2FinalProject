@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../css/event.css';
-import {eventImgPath} from '../constants/ApiSettings'
+import {categoryIconPath, eventImgPath} from '../constants/ApiSettings'
 
 class Event extends Component {
   render() {
@@ -8,11 +8,13 @@ class Event extends Component {
     const e = this.props.theEvent;
     let eventDate = new Date(e.date);
     let imgPath = eventImgPath+e.eventExtraPhoto;
+    let iconPath = `${categoryIconPath + e.categoryName.replace(/ /g, '_').toLowerCase()}.svg`;
 
 
     return (
         <div className='event-item'>
           <h2 className='event-item-name'>{e.name}</h2>
+          <img src={iconPath} className={'icon'} alt="" title={e.categoryName}/>
           <div className='event-item-img-container'>
             <img className='event-item-img' src={imgPath} alt="event-img"/>
           </div>
