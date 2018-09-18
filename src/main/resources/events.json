@@ -94,5 +94,189 @@
     "Photo": "photo_sport07.jpg",
     "Duration": 15,
     "Price": 1230
+  },
+  {
+    "Name": "Electric Daisy Carnival",
+    "Category": "Festivals",
+    "Description": "Electric Daisy Carnival Orlando is the Florida outpost of the global EDC festival series.",
+    "Photo": "photo_festival01.jpg",
+    "Duration": 7,
+    "Price": 70
+  },
+  {
+    "Name": "The Social Festival 2018",
+    "Category": "Festivals",
+    "Description": "The Social Festival is a UK electronic music festival, held each September on Kent Country Showground in Maidstone.",
+    "Photo": "photo_festival02.jpg",
+    "Duration": 24,
+    "Price": 10
+  },
+  {
+    "Name": "Austin City Limits Music Festival",
+    "Category": "Festivals",
+    "Description": "Austin City Limits Music Festival is a massive multi-genre festival in Texas' capital city. Begun in 2002, the festival is a six day, two weekend affair.",
+    "Photo": "photo_festival03.jpg",
+    "Duration": 18,
+    "Price": 0
+  },
+  {
+    "Name": "Leopolis Jazz Fest",
+    "Category": "Festivals",
+    "Description": "The success of this festival went far beyond the borders of the country. It is considered to be among the ten best jazz events in Europe.",
+    "Photo": "photo_festival04.jpg",
+    "Duration": 12,
+    "Price": 10
+  },
+  {
+    "Name": "Z-Games",
+    "Category": "Festivals",
+    "Description": "If listening to good music is too calm for you, you can join the extreme sports festival Z-Games. It is located on the banks of the Black Sea in the city of Zatoka.",
+    "Photo": "photo_festival05.jpg",
+    "Duration": 10,
+    "Price": 0
+  },
+  {
+    "Name": " Molodist International",
+    "Category": "Festivals",
+    "Description": "Since 1970, the Molodist International Film Festival has supported young filmmakers and their short films. It takes place in the last week of October each year.",
+    "Photo": "photo_festival06.jpg",
+    "Duration": 24,
+    "Price": 12
+  },
+  {
+    "Name": "The Greatest Love Songs",
+    "Category": "Concerts",
+    "Description": "Gregory Boyd (USA) — The Greatest Love Songs",
+    "Photo": "photo_concert01.jpg",
+    "Duration": 3,
+    "Price": 70
+  },
+  {
+    "Name": "Lords of the Sound",
+    "Category": "Concerts",
+    "Description": "Lords of the Sound \" Oscar Music Awards\"",
+    "Photo": "photo_concert02.jpg",
+    "Duration": 3,
+    "Price": 70
+  },
+  {
+    "Name": "Zlata Ohnevych",
+    "Category": "Concerts",
+    "Description": "Zlata Ohnevych",
+    "Photo": "photo_concert03.jpg",
+    "Duration": 3,
+    "Price": 20
+  },
+  {
+    "Name": "Ken Hensley",
+    "Category": "Concerts",
+    "Description": "Ken Hensley",
+    "Photo": "photo_concert04.jpg",
+    "Duration": 3,
+    "Price": 100
+  },
+  {
+    "Name": "Laima Vajkule",
+    "Category": "Concerts",
+    "Description": "Laima Vajkule",
+    "Photo": "photo_concert05.jpg",
+    "Duration": 3,
+    "Price": 40
+  },
+  {
+  "Name": "STATION, OR WISH-LIST FOR TOMORROW",
+  "Category": "Theatre",
+  "Description": "Interesting exciting and unusual story. It seems to be fantastic, but it seems to be very close and very close ...",
+  "Photo": "photo_theatre01.jpg",
+  "Duration": 3,
+  "Price": 6
+  },
+  {
+  "Name": "ILLUSIONS",
+  "Category": "Theatre",
+  "Description": "Lived-there were two happy couples. About such people they say - an ideal family and envy their unreal happiness.",
+  "Photo": "photo_theatre02.jpg",
+  "Duration": 3,
+  "Price": 12
+  },
+  {
+  "Name": "SWAN LAKE. RADU POKLITARU",
+  "Category": "Theatre",
+  "Description": "Swan Lake is the most famous ballet legend. We can say that this is even a kind of synonym for the word \"ballet\".",
+  "Photo": "photo_theatre03.jpg",
+  "Duration": 3,
+  "Price": 13
+  },
+  {
+  "Name": "LA MURRR",
+  "Category": "Theatre",
+  "Description": "Love and adventure! This is what makes our life interesting and unforgettable.",
+  "Photo": "photo_theatre04.jpg",
+  "Duration": 3,
+  "Price": 8
+  },
+  {
+  "Name": "LITTLE NOTHINGS OF LIFE",
+  "Category": "Theatre",
+  "Description": "National Academic Theater of Russian Drama. Lesya Ukrainka puts on the play \"Little things in life\". At the heart are five early plays by A.P. Chekhov.",
+  "Photo": "photo_theatre05.jpg",
+  "Duration": 3,
+  "Price": 12
+  },
+  {
+  "Name": "TOO MARRIED TAXI DRIVER",
+  "Category": "Theatre",
+  "Description": "There are staging, which for years do not descend from the stage stages. They are not afraid neither a mod or a changing social morality.",
+  "Photo": "photo_theatre06.jpg",
+  "Duration": 3,
+  "Price": 18
+  },
+  {
+    "Name": "Arsenal Book Festival",
+    "Category": "Arts",
+    "Description": "Arsenal Book Festival in Kyiv, one of the most important main cultural events 2018, is the largest event in Ukraine where art and literature come together.",
+    "Photo": "photo_art01.jpg",
+    "Duration": 12,
+    "Price": 5
+  },
+  {
+    "Name": "Odessa Classics",
+    "Category": "Arts",
+    "Description": "\"Odesa Classics\" is an international festival of academic music, which takes place in Odesa each year from 2015.",
+    "Photo": "photo_art02.jpg",
+    "Duration": 3,
+    "Price": 30
+  },
+  {
+    "Name": "Mystetskyi Arsenal",
+    "Category": "Arts",
+    "Description": "Architectural and meaningful dominant of National Cultural-Art Museum Complex \"Mystetskyi Arsenal\" is the Old Arsenal building, an architectural monument of national importance.",
+    "Photo": "photo_art03.jpg",
+    "Duration": 3,
+    "Price": 10
+  },
+  {
+    "Name": "M17",
+    "Category": "Arts",
+    "Description": "Аvant-garde art gallery is a pioneer, a scout in the contemporary art world. M17 Gallery has a symbolic meaning, codified in this strict minimalist abbreviation: \"M\" – young (ukr – “Molod”).",
+    "Photo": "photo_art04.jpg",
+    "Duration": 3,
+    "Price": 13
+  },
+  {
+    "Name": "Gapchinska",
+    "Category": "Arts",
+    "Description": "Gapchinska art gallery",
+    "Photo": "photo_art05.jpg",
+    "Duration": 3,
+    "Price": 0
+  },
+  {
+    "Name": "Jakob Grether art-centre",
+    "Category": "Arts",
+    "Description": "The Jakob Grether art-centre represents contemporary art, mostly in paintings and sculpture.",
+    "Photo": "photo_art06.jpg",
+    "Duration": 3,
+    "Price": 0
   }
 ]
