@@ -1,7 +1,7 @@
 [
   {
     "Name": "AFTER-HEDONISM",
-    "Category": "Sports",
+    "Category": "Festivals",
     "Description": "The final event of the Hedonism Festival - the After-Hedonism party.",
     "Photo": "photo01.jpg",
     "Duration": 8,
@@ -9,7 +9,7 @@
   },
   {
     "Name": "KORCHFEST",
-    "Category": "Sports",
+    "Category": "Exhibitions",
     "Description": "Will host a festival-exhibition of automotive subcultures Korchfest.",
     "Photo": "photo02.jpg",
     "Duration": 12,
@@ -25,7 +25,7 @@
   },
   {
     "Name": "NGRID ARTHUR BAND",
-    "Category": "Festivals",
+    "Category": "Arts",
     "Description": "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
     "Photo": "photo04.jpg",
     "Duration": 4,
@@ -33,10 +33,66 @@
   },
   {
     "Name": "POWER OF UKRAINE",
-    "Category": "Arts",
+    "Category": "Ethno tour",
     "Description": "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening!",
     "Photo": "photo05.jpg",
     "Duration": 24,
     "Price": 250
+  },
+  {
+    "Name": "World Cup Soccer",
+    "Category": "Sports",
+    "Description": "Thirty-two nations play, but billions of people in countries all around the world drop everything they’re doing for a month every four years to see who claims the title of World Cup soccer champion.",
+    "Photo": "photo_sport01.jpg",
+    "Duration": 2,
+    "Price": 60
+  },
+  {
+    "Name": "Half Marathon 2018",
+    "Category": "Sports",
+    "Description": "In Kharkov will be the third Kharkov half-marathon. A new route in the center of the city. 2 courses to choose from - a classic half marathon (21,097 km) and 5 km.",
+    "Photo": "photo_sport02.jpg",
+    "Duration": 6,
+    "Price": 0
+  },
+  {
+    "Name": "The National Basketball Association Finals",
+    "Category": "Sports",
+    "Description": "The National Basketball Association’s finals are a showdown of stars and teams for the ages. It takes four games to win, but at least 93 games to get there.",
+    "Photo": "photo_sport03.jpg",
+    "Duration": 4,
+    "Price": 285
+  },
+  {
+    "Name": "Surfing Major Events",
+    "Category": "Sports",
+    "Description": "The World Surfing Games is an annual international surfing event organised by International Surfing Association (ISA).",
+    "Photo": "photo_sport04.jpg",
+    "Duration": 24,
+    "Price": 15
+  },
+  {
+    "Name": "International Children's Games",
+    "Category": "Sports",
+    "Description": "The International Children's Games are a multi-sport competition involving young athletes aged between 12 and 15 held every year.",
+    "Photo": "photo_sport05.jpg",
+    "Duration": 36,
+    "Price": 100
+  },
+  {
+    "Name": "International Dance Championships",
+    "Category": "Sports",
+    "Description": "The best dance talent from across the world can be seen competing with all the glamour that everyone expects at this highly prestigious and popular Dance Championship – one of the glittering social events of the year.",
+    "Photo": "photo_sport06.jpg",
+    "Duration": 48,
+    "Price": 870
+  },
+  {
+    "Name": "World Boxing Championships",
+    "Category": "Sports",
+    "Description": "The World Boxing Championship, organized by the International Boxing Association (AIBA), is a biennial amateur boxing competition. It was formerly known as the World Amateur Boxing Championship.",
+    "Photo": "photo_sport07.jpg",
+    "Duration": 15,
+    "Price": 1230
   }
 ]

@@ -74,6 +74,8 @@ public class FillTables {
   @Autowired
   PasswordEncoder passwordEncoder;
 
+  private  static final int DAYS_SCHEDULE = 30;
+
   private class Hotel {
     private String name;
     private int price;
@@ -284,7 +286,7 @@ public class FillTables {
             int eventNumber = (int) (Math.random() * events.size());
             EventDescription event = events.get(eventNumber);
 
-            int shiftDate = (int) (Math.random() * 60);
+            int shiftDate = (int) (Math.random() * DAYS_SCHEDULE);
             Date eventsDate = addDays(currentDate, shiftDate);
             Category category;
 
@@ -310,7 +312,6 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        final int DaysSchedule = 30;
         List<TransportType> transportTypes = new ArrayList<>();
         transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
         List<City> cities = new ArrayList<>();
@@ -321,7 +322,7 @@ public class FillTables {
             for (int k = 0; k < transportTypes.size(); k++) {
               Date currentDate = getCurrentDate();
               currentDate = addDays(currentDate, -2);
-              for (int l = 0; l < DaysSchedule; l++) {
+              for (int l = 0; l < DAYS_SCHEDULE; l++) {
                 int hours = (int) (Math.random() * 23);
                 int duration = (int) (Math.random() * 12);
 
