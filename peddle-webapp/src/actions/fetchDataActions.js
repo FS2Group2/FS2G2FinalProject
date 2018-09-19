@@ -6,13 +6,14 @@ import {
   LOAD_TOP_EVENTS,
   LOAD_TRANSFERS_BACKWARD,
   LOAD_TRANSFERS_FORWARD,
-  LOAD_WISHLIST,
+  LOAD_WISHLIST, SET_EVENT_INFO_ERROR, SET_EVENT_INFO_PENDING, SET_EVENT_INFO_SUCCESS,
   SET_FETCH_ERROR,
   SET_FETCH_PENDING,
   SET_FETCH_SUCCESS,
   USER_LOGIN
 } from "./actionsTypes";
 import {fetchData} from "../components/fetchData";
+import dataMap from "../constants/ApiSettings";
 
 export function setFetchPending(isFetchPending) {
   return {
@@ -127,3 +128,56 @@ export function setFetchData(fetchData, dataType) {
 
 }
 
+export function setEventInfoPending(isEventInfoPending) {
+  return {
+    type: SET_EVENT_INFO_PENDING,
+    payload: isEventInfoPending
+  };
+}
+
+export function setEventInfoSuccess(isEventInfoSuccess) {
+  return {
+    type: SET_EVENT_INFO_SUCCESS,
+    payload: isEventInfoSuccess
+  };
+}
+
+export function setEventInfoError(eventInfoError) {
+  return {
+    type: SET_EVENT_INFO_ERROR,
+    payload: eventInfoError
+  }
+}
+
+export function setEventInfoData(fetchData) {
+  return{
+    type: LOAD_EVENT_INFO,
+    payload: fetchData
+  }
+}
+
+export function fetchEventInfo(eventId) {
+    return dispatch => {
+    dispatch(setEventInfoPending(true));
+    dispatch(setEventInfoSuccess(false));
+    dispatch(setEventInfoError(null));
+    let responseStatus = false;
+
+    let apiUrl=dataMap.event+eventId;
+    fetchData(apiUrl, 'get', '')
+      .then(response => {
+        dispatch(setEventInfoPending(false));
+        responseStatus = response.ok;
+        return response;
+      })
+      .then(response => response.json())
+      .then(json => {
+        if (responseStatus) {
+          dispatch(setEventInfoData(json));
+          dispatch(setEventInfoSuccess(true));
+        } else {
+          dispatch(setEventInfoError(json))
+        }
+      })
+  }
+}

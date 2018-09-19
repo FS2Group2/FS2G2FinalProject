@@ -13,7 +13,7 @@ import {
   setDatesForTransferToEvent,
   setEventCity
 } from "../actions/transferActions";
-import {fetchDataFromApi} from "../actions/fetchDataActions";
+import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
 import {eventInfo} from "../constants/queryTypes";
 
 class EventPurchasePage extends Component {
@@ -54,7 +54,7 @@ class EventPurchasePage extends Component {
   };
 
   addEventToBasket = () => {
-    this.setState({purchasedEvent: this.state.event})
+    this.setState({purchasedEvent: this.props.currentEventInfo})
   };
 
   addAccommodationToBasket = (acc) => {
@@ -74,19 +74,20 @@ class EventPurchasePage extends Component {
       setEventCity, isLogged, currentUser,
       setCityForTransferToEvent, setCityForTransferFromEvent,
       setDatesForTransferToEvent, setDatesForTransferFromEvent,
-      currentEventInfo,
-      fetchDataFromApi
+      currentEventInfo,isEventInfoSuccess,
+      fetchEventInfo
     } = this.props;
 
-    fetchDataFromApi(eventInfo, this.state.eventId);
+    fetchEventInfo(this.state.eventId);
     if (isLogged) {
       setCityForTransferToEvent(currentUser.cityName);
       setCityForTransferFromEvent(currentUser.cityName);
     }
 
-    if(currentEventInfo.duration){
+    if(isEventInfoSuccess){
       setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
       setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
+      this.fetchAccommodations();
     }
 
     // setEventCity(currentEventInfo.cityName);
@@ -119,7 +120,7 @@ class EventPurchasePage extends Component {
   };
 
   fetchAccommodations() {
-    const cityName = this.state.event.cityName;
+    const cityName = this.props.currentEventInfo.cityName;
     let reqParam = {
       method: 'POST',
       headers: authHeaders,
@@ -149,10 +150,10 @@ class EventPurchasePage extends Component {
       setCityForTransferFromEvent(currentUser.cityName);
     }
 
-    if(prevProps.currentEventInfo.duration!==this.props.currentEventInfo.duration||
-      prevProps.currentEventInfo.date!==this.props.currentEventInfo.date){
+    if(prevProps.isEventInfoSuccess!==this.props.isEventInfoSuccess){
       setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
       setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
+      this.fetchAccommodations();
     }
 
     if (prevProps.currentEventInfo.cityName !== this.props.currentEventInfo.cityName) {
@@ -173,7 +174,7 @@ class EventPurchasePage extends Component {
             <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}/>
           </div>
 
-          {eventInfo.cityName &&
+          {currentEventInfo.cityName &&
           <div className='accommodation-container'>
             <Accommodations accommodations={accommodations} city={currentEventInfo.cityName}
                             addA={this.addAccommodationToBasket.bind(this)}/>
@@ -243,7 +244,8 @@ const mapStateToProps = (state) => {
     currentEventInfo: state.eventReducer.eventInfo,
     isLogged: state.userReducer.loggedIn,
     allCities: state.fillListsReducer.cities,
-    transferProps: state.transferReducer
+    transferProps: state.transferReducer,
+    isEventInfoSuccess: state.eventReducer.isEventInfoSuccess
   }
 };
 
@@ -257,6 +259,7 @@ const mapDispatchToProps = (dispatch) => {
     setDatesForTransferToEvent: (date1, date2) => dispatch(setDatesForTransferToEvent(date1, date2)),
     setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
 
+    fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query))
   }
 };
