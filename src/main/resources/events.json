@@ -1,0 +1,282 @@
+[
+  {
+    "Name": "AFTER-HEDONISM",
+    "Category": "Festivals",
+    "Description": "The final event of the Hedonism Festival - the After-Hedonism party.",
+    "Photo": "photo01.jpg",
+    "Duration": 8,
+    "Price": 250
+  },
+  {
+    "Name": "KORCHFEST",
+    "Category": "Exhibitions",
+    "Description": "Will host a festival-exhibition of automotive subcultures Korchfest.",
+    "Photo": "photo02.jpg",
+    "Duration": 12,
+    "Price": 120
+  },
+  {
+    "Name": "METHODS OF UPBRINGING SMALL BURIALS",
+    "Category": "Festivals",
+    "Description": "History, after which you will rethink the importance of family relationships.",
+    "Photo": "photo03.jpg",
+    "Duration": 5,
+    "Price": 400
+  },
+  {
+    "Name": "NGRID ARTHUR BAND",
+    "Category": "Arts",
+    "Description": "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
+    "Photo": "photo04.jpg",
+    "Duration": 4,
+    "Price": 2500
+  },
+  {
+    "Name": "POWER OF UKRAINE",
+    "Category": "Ethno tour",
+    "Description": "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening!",
+    "Photo": "photo05.jpg",
+    "Duration": 24,
+    "Price": 250
+  },
+  {
+    "Name": "World Cup Soccer",
+    "Category": "Sports",
+    "Description": "Thirty-two nations play, but billions of people in countries all around the world drop everything they’re doing for a month every four years to see who claims the title of World Cup soccer champion.",
+    "Photo": "photo_sport01.jpg",
+    "Duration": 2,
+    "Price": 60
+  },
+  {
+    "Name": "Half Marathon 2018",
+    "Category": "Sports",
+    "Description": "In Kharkov will be the third Kharkov half-marathon. A new route in the center of the city. 2 courses to choose from - a classic half marathon (21,097 km) and 5 km.",
+    "Photo": "photo_sport02.jpg",
+    "Duration": 6,
+    "Price": 0
+  },
+  {
+    "Name": "The National Basketball Association Finals",
+    "Category": "Sports",
+    "Description": "The National Basketball Association’s finals are a showdown of stars and teams for the ages. It takes four games to win, but at least 93 games to get there.",
+    "Photo": "photo_sport03.jpg",
+    "Duration": 4,
+    "Price": 285
+  },
+  {
+    "Name": "Surfing Major Events",
+    "Category": "Sports",
+    "Description": "The World Surfing Games is an annual international surfing event organised by International Surfing Association (ISA).",
+    "Photo": "photo_sport04.jpg",
+    "Duration": 24,
+    "Price": 15
+  },
+  {
+    "Name": "International Children's Games",
+    "Category": "Sports",
+    "Description": "The International Children's Games are a multi-sport competition involving young athletes aged between 12 and 15 held every year.",
+    "Photo": "photo_sport05.jpg",
+    "Duration": 36,
+    "Price": 100
+  },
+  {
+    "Name": "International Dance Championships",
+    "Category": "Sports",
+    "Description": "The best dance talent from across the world can be seen competing with all the glamour that everyone expects at this highly prestigious and popular Dance Championship – one of the glittering social events of the year.",
+    "Photo": "photo_sport06.jpg",
+    "Duration": 48,
+    "Price": 870
+  },
+  {
+    "Name": "World Boxing Championships",
+    "Category": "Sports",
+    "Description": "The World Boxing Championship, organized by the International Boxing Association (AIBA), is a biennial amateur boxing competition. It was formerly known as the World Amateur Boxing Championship.",
+    "Photo": "photo_sport07.jpg",
+    "Duration": 15,
+    "Price": 1230
+  },
+  {
+    "Name": "Electric Daisy Carnival",
+    "Category": "Festivals",
+    "Description": "Electric Daisy Carnival Orlando is the Florida outpost of the global EDC festival series.",
+    "Photo": "photo_festival01.jpg",
+    "Duration": 7,
+    "Price": 70
+  },
+  {
+    "Name": "The Social Festival 2018",
+    "Category": "Festivals",
+    "Description": "The Social Festival is a UK electronic music festival, held each September on Kent Country Showground in Maidstone.",
+    "Photo": "photo_festival02.jpg",
+    "Duration": 24,
+    "Price": 10
+  },
+  {
+    "Name": "Austin City Limits Music Festival",
+    "Category": "Festivals",
+    "Description": "Austin City Limits Music Festival is a massive multi-genre festival in Texas' capital city. Begun in 2002, the festival is a six day, two weekend affair.",
+    "Photo": "photo_festival03.jpg",
+    "Duration": 18,
+    "Price": 0
+  },
+  {
+    "Name": "Leopolis Jazz Fest",
+    "Category": "Festivals",
+    "Description": "The success of this festival went far beyond the borders of the country. It is considered to be among the ten best jazz events in Europe.",
+    "Photo": "photo_festival04.jpg",
+    "Duration": 12,
+    "Price": 10
+  },
+  {
+    "Name": "Z-Games",
+    "Category": "Festivals",
+    "Description": "If listening to good music is too calm for you, you can join the extreme sports festival Z-Games. It is located on the banks of the Black Sea in the city of Zatoka.",
+    "Photo": "photo_festival05.jpg",
+    "Duration": 10,
+    "Price": 0
+  },
+  {
+    "Name": " Molodist International",
+    "Category": "Festivals",
+    "Description": "Since 1970, the Molodist International Film Festival has supported young filmmakers and their short films. It takes place in the last week of October each year.",
+    "Photo": "photo_festival06.jpg",
+    "Duration": 24,
+    "Price": 12
+  },
+  {
+    "Name": "The Greatest Love Songs",
+    "Category": "Concerts",
+    "Description": "Gregory Boyd (USA) — The Greatest Love Songs",
+    "Photo": "photo_concert01.jpg",
+    "Duration": 3,
+    "Price": 70
+  },
+  {
+    "Name": "Lords of the Sound",
+    "Category": "Concerts",
+    "Description": "Lords of the Sound \" Oscar Music Awards\"",
+    "Photo": "photo_concert02.jpg",
+    "Duration": 3,
+    "Price": 70
+  },
+  {
+    "Name": "Zlata Ohnevych",
+    "Category": "Concerts",
+    "Description": "Zlata Ohnevych",
+    "Photo": "photo_concert03.jpg",
+    "Duration": 3,
+    "Price": 20
+  },
+  {
+    "Name": "Ken Hensley",
+    "Category": "Concerts",
+    "Description": "Ken Hensley",
+    "Photo": "photo_concert04.jpg",
+    "Duration": 3,
+    "Price": 100
+  },
+  {
+    "Name": "Laima Vajkule",
+    "Category": "Concerts",
+    "Description": "Laima Vajkule",
+    "Photo": "photo_concert05.jpg",
+    "Duration": 3,
+    "Price": 40
+  },
+  {
+  "Name": "STATION, OR WISH-LIST FOR TOMORROW",
+  "Category": "Theatre",
+  "Description": "Interesting exciting and unusual story. It seems to be fantastic, but it seems to be very close and very close ...",
+  "Photo": "photo_theatre01.jpg",
+  "Duration": 3,
+  "Price": 6
+  },
+  {
+  "Name": "ILLUSIONS",
+  "Category": "Theatre",
+  "Description": "Lived-there were two happy couples. About such people they say - an ideal family and envy their unreal happiness.",
+  "Photo": "photo_theatre02.jpg",
+  "Duration": 3,
+  "Price": 12
+  },
+  {
+  "Name": "SWAN LAKE. RADU POKLITARU",
+  "Category": "Theatre",
+  "Description": "Swan Lake is the most famous ballet legend. We can say that this is even a kind of synonym for the word \"ballet\".",
+  "Photo": "photo_theatre03.jpg",
+  "Duration": 3,
+  "Price": 13
+  },
+  {
+  "Name": "LA MURRR",
+  "Category": "Theatre",
+  "Description": "Love and adventure! This is what makes our life interesting and unforgettable.",
+  "Photo": "photo_theatre04.jpg",
+  "Duration": 3,
+  "Price": 8
+  },
+  {
+  "Name": "LITTLE NOTHINGS OF LIFE",
+  "Category": "Theatre",
+  "Description": "National Academic Theater of Russian Drama. Lesya Ukrainka puts on the play \"Little things in life\". At the heart are five early plays by A.P. Chekhov.",
+  "Photo": "photo_theatre05.jpg",
+  "Duration": 3,
+  "Price": 12
+  },
+  {
+  "Name": "TOO MARRIED TAXI DRIVER",
+  "Category": "Theatre",
+  "Description": "There are staging, which for years do not descend from the stage stages. They are not afraid neither a mod or a changing social morality.",
+  "Photo": "photo_theatre06.jpg",
+  "Duration": 3,
+  "Price": 18
+  },
+  {
+    "Name": "Arsenal Book Festival",
+    "Category": "Arts",
+    "Description": "Arsenal Book Festival in Kyiv, one of the most important main cultural events 2018, is the largest event in Ukraine where art and literature come together.",
+    "Photo": "photo_art01.jpg",
+    "Duration": 12,
+    "Price": 5
+  },
+  {
+    "Name": "Odessa Classics",
+    "Category": "Arts",
+    "Description": "\"Odesa Classics\" is an international festival of academic music, which takes place in Odesa each year from 2015.",
+    "Photo": "photo_art02.jpg",
+    "Duration": 3,
+    "Price": 30
+  },
+  {
+    "Name": "Mystetskyi Arsenal",
+    "Category": "Arts",
+    "Description": "Architectural and meaningful dominant of National Cultural-Art Museum Complex \"Mystetskyi Arsenal\" is the Old Arsenal building, an architectural monument of national importance.",
+    "Photo": "photo_art03.jpg",
+    "Duration": 3,
+    "Price": 10
+  },
+  {
+    "Name": "M17",
+    "Category": "Arts",
+    "Description": "Аvant-garde art gallery is a pioneer, a scout in the contemporary art world. M17 Gallery has a symbolic meaning, codified in this strict minimalist abbreviation: \"M\" – young (ukr – “Molod”).",
+    "Photo": "photo_art04.jpg",
+    "Duration": 3,
+    "Price": 13
+  },
+  {
+    "Name": "Gapchinska",
+    "Category": "Arts",
+    "Description": "Gapchinska art gallery",
+    "Photo": "photo_art05.jpg",
+    "Duration": 3,
+    "Price": 0
+  },
+  {
+    "Name": "Jakob Grether art-centre",
+    "Category": "Arts",
+    "Description": "The Jakob Grether art-centre represents contemporary art, mostly in paintings and sculpture.",
+    "Photo": "photo_art06.jpg",
+    "Duration": 3,
+    "Price": 0
+  }
+]

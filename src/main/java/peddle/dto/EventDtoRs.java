@@ -1,16 +1,11 @@
 package peddle.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import peddle.entities.Category;
-import peddle.entities.City;
-import peddle.entities.Event;
 
 import java.util.Date;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class EventDtoRs {
   private Long id;
@@ -22,4 +17,5 @@ public class EventDtoRs {
   private int duration;
   private int price;
   private String eventExtraPhoto;
+  private String eventExtraDescription;
 }
