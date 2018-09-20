@@ -24,11 +24,19 @@ public class CategoryServiceImpl implements CategoryService {
   @Autowired
   private ModelMapper modelMapper;
 
+  @Autowired
+  private EventRepository eventRepository;
+
   @Override
   public List<CategoryDto> getAll() {
     List<CategoryDto> categoryDtos = new ArrayList<>();
-    categoryRepository.findAll().forEach(category ->
-            categoryDtos.add(modelMapper.map(category, CategoryDto.class)));
+    categoryRepository.findAll().forEach(category -> {
+      //int countEvent = eventRepository.findEventByCategory(category).size();
+      Long countEvent = eventRepository.countByCategory(category);
+      CategoryDto categoryDto = modelMapper.map(category, CategoryDto.class);
+      categoryDto.setCount(countEvent);
+      categoryDtos.add(categoryDto);
+    });
     return categoryDtos;
   }
 
