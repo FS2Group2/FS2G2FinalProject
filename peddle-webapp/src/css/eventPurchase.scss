@@ -72,6 +72,13 @@
   border-left: gray solid 1px;
 }
 
+.event-actions-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40%;
+}
+
 .event-info-header {
   color: #5f0202;
   font-size: 18px;
@@ -102,11 +109,21 @@
 }
 
 .add-to-cart {
+  position: relative;
   padding: 7px;
   border: #808080 solid 1px;
   border-radius: 4px;
   outline: none;
   color: #373737;
+}
+
+.add-to-wishlist {
+  padding: 7px;
+  border: #808080 solid 1px;
+  border-radius: 4px;
+  outline: none;
+  color: #373737;
+  font-size: 14px;
 }
 
 .accommodation-item {
