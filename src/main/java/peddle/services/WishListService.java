@@ -10,7 +10,7 @@ public interface WishListService {
 
   List<EventDtoRs> getAllByUserId(Long userId);
 
-  void addNewEventToUser(WishListDto wishListDto);
+  List<EventDtoRs> addNewEventToUser(WishListDto wishListDto);
 
   void deleteBadEventFromUser(WishListDto wishListDto);
 }

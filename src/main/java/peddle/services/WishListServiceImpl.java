@@ -15,6 +15,7 @@ import peddle.repository.EventRepository;
 import peddle.repository.UserRepository;
 import peddle.repository.WishListRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class WishListServiceImpl implements WishListService {
   }
 
   @Override
-  public void addNewEventToUser(WishListDto wishListDto) {
+  public List<EventDtoRs> addNewEventToUser(WishListDto wishListDto) {
     User user = userRepository.findById(wishListDto.getUserId())
             .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
@@ -54,6 +55,11 @@ public class WishListServiceImpl implements WishListService {
 
     event.getUsers().add(user);
     eventRepository.save(event);
+
+    List<EventDtoRs> eventDtoRsList = new ArrayList<>();
+    eventDtoRsList.add(modelMapper.map(event, EventDtoRs.class));
+
+    return  eventDtoRsList;
   }
 
   @Override
