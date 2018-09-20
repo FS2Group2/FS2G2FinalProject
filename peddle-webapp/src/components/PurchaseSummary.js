@@ -15,7 +15,7 @@ class PurchaseSummary extends Component {
     const {event, accommodation, transferTo, transferFrom} = this.props;
     return (
         <Fragment>
-          {!!event.price &&
+          {!!event.name &&
           <div className='purchase-summary'>
             <div className="purchases">
               <p className='container-header-p'> Summary:</p>

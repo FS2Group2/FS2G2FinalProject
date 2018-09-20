@@ -14,8 +14,10 @@ public class EventFullDtoRs {
   private String name;
   private String cityName;
   private Date date;
+  private Long categoryId;
+  private String categoryName;
   private int duration;
   private int price;
   private String eventExtraPhoto;
-  private String description;
+  private String eventExtraDescription;
 }

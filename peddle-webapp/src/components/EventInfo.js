@@ -15,7 +15,7 @@ class EventInfo extends Component {
             <h3 className='event-info-city'>{event.cityName}</h3>
             <h3 className='event-info-date'>{new Date(event.date).toLocaleDateString()}</h3>
             <p className='event-info-p'>Duration: {event.duration} hours</p>
-            <p className='event-info-p'>Descripion: {event.description}</p>
+            <p className='event-info-p'>Description: {event.eventExtraDescription}</p>
           </div>
           <div className='event-purchase'>
             <h2 className='event-price'>Price: ${event.price}</h2>
