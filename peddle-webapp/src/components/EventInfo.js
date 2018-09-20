@@ -4,6 +4,7 @@ import {eventImgPath} from '../constants/ApiSettings'
 class EventInfo extends Component {
   render() {
     const event = this.props.event;
+    const{add, addToWishList}= this.props;
     return (
         <div className='event-info'>
           <div className='event-photo-container'>
@@ -19,7 +20,11 @@ class EventInfo extends Component {
           </div>
           <div className='event-purchase'>
             <h2 className='event-price'>Price: ${event.price}</h2>
-            <input type="button" className='btn add-to-cart' value='Add to cart' onClick={this.props.add}/>
+            <div className="event-actions-buttons">
+              <input type="button" className={'btn add-to-wishlist'} value={'Add to wish list'} onClick={addToWishList}/>
+              <input type="button" className='btn add-to-cart' value='Add to cart' onClick={add}/>
+            </div>
+
           </div>
         </div>
     )

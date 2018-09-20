@@ -13,6 +13,8 @@ import {
   setDatesForTransferToEvent,
   setEventCity
 } from "../actions/transferActions";
+import {fetchDataFromApi} from "../actions/fetchDataActions";
+import {wishList, wishListAdd} from "../constants/queryTypes";
 
 
 class EventPurchasePage extends Component {
@@ -54,6 +56,16 @@ class EventPurchasePage extends Component {
 
   addEventToBasket = () => {
     this.setState({purchasedEvent: this.state.event})
+  };
+
+  addEventToWishList = () => {
+    const {fetchDataFromApi, currentUser}=this.props;
+    let query = {
+      userId: currentUser.id,
+      eventId: this.state.eventId
+    };
+    fetchDataFromApi(wishListAdd, query);
+    fetchDataFromApi(wishList, '')
   };
 
   addAccommodationToBasket = (acc) => {
@@ -136,7 +148,8 @@ class EventPurchasePage extends Component {
       <Fragment>
         <div className='event-purchase-page'>
           <div className='event-extra-container'>
-            <EventInfo event={event} add={this.addEventToBasket.bind(this)}/>
+            <EventInfo event={event} add={this.addEventToBasket.bind(this)}
+            addToWishList={this.addEventToWishList.bind(this)}/>
           </div>
 
           <div className='accommodation-container'>
@@ -219,6 +232,10 @@ const mapDispatchToProps = (dispatch) => {
     // === DATES ===
     setDatesForTransferToEvent: (date1, date2) => dispatch(setDatesForTransferToEvent(date1, date2)),
     setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
+
+    fetchDataFromApi: (queryType, query) => {
+      dispatch(fetchDataFromApi(queryType, query))
+    }
   }
 };
 

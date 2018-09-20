@@ -1,4 +1,5 @@
 import {
+  ADD_TO_WISHLIST,
   FILL_CATEGORIES_LIST,
   FILL_CITIES_LIST, LOAD_EVENTS, LOAD_TOP_EVENTS, LOAD_WISHLIST,
   SET_FETCH_ERROR,
@@ -78,6 +79,12 @@ export function setFetchData(fetchData, dataType) {
         type: LOAD_WISHLIST,
         payload: fetchData
       };
+
+    case 'ADD_TO_WISH_LIST':
+      return{
+        type: ADD_TO_WISHLIST,
+        payload: fetchData
+      }
 
     case 'LOAD_USER':
       return {
