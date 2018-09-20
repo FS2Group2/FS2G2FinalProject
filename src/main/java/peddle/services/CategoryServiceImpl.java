@@ -31,7 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
   public List<CategoryDto> getAll() {
     List<CategoryDto> categoryDtos = new ArrayList<>();
     categoryRepository.findAll().forEach(category -> {
-      int countEvent = eventRepository.findEventByCategory(category).size();
+      //int countEvent = eventRepository.findEventByCategory(category).size();
+      Long countEvent = eventRepository.countByCategory(category);
       CategoryDto categoryDto = modelMapper.map(category, CategoryDto.class);
       categoryDto.setCount(countEvent);
       categoryDtos.add(categoryDto);

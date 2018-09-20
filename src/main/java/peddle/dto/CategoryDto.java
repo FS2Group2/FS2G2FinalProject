@@ -6,6 +6,6 @@ import lombok.Data;
 public class CategoryDto {
   private Long id;
   private String name;
-  private int count;
+  private Long count;
   private String photo;
 }
