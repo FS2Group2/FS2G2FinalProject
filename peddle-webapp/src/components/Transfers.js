@@ -33,7 +33,8 @@ class Transfers extends Component {
       dateFrom: dateFrom,
       dateTo: dateTo
     };
-    loadTransfers(queryType, query)
+
+    if (cityFrom && cityTo && dateFrom && dateTo) loadTransfers(queryType, query)
   }
 
   componentDidMount() {
@@ -43,10 +44,14 @@ class Transfers extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
       prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent ||
-      prevProps.loggedUser.currentUser.cityName !== this.props.loggedUser.currentUser.cityName
+      prevProps.loggedUser.currentUser.cityName !== this.props.loggedUser.currentUser.cityName ||
+      prevProps.transferProps.eventCity !== this.props.transferProps.eventCity ||
+      prevProps.transferProps.dateTransferToEvent1 !== this.props.transferProps.dateTransferToEvent1 ||
+      prevProps.transferProps.dateTransferFromEvent1 !== this.props.transferProps.dateTransferFromEvent1
     ) {
       this.fetchTransfer()
     }
+
   }
 
 
@@ -124,7 +129,8 @@ const
     return {
       isLogged: state.userReducer.loggedIn,
       loggedUser: state.userReducer,
-      transferProps: state.transferReducer
+      transferProps: state.transferReducer,
+      currentEventInfo: state.eventReducer.eventInfo
     }
   };
 
@@ -137,9 +143,4 @@ const
     }
   };
 
-export default connect(mapStateToProps, mapDispatchToProps)
-
-(
-  Transfers
-)
-;
+export default connect(mapStateToProps, mapDispatchToProps)(Transfers);
