@@ -25,6 +25,7 @@ const dataMap = {
   wishlist: dataPath + '/wishlist/user-events/',
   wishlistAdd: dataPath + '/wishlist/add-event-to-user',
   purchace: dataPath + '/purchase/all/',
+  purchaseAdd: dataPath + '/purchase/add',
   categoryPath: dataPath + "/categories/all"
 };
 
