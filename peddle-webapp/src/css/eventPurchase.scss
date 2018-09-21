@@ -44,6 +44,7 @@
 
 .event-photo-container {
   display: inline-block;
+  position: relative;
   padding: 4px;
   border: #6b6b6b solid 1px;
 }
@@ -95,12 +96,29 @@
 }
 
 .event-info-p {
+  margin-top: 10px;
   color: #1d1e2d;
   font-size: 12px;
 }
 
+.event-info-description {
+  margin-top: 20px;
+  color: #15024b;
+  font-size: 14px;
+  font-style: italic;
+}
+
 .event-photo {
   height: 200px;
+}
+
+.star-icon-event-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 1px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .2);
 }
 
 .event-price {
