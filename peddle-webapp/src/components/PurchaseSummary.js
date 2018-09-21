@@ -12,7 +12,7 @@ class PurchaseSummary extends Component {
   };
 
   render() {
-    const {event, accommodation, transferTo, transferFrom} = this.props;
+    const {event, accommodation, transferTo, transferFrom, purchase} = this.props;
     return (
         <Fragment>
           {!!event.name &&
@@ -74,6 +74,7 @@ class PurchaseSummary extends Component {
             <div className="summary">
               <p>Total amount:</p>
               <h3 className='purchase-summary-total'>${this.totalAmount()}</h3>
+              <input className={'btn add-to-cart'} type="button" value={'Purchase'} onClick={()=>purchase()}/>
             </div>
           </div>
           }

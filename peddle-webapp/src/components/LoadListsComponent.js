@@ -17,13 +17,13 @@ class LoadListsComponent extends Component {
       dateStart: filter.dateStart,
       dateFin: '01/01/2050',
       categoryId: 0
-    })
+    });
 
     if (localStorage.getItem('logged') && localStorage.getItem('accessToken')) {
       setLoggedIn(true);
       let userQuery={name: localStorage.getItem('usr')};
       fetchDataFromApi(userData, userQuery);
-      fetchDataFromApi(wishList, '');
+      fetchDataFromApi(wishList, localStorage.getItem("uid"));
     }
 
   }
