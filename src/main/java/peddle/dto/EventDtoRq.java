@@ -1,15 +1,13 @@
 package peddle.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class EventDtoRq {
   private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

@@ -1,5 +1,8 @@
 package peddle.utils;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +32,7 @@ import peddle.repository.PurchaseRepository;
 import peddle.repository.CategoryRepository;
 
 import javax.transaction.Transactional;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,6 +74,8 @@ public class FillTables {
   @Autowired
   PasswordEncoder passwordEncoder;
 
+  private  static final int DAYS_SCHEDULE = 30;
+
   private class Hotel {
     private String name;
     private int price;
@@ -86,11 +92,13 @@ public class FillTables {
     private String name;
     private String photo;
     private String description;
+    private String category;
     private int duration;
     private int price;
 
-    public EventDescription(String name, String photo, String description, int duration, int price) {
+    public EventDescription(String name, String category, String photo, String description, int duration, int price) {
       this.name = name;
+      this.category = category;
       this.photo = photo;
       this.description = description;
       this.duration = duration;
@@ -98,32 +106,37 @@ public class FillTables {
     }
   }
 
-  private List<EventDescription> generateEvents() {
+  private List<EventDescription> readerEvents() {
     List<EventDescription> evetns = new ArrayList<>();
-    evetns.add(new EventDescription("AFTER-HEDONISM",
-            "photo01.jpg",
-            "The final event of the Hedonism Festival - the After-Hedonism party.",
-            8, 250));
+    JSONParser parser = new JSONParser();
 
-    evetns.add(new EventDescription("KORCHFEST",
-            "photo02.jpg",
-            "Will host a festival-exhibition of automotive subcultures Korchfest.",
-            12, 120));
+    try {
+      Object obj = parser.parse(new FileReader("./src/main/resources/events.json"));
 
-    evetns.add(new EventDescription("METHODS OF UPBRINGING SMALL BURIALS",
-            "photo03.jpg",
-            "History, after which you will rethink the importance of family relationships.",
-            5, 400));
+      JSONArray eventsList = (JSONArray) obj;
 
-    evetns.add(new EventDescription("NGRID ARTHUR BAND",
-            "photo04.jpg",
-            "At the scene of the capital complex \"Mystetsky Arsenal\" - the world famous gospel diva Ingrid Arthur.",
-            4, 2500));
+      eventsList.forEach( event -> {
+        JSONObject eventObject = (JSONObject) event;
+        String name = (String) eventObject.get("Name");
+        String category = (String) eventObject.get("Category");
+        String description = (String) eventObject.get("Description");
+        String photo = (String) eventObject.get("Photo");
+        int duration = ((Long) eventObject.get("Duration")).intValue();
+        int price = ((Long) eventObject.get("Price")).intValue();
 
-    evetns.add(new EventDescription("POWER OF UKRAINE",
-            "photo05.jpg",
-            "The most powerful and bright representatives of the \"heavy\" scene of the country - only this evening! ",
-            24, 250));
+        evetns.add(new EventDescription(name, category, photo, description, duration, price));
+        /*
+        System.out.println("Name: " + name);
+        System.out.println("Category: " + category);
+        System.out.println("Description: " + description);
+        System.out.println("Photo: " + photo);
+        System.out.println("Duration: " + duration);
+        System.out.println("Price: " + price);
+        */
+      });
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return evetns;
   }
 
@@ -200,13 +213,14 @@ public class FillTables {
         categories.add(new Category("Festivals", "festivals.jpg"));
         categories.add(new Category("Concerts", "concerts.jpg"));
         categories.add(new Category("Theatre", "theatre.jpg"));
+        categories.add(new Category("Arts", "arts.jpg"));
+        categories.add(new Category("Ethno tour", "ethnos.jpg"));
+        categories.add(new Category("Gastro tour", "gastro.jpg"));
+        categories.add(new Category("Education", "education.jpg"));
         categories.add(new Category("Exhibitions", "exhibitions.jpg"));
-        categories.add(new Category("Industrial Exhibitions", "industrialExhibitions.jpg"));
-        categories.add(new Category("Cultural Exhibitions", "culturalExhibitions.jpg"));
-        for (int i = 0; i < categories.size(); i++) {
-          categoryRepository.save(new Category(categories.get(i).getName(),
-                  categories.get(i).getPhoto()));
-        }
+
+        categories.forEach(category -> categoryRepository.save(category));
+
         System.out.println("Added  data to Category table");
       }
     };
@@ -226,15 +240,26 @@ public class FillTables {
         hotels.add(new Hotel("Slavutich", 180, 24));
         hotels.add(new Hotel("Turist", 120, 24));
         hotels.add(new Hotel("Ukraina", 210, 24));
+        hotels.add(new Hotel("Hotel Atlas", 430, 24));
+        hotels.add(new Hotel("Panorama", 240, 24));
+        hotels.add(new Hotel("Nobilis Hotel", 410, 24));
+        hotels.add(new Hotel("Atlas Delux", 260, 24));
+        hotels.add(new Hotel("Intourist", 240, 24));
+        hotels.add(new Hotel("Encore", 640, 24));
+        hotels.add(new Hotel("Astoria", 330, 24));
+        hotels.add(new Hotel("President Hotel", 750, 24));
+        hotels.add(new Hotel("Atlantic Garden Resort", 620, 24));
+        hotels.add(new Hotel("Bartolomeo", 960, 24));
 
-        int maxHotels = hotels.size();
-        for (int i = 0; i < cities.size(); i++) {
-          int n = (i % maxHotels) + 1;
-          for (int j = 0; j < n; j++) {
+        for (City city : cities) {
+          int quantityOfHotels = (int) (Math.random() * hotels.size() + 1);
+          int hotelNumber = (int) (Math.random() * hotels.size());
+          for (int j = 0; j < quantityOfHotels; j++) {
             accommodationRepository.save(new Accommodation(
-                    hotels.get(j).name, 0L,
-                    hotels.get(j).price, cities.get(i),
-                    hotels.get(j).minOrderTime));
+                    hotels.get(hotelNumber).name, 0L,
+                    hotels.get(hotelNumber).price, city,
+                    hotels.get(hotelNumber).minOrderTime));
+            hotelNumber = (hotelNumber + 1) % hotels.size();
           }
         }
         System.out.println("Added data Accommodation table");
@@ -251,23 +276,30 @@ public class FillTables {
         List<City> cities = new ArrayList<>();
         cityRepository.findAll().forEach(city -> cities.add(city));
 
-        List<Category> categories = new ArrayList<>();
-        categoryRepository.findAll().forEach(category -> categories.add(category));
+        List<EventDescription> events = readerEvents();
 
-        List<EventDescription> events = generateEvents();
-
-        int maxEvents = events.size();
         Date currentDate = new Date();
 
-        for (int i = 0; i < cities.size(); i++) {
-          int n = (i % maxEvents) + 1;
-          for (int j = 0; j < n; j++) {
-            eventRepository.save(new Event(events.get(j).name, cities.get(i),
-                    categories.get(j), currentDate,
-                    0L, events.get(j).duration,
-                    new EventExtra(events.get(j).photo, events.get(j).description),
-                    events.get(j).price));
-            currentDate = addDays(currentDate, j);
+        for (City city :  cities) {
+          int quantityOfEvents = (int) (Math.random() * 10 + 1);
+          for (int i = 0; i < quantityOfEvents; i++) {
+            int eventNumber = (int) (Math.random() * events.size());
+            EventDescription event = events.get(eventNumber);
+
+            int shiftDate = (int) (Math.random() * DAYS_SCHEDULE);
+            Date eventsDate = addDays(currentDate, shiftDate);
+            Category category;
+
+            if (categoryRepository.findByName(event.category).isPresent()) {
+              category = categoryRepository.findByName(event.category).get();
+            } else {
+              Category newCategory = new Category(event.category,"nophoto.jpg");
+              category = categoryRepository.save(newCategory);
+            }
+
+            eventRepository.save(new Event(event.name, city, category, eventsDate, 0L, event.duration,
+                    new EventExtra(event.photo, event.description),
+                    event.price));
           }
         }
         System.out.println("Added data to Event table");
@@ -280,7 +312,6 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        final int DaysSchedule = 30;
         List<TransportType> transportTypes = new ArrayList<>();
         transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
         List<City> cities = new ArrayList<>();
@@ -291,7 +322,7 @@ public class FillTables {
             for (int k = 0; k < transportTypes.size(); k++) {
               Date currentDate = getCurrentDate();
               currentDate = addDays(currentDate, -2);
-              for (int l = 0; l < DaysSchedule; l++) {
+              for (int l = 0; l < DAYS_SCHEDULE; l++) {
                 int hours = (int) (Math.random() * 23);
                 int duration = (int) (Math.random() * 12);
 

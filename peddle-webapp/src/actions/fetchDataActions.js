@@ -1,4 +1,6 @@
 import {
+  ADD_TO_PURCHASES,
+  ADD_TO_WISHLIST,
   FILL_CATEGORIES_LIST,
   FILL_CITIES_LIST,
   LOAD_EVENT_INFO,
@@ -87,6 +89,18 @@ export function setFetchData(fetchData, dataType) {
     case 'LOAD_WISH_LIST':
       return {
         type: LOAD_WISHLIST,
+        payload: fetchData
+      };
+
+    case 'ADD_TO_WISH_LIST':
+      return{
+        type: ADD_TO_WISHLIST,
+        payload: fetchData
+      };
+
+    case 'ADD_PURCHASE':
+      return{
+        type: ADD_TO_PURCHASES,
         payload: fetchData
       };
 

@@ -22,7 +22,9 @@ const dataMap = {
   accommodations: dataPath + '/accommodations/city/',
   transfer: dataPath + '/transfer',
   wishlist: dataPath + '/wishlist/user-events/',
+  wishlistAdd: dataPath + '/wishlist/add-event-to-user',
   purchace: dataPath + '/purchase/all/',
+  purchaseAdd: dataPath + '/purchase/add',
   categoryPath: dataPath + "/categories/all"
 };
 
