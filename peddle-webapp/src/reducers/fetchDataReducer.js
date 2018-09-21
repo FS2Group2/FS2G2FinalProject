@@ -1,8 +1,8 @@
 import {SET_FETCH_ERROR, SET_FETCH_PENDING, SET_FETCH_SUCCESS} from "../actions/actionsTypes";
 
 const initReducer = {
-  isLoginSuccess: false,
-  isLoginPending: false,
+  isFetchSuccess: false,
+  isFetchPending: false,
   fetchError: null
   // userData: null
 };
@@ -11,12 +11,12 @@ export default function fetchDataReducer(state = initReducer, action) {
   switch (action.type) {
     case SET_FETCH_PENDING:
       return {...state,
-        isLoginPending: action.payload
+        isFetchPending: action.payload
       };
 
     case SET_FETCH_SUCCESS:
       return { ...state,
-        isLoginSuccess: action.payload
+        isFetchSuccess: action.payload
       };
 
     case SET_FETCH_ERROR:

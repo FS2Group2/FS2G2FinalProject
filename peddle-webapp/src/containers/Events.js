@@ -63,11 +63,11 @@ class Events extends Component {
   };
 
   render() {
-    const {setChosenEvent, isLoginPending, isLoginSuccess} = this.props;
+    const {setChosenEvent, isFetchPending,isFetchSuccess} = this.props;
     const events = this.props.eventsState.events;
-    if (isLoginPending) {
+    if (isFetchPending) {
       return <Preloader/>
-    } else if (isLoginSuccess) {
+    } else if (isFetchSuccess) {
       return (
         <div>
           <h2 className='events-header'>upcoming events in Ukraine</h2>
@@ -101,8 +101,8 @@ class Events extends Component {
 const mapStateToProps = (state) => {
   return {
     eventsState: state.eventReducer,
-    isLoginSuccess: state.fetchDataReducer.isLoginSuccess,
-    isLoginPending: state.fetchDataReducer.isLoginPending,
+    isFetchSuccess: state.fetchDataReducer.isFetchSuccess,
+    isFetchPending: state.fetchDataReducer.isFetchPending,
     fetchError: state.fetchDataReducer.fetchError,
     filter: state.filterReducer
   }

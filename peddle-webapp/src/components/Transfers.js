@@ -1,17 +1,9 @@
 import React, {Component} from 'react';
-import dataMap, {authHeaders} from "../constants/ApiSettings";
 import {connect} from "react-redux";
+import {fetchDataFromApi} from "../actions/fetchDataActions";
+import {transfersBackward, transfersForward} from "../constants/queryTypes";
 
 class Transfers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      transfers: []
-    };
-
-  }
 
   arrivalTime = (dTime, duration) => {
     let t = new Date(dTime);
@@ -20,19 +12,20 @@ class Transfers extends Component {
   };
 
   fetchTransfer() {
-    let url = dataMap.transfer;
-    const {transferType, transferProps} = this.props;
-    let cityFrom, cityTo, dateFrom, dateTo;
+    const {transferType, transferProps, loadTransfers} = this.props;
+    let cityFrom, cityTo, dateFrom, dateTo, queryType;
     if (transferType === 'FORWARD') {
       cityFrom = transferProps.cityTransferDepartToEvent;
       cityTo = transferProps.eventCity;
       dateFrom = transferProps.dateTransferToEvent1;
       dateTo = transferProps.dateTransferToEvent2;
+      queryType = transfersForward;
     } else if (transferType === 'BACKWARD') {
       cityFrom = transferProps.eventCity;
       cityTo = transferProps.cityTransferArrivalFromEvent;
       dateFrom = transferProps.dateTransferFromEvent1;
       dateTo = transferProps.dateTransferFromEvent2;
+      queryType = transfersBackward;
     }
     const query = {
       cityFrom: cityFrom,
@@ -41,55 +34,40 @@ class Transfers extends Component {
       dateTo: dateTo
     };
 
-    let reqParam = {
-      method: 'POST',
-      headers: authHeaders,
-      body: JSON.stringify(query)
-    };
-
-    fetch(url, reqParam)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(reqParam);
-          this.setState({
-            isLoaded: true,
-            transfers: result
-          })
-        }, (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          })
-        }
-      )
-
+    if (cityFrom && cityTo && dateFrom && dateTo) loadTransfers(queryType, query)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchTransfer()
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
-      prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent) {
+      prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent ||
+      prevProps.loggedUser.currentUser.cityName !== this.props.loggedUser.currentUser.cityName ||
+      prevProps.transferProps.eventCity !== this.props.transferProps.eventCity ||
+      prevProps.transferProps.dateTransferToEvent1 !== this.props.transferProps.dateTransferToEvent1 ||
+      prevProps.transferProps.dateTransferFromEvent1 !== this.props.transferProps.dateTransferFromEvent1
+    ) {
       this.fetchTransfer()
-
     }
+
   }
 
 
   render() {
     const {addTransfer, transferProps, transferType} = this.props;
-    const {transfers} = this.state;
+    let transfers = [];
 
     let cityFrom, cityTo;
     if (transferType === 'FORWARD') {
       cityFrom = transferProps.cityTransferDepartToEvent;
       cityTo = transferProps.eventCity;
+      transfers = transferProps.transfersForward;
     } else if (transferType === 'BACKWARD') {
       cityFrom = transferProps.eventCity;
       cityTo = transferProps.cityTransferArrivalFromEvent;
+      transfers = transferProps.transfersBackward;
     }
 
     return (
@@ -97,7 +75,7 @@ class Transfers extends Component {
         {/*<input type="button" onClick={() => this.fetchTransfers()} value={'Find transfers'}/>*/}
         <p className='container-header-p'>Transfer from {cityFrom} to {cityTo}</p>
         {transfers[0] && transfers.map(t =>
-          <div className='transfer-item'>
+          <div key={transfers.id} className='transfer-item'>
             <div className='transportTypeName'>
               <p>
                 <span className='transfer-item-header'>Type: </span> {t.transportTypeName}
@@ -146,11 +124,23 @@ class Transfers extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isLogged: state.userReducer.loggedIn,
-    transferProps: state.transferReducer
-  }
-};
+const
+  mapStateToProps = (state) => {
+    return {
+      isLogged: state.userReducer.loggedIn,
+      loggedUser: state.userReducer,
+      transferProps: state.transferReducer,
+      currentEventInfo: state.eventReducer.eventInfo
+    }
+  };
 
-export default connect(mapStateToProps)(Transfers);
+const
+  mapDispatchToProps = (dispatch) => {
+    return {
+      loadTransfers: (queryType, query) => {
+        dispatch(fetchDataFromApi(queryType, query))
+      }
+    }
+  };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Transfers);

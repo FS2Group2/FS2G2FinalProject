@@ -1,4 +1,6 @@
 import {
+  LOAD_TRANSFERS_BACKWARD,
+  LOAD_TRANSFERS_FORWARD,
   SET_CITY_FOR_TRANSFER_FROM_EVENT,
   SET_CITY_FOR_TRANSFER_TO_EVENT,
   SET_DATE_TRANSFER_FROM_EVENT,
@@ -6,13 +8,15 @@ import {
 } from "../actions/actionsTypes";
 
 const initialState = {
-  eventCity:'',
+  eventCity: '',
   cityTransferDepartToEvent: '',
   cityTransferArrivalFromEvent: '',
   dateTransferToEvent1: '',
   dateTransferToEvent2: '',
   dateTransferFromEvent1: '',
-  dateTransferFromEvent2: ''
+  dateTransferFromEvent2: '',
+  transfersForward: [],
+  transfersBackward: []
 };
 
 function transferReducer(state = initialState, action) {
@@ -27,6 +31,10 @@ function transferReducer(state = initialState, action) {
       return {...state, dateTransferToEvent1: action.date1, dateTransferToEvent2: action.date2};
     case SET_DATE_TRANSFER_FROM_EVENT:
       return {...state, dateTransferFromEvent1: action.date1, dateTransferFromEvent2: action.date2};
+    case LOAD_TRANSFERS_FORWARD:
+      return {...state, transfersForward: action.payload};
+    case LOAD_TRANSFERS_BACKWARD:
+      return {...state, transfersBackward: action.payload};
     default:
       return state;
   }
