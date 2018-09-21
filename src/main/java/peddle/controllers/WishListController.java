@@ -32,8 +32,8 @@ public class WishListController {
 
   @PostMapping("/wishlist/add-event-to-user")
   @ResponseBody
-  public void addEventToUser(@RequestBody WishListDto wishListDto) {
-    wishListService.addNewEventToUser(wishListDto);
+  public List<EventDtoRs> addEventToUser(@RequestBody WishListDto wishListDto) {
+    return wishListService.addNewEventToUser(wishListDto);
   }
 
   @PostMapping("/wishlist/delete-event-from-user")
