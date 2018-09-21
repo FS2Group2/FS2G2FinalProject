@@ -7,3 +7,4 @@ export const wishListAdd = {apiUrl: dataMap.wishlistAdd, method: 'post', dataTyp
 export const userData = {apiUrl: dataMap.user, method: 'post', dataType: 'LOAD_USER'};
 export const eventsByFilter = {apiUrl: dataMap.filterEvents, method: 'post', dataType: 'LOAD_EVENTS'};
 export const topEvents = {apiUrl: dataMap.filterEvents, method: 'post', dataType: 'TOP_EVENTS'};
+export const purchaseAdd ={apiUrl: dataMap.purchaseAdd, method:'post', dataType: 'ADD_PURCHASE'}

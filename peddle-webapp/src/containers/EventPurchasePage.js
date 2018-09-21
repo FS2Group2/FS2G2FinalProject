@@ -14,7 +14,7 @@ import {
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi} from "../actions/fetchDataActions";
-import {wishList, wishListAdd} from "../constants/queryTypes";
+import {purchaseAdd, wishList, wishListAdd} from "../constants/queryTypes";
 
 
 class EventPurchasePage extends Component {
@@ -59,13 +59,31 @@ class EventPurchasePage extends Component {
   };
 
   addEventToWishList = () => {
-    const {fetchDataFromApi, currentUser}=this.props;
+    const {fetchDataFromApi, currentUser} = this.props;
     let query = {
       userId: currentUser.id,
       eventId: this.state.eventId
     };
     fetchDataFromApi(wishListAdd, query);
     fetchDataFromApi(wishList, '')
+  };
+
+  savePurchase = () => {
+    const {currentUser, fetchDataFromApi} = this.props;
+    const {
+      purchasedEvent,
+      purchasedAccommodation,
+      purchasedTransferTo,
+      purchasedTransferFrom
+    } = this.state;
+    let query = {
+      id: currentUser.id,
+      eventId: purchasedEvent.id,
+      transfertoId: purchasedTransferTo.id||'0',
+      transferfromId: purchasedTransferFrom.id||'0',
+      accommodationId: purchasedAccommodation.id||'0'
+    };
+    fetchDataFromApi(purchaseAdd, query);
   };
 
   addAccommodationToBasket = (acc) => {
@@ -149,7 +167,7 @@ class EventPurchasePage extends Component {
         <div className='event-purchase-page'>
           <div className='event-extra-container'>
             <EventInfo event={event} add={this.addEventToBasket.bind(this)}
-            addToWishList={this.addEventToWishList.bind(this)}/>
+                       addToWishList={this.addEventToWishList.bind(this)}/>
           </div>
 
           <div className='accommodation-container'>
@@ -205,7 +223,8 @@ class EventPurchasePage extends Component {
 
           <div>
             <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
-                             transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}/>
+                             transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}
+            purchase={this.savePurchase.bind(this)}/>
           </div>
         </div>
 
