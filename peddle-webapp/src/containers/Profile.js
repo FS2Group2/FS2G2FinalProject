@@ -36,10 +36,10 @@ class Profile extends Component {
           <ProfileDetails user={user}/>
           <div className="tab">
               <Link to={path} className='link-to-list'>
-                  <div className="tablink active-link" onClick={openCity(event, 'My wishlist')}>My wishlist </div>
+                  <div className="tablink active-link">My wishlist </div>
               </Link>
               <Link to={path + '/purchases'} className="link-to-list">
-                  <div className="tablink" onClick={openCity(event,'My purchase')}>My purchases </div>
+                  <div className="tablink">My purchases </div>
               </Link>
           </div>
           <Switch>
