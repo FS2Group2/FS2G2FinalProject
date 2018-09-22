@@ -5,7 +5,7 @@ import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 
-function openCity(evt, Name) {
+{/*function openCity(evt, Name) {
     // Declare all variables
     var i, tablinks;
 
@@ -20,7 +20,7 @@ function openCity(evt, Name) {
     document.getElementById(Name).style.display = "block";
     evt.currentTarget.className += " active-link";
 }
-
+*/}
 class Profile extends Component {
 
     render() {
