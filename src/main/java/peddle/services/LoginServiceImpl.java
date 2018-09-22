@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import peddle.configuration.EmailService;
 import peddle.dto.ApiRs;
 import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserLoginDtoRq;
@@ -17,8 +18,10 @@ import peddle.dto.UserRegisterDtoRq;
 import peddle.entities.Profile;
 import peddle.entities.Role;
 import peddle.entities.User;
+import peddle.entities.UserToken;
 import peddle.repository.RoleRepository;
 import peddle.repository.UserRepository;
+import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
 
 import java.util.Optional;
@@ -42,6 +45,11 @@ public class LoginServiceImpl implements LoginService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
+  @Autowired
+  private UserTokenRepository userTokenRepository;
+
+  @Autowired
+  private EmailService emailService;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -91,20 +99,20 @@ public class LoginServiceImpl implements LoginService {
     newUser.setActive(false);
 
     userRepository.save(newUser);
-    /*
+
     UserToken userToken = new UserToken();
     userToken.setUser(newUser);
     String token = UUID.randomUUID().toString();
     userToken.setToken(token);
     userTokenRepository.save(userToken);
 
-    String message = "Thank you for registering in Mention! To finish your "
+    String message = "Thank you for registering in Peddle service! To finish your "
         + "registration, please follow the link: "
         + "http://localhost:3000/registration/" + token;
     String to = newUser.getEmail();
     String subject = "Confirm your email";
     emailService.sendSimpleMessage(to, subject, message);
-    */
+
     return ResponseEntity.ok(new ApiRs(true,
         "User registered successfully! Check your inbox for confirmation!"));
   }
