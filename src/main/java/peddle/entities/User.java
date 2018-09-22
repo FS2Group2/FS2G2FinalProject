@@ -51,6 +51,9 @@ public class User {
   @Column(name = "u_password")
   private String password;
 
+  @Column(nullable = false, name = "u_is_active")
+  private boolean isActive;
+
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "u_default_location")
   private City city;

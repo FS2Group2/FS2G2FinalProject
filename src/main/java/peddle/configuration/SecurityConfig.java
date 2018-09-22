@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
 
         .authorizeRequests()
-          .antMatchers("/h2/**",
+          .antMatchers("/h2/**", "/h2-console/**",
               "/api/login", "/api/register",
               "/api/city/**", "/api/categories/**", "/api/events/**",
               "/api/transfer/**", "/api/accommodations/**")
