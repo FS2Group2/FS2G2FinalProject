@@ -5,22 +5,6 @@ import {Link, Route, Switch} from "react-router-dom";
 import MyPurchases from "../components/MyPurchases";
 import Wishlist from "../components/Wishlist";
 
-{/*function openCity(evt, Name) {
-    // Declare all variables
-    var i, tablinks;
-
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active-link", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(Name).style.display = "block";
-    evt.currentTarget.className += " active-link";
-}
-*/}
 class Profile extends Component {
 
     render() {
