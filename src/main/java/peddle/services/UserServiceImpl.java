@@ -38,13 +38,7 @@ public class UserServiceImpl implements UserService {
   private RoleRepository roleRepository;
 
   @Autowired
-  AuthenticationManager authenticationManager;
-
-  @Autowired
   private ModelMapper modelMapper;
-
-  @Autowired
-  JwtTokenProvider tokenProvider;
 
   @Override
   public UserDtoRs getUserByName(UserLoginDtoRq userLoginDtoRq) {
@@ -84,18 +78,4 @@ public class UserServiceImpl implements UserService {
     return modelMapper.map(userNew, UserDtoRs.class);
   }
 
-  public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
-    Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
-
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            userLoginDtoRq.getName(),
-            userLoginDtoRq.getPassword()
-        )
-    );
-
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = tokenProvider.generateToken(authentication);
-    return ResponseEntity.ok(new JwtAuthenticationRs(jwt));
-  }
 }

@@ -25,11 +25,6 @@ public class UserController {
   @Autowired
   private UserRepository userRepository;
 
-  @PostMapping(path = "/login")
-  public ResponseEntity<?> loginUserByName(@RequestBody UserLoginDtoRq userLoginDtoRq) {
-    return userService.auth(userLoginDtoRq);
-  }
-
   @PostMapping(path = "")
   public UserDtoRs getUserByName(@RequestBody UserLoginDtoRq userLoginDtoRq) {
     UserDtoRs user = userService.getUserByName(userLoginDtoRq);
