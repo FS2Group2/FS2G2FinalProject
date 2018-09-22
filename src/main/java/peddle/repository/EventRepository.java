@@ -7,6 +7,7 @@ import peddle.entities.Event;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
@@ -14,7 +15,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   List<Event> findEventByCity_NameAndDateBetween(String name, Date dateStart, Date dateFin, Pageable pageable);
 
-  Event findEventById(Long id);
+  //Event findEventById(Long id);
 
   List<Event> findEventByCategory(Category category);
 

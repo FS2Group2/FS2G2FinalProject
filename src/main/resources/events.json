@@ -278,5 +278,61 @@
     "Photo": "photo_art06.jpg",
     "Duration": 3,
     "Price": 0
+  },
+  {
+    "Name": "27th Annual Folk Festival",
+    "Category": "Ethno tour",
+    "Description": "Exciting, spectacular, dazzling, breathtaking, exhilarating, spirited, soulful, enchanting.",
+    "Photo": "photo_ethnos01.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Khortytsia",
+    "Category": "Ethno tour",
+    "Description": "Khortytsia is the largest island on the Dnipro River. This island was once the capital of the Zaporizhian Cossacks, founders of the Cossacks’ Republic in the 16th century.",
+    "Photo": "photo_ethnos02.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Shatsky National Natural Park",
+    "Category": "Ethno tour",
+    "Description": "This unique place in Ukraine is home to majestic forests, sandy beaches and beautiful lakes.",
+    "Photo": "photo_ethnos03.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Askania-Nova",
+    "Category": "Ethno tour",
+    "Description": "The reserve Askania-Nova is located in the south of Ukraine. It includes a zoo, a steppe and a dendrological park. The reserve is under the protection of UNESCO.",
+    "Photo": "photo_ethnos04.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Drahobrat",
+    "Category": "Ethno tour",
+    "Description": "The Drahobrat ski resort is a gem of the Ukrainian Carpathians and, with plenty of wild slopes, is a favourite among free-riders. With peaks heights ranging from roughly 1,300–1,800 meters",
+    "Photo": "photo_ethnos05.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Holy Dormition Pochayiv Lavra",
+    "Category": "Ethno tour",
+    "Description": "The Dormition Pochayiv Lavra was founded on a mountain near the town of Novy Pochaev in 1240. This is the largest Orthodox church complex and monastery in Western Ukraine.",
+    "Photo": "photo_ethnos06.jpg",
+    "Duration": 3,
+    "Price": 1
+  },
+  {
+    "Name": "Pidhirtsi Castle",
+    "Category": "Ethno tour",
+    "Description": "The Pidhirtsi Castle appears to date back to the 12th century. Most of the interior was damaged or destroyed during the 20th century, but the park, which it is especially beautiful in autumn, remained the same.",
+    "Photo": "photo_ethnos07.jpg",
+    "Duration": 3,
+    "Price": 1
   }
 ]

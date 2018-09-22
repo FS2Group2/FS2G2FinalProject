@@ -4,10 +4,10 @@ export function loadWishList(wishlist) {
   return{ type: LOAD_WISHLIST, payload: wishlist}
 }
 
-export function addToWishList(event) {
-  return{ type: ADD_TO_WISHLIST, data: event}
+export function addToWishList(wishlist) {
+  return{ type: ADD_TO_WISHLIST, payload: wishlist}
 }
 
-export function removeFromWishList(eventId) {
-  return{ type: REMOVE_FROM_WISHLIST, data: eventId}
+export function removeFromWishList(wishlist) {
+  return{ type: REMOVE_FROM_WISHLIST, payload: wishlist}
 }
