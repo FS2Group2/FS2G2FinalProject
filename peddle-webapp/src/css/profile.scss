@@ -40,11 +40,11 @@
 }
 
 .tab {
-  margin-left: 10px;
   margin-right: 10px;
-  padding: 0px;
-  overflow: hidden;
+  margin-left: 10px;
+  padding: 0 auto;
   border: 1px solid #ccc;
+  overflow: hidden;
   background-color: #f1f1f1;
 }
 
@@ -53,17 +53,18 @@
 }
 
 .link-to-list {
-  text-decoration: none;
   font-family: Verdana;
-  font-size: 18px;
-  color: black;
+  text-decoration: none;
   margin: 0px;
+  color: black;
+  font-size: 18px;
 }
 
 .tablink:hover {
   background-color: #ddd;
 }
 
-.tablink active-link {
+.active-link {
+  padding: 10px;
   background-color: #6b6b6b;
 }
