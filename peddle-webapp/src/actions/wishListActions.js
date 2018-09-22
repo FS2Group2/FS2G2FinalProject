@@ -10,4 +10,5 @@ export function addToWishList(wishlist) {
 
 export function removeFromWishList(wishlist) {
   return {type: REMOVE_FROM_WISHLIST, payload: wishlist}
+
 }

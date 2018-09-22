@@ -99,7 +99,7 @@ public class EventServiceImpl implements EventService {
   }
 
   public EventFullDtoRs getById(Long id) {
-    return modelMapper.map(eventRepository.findEventById(id), EventFullDtoRs.class);
+    return modelMapper.map(eventRepository.findById(id).get(), EventFullDtoRs.class);
   }
 
   @Override
