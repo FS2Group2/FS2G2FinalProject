@@ -38,3 +38,32 @@
   font-family: Verdana sans-serif;
   font-size: 18px;
 }
+
+.tab {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tablink {
+  padding: 10px;
+}
+
+.link-to-list {
+  text-decoration: none;
+  font-family: Verdana;
+  font-size: 18px;
+  color: black;
+  margin: 0px;
+}
+
+.tablink:hover {
+  background-color: #ddd;
+}
+
+.tablink active-link {
+  background-color: #6b6b6b;
+}
