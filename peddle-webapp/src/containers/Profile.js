@@ -10,6 +10,9 @@ class Profile extends Component {
     render() {
     const user = this.props.userState.currentUser;
     const path = this.props.match.path;
+    let wishlistFlag = this.props.match.isExact;
+    let wishTab = wishlistFlag ? 'tablink active-link' : 'tablink';
+    let purchTab = !wishlistFlag ? 'tablink active-link' : 'tablink';
     return (
         !user.id?
             <div>
@@ -18,11 +21,13 @@ class Profile extends Component {
             :
         <div>
           <ProfileDetails user={user}/>
-          <div className="lists-container">
-            <nav>
-              <Link to={path}><div className='link-to-list'>My wishlist </div></Link>
-              <Link to={path + '/purchases'}><div className='link-to-list'>My purchases </div></Link>
-            </nav>
+          <div className="tab">
+              <Link to={path} className='link-to-list'>
+                  <div className={wishTab}>My wishlist </div>
+              </Link>
+              <Link to={path + '/purchases'} className="link-to-list">
+                  <div className={purchTab}>My purchases </div>
+              </Link>
           </div>
           <Switch>
             <Route exact path={path} component={Wishlist}/>

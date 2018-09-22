@@ -38,3 +38,37 @@
   font-family: Verdana sans-serif;
   font-size: 18px;
 }
+
+.tab {
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 0 auto;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  overflow: hidden;
+}
+
+.tablink {
+  padding: 10px;
+  font-family: Verdana sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.link-to-list {
+  margin: 0 auto;
+  color: black;
+  font-family: Roboto sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+//.tablink:hover {
+//  background-color: #ddd;
+//}
+
+.active-link {
+  padding: 10px;
+  background-color: #6b6b6b;
+  color: #fff;
+}
