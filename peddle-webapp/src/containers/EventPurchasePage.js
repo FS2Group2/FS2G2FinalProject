@@ -65,7 +65,6 @@ class EventPurchasePage extends Component {
       eventId: this.state.eventId
     };
     fetchDataFromApi(wishListAdd, query);
-    // fetchDataFromApi(wishList, '')
   };
 
   savePurchase = () => {

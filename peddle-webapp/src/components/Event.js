@@ -2,8 +2,21 @@ import React, {Component} from 'react';
 import '../css/event.css';
 import {categoryIconPath, eventImgPath, iconPath} from '../constants/ApiSettings'
 import {connect} from "react-redux";
+import {fetchDataFromApi} from "../actions/fetchDataActions";
+import {wishListAdd} from "../constants/queryTypes";
 
 class Event extends Component {
+
+  addEventToWishList = (eId) => {
+    const {fetchDataFromApi, currentUser, isLogged} = this.props;
+    let query = {
+      userId: currentUser.id,
+      eventId: eId
+    };
+    if (isLogged) fetchDataFromApi(wishListAdd, query);
+  };
+
+
   render() {
 
     const e = this.props.theEvent;
@@ -23,6 +36,9 @@ class Event extends Component {
         <div className='event-item-img-container'>
           <img className='event-item-img' src={imgPath} alt="event-img"/>
           {inWishes && <img src={iconPath + 'star_full.svg'} className={'star-icon-event'} alt=""/>}
+          {!inWishes &&
+          <img src={iconPath + 'star.svg'} className={'empty-star-icon-event'} onClick={() => this.addEventToWishList(e.id)}
+               alt=""/>}
         </div>
         <p className='event-item-date'>{eventDate.toLocaleDateString()}</p>
         <p className='event-item-city'>{e.cityName}</p>
@@ -34,8 +50,16 @@ class Event extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    wishList: state.wishListReducer
+    wishList: state.wishListReducer,
+    currentUser: state.userReducer.currentUser,
+    isLogged: state.userReducer.loggedIn,
   }
 };
 
-export default connect(mapStateToProps)(Event);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Event);
