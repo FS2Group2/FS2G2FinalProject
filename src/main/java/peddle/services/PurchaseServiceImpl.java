@@ -42,15 +42,15 @@ public class PurchaseServiceImpl implements PurchaseService {
   @Override
   public List<PurchaseDtoRs> getAllPurchase(Long id) {
     User user = userRepository.findById(id).orElseThrow(() ->
-            new BadRequestException(ErrorConstants.ERR_USER_NOT_FOUND));
+        new BadRequestException(ErrorConstants.ERR_USER_NOT_FOUND));
     List<Purchase> purchases = user.getPurchases();
     List<PurchaseDtoRs> purchasesDtoRs = new ArrayList<>();
     purchases.forEach(purchase -> {
       PurchaseDtoRs purchaseDto = modelMapper.map(purchase, PurchaseDtoRs.class);
       purchaseDto.setSumm(purchaseDto.getEventPrice()
-              + purchaseDto.getTransferToPrice()
-              + purchaseDto.getTransferfromPrice()
-              + purchaseDto.getAccommodationPrice());
+          + purchaseDto.getTransferToPrice()
+          + purchaseDto.getTransferfromPrice()
+          + purchaseDto.getAccommodationPrice());
       purchasesDtoRs.add(purchaseDto);
     });
     return purchasesDtoRs;
@@ -58,21 +58,31 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Override
   public List<PurchaseDtoRs> addPurchaseToUser(PurchaseAddDto purchaseAddDto) {
-    User user = userRepository.findById(purchaseAddDto.getId())
-            .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
+    Transfer transferTo = null;
+    if (purchaseAddDto.getTransfertoId() > 0) {
+      transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
+          .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
+    }
 
-    Transfer transferTo = transferRepository.findById(purchaseAddDto.getTransfertoId())
-            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
+    Transfer transferFrom = null;
+    if (purchaseAddDto.getTransferfromId() > 0) {
+      transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
+          .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
+    }
 
-    Transfer transferFrom = transferRepository.findById(purchaseAddDto.getTransferfromId())
-            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSFER_NOT_FOUND));
+    Accommodation accommodation = null;
+    if (purchaseAddDto.getAccommodationId() > 0) {
+      accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
+          .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_ACCOMMODATION_NOT_FOUND));
+    }
 
-    Accommodation accommodation = accommodationRepository.findById(purchaseAddDto.getAccommodationId())
-            .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_ACCOMMODATION_NOT_FOUND));
-
-    Event event = eventRepository.findEventById(purchaseAddDto.getEventId());
+    Event event = eventRepository.findById(purchaseAddDto.getEventId())
+        .orElseThrow(() -> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
 
     Purchase purchase = new Purchase(event, transferTo, transferFrom, accommodation);
+
+    User user = userRepository.findById(purchaseAddDto.getId())
+        .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
     List<Purchase> result = user.getPurchases();
     result.add(purchase);
