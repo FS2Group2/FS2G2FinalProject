@@ -58,9 +58,19 @@
   background-color: rgba(0, 0, 0, .3);
 }
 
+.btn:hover:disabled {
+  border-color: #a5a5a5;
+  background-color: buttonface;
+}
+
 .btn:active {
   border: gray 1px solid;
   background-color: rgba(0, 0, 0, .5);
+}
+
+.btn:disabled {
+  border-color: #a5a5a5;
+  color: #a3a3a3;
 }
 
 .nav-btn {
