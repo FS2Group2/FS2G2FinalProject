@@ -56,10 +56,7 @@ public class WishListServiceImpl implements WishListService {
     event.getUsers().add(user);
     eventRepository.save(event);
 
-    List<EventDtoRs> eventDtoRsList = new ArrayList<>();
-    eventDtoRsList.add(modelMapper.map(event, EventDtoRs.class));
-
-    return  eventDtoRsList;
+    return  getAllByUserId(wishListDto.getUserId());
   }
 
   @Override

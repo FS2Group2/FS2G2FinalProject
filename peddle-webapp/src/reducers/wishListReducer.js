@@ -7,7 +7,7 @@ function wishListReducer(state=[], action) {
     case ADD_TO_WISHLIST:
       return action.payload;
     case REMOVE_FROM_WISHLIST:
-      return state;
+      return action.payload;
     default:
       return state;
   }

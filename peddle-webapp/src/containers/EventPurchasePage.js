@@ -14,7 +14,7 @@ import {
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
-import {purchaseAdd, wishList, wishListAdd} from "../constants/queryTypes";
+import {purchaseAdd, wishListAdd} from "../constants/queryTypes";
 
 
 class EventPurchasePage extends Component {
@@ -65,7 +65,7 @@ class EventPurchasePage extends Component {
       eventId: this.state.eventId
     };
     fetchDataFromApi(wishListAdd, query);
-    fetchDataFromApi(wishList, '')
+    // fetchDataFromApi(wishList, '')
   };
 
   savePurchase = () => {
@@ -102,8 +102,7 @@ class EventPurchasePage extends Component {
     const {
       isLogged, currentUser,
       setCityForTransferToEvent, setCityForTransferFromEvent,
-      setDatesForTransferToEvent, setDatesForTransferFromEvent,
-      isEventInfoSuccess, fetchEventInfo
+      fetchEventInfo
     } = this.props;
 
     fetchEventInfo(this.state.eventId);
@@ -111,40 +110,6 @@ class EventPurchasePage extends Component {
       setCityForTransferToEvent(currentUser.cityName);
       setCityForTransferFromEvent(currentUser.cityName);
     }
-
-    if (isEventInfoSuccess) {
-      setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
-      setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
-      this.fetchAccommodations();
-    }
-
-    // setEventCity(currentEventInfo.cityName);
-
-    // const urlEvent = dataMap.event + this.state.eventId;
-    // let reqParam = {
-    //   method: 'GET',
-    //   headers: authHeaders
-    // };
-    // fetch(urlEvent, reqParam)
-    //   .then(res => res.json())
-    //   .then(
-    //     (result) => {
-    //       this.setState({
-    //         isLoaded: true,
-    //         event: result
-    //       }, () => {
-    //         setEventCity(result.cityName);
-    //         console.log('logged:', isLogged)
-    //         if (isLogged) {
-    //           setCityForTransferToEvent(currentUser.cityName);
-    //           setCityForTransferFromEvent(currentUser.cityName);
-    //         }
-    //         setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
-    //         setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
-    //       })
-    //     }, this.resultError
-    //   )
-    //   .then(() => (this.fetchAccommodations()))
   };
 
   fetchAccommodations() {
@@ -174,18 +139,15 @@ class EventPurchasePage extends Component {
   componentDidUpdate(prevProps) {
     const {currentUser} = this.props;
     if (prevProps.currentUser.cityName !== this.props.currentUser.cityName) {
-      setCityForTransferToEvent(currentUser.cityName);
-      setCityForTransferFromEvent(currentUser.cityName);
+      this.props.setCityForTransferToEvent(currentUser.cityName);
+      this.props.setCityForTransferFromEvent(currentUser.cityName);
     }
 
     if (prevProps.isEventInfoSuccess !== this.props.isEventInfoSuccess) {
-      setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
-      setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
+      this.props.setEventCity(this.props.currentEventInfo.cityName);
+      this.props.setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
+      this.props.setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
       this.fetchAccommodations();
-    }
-
-    if (prevProps.currentEventInfo.cityName !== this.props.currentEventInfo.cityName) {
-      this.props.setEventCity(this.props.currentEventInfo.cityName)
     }
   }
 
