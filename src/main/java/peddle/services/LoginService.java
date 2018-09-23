@@ -10,4 +10,6 @@ public interface LoginService {
 
   ResponseEntity<?> registerUser(UserRegisterDtoRq userAddDtoRq);
 
+  ResponseEntity<?> confirmRegistration(String token);
+
 }

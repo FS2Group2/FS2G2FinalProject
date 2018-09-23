@@ -1,10 +1,7 @@
 package peddle.entities;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +20,8 @@ import javax.persistence.FetchType;
 import java.util.Arrays;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "user")
 public class User {
@@ -84,7 +78,8 @@ public class User {
           inverseJoinColumns = {@JoinColumn(name = "w_event", nullable = false)})
   private List<Event> events;
 
-  public User(String name, String firstName, String lastName, String email, String password,
+  public User(String name, String firstName, String lastName,
+              String email, String password, boolean isActive,
               City city, Role role, Profile profile,
               List<Purchase> purchases, List<Event> events) {
     this.name = name;
@@ -92,6 +87,7 @@ public class User {
     this.lastName = lastName;
     this.email = email;
     this.password = password;
+    this.isActive = isActive;
     this.city = city;
     this.role = role;
     this.profile = profile;

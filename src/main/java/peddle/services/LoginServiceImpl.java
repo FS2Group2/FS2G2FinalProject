@@ -57,7 +57,17 @@ public class LoginServiceImpl implements LoginService {
   @Override
   public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
     Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
-
+    /*
+    loginRequest.getUsernameOrEmail());
+    if (currentUser.isPresent() && !currentUser.get().isActive()) {
+      return new ResponseEntity(new ApiRs(false, "Email confirmation required"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (!currentUser.isPresent()) {
+      return new ResponseEntity(new ApiRs(false, "Username or Email not found"),
+          HttpStatus.BAD_REQUEST);
+    }
+    */
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             userLoginDtoRq.getName(),
@@ -115,5 +125,20 @@ public class LoginServiceImpl implements LoginService {
 
     return ResponseEntity.ok(new ApiRs(true,
         "User registered successfully! Check your inbox for confirmation!"));
+  }
+
+  @Override
+  public ResponseEntity<?> confirmRegistration(String token) {
+    Optional<UserToken> userToken = userTokenRepository.findByToken(token);
+    if (userToken.isPresent()) {
+      User user = userRepository.findById(userToken.get().getUser().getId()).get();
+      user.setActive(true);
+      userRepository.save(user);
+      userTokenRepository.delete(userToken.get());
+      return ResponseEntity.ok(new ApiRs(true,
+          "User email confirmed successfully"));
+    }
+    return new  ResponseEntity(new ApiRs(false, "Token not found"),
+        HttpStatus.BAD_REQUEST);
   }
 }
