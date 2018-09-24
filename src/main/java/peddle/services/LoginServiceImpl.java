@@ -127,7 +127,7 @@ public class LoginServiceImpl implements LoginService {
       userRepository.delete(newUser);
       return new ResponseEntity(new ApiRs(false, "Sorry, I can't send email :("),
           HttpStatus.OK);
-    };
+    }
 
     return ResponseEntity.ok(new ApiRs(true,
         "User registered successfully! Check your inbox for confirmation!"));
