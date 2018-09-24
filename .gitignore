@@ -18,3 +18,4 @@ target/
 log/
 *.css
 .stylelintcache
+resources/config.properties
