@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Login.css'
-import dataMap, {authHeaders} from "../constants/ApiSettings";
+import dataMap from "../constants/ApiSettings";
 import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
@@ -119,7 +119,11 @@ class Login extends Component {
     header.append("Content-Type", "application/JSON");
     let reqParam = {
       method: 'GET',
-      headers: authHeaders
+      headers:{
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
     };
     const url = dataMap.wishlist + userId;
     console.log('request params:' + JSON.stringify(reqParam));

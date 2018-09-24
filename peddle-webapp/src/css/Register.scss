@@ -46,8 +46,19 @@
   margin-bottom: 10px;
   margin-left: 62px;
   border-radius: 3px;
-  background-color: rgba(20, 30, 40, .1);
+  background-color: rgba(20, 30, 40, .5);
   text-align: center;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .8);
+}
+
+.reg-btn:focus {
+  outline: none;
+}
+
+.reg-btn:active {
+  outline: none;
+  background-color: rgba(20, 30, 40, .8);
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 1);
 }
 
 .register-login-link {
@@ -59,4 +70,31 @@
   font-size: 18px;
   text-align: left;
   text-decoration: none;
+}
+
+.register-message {
+  display: block;
+  width: 322px;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  margin-left: 62px;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: rgba(200, 230, 240, .3);
+  text-align: center;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .2);
+  overflow: hidden;
+}
+
+.err-msg-p {
+  color: #8b0c00;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+.success-msg-p {
+  color: #03038b;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  text-align: center;
 }
