@@ -25,7 +25,7 @@ class RegisterPage extends Component {
   };
 
   handleSubmit(event) {
-    let {name, email, password1, password2} = this.state;
+    let {name, email, password1} = this.state;
     let registrationData = {
       name: name,
       email: email,
