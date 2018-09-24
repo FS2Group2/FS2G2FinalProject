@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,7 @@ import peddle.repository.UserRepository;
 import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
 
+import javax.mail.SendFailedException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,12 +60,12 @@ public class LoginServiceImpl implements LoginService {
   public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
     Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
     /*
-    loginRequest.getUsernameOrEmail());
-    if (currentUser.isPresent() && !currentUser.get().isActive()) {
-      return new ResponseEntity(new ApiRs(false, "Email confirmation required"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (!currentUser.isPresent()) {
+    if (currentUser.isPresent()) {
+      if (!currentUser.get().getIsActive()) {
+        return new ResponseEntity(new ApiRs(false, "Email confirmation required"),
+            HttpStatus.BAD_REQUEST);
+      }
+    } else {
       return new ResponseEntity(new ApiRs(false, "Username or Email not found"),
           HttpStatus.BAD_REQUEST);
     }
@@ -85,22 +87,18 @@ public class LoginServiceImpl implements LoginService {
     Optional<User> userNameCheck = userRepository.findByNameIgnoreCase(userRegisterDtoRq.getName());
     if (userNameCheck.isPresent()) {
       return new ResponseEntity(new ApiRs(false, "UserName is already taken!"),
-          HttpStatus.BAD_REQUEST);
+          HttpStatus.OK);
     }
 
     Optional<User> emailNameCheck = userRepository.findByEmail(userRegisterDtoRq.getEmail());
     if (emailNameCheck.isPresent()) {
       return new ResponseEntity(new ApiRs(false, "Email already is used! "),
-          HttpStatus.BAD_REQUEST);
+          HttpStatus.OK);
     }
 
     User newUser = modelMapper.map(userRegisterDtoRq, User.class);
     newUser.setFirstName("");
     newUser.setLastName("");
-    /*
-    City city = cityRepository.findById(userAddDtoRq.getCity()).get();
-    newUser.setCity(new City(""));
-    */
     Profile profile = new Profile("","unknown_user.png", "");
     newUser.setProfile(profile);
     Role role = roleRepository.findByName("CUSTOMER");
@@ -121,7 +119,15 @@ public class LoginServiceImpl implements LoginService {
         + "http://localhost:3000/registration/" + token;
     String to = newUser.getEmail();
     String subject = "Confirm your email";
-    emailService.sendSimpleMessage(to, subject, message);
+
+    try {
+      emailService.sendSimpleMessage(to, subject, message);
+    } catch (MailException e) {
+      userTokenRepository.delete(userToken);
+      userRepository.delete(newUser);
+      return new ResponseEntity(new ApiRs(false, "Sorry, I can't send email :("),
+          HttpStatus.OK);
+    };
 
     return ResponseEntity.ok(new ApiRs(true,
         "User registered successfully! Check your inbox for confirmation!"));
@@ -139,6 +145,6 @@ public class LoginServiceImpl implements LoginService {
           "User email confirmed successfully"));
     }
     return new  ResponseEntity(new ApiRs(false, "Token not found"),
-        HttpStatus.BAD_REQUEST);
+        HttpStatus.OK);
   }
 }
