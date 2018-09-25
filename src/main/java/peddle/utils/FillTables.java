@@ -72,7 +72,7 @@ public class FillTables {
   private CategoryRepository categoryRepository;
 
   @Autowired
-  PasswordEncoder passwordEncoder;
+  private PasswordEncoder passwordEncoder;
 
   private  static final int DAYS_SCHEDULE = 30;
 
@@ -125,14 +125,7 @@ public class FillTables {
         int price = ((Long) eventObject.get("Price")).intValue();
 
         evetns.add(new EventDescription(name, category, photo, description, duration, price));
-        /*
-        System.out.println("Name: " + name);
-        System.out.println("Category: " + category);
-        System.out.println("Description: " + description);
-        System.out.println("Photo: " + photo);
-        System.out.println("Duration: " + duration);
-        System.out.println("Price: " + price);
-        */
+
       });
     } catch (Exception e) {
       e.printStackTrace();
@@ -360,7 +353,7 @@ public class FillTables {
         userRepository.save(new User("Alex",
                 "First name Alex",
                 "Last name Alex",
-                "alex@gmail.com", passwordEncoder.encode("pwdAlex"),
+                "alex@gmail.com", passwordEncoder.encode("pwdAlex"), true,
                 citys.get(0), roles.get(1),
                 new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
                 new ArrayList<>(), new ArrayList<>()));
@@ -368,7 +361,7 @@ public class FillTables {
         userRepository.save(new User("Jon",
                 "First name Jon",
                 "Last name Jon",
-                "jon@gmail.com", passwordEncoder.encode("pwdJon"),
+                "jon@gmail.com", passwordEncoder.encode("pwdJon"), true,
                 citys.get(2), roles.get(1),
                 new Profile("New Vasiyki 2", "userphoto02.jpg", "Jon info"),
                 new ArrayList<>(), new ArrayList<>()));
