@@ -167,6 +167,7 @@ class Login extends Component {
             }
             <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
             {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
+            <span className="register-login-span">Still not registered? >></span>
             <Link to="/register" className="login-reg-link">Sign Up</Link>
           </div>
         </div>

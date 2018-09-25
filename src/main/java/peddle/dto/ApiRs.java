@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class ApiRs {
   private boolean success;
-  private String massage;
+  private String message;
 
 
-  public ApiRs(boolean success, String massage) {
+  public ApiRs(boolean success, String message) {
     this.success = success;
-    this.massage = massage;
+    this.message = message;
   }
 }
