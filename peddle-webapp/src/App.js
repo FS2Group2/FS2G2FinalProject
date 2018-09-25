@@ -13,6 +13,7 @@ import RegisterPage from "./containers/RegisterPage"
 import Categories from "./containers/Categories";
 import LoadListsComponent from "./components/LoadListsComponent";
 import Logout from "./containers/Logout";
+import Registration from "./components/Registration";
 
 class App extends Component {
   render() {
@@ -29,7 +30,8 @@ class App extends Component {
               <Route exact path='/login' component={Login}/>
               <Route exact path='/logout' component={Logout}/>
               <Route exact path='/event/:eventId' component={EventPurchasePage}/>
-              <Route exact path="/register" component={RegisterPage}/>
+              <Route path="/register" component={RegisterPage}/>
+              <Route path="/registration/:token" component={Registration}/>
               <Route path='/' component={PageNotFound}/>
             </Switch>
           </div>
