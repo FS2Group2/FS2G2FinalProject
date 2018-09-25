@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Register.css'
-import {fetchRegister} from "../actions/userActions";
+import {fetchRegister, setRegisterError} from "../actions/userActions";
 import {connect} from "react-redux";
 
 
@@ -9,6 +9,8 @@ class RegisterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      validated: false,
+      errMsg: '',
       name: '',
       email: '',
       password1: '',
@@ -25,15 +27,31 @@ class RegisterPage extends Component {
   };
 
   handleSubmit(event) {
-    let {name, email, password1} = this.state;
+    let {name, email, password1}= this.state;
+    const {setErrMessage, sendRegistrationData} = this.props;
     let registrationData = {
       name: name,
       email: email,
       password: password1
     };
     event.preventDefault();
-    this.props.sendRegistrationData(registrationData)
+    this.validateRegData().validated ? sendRegistrationData(registrationData) : setErrMessage(this.validateRegData().errMsg)
   };
+
+
+  validateRegData() {
+    let {name, email, password1, password2} = this.state;
+
+    if (!(name && email && password1)) {
+      return {errMsg: 'All fields must be filled in', validated: false}
+    }
+    else if (/ /ig.test(name)) return {errMsg: 'Name can not contain spaces', validated: false};
+    else if (password1 !== password2) {
+      return{errMsg: 'Passwords are not the same in both fields', validated: false}
+    }
+    else return{errMsg: '', validated: true}
+
+  }
 
   render() {
     const {regState} = this.props;
@@ -60,10 +78,12 @@ class RegisterPage extends Component {
                    value={password2} onChange={this.handleChange}/>
             <input className="reg-btn" type="button" value="Register"
                    onClick={this.handleSubmit}/>
-            {(regState.registerError || regState.message.success) && <div className="register-message">
-              <p className="err-msg-p">{regState.registerError.massage || regState.registerError.message ||
+            {(regState.registerError || regState.message.success || this.state.errMsg) &&
+            <div className="register-message">
+              <p className="err-msg-p">{this.state.errMsg || regState.registerError.message ||
               regState.message.message}</p>
             </div>}
+            <span className="register-login-span">Already registered? >></span>
             <Link to="/login" className="register-login-link">Login</Link>
           </div>}
       </Fragment>
@@ -82,7 +102,8 @@ const
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      sendRegistrationData: (registrationData) => dispatch(fetchRegister(registrationData))
+      sendRegistrationData: (registrationData) => dispatch(fetchRegister(registrationData)),
+      setErrMessage: (msg) => dispatch(setRegisterError({success: false, message: msg}))
     }
   };
 
