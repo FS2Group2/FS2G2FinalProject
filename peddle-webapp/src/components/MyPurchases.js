@@ -3,7 +3,7 @@ import '../css/MyPurchase.css';
 import "../constants/ApiSettings.js"
 import {connect} from "react-redux";
 import {loadPurchaceList} from "../actions/purchaceActions";
-import dataMap, from "../constants/ApiSettings";
+import dataMap from "../constants/ApiSettings";
 
 class MyPurchases extends Component {
 
