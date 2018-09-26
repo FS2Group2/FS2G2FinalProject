@@ -27,7 +27,7 @@ class RegisterPage extends Component {
   };
 
   handleSubmit(event) {
-    let {name, email, password1}= this.state;
+    let {name, email, password1} = this.state;
     const {setErrMessage, sendRegistrationData} = this.props;
     let registrationData = {
       name: name,
@@ -47,9 +47,9 @@ class RegisterPage extends Component {
     }
     else if (/ /ig.test(name)) return {errMsg: 'Name can not contain spaces', validated: false};
     else if (password1 !== password2) {
-      return{errMsg: 'Passwords are not the same in both fields', validated: false}
+      return {errMsg: 'Passwords are not the same in both fields', validated: false}
     }
-    else return{errMsg: '', validated: true}
+    else return {errMsg: '', validated: true}
 
   }
 
@@ -65,26 +65,30 @@ class RegisterPage extends Component {
             </div>
           </div> :
           <div className="register-box">
-            <div className="register-box-header">
-              <p className="register-box-header-left">Sign Up</p>
+            <div className="login-box-header">
+              <p className="login-box-header-center">Register</p>
             </div>
-            <input className="register-input-box" type="text" name="name" placeholder="You Name"
+            <input className="login-input-box" type="text" name="name" placeholder="You Name"
                    value={name} onChange={this.handleChange}/>
-            <input className="register-input-box" type="email" name="email" placeholder="Email"
+            <input className="login-input-box" type="email" name="email" placeholder="Email"
                    value={email} onChange={this.handleChange}/>
-            <input className="register-input-box" type="password" name="password1" placeholder="Choose Password"
+            <input className="login-input-box" type="password" name="password1" placeholder="Choose Password"
                    value={password1} onChange={this.handleChange}/>
-            <input className="register-input-box" type="password" name="password2" placeholder="Confirm Password"
+            <input className="login-input-box" type="password" name="password2" placeholder="Confirm Password"
                    value={password2} onChange={this.handleChange}/>
-            <input className="reg-btn" type="button" value="Register"
+            <input className="login-btn" type="button" value="Register"
                    onClick={this.handleSubmit}/>
-            {(regState.registerError || regState.message.success || this.state.errMsg) &&
+            {(regState.registerError ||
+              (!regState.message.success &&regState.message.message) || this.state.errMsg) &&
             <div className="register-message">
-              <p className="err-msg-p">{this.state.errMsg || regState.registerError.message ||
-              regState.message.message}</p>
+              <p className="err-msg-p">
+                {this.state.errMsg ||
+                (regState.registerError && regState.registerError.message) ||
+                regState.message.message}
+              </p>
             </div>}
             <span className="register-login-span">Already registered? >></span>
-            <Link to="/login" className="register-login-link">Login</Link>
+            <Link to="/login" className="login-reg-link">Login</Link>
           </div>}
       </Fragment>
 

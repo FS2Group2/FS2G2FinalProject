@@ -15,17 +15,24 @@ class Login extends Component {
       userId: 0,
       username: '',
       password: '',
+      rememberMe: false,
       wishlist: [],
       error: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     const {name, value} = event.target;
     this.setState({[name]: value});
+  }
+
+  handleCheck(event) {
+    const {name, checked} = event.target;
+    this.setState({[name]: checked});
   }
 
   handleSubmit(event) {
@@ -56,7 +63,8 @@ class Login extends Component {
     loginHeader.append("Content-Type", "application/JSON");
     let query = {
       name: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      rememberMe: this.state.rememberMe
     };
     let reqParam = {
       method: 'POST',
@@ -119,7 +127,7 @@ class Login extends Component {
     header.append("Content-Type", "application/JSON");
     let reqParam = {
       method: 'GET',
-      headers:{
+      headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -147,7 +155,7 @@ class Login extends Component {
         <div>
           <div className="login-box">
             <div className="login-box-header">
-              <p className="login-box-header-left">Log In</p>
+              <p className="login-box-header-center">Log In</p>
             </div>
             <input className="login-input-box" type="text" name="username" placeholder="Your Name"
                    value={username} onChange={this.handleChange}/>
@@ -165,10 +173,19 @@ class Login extends Component {
               <span className="warn-close" onClick={this.closeWarning}>&times;</span>
             </div>
             }
+            <div className="input-group">
+              <div>
+                <input type="checkbox" name={'rememberMe'} id={'rememberMe'}
+                onChange={this.handleCheck}/>
+                <label htmlFor="rememberMe" className={'login-input-label'}>Remember me</label>
+              </div>
+              <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
+            </div>
+
             <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
             {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
             <span className="register-login-span">Still not registered? >></span>
-            <Link to="/register" className="login-reg-link">Sign Up</Link>
+            <Link to="/register" className="login-reg-link">Register</Link>
           </div>
         </div>
     )
