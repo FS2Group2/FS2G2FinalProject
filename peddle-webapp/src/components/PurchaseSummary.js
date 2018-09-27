@@ -15,10 +15,10 @@ class PurchaseSummary extends Component {
 
   totalAmount = () => {
     const {cart} = this.props;
-    return (cart.purchasedEvent && cart.purchasedEvent.price || 0) +
-      (cart.purchasedAccommodation && cart.purchasedAccommodation.price || 0) +
-      (cart.purchasedTransferTo && cart.purchasedTransferTo.price || 0) +
-      (cart.purchasedTransferFrom && cart.purchasedTransferFrom.price || 0);
+    return ((cart.purchasedEvent && cart.purchasedEvent.price) || 0) +
+      ((cart.purchasedAccommodation && cart.purchasedAccommodation.price) || 0) +
+      ((cart.purchasedTransferTo && cart.purchasedTransferTo.price) || 0) +
+      ((cart.purchasedTransferFrom && cart.purchasedTransferFrom.price) || 0);
   };
 
   savePurchase = () => {

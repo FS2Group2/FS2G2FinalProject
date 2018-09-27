@@ -6,11 +6,12 @@ import {Link} from "react-router-dom";
 class MainMenu extends Component {
   render() {
     const {cart} = this.props;
-    let userAvatar = '';
-    let cartSum = (cart.purchasedEvent && cart.purchasedEvent.price || 0)+
-      (cart.purchasedAccommodation && cart.purchasedAccommodation.price || 0)+
-      (cart.purchasedTransferTo && cart.purchasedTransferTo.price || 0) +
-      (cart.purchasedTransferFrom && cart.purchasedTransferFrom.price || 0);
+    // let userAvatar = '';
+
+    let cartSum = ((cart.purchasedEvent && cart.purchasedEvent.price) || 0) +
+      ((cart.purchasedAccommodation && cart.purchasedAccommodation.price) || 0) +
+      ((cart.purchasedTransferTo && cart.purchasedTransferTo.price) || 0) +
+      ((cart.purchasedTransferFrom && cart.purchasedTransferFrom.price) || 0);
 
     let mainMenuLinks = [
       {url: '/', text: 'Events', sum: '', img: ''},
