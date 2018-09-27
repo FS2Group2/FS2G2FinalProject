@@ -4,7 +4,6 @@ import dataMap, {authHeaders} from "../constants/ApiSettings";
 import EventInfo from "../components/EventInfo";
 import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
-import PurchaseSummary from "../components/PurchaseSummary";
 import {connect} from "react-redux";
 import {
   setCityForTransferFromEvent,
@@ -14,7 +13,15 @@ import {
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
-import {purchaseAdd, wishListAdd} from "../constants/queryTypes";
+import {wishListAdd} from "../constants/queryTypes";
+import Message from "../components/Message";
+import * as ReactDOM from "react-dom";
+import {
+  addAccommodationToCart,
+  addEventToCart,
+  addTransferFromEventToCart,
+  addTransferToEventToCart
+} from "../actions/cartActions";
 
 
 class EventPurchasePage extends Component {
@@ -55,47 +62,86 @@ class EventPurchasePage extends Component {
   };
 
   addEventToBasket = () => {
-    this.setState({purchasedEvent: this.props.currentEventInfo})
+    this.setState({purchasedEvent: this.props.currentEventInfo});
+    this.props.addEventToCart(this.props.currentEventInfo);
+    this.renderMsg('event "' + this.props.currentEventInfo.name + '" add to card', 2500);
+  };
+
+  addAccommodationToBasket = (acc) => {
+    this.setState({purchasedAccommodation: acc});
+    this.props.addAccommodationToCart(acc);
+    this.renderMsg('reservation at "' + acc.name + '" add to card', 2000);
+  };
+
+  addTransferToToBasket = (tr) => {
+    this.setState({purchasedTransferTo: tr});
+    this.props.addTransferToEventToCart(tr);
+    this.renderMsg(
+      'reservation at ' + tr.transportTypeName +
+      ' from ' + tr.fromCityName +
+      ' to ' + tr.toCityName +
+      ' # ' + tr.number +
+      ' add to card', 2500);
+  };
+
+  addTransferFromToBasket = (tr) => {
+    this.setState({purchasedTransferFrom: tr});
+    this.props.addTransferFromEventToCart(tr);
+    this.renderMsg(
+      'reservation at ' + tr.transportTypeName +
+      ' from ' + tr.fromCityName +
+      ' to ' + tr.toCityName +
+      ' # ' + tr.number +
+      ' add to card', 2500);
   };
 
   addEventToWishList = () => {
-    const {fetchDataFromApi, currentUser} = this.props;
+    const {fetchDataFromApi, currentUser, isLogged} = this.props;
     let query = {
       userId: currentUser.id,
       eventId: this.state.eventId
     };
-    fetchDataFromApi(wishListAdd, query);
+    isLogged ? fetchDataFromApi(wishListAdd, query) :
+      this.renderMsg("To save event to your wish list you should log in", 2550);
   };
 
-  savePurchase = () => {
-    const {currentUser, fetchDataFromApi} = this.props;
-    const {
-      purchasedEvent,
-      purchasedAccommodation,
-      purchasedTransferTo,
-      purchasedTransferFrom
-    } = this.state;
-    let query = {
-      id: currentUser.id,
-      eventId: purchasedEvent.id,
-      transfertoId: purchasedTransferTo.id || '0',
-      transferfromId: purchasedTransferFrom.id || '0',
-      accommodationId: purchasedAccommodation.id || '0'
-    };
-    fetchDataFromApi(purchaseAdd, query);
-  };
+  // savePurchase = () => {
+  //   const {isLogged} = this.props;
+  //   isLogged ? this.doPurchase() :
+  //     this.renderMsg("To save your purchases you should log in", 2550)
+  // };
+  //
+  // doPurchase() {
+  //   const {currentUser, fetchDataFromApi} = this.props;
+  //   const {
+  //     purchasedEvent,
+  //     purchasedAccommodation,
+  //     purchasedTransferTo,
+  //     purchasedTransferFrom
+  //   } = this.state;
+  //   let query = {
+  //     id: currentUser.id,
+  //     eventId: purchasedEvent.id,
+  //     transfertoId: purchasedTransferTo.id || '0',
+  //     transferfromId: purchasedTransferFrom.id || '0',
+  //     accommodationId: purchasedAccommodation.id || '0'
+  //   };
+  //   fetchDataFromApi(purchaseAdd, query);
+  //   this.renderMsg('Your purchases were successfully saved.', 2000)
+  // }
 
-  addAccommodationToBasket = (acc) => {
-    this.setState({purchasedAccommodation: acc})
-  };
+  renderMsg(msg, t) {
+    const elem = (<Message message={msg}/>);
+    const parentDiv = document.getElementById('event-purchase');
+    ReactDOM.render(elem, parentDiv);
+    parentDiv.style.opacity = '1';
+    parentDiv.style.display = 'block';
+    setTimeout(() => {
+      parentDiv.style.opacity = '0';
+      parentDiv.style.display = 'none';
+    }, t)
+  }
 
-  addTransferToToBasket = (tr) => {
-    this.setState({purchasedTransferTo: tr})
-  };
-
-  addTransferFromToBasket = (tr) => {
-    this.setState({purchasedTransferFrom: tr})
-  };
 
   componentDidMount() {
     const {
@@ -151,10 +197,7 @@ class EventPurchasePage extends Component {
   }
 
   render() {
-    const {
-      purchasedEvent, purchasedAccommodation,
-      accommodations, purchasedTransferTo, purchasedTransferFrom
-    } = this.state;
+    const {accommodations} = this.state;
     const {allCities, transferProps, currentEventInfo} = this.props;
     return (
       <Fragment>
@@ -217,13 +260,11 @@ class EventPurchasePage extends Component {
 
           {/*===PURCHASE SUMMARY===*/}
 
-          <div>
-            <PurchaseSummary event={purchasedEvent} accommodation={purchasedAccommodation}
-                             transferTo={purchasedTransferTo} transferFrom={purchasedTransferFrom}
-                             purchase={this.savePurchase.bind(this)}/>
-          </div>
+          {/*<div>*/}
+          {/*<PurchaseSummary/>*/}
+          {/*</div>*/}
         </div>
-
+        <div id='event-purchase'/>
       </Fragment>
     );
   }
@@ -251,7 +292,13 @@ const mapDispatchToProps = (dispatch) => {
     setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
 
     fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
-    fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query))
+    fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
+
+    // === CART ACTIONS ===
+    addEventToCart: (event) => dispatch(addEventToCart(event)),
+    addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
+    addTransferToEventToCart: (transfer) => dispatch(addTransferToEventToCart(transfer)),
+    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer))
   }
 };
 
