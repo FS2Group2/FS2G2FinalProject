@@ -13,7 +13,7 @@ import {
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
-mport {wishListAdd} from "../constants/queryTypes";
+import {wishListAdd} from "../constants/queryTypes";
 import Message from "../components/Message";
 import * as ReactDOM from "react-dom";
 import {
