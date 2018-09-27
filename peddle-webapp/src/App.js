@@ -14,6 +14,8 @@ import Categories from "./containers/Categories";
 import LoadListsComponent from "./components/LoadListsComponent";
 import Logout from "./containers/Logout";
 import Registration from "./components/Registration";
+import ForgotPass from "./containers/ForgotPass";
+import ChangePass from "./components/ChangePass";
 
 class App extends Component {
   render() {
@@ -32,6 +34,8 @@ class App extends Component {
               <Route exact path='/event/:eventId' component={EventPurchasePage}/>
               <Route path="/register" component={RegisterPage}/>
               <Route path="/registration/:token" component={Registration}/>
+              <Route exact path="/forgotPass" component={ForgotPass}/>
+              <Route path="/changePass/:token" component={ChangePass}/>
               <Route path='/' component={PageNotFound}/>
             </Switch>
           </div>
