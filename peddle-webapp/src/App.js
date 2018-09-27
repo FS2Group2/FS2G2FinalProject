@@ -16,6 +16,7 @@ import Logout from "./containers/Logout";
 import Registration from "./components/Registration";
 import ForgotPass from "./containers/ForgotPass";
 import ChangePass from "./components/ChangePass";
+import Cart from "./containers/Cart";
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
               <Route exact path='/' component={Categories}/>
               <Route exact path='/about' component={About}/>
               <Route path='/profile' component={Profile}/>
+              <Route path='/cart' component={Cart}/>
               <Route exact path='/login' component={Login}/>
               <Route exact path='/logout' component={Logout}/>
               <Route exact path='/event/:eventId' component={EventPurchasePage}/>

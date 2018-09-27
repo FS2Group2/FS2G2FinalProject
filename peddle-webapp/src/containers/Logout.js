@@ -4,6 +4,12 @@ import {changeUser, setLoggedIn} from "../actions/userActions";
 import {loadWishList} from "../actions/wishListActions";
 import connect from "react-redux/es/connect/connect";
 import {loadPurchaceList} from "../actions/purchaceActions";
+import {
+  addAccommodationToCart,
+  addEventToCart,
+  addTransferFromEventToCart,
+  addTransferToEventToCart
+} from "../actions/cartActions";
 
 class Logout extends Component {
   constructor(props) {
@@ -14,7 +20,8 @@ class Logout extends Component {
   }
 
   logout = () => {
-    const {history, setLoggedIn, changeUser, clearWishList, clearPurchaseList} = this.props;
+    const {history, setLoggedIn, changeUser, clearWishList, clearPurchaseList,
+      addEventToCart,addAccommodationToCart, addTransferToEventToCart, addTransferFromEventToCart} = this.props;
     localStorage.removeItem('accessToken');
     localStorage.removeItem('logged');
     localStorage.removeItem('usr');
@@ -26,6 +33,10 @@ class Logout extends Component {
       changeUser({});
       clearWishList();
       clearPurchaseList();
+      addEventToCart({});
+      addAccommodationToCart({});
+      addTransferToEventToCart({});
+      addTransferFromEventToCart({});
     }, 2000);
   };
 
@@ -62,7 +73,11 @@ const mapDispatchToProps = dispatch => {
     },
     clearPurchaseList: () => {
       dispatch(loadPurchaceList([]))
-    }
+    },
+    addEventToCart: (event) => dispatch(addEventToCart(event)),
+    addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
+    addTransferToEventToCart: (transfer) => dispatch(addTransferToEventToCart(transfer)),
+    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer))
   }
 };
 
