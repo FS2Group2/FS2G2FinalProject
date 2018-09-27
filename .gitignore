@@ -19,3 +19,4 @@ log/
 *.css
 .stylelintcache
 resources/config.properties
+*/**/config.properties

@@ -20,6 +20,7 @@ const dataMap = {
   user: dataPath + '/user',
   login: dataPath + '/login',
   register: dataPath + '/register',
+  remindPass: dataPath + '/remind',
   registrationConfirm: dataPath + '/register/',
   filterEvents: dataPath + '/events/filter/',
   accommodations: dataPath + '/accommodations/city/',
