@@ -15,6 +15,8 @@ import {
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
 import {purchaseAdd, wishListAdd} from "../constants/queryTypes";
+import Message from "../components/Message";
+import * as ReactDOM from "react-dom";
 
 
 class EventPurchasePage extends Component {
@@ -55,7 +57,33 @@ class EventPurchasePage extends Component {
   };
 
   addEventToBasket = () => {
-    this.setState({purchasedEvent: this.props.currentEventInfo})
+    this.setState({purchasedEvent: this.props.currentEventInfo});
+    this.renderMsg('event "' + this.props.currentEventInfo.name + '" add to card', 2500);
+  };
+
+  addAccommodationToBasket = (acc) => {
+    this.setState({purchasedAccommodation: acc});
+    this.renderMsg('reservation at "' + acc.name + '" add to card', 2000);
+  };
+
+  addTransferToToBasket = (tr) => {
+    this.setState({purchasedTransferTo: tr});
+    this.renderMsg(
+      'reservation at ' + tr.transportTypeName +
+      ' from ' + tr.fromCityName +
+      ' to ' + tr.toCityName +
+      ' # ' + tr.number +
+      ' add to card', 2500);
+  };
+
+  addTransferFromToBasket = (tr) => {
+    this.setState({purchasedTransferFrom: tr});
+    this.renderMsg(
+      'reservation at ' + tr.transportTypeName +
+      ' from ' + tr.fromCityName +
+      ' to ' + tr.toCityName +
+      ' # ' + tr.number +
+      ' add to card', 2500);
   };
 
   addEventToWishList = () => {
@@ -68,6 +96,12 @@ class EventPurchasePage extends Component {
   };
 
   savePurchase = () => {
+    const {isLogged} = this.props;
+    isLogged ? this.doPurchase() :
+      this.renderMsg("To save your purchases you should log in", 2550)
+  };
+
+  doPurchase() {
     const {currentUser, fetchDataFromApi} = this.props;
     const {
       purchasedEvent,
@@ -83,19 +117,21 @@ class EventPurchasePage extends Component {
       accommodationId: purchasedAccommodation.id || '0'
     };
     fetchDataFromApi(purchaseAdd, query);
-  };
+    this.renderMsg('Your purchases were successfully saved.', 2000)
+  }
 
-  addAccommodationToBasket = (acc) => {
-    this.setState({purchasedAccommodation: acc})
-  };
+  renderMsg(msg, t) {
+    const elem = (<Message message={msg}/>);
+    const parentDiv = document.getElementById('event-purchase');
+    ReactDOM.render(elem, parentDiv);
+    parentDiv.style.opacity = '1';
+    parentDiv.style.display = 'block';
+    setTimeout(() => {
+      parentDiv.style.opacity = '0';
+      parentDiv.style.display = 'none';
+    }, t)
+  }
 
-  addTransferToToBasket = (tr) => {
-    this.setState({purchasedTransferTo: tr})
-  };
-
-  addTransferFromToBasket = (tr) => {
-    this.setState({purchasedTransferFrom: tr})
-  };
 
   componentDidMount() {
     const {
@@ -223,7 +259,7 @@ class EventPurchasePage extends Component {
                              purchase={this.savePurchase.bind(this)}/>
           </div>
         </div>
-
+        <div id='event-purchase'/>
       </Fragment>
     );
   }

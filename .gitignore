@@ -10,7 +10,7 @@
 *.tar.gz
 *.rar
 *.iml
-frontend/.stylelintcache
+peddle-webapp/.stylelintcache
 .idea/
 frontend/build/
 node_modules/
@@ -18,4 +18,5 @@ target/
 log/
 *.css
 .stylelintcache
-resources/config.properties
+config.properties
+src/main/resources/config.properties
