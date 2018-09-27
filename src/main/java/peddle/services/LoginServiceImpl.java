@@ -25,7 +25,6 @@ import peddle.repository.UserRepository;
 import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
 
-import javax.mail.SendFailedException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,8 +57,8 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
-    Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
     /*
+    Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
     if (currentUser.isPresent()) {
       if (!currentUser.get().getIsActive()) {
         return new ResponseEntity(new ApiRs(false, "Email confirmation required"),

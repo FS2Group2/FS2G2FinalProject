@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
+import peddle.configuration.EmailService;
 import peddle.configuration.ErrorConstants;
 import peddle.configuration.UserException;
 import peddle.dto.PurchaseAddDto;
@@ -38,6 +39,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Autowired
   private ModelMapper modelMapper;
+
+  @Autowired
+  private EmailService emailService;
 
   @Override
   public List<PurchaseDtoRs> getAllPurchase(Long id) {
@@ -90,6 +94,16 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     User userResult = userRepository.save(user);
 
+    if (event.getOwner() > 0 && userRepository.findById(event.getOwner()).isPresent()) {
+      User owner = userRepository.findById(event.getOwner()).get();
+      if (!owner.getEmail().isEmpty()) {
+        String message = "User " + user.getEmail() + " bought you events \""  + event.getName() + "\"";
+        String to = owner.getEmail();
+        String subject = "Bought  your event!";
+        System.out.println( message + to + subject);
+        emailService.sendSimpleMessage(to, subject, message);
+      }
+    }
     return getAllPurchase(userResult.getId());
   }
 }

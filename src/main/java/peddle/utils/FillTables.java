@@ -261,6 +261,45 @@ public class FillTables {
   }
 
   @Bean
+  public CommandLineRunner addUser() {
+    return new CommandLineRunner() {
+      @Override
+      public void run(String... args) throws Exception {
+        List<Role> roles = new ArrayList<>();
+        roleRepository.findAll().forEach(role -> roles.add(role));
+        List<City> citys = new ArrayList<>();
+        cityRepository.findAll().forEach(city -> citys.add(city));
+
+        userRepository.save(new User("Alex",
+            "First name Alex",
+            "Last name Alex",
+            "alex@gmail.com", passwordEncoder.encode("pwdAlex"), true,
+            citys.get(0), roles.get(1),
+            new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
+            new ArrayList<>(), new ArrayList<>()));
+
+        userRepository.save(new User("Jon",
+            "First name Jon",
+            "Last name Jon",
+            "jon@gmail.com", passwordEncoder.encode("pwdJon"), true,
+            citys.get(2), roles.get(1),
+            new Profile("New Vasiyki 2", "userphoto02.jpg", "Jon info"),
+            new ArrayList<>(), new ArrayList<>()));
+
+        userRepository.save(new User("Owner",
+            "Event Owner",
+            "Event Owner",
+            "ch.yuriy@ukr.net", passwordEncoder.encode("pwdOwner"), true,
+            citys.get(1), roles.get(2),
+            new Profile("New Vasiyki 2", "userphoto03.jpg", "Event Owner"),
+            new ArrayList<>(), new ArrayList<>()));
+
+        System.out.println("Added users to User table");
+      }
+    };
+  }
+
+  @Bean
   public CommandLineRunner addEvent() {
     return new CommandLineRunner() {
       @Transactional
@@ -268,6 +307,12 @@ public class FillTables {
       public void run(String... args) throws Exception {
         List<City> cities = new ArrayList<>();
         cityRepository.findAll().forEach(city -> cities.add(city));
+
+        Role role = roleRepository.findByName("EVENTS_SELLER");
+        Long ownerId = 0L;
+        if (userRepository.findFirstByRole(role).isPresent()) {
+          ownerId = userRepository.findFirstByRole(role).get().getId();
+        }
 
         List<EventDescription> events = readerEvents();
 
@@ -290,7 +335,7 @@ public class FillTables {
               category = categoryRepository.save(newCategory);
             }
 
-            eventRepository.save(new Event(event.name, city, category, eventsDate, 0L, event.duration,
+            eventRepository.save(new Event(event.name, city, category, eventsDate, ownerId, event.duration,
                     new EventExtra(event.photo, event.description),
                     event.price));
           }
@@ -336,37 +381,6 @@ public class FillTables {
           }
         }
         System.out.println("Added data to Transfer table");
-      }
-    };
-  }
-
-  @Bean
-  public CommandLineRunner addUser() {
-    return new CommandLineRunner() {
-      @Override
-      public void run(String... args) throws Exception {
-        List<Role> roles = new ArrayList<>();
-        roleRepository.findAll().forEach(role -> roles.add(role));
-        List<City> citys = new ArrayList<>();
-        cityRepository.findAll().forEach(city -> citys.add(city));
-
-        userRepository.save(new User("Alex",
-                "First name Alex",
-                "Last name Alex",
-                "alex@gmail.com", passwordEncoder.encode("pwdAlex"), true,
-                citys.get(0), roles.get(1),
-                new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
-                new ArrayList<>(), new ArrayList<>()));
-
-        userRepository.save(new User("Jon",
-                "First name Jon",
-                "Last name Jon",
-                "jon@gmail.com", passwordEncoder.encode("pwdJon"), true,
-                citys.get(2), roles.get(1),
-                new Profile("New Vasiyki 2", "userphoto02.jpg", "Jon info"),
-                new ArrayList<>(), new ArrayList<>()));
-
-        System.out.println("Added users to User table");
       }
     };
   }
