@@ -38,7 +38,9 @@ class ForgotPass extends Component {
         this.props.setMsg(json)
       })
       .then(() =>
-        setTimeout(() => (this.props.history.push('/login')), 5000))
+        {setTimeout(()=>(this.props.history.push('/login')),2500);
+          setTimeout(()=>(this.props.setMsg({success: false, message: ''})),2500)}
+      )
   }
 
   validateRegData() {
