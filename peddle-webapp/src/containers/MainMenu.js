@@ -13,36 +13,37 @@ class MainMenu extends Component {
       ((cart.purchasedTransferTo && cart.purchasedTransferTo.price) || 0) +
       ((cart.purchasedTransferFrom && cart.purchasedTransferFrom.price) || 0);
 
-    let mainMenuLinks = [
-      {url: '/', text: 'Events', sum: '', img: ''},
-      {url: '/about', text: 'About project', sum: ''},
-      {url: '/profile', text: '', sum: '', img: ''},
-      {url: '/login', text: 'login', sum: '', img: ''},
-      {url: '/cart', text: 'cart', sum: cartSum, img: ''}
-    ];
-
-
     const {userState} = this.props;
-    if (userState.loggedIn) {
-      mainMenuLinks[3].text = 'logout';
-      mainMenuLinks[3].url = '/logout';
-      mainMenuLinks[2].text = 'Profile';
-
-    }
-
 
     return (
       <div className="menu">
         <div className='main-menu'>
-          {mainMenuLinks.map(link =>
-            link.text &&
-            <li className="main-menu-li" key={link.url}>
-              <Link className="main-menu-link" to={link.url}>
-                {link.text}
-                <p className='menu-cart-sum'>{link.sum}</p>
-              </Link>
-            </li>
-          )}
+          <li className="main-menu-li">
+            <Link className="main-menu-link logo-main-menu-link" to={'/'}>
+              <img className={'logo-main-menu'} src="/img/logo.png" alt=""/>
+            </Link>
+          </li>
+          <li className="main-menu-li"><Link className="main-menu-link" to={'/'}>Events</Link></li>
+          <li className="main-menu-li"><Link className="main-menu-link" to={'/about'}>About project</Link></li>
+          {userState.loggedIn &&
+          <li className="main-menu-li"><Link className="main-menu-link" to={'/profile'}>Profile</Link></li>}
+          {userState.loggedIn ?
+          <li className="main-menu-li"><Link className="main-menu-link" to={'/logout'}>Logout</Link></li>:
+          <li className="main-menu-li"><Link className="main-menu-link" to={'/login'}>Login</Link></li>
+          }
+          <li className="main-menu-li">
+            <Link className="main-menu-link" to={'/cart'}>Cart</Link>
+            <p className='menu-cart-sum'>{cartSum}</p>
+          </li>
+          {/*{mainMenuLinks.map(link =>*/}
+          {/*link.text &&*/}
+          {/*<li className="main-menu-li" key={link.url}>*/}
+          {/*<Link className="main-menu-link" to={link.url}>*/}
+          {/*{link.text}*/}
+          {/*<p className='menu-cart-sum'>{link.sum}</p>*/}
+          {/*</Link>*/}
+          {/*</li>*/}
+          {/*)}*/}
         </div>
       </div>
     );

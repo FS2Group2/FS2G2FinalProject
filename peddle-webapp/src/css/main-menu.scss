@@ -10,15 +10,20 @@
 
 .main-menu-li {
   display: inline-block;
+  position: relative;
   width: 100%;
-  //position: relative;
+}
+
+.logo-main-menu {
+  height: 40px;
+  //width: 100px;
 }
 
 .main-menu-link {
   display: inline-block;
-  position: relative;
+  //position: relative;
   width: 100%;
-  padding: 12px 0;
+  padding: 16px 0;
   transition: all .2s;
   color: #334;
   font-size: 16px;
@@ -26,6 +31,11 @@
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.logo-main-menu-link {
+  padding-top: 5px;
+  padding-bottom: 0;
 }
 
 .main-menu-link:hover {
@@ -45,7 +55,9 @@
   position: absolute;
   bottom: 50%;
   left: calc(50% + 30px);
+  padding: 5px;
   border-radius: 15px;
+  background-color: #fff;
   color: #03038b;
   font-size: 14px;
 }
