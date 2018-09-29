@@ -62,11 +62,11 @@ public class LoginServiceImpl implements LoginService {
     Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
     if (currentUser.isPresent()) {
       if (!currentUser.get().isActive()) {
-        return new ResponseEntity(new ApiRs(false, "Email confirmation required"),
+        return new ResponseEntity(new ApiRs("Email confirmation required"),
             HttpStatus.BAD_REQUEST);
       }
     } else {
-      return new ResponseEntity(new ApiRs(false, "Username or Email not found"),
+      return new ResponseEntity(new ApiRs("Username or Email not found"),
           HttpStatus.BAD_REQUEST);
     }
 
@@ -86,14 +86,14 @@ public class LoginServiceImpl implements LoginService {
   public ResponseEntity<?> registerUser(UserRegisterDtoRq userRegisterDtoRq) {
     Optional<User> userNameCheck = userRepository.findByNameIgnoreCase(userRegisterDtoRq.getName());
     if (userNameCheck.isPresent()) {
-      return new ResponseEntity(new ApiRs(false, "UserName is already taken!"),
-          HttpStatus.OK);
+      return new ResponseEntity(new ApiRs("UserName is already taken!"),
+          HttpStatus.BAD_REQUEST);
     }
 
     Optional<User> emailNameCheck = userRepository.findByEmail(userRegisterDtoRq.getEmail());
     if (emailNameCheck.isPresent()) {
-      return new ResponseEntity(new ApiRs(false, "Email already is used! "),
-          HttpStatus.OK);
+      return new ResponseEntity(new ApiRs("Email already is used! "),
+          HttpStatus.BAD_REQUEST);
     }
 
     User newUser = modelMapper.map(userRegisterDtoRq, User.class);
@@ -125,12 +125,11 @@ public class LoginServiceImpl implements LoginService {
     } catch (MailException e) {
       userTokenRepository.delete(userToken);
       userRepository.delete(newUser);
-      return new ResponseEntity(new ApiRs(false, "Sorry, I can't send email :("),
-          HttpStatus.OK);
+      return new ResponseEntity(new ApiRs("Sorry, I can't send email :("),
+          HttpStatus.BAD_REQUEST);
     }
 
-    return ResponseEntity.ok(new ApiRs(true,
-        "User registered successfully! Check your inbox for confirmation!"));
+    return ResponseEntity.ok(new ApiRs("User registered successfully! Check your inbox for confirmation!"));
   }
 
   @Override
@@ -141,19 +140,18 @@ public class LoginServiceImpl implements LoginService {
       user.setActive(true);
       userRepository.save(user);
       userTokenRepository.delete(userToken.get());
-      return ResponseEntity.ok(new ApiRs(true,
-          "User email confirmed successfully"));
+      return ResponseEntity.ok(new ApiRs("User email confirmed successfully"));
     }
-    return new  ResponseEntity(new ApiRs(false, "Token not found"),
-        HttpStatus.OK);
+    return new  ResponseEntity(new ApiRs("Token not found"),
+        HttpStatus.BAD_REQUEST);
   }
 
   @Override
   public ResponseEntity<?> reminderUser(UserRemindPassDtoRq userRemindPassDtoRq) {
     Optional<User> userEmailCheck = userRepository.findByEmail(userRemindPassDtoRq.getEmail());
     if (!userEmailCheck.isPresent()) {
-      return new ResponseEntity(new ApiRs(false, "Sorry, I can't find you Email."),
-          HttpStatus.OK);
+      return new ResponseEntity(new ApiRs("Sorry, I can't find you Email."),
+          HttpStatus.BAD_REQUEST);
     }
 
     User user = userEmailCheck.get();
@@ -176,12 +174,11 @@ public class LoginServiceImpl implements LoginService {
       emailService.sendSimpleMessage(to, subject, message);
     } catch (MailException e) {
       userTokenRepository.delete(userToken);
-      return new ResponseEntity(new ApiRs(false, "Sorry, I can't send email :("),
-          HttpStatus.OK);
+      return new ResponseEntity(new ApiRs("Sorry, I can't send email :("),
+          HttpStatus.BAD_REQUEST);
     }
 
-    return ResponseEntity.ok(new ApiRs(true,
-        "Check your inbox for change password!"));
+    return ResponseEntity.ok(new ApiRs("Check your inbox for change password!"));
   }
 
   @Override
@@ -193,10 +190,9 @@ public class LoginServiceImpl implements LoginService {
       user.setActive(true);
       userRepository.save(user);
       userTokenRepository.delete(userToken.get());
-      return ResponseEntity.ok(new ApiRs(true,
-          "Password Changed successfully"));
+      return ResponseEntity.ok(new ApiRs("Password Changed successfully"));
     }
-    return new  ResponseEntity(new ApiRs(false, "Token not found"),
-        HttpStatus.OK);
+    return new  ResponseEntity(new ApiRs("Token not found"),
+        HttpStatus.BAD_REQUEST);
   }
 }
