@@ -111,6 +111,14 @@ public class User {
     return events;
   }
 
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(boolean isActive) {
+    this.isActive = isActive;
+  }
+
   public void setEvents(List<Event> events) {
     this.events = events;
   }

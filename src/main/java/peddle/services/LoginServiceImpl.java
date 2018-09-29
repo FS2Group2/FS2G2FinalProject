@@ -16,6 +16,7 @@ import peddle.dto.ApiRs;
 import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserRegisterDtoRq;
+import peddle.dto.UserRemindPassDtoRq;
 import peddle.entities.Profile;
 import peddle.entities.Role;
 import peddle.entities.User;
@@ -57,10 +58,10 @@ public class LoginServiceImpl implements LoginService {
 
   @Override
   public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
-    /*
+
     Optional<User> currentUser = userRepository.findByNameIgnoreCase(userLoginDtoRq.getName());
     if (currentUser.isPresent()) {
-      if (!currentUser.get().getIsActive()) {
+      if (!currentUser.get().isActive()) {
         return new ResponseEntity(new ApiRs(false, "Email confirmation required"),
             HttpStatus.BAD_REQUEST);
       }
@@ -68,7 +69,7 @@ public class LoginServiceImpl implements LoginService {
       return new ResponseEntity(new ApiRs(false, "Username or Email not found"),
           HttpStatus.BAD_REQUEST);
     }
-    */
+
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             userLoginDtoRq.getName(),
@@ -142,6 +143,58 @@ public class LoginServiceImpl implements LoginService {
       userTokenRepository.delete(userToken.get());
       return ResponseEntity.ok(new ApiRs(true,
           "User email confirmed successfully"));
+    }
+    return new  ResponseEntity(new ApiRs(false, "Token not found"),
+        HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<?> reminderUser(UserRemindPassDtoRq userRemindPassDtoRq) {
+    Optional<User> userEmailCheck = userRepository.findByEmail(userRemindPassDtoRq.getEmail());
+    if (!userEmailCheck.isPresent()) {
+      return new ResponseEntity(new ApiRs(false, "Sorry, I can't find you Email."),
+          HttpStatus.OK);
+    }
+
+    User user = userEmailCheck.get();
+    user.setActive(false);
+    userRepository.save(user);
+
+    UserToken userToken = new UserToken();
+    userToken.setUser(user);
+    String token = UUID.randomUUID().toString();
+    userToken.setToken(token);
+    userTokenRepository.save(userToken);
+
+    String message = "You have to change you password. To finish "
+        + "please follow the link: "
+        + "http://localhost:3000/changePass/" + token;
+    String to = user.getEmail();
+    String subject = "Change your password";
+
+    try {
+      emailService.sendSimpleMessage(to, subject, message);
+    } catch (MailException e) {
+      userTokenRepository.delete(userToken);
+      return new ResponseEntity(new ApiRs(false, "Sorry, I can't send email :("),
+          HttpStatus.OK);
+    }
+
+    return ResponseEntity.ok(new ApiRs(true,
+        "Check your inbox for change password!"));
+  }
+
+  @Override
+  public ResponseEntity<?> changePassUser(UserRemindPassDtoRq userRemindPassDtoRq) {
+    Optional<UserToken> userToken = userTokenRepository.findByToken(userRemindPassDtoRq.getToken());
+    if (userToken.isPresent()) {
+      User user = userRepository.findById(userToken.get().getUser().getId()).get();
+      user.setPassword(passwordEncoder.encode(userRemindPassDtoRq.getPassword()));
+      user.setActive(true);
+      userRepository.save(user);
+      userTokenRepository.delete(userToken.get());
+      return ResponseEntity.ok(new ApiRs(true,
+          "Password Changed successfully"));
     }
     return new  ResponseEntity(new ApiRs(false, "Token not found"),
         HttpStatus.OK);

@@ -273,7 +273,7 @@ public class FillTables {
         userRepository.save(new User("Alex",
             "First name Alex",
             "Last name Alex",
-            "alex@gmail.com", passwordEncoder.encode("pwdAlex"), true,
+            "ch.yuriy@ukr.net", passwordEncoder.encode("pwdAlex"), true,
             citys.get(0), roles.get(1),
             new Profile("New Vasiyki", "userphoto01.jpg", "Alex info"),
             new ArrayList<>(), new ArrayList<>()));
@@ -289,7 +289,7 @@ public class FillTables {
         userRepository.save(new User("Owner",
             "Event Owner",
             "Event Owner",
-            "ch.yuriy@ukr.net", passwordEncoder.encode("pwdOwner"), true,
+            "peddle@ukr.net", passwordEncoder.encode("pwdOwner"), true,
             citys.get(1), roles.get(2),
             new Profile("New Vasiyki 2", "userphoto03.jpg", "Event Owner"),
             new ArrayList<>(), new ArrayList<>()));

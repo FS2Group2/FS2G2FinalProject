@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserRegisterDtoRq;
+import peddle.dto.UserRemindPassDtoRq;
 import peddle.services.LoginServiceImpl;
 
 import javax.validation.Valid;
@@ -34,5 +35,15 @@ public class LoginController {
   @GetMapping("/register/{token}")
   public ResponseEntity<?> confirmRegistration(@PathVariable String token) {
     return loginService.confirmRegistration(token);
+  }
+
+  @PostMapping(path = "/remind")
+  public ResponseEntity<?> remindUser(@Valid @RequestBody UserRemindPassDtoRq userRemindPassDtoRq) {
+    return loginService.reminderUser(userRemindPassDtoRq);
+  }
+
+  @PostMapping(path = "/remind/changePass")
+  public ResponseEntity<?> changePassUser(@Valid @RequestBody UserRemindPassDtoRq userRemindPassDtoRq) {
+    return loginService.changePassUser(userRemindPassDtoRq);
   }
 }
