@@ -58,14 +58,14 @@ class ChangePass extends Component {
   }
 
   render() {
-    const {message, regState} = this.props;
+    const {messageOk, regState} = this.props;
     const {password1, password2} = this.state;
     return (
       <Fragment>
-        {message.success ?
+        {messageOk.message ?
           <div className="register-box">
             <div className="register-message">
-              <p className="success-msg-p">{message.message}</p>
+              <p className="success-msg-p">{messageOk.message}</p>
             </div>
           </div>
           :
@@ -79,13 +79,11 @@ class ChangePass extends Component {
                    value={password2} onChange={this.handleChange}/>
             <input className="login-btn" type="button" value="Change password"
                    onClick={this.handleSubmit}/>
-            {(regState.registerError ||
-              (!regState.message.success && regState.message.message) || this.state.errMsg) &&
+            {(regState.registerError || this.state.errMsg) &&
             <div className="register-message">
               <p className="err-msg-p">
                 {this.state.errMsg ||
-                (regState.registerError && regState.registerError.message) ||
-                regState.message.message}
+                (regState.registerError && regState.registerError.message)}
               </p>
             </div>}
 
@@ -106,7 +104,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    message: state.userReducer.message,
+    messageOk: state.userReducer.message,
     regState: state.userReducer
   }
 };

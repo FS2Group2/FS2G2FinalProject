@@ -21,10 +21,10 @@ class Registration extends Component {
   }
 
   render() {
-    const {message} = this.props;
+    const {message, error} = this.props;
     return (
       <Fragment>
-        {message.success ?
+        {message.message ?
           <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{message.message}</p>
@@ -33,7 +33,7 @@ class Registration extends Component {
           :
           <div className="register-box">
             <div className={'register-message'}>
-              <p className="err-msg-p">{message.message}</p>
+              <p className="err-msg-p">{error.message}</p>
             </div>
           </div>}
       </Fragment>
@@ -52,6 +52,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     message: state.userReducer.message,
+    error: state.userReducer.registerError
   }
 };
 

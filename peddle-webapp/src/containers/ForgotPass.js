@@ -39,7 +39,7 @@ class ForgotPass extends Component {
       })
       .then(() =>
         {setTimeout(()=>(this.props.history.push('/login')),2500);
-          setTimeout(()=>(this.props.setMsg({success: false, message: ''})),2500)}
+          setTimeout(()=>(this.props.setMsg({message: ''})),2500)}
       )
   }
 
@@ -60,7 +60,7 @@ class ForgotPass extends Component {
 
     return (
       <Fragment>
-        {regState.message.success ? <div className="register-box">
+        {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
             </div>
@@ -76,7 +76,7 @@ class ForgotPass extends Component {
 
             <input className="login-btn" type="button" value="Remind password"
                    onClick={this.handleSubmit}/>
-            {(regState.registerError || regState.message.message || this.state.errMsg) &&
+            {(regState.registerError || this.state.errMsg) &&
             <div className="register-message">
               <p className="err-msg-p">{this.state.errMsg || regState.message.message ||
               regState.registerError.message
