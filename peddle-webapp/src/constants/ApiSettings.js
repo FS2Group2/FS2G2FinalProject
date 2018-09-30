@@ -27,6 +27,7 @@ const dataMap = {
   transfer: dataPath + '/transfer',
   wishlist: dataPath + '/wishlist/user-events/',
   wishlistAdd: dataPath + '/wishlist/add-event-to-user',
+  wishlistRemove: dataPath + '/wishlist/delete-event-from-user',
   purchace: dataPath + '/purchase/all/',
   purchaseAdd: dataPath + '/purchase/add',
   categoryPath: dataPath + "/categories/all"

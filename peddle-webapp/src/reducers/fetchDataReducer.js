@@ -10,25 +10,22 @@ const initReducer = {
 export default function fetchDataReducer(state = initReducer, action) {
   switch (action.type) {
     case SET_FETCH_PENDING:
-      return {...state,
+      return {
+        ...state,
         isFetchPending: action.payload
       };
 
     case SET_FETCH_SUCCESS:
-      return { ...state,
+      return {
+        ...state,
         isFetchSuccess: action.payload
       };
 
     case SET_FETCH_ERROR:
-      return { ...state,
+      return {
+        ...state,
         fetchError: action.payload
       };
-    //
-    // case SET_FETCH_DATA:
-    //   return {
-    //     ...state,
-    //     userData: action.payload
-    //   };
 
     default:
       return state;

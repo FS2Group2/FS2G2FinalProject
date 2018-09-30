@@ -13,7 +13,7 @@ import {
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
-import {wishListAdd} from "../constants/queryTypes";
+import {wishListAdd, wishListRemove} from "../constants/queryTypes";
 import Message from "../components/Message";
 import * as ReactDOM from "react-dom";
 import {
@@ -31,14 +31,7 @@ class EventPurchasePage extends Component {
       eventId: this.props.match.params.eventId,
       error: null,
       isLoaded: false,
-      // event: {},
       accommodations: [],
-      // transferToEvent: [],
-      // transferFromEvent: [],
-      purchasedEvent: {},
-      purchasedAccommodation: {},
-      purchasedTransferTo: {},
-      purchasedTransferFrom: {},
     }
   }
 
@@ -62,19 +55,16 @@ class EventPurchasePage extends Component {
   };
 
   addEventToBasket = () => {
-    this.setState({purchasedEvent: this.props.currentEventInfo});
     this.props.addEventToCart(this.props.currentEventInfo);
     this.renderMsg('event "' + this.props.currentEventInfo.name + '" add to card', 2500);
   };
 
   addAccommodationToBasket = (acc) => {
-    this.setState({purchasedAccommodation: acc});
     this.props.addAccommodationToCart(acc);
     this.renderMsg('reservation at "' + acc.name + '" add to card', 2000);
   };
 
   addTransferToToBasket = (tr) => {
-    this.setState({purchasedTransferTo: tr});
     this.props.addTransferToEventToCart(tr);
     this.renderMsg(
       'reservation at ' + tr.transportTypeName +
@@ -85,7 +75,6 @@ class EventPurchasePage extends Component {
   };
 
   addTransferFromToBasket = (tr) => {
-    this.setState({purchasedTransferFrom: tr});
     this.props.addTransferFromEventToCart(tr);
     this.renderMsg(
       'reservation at ' + tr.transportTypeName +
@@ -105,30 +94,14 @@ class EventPurchasePage extends Component {
       this.renderMsg("To save event to your wish list you should log in", 2550);
   };
 
-  // savePurchase = () => {
-  //   const {isLogged} = this.props;
-  //   isLogged ? this.doPurchase() :
-  //     this.renderMsg("To save your purchases you should log in", 2550)
-  // };
-  //
-  // doPurchase() {
-  //   const {currentUser, fetchDataFromApi} = this.props;
-  //   const {
-  //     purchasedEvent,
-  //     purchasedAccommodation,
-  //     purchasedTransferTo,
-  //     purchasedTransferFrom
-  //   } = this.state;
-  //   let query = {
-  //     id: currentUser.id,
-  //     eventId: purchasedEvent.id,
-  //     transfertoId: purchasedTransferTo.id || '0',
-  //     transferfromId: purchasedTransferFrom.id || '0',
-  //     accommodationId: purchasedAccommodation.id || '0'
-  //   };
-  //   fetchDataFromApi(purchaseAdd, query);
-  //   this.renderMsg('Your purchases were successfully saved.', 2000)
-  // }
+  removeEventFromWishList = () => {
+    const {fetchDataFromApi, currentUser} = this.props;
+    let query = {
+      userId: currentUser.id,
+      eventId: this.state.eventId
+    };
+    fetchDataFromApi(wishListRemove, query)
+  };
 
   renderMsg(msg, t) {
     const elem = (<Message message={msg}/>);
@@ -204,7 +177,8 @@ class EventPurchasePage extends Component {
         <div className='event-purchase-page'>
           <div className='event-extra-container'>
             <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
-                       addToWishList={this.addEventToWishList.bind(this)}/>
+                       addToWishList={this.addEventToWishList.bind(this)}
+            removeFromWishList={this.removeEventFromWishList.bind(this)}/>
           </div>
 
           {currentEventInfo.cityName &&
@@ -257,12 +231,6 @@ class EventPurchasePage extends Component {
                        transferType='BACKWARD'
                        addTransfer={this.addTransferFromToBasket.bind(this)}/>
           </div>
-
-          {/*===PURCHASE SUMMARY===*/}
-
-          {/*<div>*/}
-          {/*<PurchaseSummary/>*/}
-          {/*</div>*/}
         </div>
         <div id='event-purchase'/>
       </Fragment>
