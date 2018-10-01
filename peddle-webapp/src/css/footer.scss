@@ -1,6 +1,6 @@
 .footer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 5px 0 0;
   padding: 3px;
   border: solid 1px rgba(255, 255, 255, .3);
@@ -15,4 +15,16 @@
 .copyright-p {
   color: rgba(0, 0, 0, .8);
   font-size: 12px;
+}
+
+.footer-link {
+  margin: 0 30px;
+  border-bottom: solid 1px transparent;
+  color: #15024b;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  border-bottom: solid 1px #15024b;
 }

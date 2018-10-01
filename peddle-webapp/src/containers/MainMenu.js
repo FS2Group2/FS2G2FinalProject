@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../css/main-menu.css';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import {iconPath, userPhotoPath} from "../constants/ApiSettings";
 
 class MainMenu extends Component {
   render() {
@@ -18,32 +19,41 @@ class MainMenu extends Component {
     return (
       <div className="menu">
         <div className='main-menu'>
-          <li className="main-menu-li">
+          <div className="menu-left">
             <Link className="main-menu-link logo-main-menu-link" to={'/'}>
               <img className={'logo-main-menu'} src="/img/logo.png" alt=""/>
             </Link>
-          </li>
-          <li className="main-menu-li"><Link className="main-menu-link" to={'/'}>Events</Link></li>
-          <li className="main-menu-li"><Link className="main-menu-link" to={'/about'}>About project</Link></li>
-          {userState.loggedIn &&
-          <li className="main-menu-li"><Link className="main-menu-link" to={'/profile'}>Profile</Link></li>}
-          {userState.loggedIn ?
-          <li className="main-menu-li"><Link className="main-menu-link" to={'/logout'}>Logout</Link></li>:
-          <li className="main-menu-li"><Link className="main-menu-link" to={'/login'}>Login</Link></li>
-          }
-          <li className="main-menu-li">
-            <Link className="main-menu-link" to={'/cart'}>Cart</Link>
-            <p className='menu-cart-sum'>{cartSum}</p>
-          </li>
-          {/*{mainMenuLinks.map(link =>*/}
-          {/*link.text &&*/}
-          {/*<li className="main-menu-li" key={link.url}>*/}
-          {/*<Link className="main-menu-link" to={link.url}>*/}
-          {/*{link.text}*/}
-          {/*<p className='menu-cart-sum'>{link.sum}</p>*/}
-          {/*</Link>*/}
-          {/*</li>*/}
-          {/*)}*/}
+            <Link className="main-menu-link" to={'/'}>Events</Link>
+          </div>
+
+          <div className="menu-right">
+            {userState.loggedIn &&
+            <Link className="main-menu-link" to={'/profile'}>
+              <div className="main-menu-item-container">
+                <p className="main-menu-user-p">{userState.currentUser.name}</p>
+                <div className="menu-user-photo-container">
+                  <img className='main-menu-user-photo' src={userPhotoPath + userState.currentUser.profilePhoto}
+                       alt=""/>
+                </div>
+              </div>
+            </Link>}
+
+            <Link className="main-menu-link" to={'/cart'}>
+              <div className="main-menu-item-container">
+                {/*<p className="main-menu-cart-p">*/}
+                  {/*Cart*/}
+                {/*</p>*/}
+                <img className='menu-cart-img' src={iconPath+'cart-menu.svg'} alt=""/>
+                <p className='menu-cart-sum'>{cartSum}</p>
+              </div>
+            </Link>
+
+            {userState.loggedIn ?
+              <Link className="main-menu-link" to={'/logout'}>Logout</Link> :
+              <Link className="main-menu-link" to={'/login'}>Login</Link>
+            }
+          </div>
+
         </div>
       </div>
     );
