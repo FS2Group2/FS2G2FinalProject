@@ -38,8 +38,8 @@ public class WishListController {
 
   @PostMapping("/wishlist/delete-event-from-user")
   @ResponseBody
-  public void deleteEventFromUser(@RequestBody WishListDto wishListDto) {
-    wishListService.deleteBadEventFromUser(wishListDto);
+  public List<EventDtoRs> deleteEventFromUser(@RequestBody WishListDto wishListDto) {
+    return wishListService.deleteBadEventFromUser(wishListDto);
   }
 
 }
