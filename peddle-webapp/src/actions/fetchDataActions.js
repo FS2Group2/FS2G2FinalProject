@@ -8,7 +8,7 @@ import {
   LOAD_TOP_EVENTS,
   LOAD_TRANSFERS_BACKWARD,
   LOAD_TRANSFERS_FORWARD,
-  LOAD_WISHLIST, SET_EVENT_INFO_ERROR, SET_EVENT_INFO_PENDING, SET_EVENT_INFO_SUCCESS,
+  LOAD_WISHLIST, REMOVE_FROM_WISHLIST, SET_EVENT_INFO_ERROR, SET_EVENT_INFO_PENDING, SET_EVENT_INFO_SUCCESS,
   SET_FETCH_ERROR,
   SET_FETCH_PENDING,
   SET_FETCH_SUCCESS,
@@ -95,6 +95,12 @@ export function setFetchData(fetchData, dataType) {
     case 'ADD_TO_WISH_LIST':
       return{
         type: ADD_TO_WISHLIST,
+        payload: fetchData
+      };
+
+    case 'REMOVE_FROM_WISH_LIST':
+      return{
+        type: REMOVE_FROM_WISHLIST,
         payload: fetchData
       };
 
