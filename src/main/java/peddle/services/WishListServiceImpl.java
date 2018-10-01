@@ -60,7 +60,7 @@ public class WishListServiceImpl implements WishListService {
   }
 
   @Override
-  public void deleteBadEventFromUser(WishListDto wishListDto) {
+  public List<EventDtoRs> deleteBadEventFromUser(WishListDto wishListDto) {
     User user = userRepository.findById(wishListDto.getUserId())
             .orElseThrow(()-> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));
 
@@ -69,5 +69,7 @@ public class WishListServiceImpl implements WishListService {
 
     user.getEvents().remove(event);
     userRepository.save(user);
+
+    return getAllByUserId(wishListDto.getUserId());
   }
 }
