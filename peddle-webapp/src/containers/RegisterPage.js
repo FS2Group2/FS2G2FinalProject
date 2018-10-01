@@ -59,7 +59,7 @@ class RegisterPage extends Component {
 
     return (
       <Fragment>
-        {regState.message.success ? <div className="register-box">
+        {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
             </div>
@@ -79,12 +79,10 @@ class RegisterPage extends Component {
             <input className="login-btn" type="button" value="Register"
                    onClick={this.handleSubmit}/>
             {(regState.registerError ||
-              (!regState.message.success &&regState.message.message) || this.state.errMsg) &&
+              this.state.errMsg) &&
             <div className="register-message">
               <p className="err-msg-p">
-                {this.state.errMsg ||
-                (regState.registerError && regState.registerError.message) ||
-                regState.message.message}
+                {this.state.errMsg || (regState.registerError && regState.registerError.message)}
               </p>
             </div>}
             <span className="register-login-span">Already registered? >></span>

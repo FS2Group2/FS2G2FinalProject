@@ -4,12 +4,10 @@ import lombok.Data;
 
 @Data
 public class ApiRs {
-  private boolean success;
   private String message;
 
 
-  public ApiRs(boolean success, String message) {
-    this.success = success;
+  public ApiRs(String message) {
     this.message = message;
   }
 }
