@@ -71,7 +71,7 @@ class MyPurchases extends Component {
           <Fragment>
             <div className="purchase-list-element" key={p.id}>
               <div className="purchased-item-name">
-                <button className='btn-down' id={'btn' + p.id} onClick={() => this.showDetail(p.id)}></button>
+                <button className='btn-down' id={'btn' + p.id} onClick={() => this.showDetail(p.id)}> </button>
                 <span onClick={() => this.showDetail(p.id)}>{p.eventName}</span>
               </div>
               <div className="purchased-item-city">

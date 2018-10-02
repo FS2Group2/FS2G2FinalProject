@@ -63,3 +63,29 @@
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
 }
+
+.btn-item-remove {
+  position: relative;
+  width: 15px;
+  height: 25px;
+  margin-right: 10px;
+  outline: none;
+  content: ' ';
+  opacity: .4;
+}
+
+.btn-item-remove:hover {
+  opacity: 1;
+}
+
+.btn-item-remove::before {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 15px;
+  height: 15px;
+  background: url("/img/icons/remove.svg") 0 0 no-repeat;
+  background-size: contain;
+  content: ' ';
+  cursor: pointer;
+}
