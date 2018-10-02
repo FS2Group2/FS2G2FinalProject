@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import peddle.configuration.EmailService;
+import peddle.configuration.MailContentBuilder;
 import peddle.dto.ApiRs;
 import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserLoginDtoRq;
@@ -55,6 +56,9 @@ public class LoginServiceImpl implements LoginService {
 
   @Autowired
   private ModelMapper modelMapper;
+
+  @Autowired
+  private MailContentBuilder mailContentBuilder;
 
   @Override
   public ResponseEntity<?> auth(UserLoginDtoRq userLoginDtoRq) {
@@ -121,7 +125,8 @@ public class LoginServiceImpl implements LoginService {
     String subject = "Confirm your email";
 
     try {
-      emailService.sendSimpleMessage(to, subject, message);
+      //emailService.sendSimpleMessage(to, subject, message);
+      emailService.prepareAndSend(to, subject, message);
     } catch (MailException e) {
       userTokenRepository.delete(userToken);
       userRepository.delete(newUser);
