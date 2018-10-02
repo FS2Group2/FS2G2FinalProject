@@ -1,7 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head></head>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="mail_template.css" rel="stylesheet">
+    <title>Registration Mail</title>
+</head>
 <body>
-    <span th:text="${message}"></span>
+    <span class="main-spam">
+        <table class="main-table">
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="inner-table"> 
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" height="20" style="height:20px;"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20" style="width:20px;"></td>
+                                    <td>
+                                        <img alt="UkrNet" width="140" height="41" src="mail-icon.png">
+                                    </td>
+                                    <td align="right" style="text-align:right;">
+                                        <img alt="action-icon" src="mail-icon.png">
+                                    </td>
+                                    <td width="20" style="width:20px;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" height="20" style="height:20px;">
+                                        <h4>Уважаемый пользователь!</h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <table class="inner-table">
+                            <tbody>
+                                <tr>
+                                    <td width="20" style="width:20px;"></td>
+                                    <td>
+                                        <p>Этот e-mail был указан при регистрации как резервный почтовый ящик. Чтобы использовать его при восстановлении доступа и для получения оповещений, связанных с безопасностью почтового ящика, мы должны убедиться, что этот ящик принадлежит и доступен вам.</p>
+                                    </td>
+                                    <td width="20" style="width:20px;"></td>
+                                </tr>
+                                <tr bgcolor="#f1f1f1" style="background:#f1f1f1;">
+                                    <td width="20" style="border-radius:3px 0 0 0;border-top:#82af32 2px solid;width:20px;"></td>
+                                    <td align="center" style="border-top:#82af32 2px solid;text-align:center;">
+                                        <h4 class="p-28">Чтобы подтвердить указанный e-mail, перейдите по этой ссылке:</h4>
+                                        <h2><a th:href="${message}" rel="noreferrer noopener">Подтвердить</a></h2>
+                                    </td>
+                                    <td width="20" style="border-radius:0 3px 0 0;border-top:#82af32 2px solid;width:20px;"></td>
+                                </tr>
+                                <tr>
+                                    <td width="20" style="width:20px;"></td>
+                                    <td>
+                                        <p>Ссылка действительна в течение 24 часов с момента отправки данного письма.</p>
+                                        <p><small>Если вы не указывали адрес своей электронной почты в качестве резервной к ящику не ваш ящик, возможно, другой пользователь указал ваш e-mail в настройках восстановления по ошибке.<br>В таком случае просто проигнорируйте это письмо.</small></p>
+                                        <p><small>С уважением,<br>Команда fs2</p>
+                                    </td>
+                                    <td width="20" style="width:20px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </span>
 </body>
 </html>

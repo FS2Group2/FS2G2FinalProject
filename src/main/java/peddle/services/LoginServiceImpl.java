@@ -125,7 +125,7 @@ public class LoginServiceImpl implements LoginService {
     String subject = "Confirm your email";
 
     try {
-//      emailService.sendSimpleMessage(to, subject, message);
+      //emailService.sendSimpleMessage(to, subject, message);
       emailService.prepareAndSend(to, subject, message);
     } catch (MailException e) {
       userTokenRepository.delete(userToken);

@@ -32,6 +32,7 @@ public class EmailSender {
     mailSender.setPort(smtpPort);
     mailSender.setUsername(smtpLogin);
     mailSender.setPassword(smtpPassword);
+    mailSender.setDefaultEncoding("utf-8");
 
     Properties props = mailSender.getJavaMailProperties();
     props.put("mail.transport.protocol", "smtp");
@@ -39,6 +40,7 @@ public class EmailSender {
     props.put("mail.smtp.starttls.enable", "true");
     props.put("mail.smtp.ssl.enable", "true");
     props.put("mail.debug", "true");
+    props.put("mail.smtp.allow8bitmime", "true");
 
     return mailSender;
   }
