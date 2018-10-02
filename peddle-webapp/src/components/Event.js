@@ -31,14 +31,14 @@ class Event extends Component {
 
     return (
       <div className='event-item'>
-        <h2 className='event-item-name'>{e.name}</h2>
-        <img src={iconCatPath} className={'icon'} alt="" title={e.categoryName}/>
+        <h2 className='event-item-name'>{e.name}<img src={iconCatPath} className={'icon'} alt="category" title={e.categoryName}/></h2>
+
         <div className='event-item-img-container'>
           <img className='event-item-img' src={imgPath} alt="event-img"/>
-          {inWishes && <img src={iconPath + 'star_full.svg'} className={'star-icon-event'} alt=""/>}
+          {inWishes && <img src={iconPath + 'star_full.svg'} className={'star-icon-event'} alt="category"/>}
           {!inWishes &&
           <img src={iconPath + 'star.svg'} className={'empty-star-icon-event'} onClick={() => this.addEventToWishList(e.id)}
-               alt=""/>}
+               alt="category"/>}
         </div>
         <p className='event-item-date'>{eventDate.toLocaleDateString()}</p>
         <p className='event-item-city'>{e.cityName}</p>

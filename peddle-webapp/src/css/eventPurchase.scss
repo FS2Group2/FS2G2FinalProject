@@ -3,8 +3,9 @@
 }
 
 .container-header-p {
-  color: #373737;
+  color: #737D9B;
   font-size: 12px;
+  margin-bottom: 4px;
 }
 
 .event-extra-container {
@@ -51,7 +52,7 @@
 
 .event-info {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   height: 100%;
   padding: 7px;
@@ -62,6 +63,7 @@
   width: 100%;
   height: 100%;
   padding: 7px;
+  padding-left: 16px;
 }
 
 .event-purchase {
@@ -70,7 +72,8 @@
   justify-content: space-between;
   height: 200px;
   padding: 7px;
-  border-left: gray solid 1px;
+  padding-left: 16px;
+  border-left: 1px solid #A1A8BD;
 }
 
 .event-actions-buttons {
@@ -81,26 +84,37 @@
 }
 
 .event-info-header {
-  color: #5f0202;
-  font-size: 18px;
+  color: #0A1331;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .event-info-city {
-  color: #790202;
-  font-size: 12px;
+  color: #0A1331;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .event-info-date {
-  color: #790202;
-  font-size: 12px;
+  color: #0A1331;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .event-info-p {
   margin-top: 10px;
-  color: #1d1e2d;
-  font-size: 12px;
+  color: #0A1331;
+  font-size: 16px;
+  line-height: 24px;
 }
 
+.event-info-p-name{
+  margin-right: 8px;
+  color: #737D9B;
+
+}
 .event-info-description {
   margin-top: 20px;
   color: #15024b;
@@ -109,7 +123,7 @@
 }
 
 .event-photo {
-  height: 200px;
+  height: 300px;
 }
 
 .star-icon-event-info {
@@ -124,35 +138,60 @@
 }
 
 .event-price {
-  color: #0b0a30;
-  font-size: 20px;
+  color: #0A1331;
+  font-weight: 700;
+  font-size: 26px;
 }
 
 .add-to-cart {
-  position: relative;
-  padding: 7px;
-  border: #808080 solid 1px;
+  width: 150px;
+  padding: 9px;
+  border: 2px solid #11BC91;
   border-radius: 4px;
   outline: none;
-  color: #373737;
+  color: #11BC91;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .add-to-wishlist {
-  padding: 7px;
-  border: #808080 solid 1px;
+  width: 150px;
+  padding: 9px;
+  border: 2px solid #11BC91;
   border-radius: 4px;
   outline: none;
-  color: #373737;
+  color: #11BC91;
+  background-color: #fff;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.add-to-cart:hover{
+  opacity: .7;
+  background-color: #fff;
+}
+
+.add-to-wishlist:hover{
+  opacity: .7;
+  background-color: #fff;
 }
 
 .remove-from-wishlist {
-  padding: 7px 2px;
-  border: #808080 solid 1px;
+  width: 150px;
+  padding: 9px;
+  border: 2px solid #ff6666;
   border-radius: 4px;
   outline: none;
-  color: #373737;
-  font-size: 12px;
+  color: #ff6666;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.remove-from-wishlist:hover{
+  background-color: #fff;
+  opacity: .7;
 }
 
 .accommodation-item {

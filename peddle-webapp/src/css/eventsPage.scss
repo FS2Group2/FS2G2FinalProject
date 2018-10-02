@@ -1,6 +1,6 @@
 .events-header {
-  margin: 10px;
-  color: #683317;
+  margin: 16px;
+  color: #0A1331;
   font-size: 18px;
   font-weight: 700;
   text-align: center;
@@ -24,17 +24,19 @@
 .events-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   position: relative;
   width: 100%;
   //height: calc(100vh - 113px);
+  padding-bottom: 88px;
   overflow: auto;
 }
 
 .filter-label {
-  color: rgba(0, 0, 0, .9);
+  color: #737D9B;
   font-size: 12px;
   font-weight: 400;
+  margin-bottom: 3px;
 }
 
 .filter-input {
@@ -42,11 +44,11 @@
   height: 25px;
   margin-top: 2px;
   margin-bottom: 18px;
-  border: aliceblue 1px solid;
+  cursor: pointer;
   border-radius: 3px;
   outline: none;
-  background-color: rgba(0, 0, 0, .2);
-  color: #202130;
+  background-color: #f0f2f7;
+  color: #0A1331;
   font-size: 12px;
 }
 
@@ -77,30 +79,30 @@
 .nav-btn {
   position: absolute;
   bottom: 0;
-  width: 60px;
-  height: 30px;
+  padding: 16px;
+  min-width: 80px;
   border-radius: 15px;
   outline: none;
-  background-color: rgba(0, 0, 0, .5);
-  color: whitesmoke;
+  background-color: #EE374F;
+  color: #fff;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .nav-btn:hover {
-  background-color: rgba(0, 0, 0, .6);
+  opacity: .8;
 }
 
 .nav-btn:active {
-  background-color: rgba(0, 0, 0, .8);
-  color: #fff;
+  opacity: .8;
 }
 
 .next {
-  right: calc(50% - 65px);
+  right: calc(50% - 70px);
 }
 
 .previous {
-  left: calc(50% - 65px);
+  left: calc(50% - 110px);
 }
 
 .page-num {
