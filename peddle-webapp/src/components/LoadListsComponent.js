@@ -20,12 +20,17 @@ class LoadListsComponent extends Component {
     });
 
     if (localStorage.getItem('logged') && localStorage.getItem('accessToken')) {
-      setLoggedIn(true);
-      let userQuery={name: localStorage.getItem('usr')};
+      let userQuery = {name: localStorage.getItem('usr')};
       fetchDataFromApi(userData, userQuery);
       fetchDataFromApi(wishList, localStorage.getItem("uid"));
     }
+    if (this.props.userState.currentUser.id) setLoggedIn(true);
+  }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userState.currentUser.id !== this.props.userState.currentUser.id) {
+      this.props.setLoggedIn(true)
+    }
   }
 
   render() {
@@ -51,7 +56,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     allCities: state.fillListsReducer,
-    filter: state.filterReducer
+    filter: state.filterReducer,
+    userState: state.userReducer
   }
 };
 
