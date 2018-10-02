@@ -69,7 +69,7 @@ class Events extends Component {
       return <Preloader/>
     } else if (isFetchSuccess) {
       return (
-        <div>
+        <div className='page-content'>
           <h2 className='events-header'>upcoming events in Ukraine</h2>
           <div className='events-page'>
             <div className='filters-container'>

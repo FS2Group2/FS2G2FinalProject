@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          <div>
+          {/*<div>*/}
             <MainMenu/>
             <Switch>
               <Route exact path='/events' component={Events}/>
@@ -40,7 +40,7 @@ class App extends Component {
               <Route path="/changePass/:token" component={ChangePass}/>
               <Route path='/' component={PageNotFound}/>
             </Switch>
-          </div>
+          {/*</div>*/}
           <LoadListsComponent/>
           <AppFooter/>
         </div>

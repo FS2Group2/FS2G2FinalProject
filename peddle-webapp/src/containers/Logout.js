@@ -14,15 +14,18 @@ import {
 class Logout extends Component {
 
   logout = () => {
-    const {history, setLoggedIn, changeUser, clearWishList, clearPurchaseList,
-      addEventToCart,addAccommodationToCart, addTransferToEventToCart, addTransferFromEventToCart} = this.props;
+    const {
+      history, setLoggedIn, changeUser, clearWishList, clearPurchaseList,
+      addEventToCart, addAccommodationToCart, addTransferToEventToCart, addTransferFromEventToCart
+    } = this.props;
     localStorage.removeItem('accessToken');
     localStorage.removeItem('logged');
     localStorage.removeItem('usr');
     localStorage.removeItem('uid');
     setLoggedIn(false);
 
-    setTimeout(() => {history.push('/login');
+    setTimeout(() => {
+      history.push('/login');
       changeUser({});
       setLoggedIn(false);
       clearWishList();
@@ -37,15 +40,17 @@ class Logout extends Component {
   render() {
 
     return (
-      <div className="about-page-root">
-        {!this.props.userState.loggedIn ? <p className='logout-msg'>Good buy,
-          {this.props.userState.currentUser.name}! Waiting for you again!</p> :
-          <div>
-            <p className="logout-msg">Are you sure you want to quit?</p>
-            <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>
-          </div>}
-
+      <div className="page-content">
+        <div className="about-page-root">
+          {!this.props.userState.loggedIn ? <p className='logout-msg'>Good buy,
+              {this.props.userState.currentUser.name}! Waiting for you again!</p> :
+            <div>
+              <p className="logout-msg">Are you sure you want to quit?</p>
+              <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>
+            </div>}
+        </div>
       </div>
+
     )
   }
 }

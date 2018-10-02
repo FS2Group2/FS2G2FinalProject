@@ -1,7 +1,5 @@
 .wishlist-list {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 0 10px;
 }
 
 .wishlist-list-titles {
@@ -13,24 +11,9 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-.element-title-name span {
-  color: white;
-}
-
-.element-title-city span {
-  color: white;
-}
-
-.element-title-price span {
-  color: white;
-}
-
-.element-title-link span {
-  color: white;
-}
-
 .wishlist-list-element {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
   padding: 10px;
@@ -39,46 +22,45 @@
 }
 
 .element-name {
+  display: flex;
   align-content: center;
-  width: 350px;
+  align-items: center;
+  width: 400px;
+}
+
+.element-name-img {
+  display: inline-block;
+  width: 100px;
+}
+
+.element-name-link {
+  margin-left: 10px;
+  border-bottom: solid 1px transparent;
+  color: #15024b;
+  text-decoration: none;
+}
+
+.element-name-link:hover {
+  border-bottom: solid 1px #15024b;
 }
 
 .element-city {
-  align-content: center;
-  width: 350px;
+  width: 150px;
+  text-align: center;
+}
+
+.element-date {
+  width: 100px;
+  text-align: center;
 }
 
 .element-sum {
-  align-content: center;
-  width: 350px;
+  width: 80px;
+  text-align: center;
 }
 
-.element-link {
-  align-content: center;
-  width: 350px;
-}
-
-.element-title-name {
-  align-content: center;
-  width: 350px;
-}
-
-.element-title-city {
-  align-content: center;
-  width: 350px;
-}
-
-.element-title-price {
-  align-content: center;
-  width: 350px;
-}
-
-.element-title-link {
-  align-content: center;
-  width: 350px;
-}
-
-.element-title-sum {
-  align-content: center;
-  width: 350px;
+.element-title {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
 }

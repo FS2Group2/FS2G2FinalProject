@@ -19,7 +19,7 @@ class Profile extends Component {
             <p>Please, log in!</p>
             </div>
             :
-        <div>
+        <div className='page-content'>
           <ProfileDetails user={user}/>
           <div className="tab">
               <Link to={path} className='link-to-list'>

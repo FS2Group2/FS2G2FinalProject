@@ -148,11 +148,13 @@ class Login extends Component {
     const {userState} = this.props;
     return (
       userState.currentUser.id ?
-        <div className="login-box">
-          <h2 className='login-msg success-msg'> Hello, {userState.currentUser.name}!</h2>
+        <div className="page-content">
+          <div className="login-box">
+            <h2 className='login-msg success-msg'> Hello, {userState.currentUser.name}!</h2>
+          </div>
         </div>
         :
-        <div>
+        <div className='page-content'>
           <div className="login-box">
             <div className="login-box-header">
               <p className="login-box-header-center">Log In</p>
@@ -176,7 +178,7 @@ class Login extends Component {
             <div className="input-group">
               <div>
                 <input type="checkbox" name={'rememberMe'} id={'rememberMe'}
-                onChange={this.handleCheck}/>
+                       onChange={this.handleCheck}/>
                 <label htmlFor="rememberMe" className={'login-input-label'}>Remember me</label>
               </div>
               <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
