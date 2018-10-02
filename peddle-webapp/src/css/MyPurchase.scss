@@ -6,8 +6,8 @@
 
 .purchase-list-titles {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
@@ -16,8 +16,8 @@
 
 .purchase-list-element {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
@@ -121,7 +121,7 @@
 }
 
 .item-present {
+  display: inline-block;
   width: 16px;
   height: 16px;
-  display: inline-block;
 }
