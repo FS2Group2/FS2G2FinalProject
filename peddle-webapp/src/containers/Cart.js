@@ -4,7 +4,7 @@ import PurchaseSummary from "../components/PurchaseSummary";
 class Cart extends Component{
   render(){
     return(
-      <div>
+      <div className='page-content'>
         <PurchaseSummary/>
       </div>
     )

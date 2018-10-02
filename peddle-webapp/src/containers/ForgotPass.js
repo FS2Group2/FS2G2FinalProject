@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import '../css/Register.css'
 import {setRegisterData, setRegisterError} from "../actions/userActions";
 import {connect} from "react-redux";
@@ -59,7 +59,7 @@ class ForgotPass extends Component {
     let {email} = this.state;
 
     return (
-      <Fragment>
+      <div className='page-content'>
         {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
@@ -83,7 +83,7 @@ class ForgotPass extends Component {
               }</p>
             </div>}
           </div>}
-      </Fragment>
+      </div>
 
     )
   }
