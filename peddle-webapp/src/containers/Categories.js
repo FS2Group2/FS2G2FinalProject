@@ -13,7 +13,7 @@ class Categories extends Component {
     setFilterCategory(0);
     return (
       <div className="categories-page">
-        <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
+
 
         {topEvents[0] &&
         <div className="top-events-container">
@@ -31,7 +31,7 @@ class Categories extends Component {
 
         </div>
         }
-
+        <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
         <div>
           {/*==== HORIZONTAL FILTER ======*/}
           <div className="filter-container-horizontal">

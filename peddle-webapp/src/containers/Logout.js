@@ -12,12 +12,6 @@ import {
 } from "../actions/cartActions";
 
 class Logout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedOut: false
-    }
-  }
 
   logout = () => {
     const {history, setLoggedIn, changeUser, clearWishList, clearPurchaseList,
@@ -26,11 +20,11 @@ class Logout extends Component {
     localStorage.removeItem('logged');
     localStorage.removeItem('usr');
     localStorage.removeItem('uid');
-    this.setState({loggedOut: true});
+    setLoggedIn(false);
 
     setTimeout(() => {history.push('/login');
-      setLoggedIn(false);
       changeUser({});
+      setLoggedIn(false);
       clearWishList();
       clearPurchaseList();
       addEventToCart({});
@@ -44,7 +38,7 @@ class Logout extends Component {
 
     return (
       <div className="about-page-root">
-        {this.state.loggedOut ? <p className='logout-msg'>Good buy,
+        {!this.props.userState.loggedIn ? <p className='logout-msg'>Good buy,
           {this.props.userState.currentUser.name}! Waiting for you again!</p> :
           <div>
             <p className="logout-msg">Are you sure you want to quit?</p>
