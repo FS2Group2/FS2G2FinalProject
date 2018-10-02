@@ -81,13 +81,13 @@ class MyPurchases extends Component {
                 <p>{new Date(p.eventDate).toLocaleDateString()}</p>
               </div>
               <div className="purchased-item-accommodation">
-                <span>+</span>
+                {p.accommodationName && <img src="/img/icons/check.svg" alt="" className="item-present"/>}
               </div>
               <div className="purchased-item-transfer-to">
-                <span>+</span>
+                {p.transfertoTransporttypeName && <img src="/img/icons/check.svg" alt="" className="item-present"/>}
               </div>
               <div className="purchased-item-transfer-from">
-                <span>+</span>
+                {p.transferfromTransporttypeName && <img src="/img/icons/check.svg" alt="" className="item-present"/>}
               </div>
               <div className="purchased-item-sum">
                 <span>{'$' + p.summ}</span>
