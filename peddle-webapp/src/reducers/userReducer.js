@@ -1,7 +1,7 @@
 import {
   LOGGED_IN, SET_REGISTER_ERROR,
   SET_REGISTER_PENDING,
-  SET_REGISTER_SUCCESS,
+  SET_REGISTER_SUCCESS, SET_UPDATE_PROFILE_ERROR, SET_UPDATE_PROFILE_PENDING, SET_UPDATE_PROFILE_SUCCESS,
   USER_LOGIN,
   USER_REGISTER,
   USER_UPDATE
@@ -14,6 +14,9 @@ const initialState = {
   isRegisterPending: false,
   isRegisterSuccess: false,
   registerError: '',
+  isProfileUpdatePending: false,
+  isProfileUpdateSuccess: false,
+  profileUpdateError: false,
   message: {}
 };
 
@@ -29,8 +32,14 @@ function userReducer(state = initialState, action) {
       return {...state, isRegisterSuccess: action.payload};
     case SET_REGISTER_ERROR:
       return {...state, registerError: action.payload};
+    case SET_UPDATE_PROFILE_PENDING:
+      return {...state, isProfileUpdatePending: action.payload};
+    case SET_UPDATE_PROFILE_SUCCESS:
+      return {...state, isProfileUpdateSuccess: action.payload};
+    case SET_UPDATE_PROFILE_ERROR:
+      return{...state, profileUpdateError: action.payload};
     case USER_UPDATE:
-      return {...state, message: action.payload};
+      return {...state, currentUser: action.payload};
     case LOGGED_IN:
       return {...state, loggedIn: action.isLogged};
     default:

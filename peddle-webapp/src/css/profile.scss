@@ -1,3 +1,8 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+}
+
 .profile-detail {
   display: flex;
   padding: 15px;
@@ -26,6 +31,18 @@
   font-family: 'Verdana', sans-serif;
   font-size: 18px;
   font-weight: 700;
+}
+
+.user-info-item-header {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.user-info-item-p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .link-to-list {
@@ -63,12 +80,108 @@
   text-decoration: none;
 }
 
-//.tablink:hover {
-//  background-color: #ddd;
-//}
-
 .active-link {
   padding: 10px;
   background-color: #6b6b6b;
   color: #fff;
+}
+
+.btn-edit {
+  position: relative;
+  width: 70px;
+  height: 35px;
+  margin: 10px;
+  padding-left: 15px;
+  border: solid 1px #12075a;
+  border-radius: 10px;
+  outline: none;
+  color: #12075a;
+  content: ' ';
+  cursor: pointer;
+  opacity: .7;
+}
+
+.btn-edit:hover {
+  opacity: 1;
+}
+
+.btn-edit:disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+.btn-edit::before {
+  position: absolute;
+  top: 9px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  background: url("/img/icons/edit.svg") 0 0 no-repeat;
+  content: ' ';
+  cursor: pointer;
+}
+
+.btn-save {
+  display: block;
+  position: relative;
+  width: 140px;
+  height: 35px;
+  margin: 10px 90px;
+  padding-left: 15px;
+  border: solid 1px #12075a;
+  border-radius: 10px;
+  outline: none;
+  color: #12075a;
+  content: ' ';
+  cursor: pointer;
+  opacity: .7;
+}
+
+.btn-save:hover {
+  opacity: 1;
+}
+
+.btn-save:disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+.btn-save::before {
+  position: absolute;
+  top: 9px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  background: url("/img/icons/edit.svg") 0 0 no-repeat;
+  content: ' ';
+  cursor: pointer;
+}
+
+.edit-form-header {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.user-info-input-header {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.profile-input {
+  width: 300px;
+  height: 30px;
+  margin-bottom: 9px;
+  padding-right: 19px;
+  padding-left: 19px;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  background-color: rgba(220, 220, 220, .7);
+  color: #434343;
+  font-family: 'Verdana', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
 }

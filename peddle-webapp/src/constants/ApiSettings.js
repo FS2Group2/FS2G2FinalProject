@@ -18,6 +18,7 @@ const dataMap = {
   allCities: dataPath + '/city/all',
   event: dataPath + '/events/info/',
   user: dataPath + '/user',
+  userUpdate: dataPath + '/user/update',
   login: dataPath + '/login',
   register: dataPath + '/register',
   remindPass: dataPath + '/remind',
