@@ -18,7 +18,8 @@
     "redux-thunk": "^2.3.0",
     "stylelint-config-standard": "^17.0.0",
     "stylelint-order": "^0.7.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "typeface-ubuntu": "0.0.65"
   },
   "watch": {
     "stylelint-dev": {
