@@ -59,7 +59,7 @@ class ProfileDetails extends Component {
 
   fileUploadHandler = () => {
     let img = this.state.selectedFile;
-    let form = new FormData;
+    let form = new FormData();
     form.append("profilePhoto", img);
     let ulr = dataMap.userUpdate;
     let headers = {
