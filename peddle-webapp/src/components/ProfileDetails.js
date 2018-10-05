@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {userPhotoPath} from '../constants/ApiSettings';
+import dataMap, {userPhotoPath} from '../constants/ApiSettings';
 import '../css/profile.css'
 import {connect} from "react-redux";
 import {setUpdateProfileError, updateProfile} from "../actions/userActions";
@@ -11,6 +11,7 @@ class ProfileDetails extends Component {
     super(props);
     this.state = {
       editMode: false,
+      selectedFile: null,
       email: this.props.user.email,
       cityName: this.props.user.cityId,
       profileInfo: this.props.user.profileInfo,
@@ -49,8 +50,32 @@ class ProfileDetails extends Component {
     };
     event.preventDefault();
     updateUserProfile(profileData);
-    // this.setState({editMode: false})
-    setTimeout(() => this.setState({editMode: false},()=> this.props.setUpdateProfileError('')), 2500);
+    setTimeout(() => this.setState({editMode: false}, () => this.props.setUpdateProfileError('')), 2500);
+  };
+
+  fileSelectedHandler = (event) => {
+    this.setState({selectedFile: event.target.files[0]});
+  };
+
+  fileUploadHandler = () => {
+    let img = this.state.selectedFile;
+    let form = new FormData;
+    form.append("profilePhoto", img);
+    let ulr = dataMap.userUpdate;
+    let headers = {
+      'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+      'Accept': 'application/json',
+      'Content-Type': 'multipart/form-data'
+    };
+    let reqParam = {
+      method: 'post',
+      headers: headers,
+      body: form
+    };
+    fetch(ulr, reqParam)
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
   };
 
   componentWillReceiveProps(nextProps) {
@@ -69,9 +94,25 @@ class ProfileDetails extends Component {
     return (
       <div className='profile'>
         <div className='profile-detail'>
-          <div className="user-photo-container">
-            <img className='user-photo' src={userPhotoPath + profilePhoto} alt="ProfileAvatar"/>
+          <div className="user-photo-section">
+            <div className="user-photo-container">
+              <img className='user-photo' src={userPhotoPath + profilePhoto} alt="ProfileAvatar"/>
+            </div>
+            {editMode && <div>
+              <label htmlFor="fileSelect" className='fileContainer'>
+                <img src="/img/icons/user.svg" className='user-icon' alt=""/>
+                Select new user photo
+                <input name='fileSelect' className='file-select-button' type="file"
+                       onChange={this.fileSelectedHandler}/>
+              </label>
+              {this.state.selectedFile &&
+              <button className='btn-upload' onClick={this.fileUploadHandler}>Upload</button>
+              }
+
+            </div>}
+
           </div>
+
           {!editMode ? <div className="user-info-container">
               <p className='user-info-name'>{name}</p>
               <p className='user-info-item-p'><span className="user-info-item-header">First name: </span>{firstName}</p>
