@@ -3,9 +3,9 @@
 }
 
 .container-header-p {
-  color: #737D9B;
-  font-size: 12px;
   margin-bottom: 4px;
+  color: #737d9b;
+  font-size: 12px;
 }
 
 .event-extra-container {
@@ -73,7 +73,7 @@
   height: 200px;
   padding: 7px;
   padding-left: 16px;
-  border-left: 1px solid #A1A8BD;
+  border-left: 1px solid #a1a8bd;
 }
 
 .event-actions-buttons {
@@ -84,37 +84,37 @@
 }
 
 .event-info-header {
-  color: #0A1331;
+  margin-bottom: 10px;
+  color: #0a1331;
   font-size: 26px;
   font-weight: 700;
-  margin-bottom: 10px;
 }
 
 .event-info-city {
-  color: #0A1331;
-  font-weight: 500;
-  font-size: 16px;
   margin-bottom: 10px;
+  color: #0a1331;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .event-info-date {
-  color: #0A1331;
+  color: #0a1331;
   font-size: 14px;
   line-height: 24px;
 }
 
 .event-info-p {
   margin-top: 10px;
-  color: #0A1331;
+  color: #0a1331;
   font-size: 16px;
   line-height: 24px;
 }
 
-.event-info-p-name{
+.event-info-p-name {
   margin-right: 8px;
-  color: #737D9B;
-
+  color: #737d9b;
 }
+
 .event-info-description {
   margin-top: 20px;
   color: #15024b;
@@ -138,19 +138,19 @@
 }
 
 .event-price {
-  color: #0A1331;
-  font-weight: 700;
+  color: #0a1331;
   font-size: 26px;
+  font-weight: 700;
 }
 
 .add-to-cart {
   width: 150px;
   padding: 9px;
-  border: 2px solid #11BC91;
+  border: 2px solid #11bc91;
   border-radius: 4px;
   outline: none;
-  color: #11BC91;
   background-color: #fff;
+  color: #11bc91;
   font-size: 14px;
   cursor: pointer;
 }
@@ -158,38 +158,38 @@
 .add-to-wishlist {
   width: 150px;
   padding: 9px;
-  border: 2px solid #11BC91;
+  border: 2px solid #11bc91;
   border-radius: 4px;
   outline: none;
-  color: #11BC91;
   background-color: #fff;
+  color: #11bc91;
   font-size: 14px;
   cursor: pointer;
 }
 
-.add-to-cart:hover{
-  opacity: .7;
+.add-to-cart:hover {
   background-color: #fff;
+  opacity: .7;
 }
 
-.add-to-wishlist:hover{
-  opacity: .7;
+.add-to-wishlist:hover {
   background-color: #fff;
+  opacity: .7;
 }
 
 .remove-from-wishlist {
   width: 150px;
   padding: 9px;
-  border: 2px solid #ff6666;
+  border: 2px solid #f66;
   border-radius: 4px;
   outline: none;
-  color: #ff6666;
   background-color: #fff;
+  color: #f66;
   font-size: 14px;
   cursor: pointer;
 }
 
-.remove-from-wishlist:hover{
+.remove-from-wishlist:hover {
   background-color: #fff;
   opacity: .7;
 }

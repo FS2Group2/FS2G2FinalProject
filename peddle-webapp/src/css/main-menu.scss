@@ -1,10 +1,10 @@
 .main-menu {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   position: relative;
-  background-color: #ff6666;
   padding: 16px;
+  background-color: #f66;
 }
 
 .menu-left,
@@ -14,8 +14,8 @@
 }
 
 .menu-left {
-  font-weight: 700;
   align-items: center;
+  font-weight: 700;
 }
 
 .logo-main-menu {
@@ -62,7 +62,7 @@
   position: relative;
 }
 
-.main-menu-user-p{
+.main-menu-user-p {
   font-size: 18px;
 }
 
@@ -70,7 +70,6 @@
   width: 45px;
   height: 45px;
   margin-right: 8px;
-
 }
 
 .main-menu-user-photo {
