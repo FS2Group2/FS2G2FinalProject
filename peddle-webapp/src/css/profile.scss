@@ -11,14 +11,14 @@
 .user-photo-container {
   display: flex;
   justify-content: center;
-  width: 75px;
-  height: 75px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
 }
 
 .user-photo {
-  height: 75px;
+  height: 120px;
 }
 
 .user-info-container {
@@ -184,4 +184,65 @@
   font-weight: 400;
   line-height: 21px;
   text-align: left;
+}
+
+.fileContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 20px;
+  color: #12075a;
+  font-size: 12px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.fileContainer [type=file] {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 15px;
+  text-align: right;
+  cursor: inherit;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.user-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.btn-upload {
+  position: relative;
+  width: 100px;
+  height: 35px;
+  margin: 0 20px;
+  padding-left: 20px;
+  border: solid 1px #12075a;
+  border-radius: 10px;
+  outline: none;
+  color: #12075a;
+  content: ' ';
+  cursor: pointer;
+  opacity: .7;
+}
+
+.btn-upload:hover {
+  opacity: 1;
+}
+
+.btn-upload::before {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  background: url("/img/icons/upload.svg") 0 0 no-repeat;
+  content: ' ';
+  cursor: pointer;
 }
