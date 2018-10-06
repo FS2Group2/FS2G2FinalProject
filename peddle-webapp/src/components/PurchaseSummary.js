@@ -10,6 +10,7 @@ import {
   addTransferFromEventToCart,
   addTransferToEventToCart
 } from "../actions/cartActions";
+import '../css/cart.css';
 
 class PurchaseSummary extends Component {
 
@@ -72,72 +73,77 @@ class PurchaseSummary extends Component {
     const transferFrom = this.props.cart.purchasedTransferFrom;
     return (
       <Fragment>
-        {(event.name || accommodation.name || transferFrom.number || transferFrom.number) ?
-          <div className='purchase-summary'>
-            <div className="purchases">
-              <p className='container-header-p'> Summary:</p>
+        {(event.name || accommodation.name || transferFrom.number || transferFrom.number || 1) ?
+          <Fragment>
+            <h3 className='cart-header'> Your purchase:</h3>
+            <div className='purchase-summary'>
+              <div className="purchases">
 
-              <div className="purchased-event">
-                <div className='purchased-event-name summary-elem'>
-                  <h3 className="purchased-event-header">{event.name}</h3>
-                  <p>Location: {event.cityName}</p>
+                <div className="purchased-event">
+                  <div className='purchased-event-name summary-elem'>
+                    <h3 className="purchased-event-header">{event.name}</h3>
+                  </div>
+                  <div className="summary-elem">
+                    <p>Location: {event.cityName}</p>
+                  </div>
+                  <div className="summary-elem">
+                    {new Date(event.date).toLocaleString()}
+                  </div>
+                  <div className='summary-elem cost-elem'>
+                    Cost: ${event.price}
+                  </div>
                 </div>
-                <div className="summary-elem">
-                  {new Date(event.date).toLocaleString()}
-                </div>
-                <div className='summary-elem cost-elem'>
-                  Cost: ${event.price}
-                </div>
+
+                {accommodation.price && <div className="purchased-accommodation">
+                  <div className="summary-elem">
+                    <p><span>Hotel: </span> {accommodation.name}</p>
+                  </div>
+                  <div className="summary-elem">
+                    <p>{accommodation.minOrderTime / 24} day(s)</p>
+                  </div>
+                  <div className="summary-elem cost-elem">
+                    Cost: ${accommodation.price}
+                  </div>
+                </div>}
+
+                {transferTo.price && <div className="purchased-transfer">
+                  <div className="summary-elem">
+                    <p><span>Transfer to </span> {transferTo.toCityName}:</p>
+                  </div>
+                  <div className="summary-elem">
+                    <p>{transferTo.transportTypeName} #{transferTo.number}</p>
+                  </div>
+                  <div className="summary-elem cost-elem">
+                    Cost: ${transferTo.price}
+                  </div>
+                </div>}
+
+                {transferFrom.price && <div className="purchased-transfer">
+                  <div className="summary-elem">
+                    <p><span>Transfer from </span> {transferFrom.fromCityName}:</p>
+                  </div>
+                  <div className="summary-elem">
+                    <p>{transferFrom.transportTypeName} #{transferFrom.number}</p>
+                  </div>
+                  <div className="summary-elem cost-elem">
+                    Cost: ${transferFrom.price}
+                  </div>
+                </div>}
+
               </div>
 
-              {accommodation.price && <div className="purchased-accommodation">
-                <div className="summary-elem">
-                  <p><span>Hotel: </span> {accommodation.name}</p>
-                </div>
-                <div className="summary-elem">
-                  <p>{accommodation.minOrderTime / 24} day(s)</p>
-                </div>
-                <div className="summary-elem cost-elem">
-                  Cost: ${accommodation.price}
-                </div>
-              </div>}
-
-              {transferTo.price && <div className="purchased-transfer">
-                <div className="summary-elem">
-                  <p><span>Transfer to </span> {transferTo.toCityName}:</p>
-                </div>
-                <div className="summary-elem">
-                  <p>{transferTo.transportTypeName} #{transferTo.number}</p>
-                </div>
-                <div className="summary-elem cost-elem">
-                  Cost: ${transferTo.price}
-                </div>
-              </div>}
-
-              {transferFrom.price && <div className="purchased-transfer">
-                <div className="summary-elem">
-                  <p><span>Transfer from </span> {transferFrom.fromCityName}:</p>
-                </div>
-                <div className="summary-elem">
-                  <p>{transferFrom.transportTypeName} #{transferFrom.number}</p>
-                </div>
-                <div className="summary-elem cost-elem">
-                  Cost: ${transferFrom.price}
-                </div>
-              </div>}
-
+              <div className="summary">
+                <p className='summary-total-header'>Total amount:</p>
+                <h3 className='purchase-summary-total'>${this.totalAmount()}</h3>
+                <input className={'btn btn-purchase'} type="button" value={'Purchase'}
+                       onClick={() => this.savePurchase()}/>
+              </div>
             </div>
+          </Fragment>
 
-            <div className="summary">
-              <p>Total amount:</p>
-              <h3 className='purchase-summary-total'>${this.totalAmount()}</h3>
-              <input className={'btn add-to-cart'} type="button" value={'Purchase'}
-                     onClick={() => this.savePurchase()}/>
-            </div>
-          </div>
           :
           <div className='purchase-summary'>
-            <p>Your cart is still empty..</p>
+            <h3 className='cart-header'>Your cart is still empty..</h3>
           </div>
         }
         <div id='msg-container'></div>
