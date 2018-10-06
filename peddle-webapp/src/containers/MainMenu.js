@@ -30,11 +30,10 @@ class MainMenu extends Component {
             {userState.loggedIn &&
             <Link className="main-menu-link" to={'/profile'}>
               <div className="main-menu-item-container">
-                <p className="main-menu-user-p">{userState.currentUser.name}</p>
                 <div className="menu-user-photo-container">
                   <img className='main-menu-user-photo' src={userPhotoPath + userState.currentUser.profilePhoto}
-                       alt=""/>
-                </div>
+                       alt="user"/>
+                </div> <p className="main-menu-user-p">{userState.currentUser.name}</p>
               </div>
             </Link>}
 

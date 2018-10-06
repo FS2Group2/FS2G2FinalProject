@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom'
 import './css/reset.css';
 import 'typeface-roboto'
+import 'typeface-ubuntu'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
