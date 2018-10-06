@@ -11,6 +11,7 @@ import {
   addTransferToEventToCart
 } from "../actions/cartActions";
 import '../css/cart.css';
+import {eventImgPath} from "../constants/ApiSettings";
 
 class PurchaseSummary extends Component {
 
@@ -73,70 +74,119 @@ class PurchaseSummary extends Component {
     const transferFrom = this.props.cart.purchasedTransferFrom;
     return (
       <Fragment>
-        {(event.name || accommodation.name || transferFrom.number || transferFrom.number || 1) ?
+        {(event.name || accommodation.name || transferFrom.number || transferFrom.number) ?
           <Fragment>
             <h3 className='cart-header'> Your purchase:</h3>
             <div className='purchase-summary'>
               <div className="purchases">
 
-                <div className="purchased-event">
-                  <div className='purchased-event-name summary-elem'>
-                    <h3 className="purchased-event-header">{event.name}</h3>
+                {event.name &&
+                <Fragment>
+                  <h3 className="purchased-item-header">Your event:</h3>
+                  <div className="purchased-event">
+                    <div className= "purchased-event-photo">
+                      <button className="btn-item-remove" onClick={()=>this.props.addEventToCart({})}></button>
+                      <img src={eventImgPath + event.eventExtraPhoto} alt="" className="element-name-img"/>
+                    </div>
+                    <div className='purchased-event-name '>
+                      <h3 className="purchased-event-header">{event.name}</h3>
+                    </div>
+                    <div className="summary-elem">
+                      <p>Location: {event.cityName}</p>
+                    </div>
+                    <div className="summary-elem">
+                      {new Date(event.date).toLocaleString()}
+                    </div>
+                    <div className='summary-elem cost-elem'>
+                      Cost: ${event.price}
+                    </div>
                   </div>
-                  <div className="summary-elem">
-                    <p>Location: {event.cityName}</p>
-                  </div>
-                  <div className="summary-elem">
-                    {new Date(event.date).toLocaleString()}
-                  </div>
-                  <div className='summary-elem cost-elem'>
-                    Cost: ${event.price}
-                  </div>
-                </div>
+                </Fragment>}
 
-                {accommodation.price && <div className="purchased-accommodation">
-                  <div className="summary-elem">
-                    <p><span>Hotel: </span> {accommodation.name}</p>
-                  </div>
-                  <div className="summary-elem">
-                    <p>{accommodation.minOrderTime / 24} day(s)</p>
-                  </div>
-                  <div className="summary-elem cost-elem">
-                    Cost: ${accommodation.price}
-                  </div>
-                </div>}
 
-                {transferTo.price && <div className="purchased-transfer">
-                  <div className="summary-elem">
-                    <p><span>Transfer to </span> {transferTo.toCityName}:</p>
+                {accommodation.price &&
+                <Fragment>
+                  <h3 className="purchased-item-header">Reserved accommodation in {event.cityName}:</h3>
+                  <div className="purchased-accommodation">
+                    <div className="summary-elem summary-elem-name first-elem">
+                      <button className="btn-item-remove" onClick={()=>this.props.addAccommodationToCart({})}></button>
+                      <p className='purchased-item-h3'>
+                        <span className='item-elem-name'>Hotel: </span> {accommodation.name}</p>
+                    </div>
+                    <div className="summary-elem">
+                      <p>{accommodation.minOrderTime / 24} day(s)</p>
+                    </div>
+                    <div className="summary-elem cost-elem">
+                      Cost: ${accommodation.price}
+                    </div>
                   </div>
-                  <div className="summary-elem">
-                    <p>{transferTo.transportTypeName} #{transferTo.number}</p>
-                  </div>
-                  <div className="summary-elem cost-elem">
-                    Cost: ${transferTo.price}
-                  </div>
-                </div>}
+                </Fragment>}
 
-                {transferFrom.price && <div className="purchased-transfer">
-                  <div className="summary-elem">
-                    <p><span>Transfer from </span> {transferFrom.fromCityName}:</p>
+                {transferTo.price &&
+                <Fragment>
+                  <h3 className="purchased-item-header">Transfer to {transferTo.toCityName}:</h3>
+                  <div className="purchased-transfer">
+                    <div className="summary-elem first-elem">
+                      <button className="btn-item-remove" onClick={()=>this.props.addTransferToEventToCart({})}></button>
+                      <p>{transferTo.transportTypeName} #{transferTo.number}</p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>City depart.: </span>{transferTo.fromCityName}</p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>City arrival: </span>{transferTo.toCityName}</p>
+                    </div>
+                    <div className="summary-elem transfer-duration">
+                      <p>
+                        <span className='item-elem-name'>Depart.time: </span>
+                        {new Date(transferTo.departTime).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>in way: </span>{transferTo.duration} h</p>
+                    </div>
+                    <div className="summary-elem cost-elem">
+                      Cost: ${transferTo.price}
+                    </div>
                   </div>
-                  <div className="summary-elem">
-                    <p>{transferFrom.transportTypeName} #{transferFrom.number}</p>
+                </Fragment>
+                }
+
+                {transferFrom.price && <Fragment>
+                  <h3 className="purchased-item-header">Transfer to {transferFrom.toCityName}:</h3>
+                  <div className="purchased-transfer">
+                    <div className="summary-elem first-elem">
+                      <button className="btn-item-remove" onClick={()=>this.props.addTransferFromEventToCart({})}></button>
+                      <p>{transferFrom.transportTypeName} #{transferFrom.number}</p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>City depart.: </span>{transferFrom.fromCityName}</p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>City arrival: </span>{transferFrom.toCityName}</p>
+                    </div>
+                    <div className="summary-elem transfer-duration">
+                      <p>
+                        <span className='item-elem-name'>Depart.time: </span>
+                        {new Date(transferFrom.departTime).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="summary-elem">
+                      <p><span className='item-elem-name'>in way: </span>{transferFrom.duration} h</p>
+                    </div>
+                    <div className="summary-elem cost-elem">
+                      Cost: ${transferFrom.price}
+                    </div>
                   </div>
-                  <div className="summary-elem cost-elem">
-                    Cost: ${transferFrom.price}
-                  </div>
-                </div>}
+                </Fragment>}
 
               </div>
 
               <div className="summary">
                 <p className='summary-total-header'>Total amount:</p>
                 <h3 className='purchase-summary-total'>${this.totalAmount()}</h3>
-                <input className={'btn btn-purchase'} type="button" value={'Purchase'}
-                       onClick={() => this.savePurchase()}/>
+                <button className={'btn-purchase'}
+                        onClick={() => this.savePurchase()}>Purchase</button>
               </div>
             </div>
           </Fragment>
