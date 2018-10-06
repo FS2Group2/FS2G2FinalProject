@@ -61,7 +61,7 @@ class ProfileDetails extends Component {
     let img = this.state.selectedFile;
     let form = new FormData();
     form.append("profilePhoto", img);
-    let ulr = dataMap.userUpdate;
+    let ulr = dataMap.userPhoto;
     let headers = {
       'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
       'Accept': 'application/json',
