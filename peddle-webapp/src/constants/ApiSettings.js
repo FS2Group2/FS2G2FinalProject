@@ -19,6 +19,7 @@ const dataMap = {
   event: dataPath + '/events/info/',
   user: dataPath + '/user',
   userUpdate: dataPath + '/user/update',
+  userPhoto: dataPath + '/user/user-photo',
   login: dataPath + '/login',
   register: dataPath + '/register',
   remindPass: dataPath + '/remind',
