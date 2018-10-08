@@ -10,6 +10,10 @@ import {
   setCityForTransferToEvent,
   setDatesForTransferFromEvent,
   setDatesForTransferToEvent,
+  setDaysAfterEventDec,
+  setDaysAfterEventInc,
+  setDaysBeforeEventDec,
+  setDaysBeforeEventInc,
   setEventCity
 } from "../actions/transferActions";
 import {fetchDataFromApi, fetchEventInfo} from "../actions/fetchDataActions";
@@ -31,19 +35,22 @@ class EventPurchasePage extends Component {
       eventId: this.props.match.params.eventId,
       error: null,
       isLoaded: false,
-      accommodations: [],
+      accommodations: []
     }
   }
 
   dateEventEnd = (n) => {
     let date = new Date(this.props.currentEventInfo.date);
-    date.setDate(date.getDate() + Math.ceil(this.props.currentEventInfo.duration / 24) + n);
+    const daysAfterEvent = this.props.transferProps.daysAfterEvent;
+    date.setDate(date.getDate() + Math.ceil(this.props.currentEventInfo.duration / 24) + n + daysAfterEvent);
     return date.toLocaleDateString('en-GB');
   };
 
   dateBeforeEvent = (n) => {
+    const daysBeforeEvent = this.props.transferProps.daysBeforeEvent;
+    console.log(daysBeforeEvent);
     let date = new Date(this.props.currentEventInfo.date);
-    date.setDate(date.getDate() - n);
+    date.setDate(date.getDate() - n - daysBeforeEvent);
     return date.toLocaleDateString('en-GB');
   };
 
@@ -161,6 +168,14 @@ class EventPurchasePage extends Component {
       this.props.setCityForTransferFromEvent(currentUser.cityName);
     }
 
+    if (prevProps.transferProps.daysBeforeEvent !== this.props.transferProps.daysBeforeEvent) {
+      this.props.setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
+    }
+
+    if (prevProps.transferProps.daysAfterEvent !== this.props.transferProps.daysAfterEvent) {
+      this.props.setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
+    }
+
     if (prevProps.isEventInfoSuccess !== this.props.isEventInfoSuccess) {
       this.props.setEventCity(this.props.currentEventInfo.cityName);
       this.props.setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
@@ -171,14 +186,17 @@ class EventPurchasePage extends Component {
 
   render() {
     const {accommodations} = this.state;
-    const {allCities, transferProps, currentEventInfo} = this.props;
+    const {
+      allCities, transferProps, currentEventInfo,
+      currentUser, setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
+    } = this.props;
     return (
       <Fragment>
         <div className='event-purchase-page'>
           <div className='event-extra-container'>
             <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
                        addToWishList={this.addEventToWishList.bind(this)}
-            removeFromWishList={this.removeEventFromWishList.bind(this)}/>
+                       removeFromWishList={this.removeEventFromWishList.bind(this)}/>
           </div>
 
           {currentEventInfo.cityName &&
@@ -188,20 +206,36 @@ class EventPurchasePage extends Component {
           </div>
           }
 
-          {/*===> SELECT CITY FOR TRANSFER TO EVENT ===>*/}
-
-          <div className="select-transfer-city">
-            <p>Choose city for transfer or log in to use your default city:</p>
-            <select id='transferCityTo' className='filter-input' name="cityFilter"
-                    onChange={() => this.setTransferCityTo(document.getElementById('transferCityTo').valueOf().value)}>
-              <option selected value=''>Select city</option>
-              {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
-            </select>
-          </div>
-
           {/*=======TRANSFER TO EVENT CITY=== (==>>>)*/}
 
-          <div className='transfer-container transfer-to'>
+          <div className='transfer-container'>
+            <div className="select-transfer-options">
+              {!currentUser.cityName ?
+                <p className='transfer-input-label'>Select a city for transfer or sign in to use your default city (the
+                  default city must be set in your profile):</p> :
+                <p className='transfer-input-label'>You may select a city for transfer or use your default city:</p>
+              }
+
+              <select id='transferCityTo' className='select-city-input' name="cityFilter"
+                      onChange={() => this.setTransferCityTo(document.getElementById('transferCityTo').valueOf().value)}>
+                <option value={currentUser.cityName || ''}>{currentUser.cityName || 'Select city'}</option>
+                {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+              </select>
+
+              <div className="select-transfer-days">
+                <p className="transfer-input-label">Days before event:</p>
+                <button className="btn-days-inc"
+                        onClick={() => {
+                          setDaysBeforeEventInc()
+                        }}> -
+                </button>
+                <button className="btn-days-inc" onClick={() => {
+                  if (transferProps.daysBeforeEvent) setDaysBeforeEventDec()
+                }}> +
+                </button>
+              </div>
+            </div>
+
             <Transfers cityFrom={transferProps.cityTransferDepartToEvent}
                        cityTo={transferProps.eventCity}
                        dateFrom={transferProps.dateTransferToEvent1}
@@ -210,20 +244,34 @@ class EventPurchasePage extends Component {
                        addTransfer={this.addTransferToToBasket.bind(this)}/>
           </div>
 
-          {/*===> SELECT CITY FOR TRANSFER FROM EVENT===>*/}
-
-          <div className="select-transfer-city">
-            <p>Choose city for transfer or log in to use your default city:</p>
-            <select id='transferCityFrom' className='filter-input' name="cityFilter"
-                    onChange={() => this.setTransferCityFrom(document.getElementById('transferCityFrom').valueOf().value)}>
-              <option selected value=''>Select city</option>
-              {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
-            </select>
-          </div>
-
           {/*=======TRANSFER FROM EVENT CITY==== (<<<==)*/}
 
-          <div className='transfer-container transfer-from'>
+          <div className='transfer-container'>
+            <div className="select-transfer-options">
+              {!currentUser.cityName ?
+                <p className='transfer-input-label'>Select a city for transfer or sign in to use your default city (the
+                  default city must be set in your profile):</p> :
+                <p className='transfer-input-label'>You may select a city for transfer or use your default city:</p>
+              }
+
+              <select id='transferCityFrom' className='select-city-input' name="cityFilter"
+                      onChange={() => this.setTransferCityFrom(document.getElementById('transferCityFrom').valueOf().value)}>
+                <option value={currentUser.cityName || ''}>{currentUser.cityName || 'Select city'}</option>
+                {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+              </select>
+
+              <div className="select-transfer-days">
+                <p className="transfer-input-label">Days after event:</p>
+                <button className="btn-days-inc"
+                        onClick={() => {
+                          if (transferProps.daysAfterEvent) setDaysAfterEventDec()
+                        }}> -
+                </button>
+                <button className="btn-days-inc" onClick={setDaysAfterEventInc}> +
+                </button>
+              </div>
+            </div>
+
             <Transfers cityFrom={transferProps.eventCity}
                        cityTo={transferProps.cityTransferArrivalFromEvent}
                        dateFrom={transferProps.dateTransferFromEvent1}
@@ -258,6 +306,10 @@ const mapDispatchToProps = (dispatch) => {
     // === DATES ===
     setDatesForTransferToEvent: (date1, date2) => dispatch(setDatesForTransferToEvent(date1, date2)),
     setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
+    setDaysBeforeEventInc: () => dispatch(setDaysBeforeEventInc()),
+    setDaysBeforeEventDec: () => dispatch(setDaysBeforeEventDec()),
+    setDaysAfterEventInc: () => dispatch(setDaysAfterEventInc()),
+    setDaysAfterEventDec: () => dispatch(setDaysAfterEventDec()),
 
     fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
