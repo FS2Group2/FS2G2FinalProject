@@ -34,15 +34,6 @@
   background-color: rgba(255, 255, 255, .8);
 }
 
-.purchase-summary {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px;
-  padding: 5px;
-  border: #8a8a8a solid 1px;
-  font-size: 14px;
-}
-
 .event-photo-container {
   display: inline-block;
   position: relative;
@@ -281,33 +272,3 @@
 
 // == PURCHASE SUMMARY //
 
-.purchased-event {
-  display: flex;
-}
-
-.purchased-accommodation {
-  display: flex;
-}
-
-.purchased-transfer {
-  display: flex;
-}
-
-.summary-elem {
-  width: 150px;
-  padding: 3px 10px;
-}
-
-.cost-elem {
-  width: 100px;
-  text-align: right;
-}
-
-.summary {
-  width: 150px;
-  color: #790202;
-}
-
-.purchase-summary-total {
-  font-size: 24px;
-}
