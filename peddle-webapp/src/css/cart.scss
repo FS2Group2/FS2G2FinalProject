@@ -1,0 +1,155 @@
+.purchase-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  border: #8a8a8a solid 1px;
+  font-size: 14px;
+}
+
+.cart-header {
+  margin: 30px 0 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.btn-purchase {
+  position: relative;
+  width: 150px;
+  margin-bottom: 10px;
+  padding: 9px 0 9px 30px;
+  border: 2px solid #11bc91;
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  color: #11bc91;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-purchase:hover {
+  background-color: #11bc91;
+  color: #fff;
+}
+
+.btn-purchase::before {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  background: url("/img/icons/purchase.svg") 0 0 no-repeat;
+  content: ' ';
+  cursor: pointer;
+}
+
+.btn-purchase:hover::before {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 30px;
+  height: 30px;
+  background: url("/img/icons/purchase-white.svg") 0 0 no-repeat;
+  content: ' ';
+  cursor: pointer;
+}
+
+.purchases {
+  width: 100%;
+  max-width: 1060px;
+  padding: 10px;
+}
+
+.purchased-item-header {
+  color: #0d4d22;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.purchased-event,
+.purchased-accommodation,
+.purchased-transfer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: solid 1px #afafaf;
+  font-size: 14px;
+}
+
+.purchased-event-photo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 130px;
+}
+
+.purchased-event-name {
+  width: 240px;
+  color: #03038b;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.summary-elem {
+  width: 110px;
+  padding: 3px 10px;
+}
+
+.first-elem {
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+
+.summary-elem-name {
+  width: 180px;
+}
+
+.purchased-item-h3 {
+  color: #03038b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.item-elem-name {
+  color: #323232;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.transfer-duration {
+  width: 240px;
+}
+
+.cost-elem {
+  width: 100px;
+  text-align: right;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 150px;
+  padding-bottom: 10px;
+  color: #11a178;
+}
+
+.summary-total-header {
+  margin: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.purchase-summary-total {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}

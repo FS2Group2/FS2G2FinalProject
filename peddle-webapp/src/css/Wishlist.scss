@@ -67,21 +67,25 @@
 .btn-item-remove {
   position: relative;
   width: 15px;
-  height: 25px;
+  height: 15px;
   margin-right: 10px;
+  border: none;
   outline: none;
+  color: transparent;
   content: ' ';
   opacity: .4;
 }
 
 .btn-item-remove:hover {
+  outline: none;
+  color: transparent;
   opacity: 1;
 }
 
 .btn-item-remove::before {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 0;
+  left: 0;
   width: 15px;
   height: 15px;
   background: url("/img/icons/remove.svg") 0 0 no-repeat;
