@@ -146,13 +146,16 @@ class EventPurchasePage extends Component {
     return (
       <Fragment>
         <div className='event-purchase-page'>
-          {isEventInfoPending ? <Preloader/> : <div className='event-extra-container'>
+          {isEventInfoPending ?
+            <Preloader/> :
+            <div className='event-extra-container'>
             <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
                        addToWishList={this.addEventToWishList.bind(this)}
                        removeFromWishList={this.removeEventFromWishList.bind(this)}/>
           </div>}
 
-          {isLoadAccommodationPending ? <Preloader/> :
+          {isLoadAccommodationPending ?
+            <Preloader/> :
             <div className='accommodation-container'>
               <Accommodations accommodations={accommodations} city={currentEventInfo.cityName}
                               addA={this.addAccommodationToBasket.bind(this)}/>
