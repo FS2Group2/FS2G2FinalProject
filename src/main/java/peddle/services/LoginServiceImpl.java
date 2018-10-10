@@ -1,5 +1,7 @@
 package peddle.services;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,13 +13,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import peddle.configuration.AmazonS3Configuration;
 import peddle.configuration.EmailService;
 import peddle.configuration.MailContentBuilder;
 import peddle.dto.ApiRs;
-import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserRegisterDtoRq;
 import peddle.dto.UserRemindPassDtoRq;
+import peddle.dto.JwtAuthenticationRs;
 import peddle.entities.Profile;
 import peddle.entities.Role;
 import peddle.entities.User;
@@ -26,12 +30,19 @@ import peddle.repository.RoleRepository;
 import peddle.repository.UserRepository;
 import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
+import peddle.security.UserPrincipal;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+
+  final String bucket = AmazonS3Configuration.BUCKET_NAME;
+
+  private AmazonS3Configuration as3;
 
   @Autowired
   private UserRepository userRepository;
@@ -199,5 +210,29 @@ public class LoginServiceImpl implements LoginService {
     }
     return new  ResponseEntity(new ApiRs("Token not found"),
         HttpStatus.BAD_REQUEST);
+  }
+
+  @Override
+  public ResponseEntity<?> avatarUser(MultipartFile file) throws IOException {
+    UserPrincipal userPrincipal = UserPrincipal.getPrincipal();
+    User user = userRepository.findByProfileId(userPrincipal.getId());
+
+    AmazonS3 s3 = as3.getAmazonS3();
+    if (user.getName() != null) {
+      String oldName = user.getName();
+      s3.deleteObject(bucket, oldName);
+    }
+    String key = "avatars/" + UUID.randomUUID();
+    InputStream myFile = file.getInputStream();
+    s3.putObject(
+            bucket,
+            key,
+            myFile,
+            new ObjectMetadata());
+    String url = s3.getUrl(bucket,key).toString();
+
+
+
+    return null;
   }
 }

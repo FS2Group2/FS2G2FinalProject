@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import peddle.configuration.AmazonS3Configuration;
 import peddle.configuration.BadRequestException;
 import peddle.configuration.ErrorConstants;
 import peddle.dto.JwtAuthenticationRs;
@@ -77,5 +78,10 @@ public class UserServiceImpl implements UserService {
     User userNew = userRepository.save(user);
     return modelMapper.map(userNew, UserDtoRs.class);
   }
+
+//  @Override
+//  public UserDtoRs createUserAvatar(UserUpdateDtoRq userUpdateDtoRq) {
+//    return null;
+//  }
 
 }
