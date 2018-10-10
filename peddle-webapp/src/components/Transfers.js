@@ -75,7 +75,7 @@ class Transfers extends Component {
         {/*<input type="button" onClick={() => this.fetchTransfers()} value={'Find transfers'}/>*/}
         <p className='container-header-p'>Transfer from {cityFrom} to {cityTo}</p>
         {transfers[0] && transfers.map(t =>
-          <div key={transfers.id} className='transfer-item'>
+          <div key={t.id} className='transfer-item'>
             <div className='transportTypeName'>
               <p>
                 <span className='transfer-item-header'>Type: </span> {t.transportTypeName}
