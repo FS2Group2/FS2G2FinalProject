@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react';
 import '../css/eventPurchase.css';
-import dataMap, {authHeaders} from "../constants/ApiSettings";
 import EventInfo from "../components/EventInfo";
 import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
@@ -26,16 +25,15 @@ import {
   addTransferFromEventToCart,
   addTransferToEventToCart
 } from "../actions/cartActions";
+import {loadAccommodations} from "../actions/accommodationActions";
+import Preloader from "./Preloader";
 
 
 class EventPurchasePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      eventId: this.props.match.params.eventId,
-      error: null,
-      isLoaded: false,
-      accommodations: []
+      eventId: this.props.match.params.eventId
     }
   }
 
@@ -52,13 +50,6 @@ class EventPurchasePage extends Component {
     let date = new Date(this.props.currentEventInfo.date);
     date.setDate(date.getDate() - n - daysBeforeEvent);
     return date.toLocaleDateString('en-GB');
-  };
-
-  resultError = (error) => {
-    this.setState({
-      isLoaded: true,
-      error
-    })
   };
 
   addEventToBasket = () => {
@@ -122,7 +113,6 @@ class EventPurchasePage extends Component {
     }, t)
   }
 
-
   componentDidMount() {
     const {
       isLogged, currentUser,
@@ -137,32 +127,12 @@ class EventPurchasePage extends Component {
     }
   };
 
-  fetchAccommodations() {
-    const cityName = this.props.currentEventInfo.cityName;
-    let reqParam = {
-      method: 'POST',
-      headers: authHeaders,
-      body: ''
-    };
-
-    const url = dataMap.accommodations + cityName;
-    fetch(url, reqParam)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            accommodations: result
-          })
-        }, this.resultError
-      );
-  }
-
   setTransferCityTo = (v) => this.props.setCityForTransferToEvent(v);
   setTransferCityFrom = (v) => this.props.setCityForTransferFromEvent(v);
 
   componentDidUpdate(prevProps) {
-    const {currentUser} = this.props;
+    const {currentUser, currentEventInfo, loadAccommodations} = this.props;
+
     if (prevProps.currentUser.cityName !== this.props.currentUser.cityName) {
       this.props.setCityForTransferToEvent(currentUser.cityName);
       this.props.setCityForTransferFromEvent(currentUser.cityName);
@@ -177,33 +147,36 @@ class EventPurchasePage extends Component {
     }
 
     if (prevProps.isEventInfoSuccess !== this.props.isEventInfoSuccess) {
-      this.props.setEventCity(this.props.currentEventInfo.cityName);
+      this.props.setEventCity(currentEventInfo.cityName);
       this.props.setDatesForTransferToEvent(this.dateBeforeEvent(1), this.dateBeforeEvent(0));
       this.props.setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
-      this.fetchAccommodations();
+      loadAccommodations(currentEventInfo.cityName);
     }
   }
 
   render() {
-    const {accommodations} = this.state;
     const {
       allCities, transferProps, currentEventInfo,
-      currentUser, setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
+      isEventInfoPending, isLoadAccommodationPending, accommodations, currentUser,
+      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
     } = this.props;
     return (
       <Fragment>
         <div className='event-purchase-page'>
-          <div className='event-extra-container'>
+          {isEventInfoPending ?
+            <Preloader/> :
+            <div className='event-extra-container'>
             <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
                        addToWishList={this.addEventToWishList.bind(this)}
                        removeFromWishList={this.removeEventFromWishList.bind(this)}/>
-          </div>
+          </div>}
 
-          {currentEventInfo.cityName &&
-          <div className='accommodation-container'>
-            <Accommodations accommodations={accommodations} city={currentEventInfo.cityName}
-                            addA={this.addAccommodationToBasket.bind(this)}/>
-          </div>
+          {isLoadAccommodationPending ?
+            <Preloader/> :
+            <div className='accommodation-container'>
+              <Accommodations accommodations={accommodations} city={currentEventInfo.cityName}
+                              addA={this.addAccommodationToBasket.bind(this)}/>
+            </div>
           }
 
           {/*=======TRANSFER TO EVENT CITY=== (==>>>)*/}
@@ -293,7 +266,10 @@ const mapStateToProps = (state) => {
     isLogged: state.userReducer.loggedIn,
     allCities: state.fillListsReducer.cities,
     transferProps: state.transferReducer,
-    isEventInfoSuccess: state.eventReducer.isEventInfoSuccess
+    isLoadAccommodationPending: state.accommodationReducer.isLoadAccommodationPending,
+    accommodations: state.accommodationReducer.accommodations,
+    isEventInfoSuccess: state.eventReducer.isEventInfoSuccess,
+    isEventInfoPending: state.eventReducer.isEventInfoPending
   }
 };
 
@@ -303,6 +279,8 @@ const mapDispatchToProps = (dispatch) => {
     setCityForTransferToEvent: (city) => dispatch(setCityForTransferToEvent(city)),
     setCityForTransferFromEvent: (city) => dispatch(setCityForTransferFromEvent(city)),
     setEventCity: (city) => dispatch(setEventCity(city)),
+
+    loadAccommodations: (cityName) => dispatch(loadAccommodations(cityName)),
     // === DATES ===
     setDatesForTransferToEvent: (date1, date2) => dispatch(setDatesForTransferToEvent(date1, date2)),
     setDatesForTransferFromEvent: (date1, date2) => dispatch(setDatesForTransferFromEvent(date1, date2)),
