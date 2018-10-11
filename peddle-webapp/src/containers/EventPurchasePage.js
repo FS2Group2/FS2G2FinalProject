@@ -132,6 +132,7 @@ class EventPurchasePage extends Component {
 
   componentDidUpdate(prevProps) {
     const {currentUser, currentEventInfo, loadAccommodations} = this.props;
+
     if (prevProps.currentUser.cityName !== this.props.currentUser.cityName) {
       this.props.setCityForTransferToEvent(currentUser.cityName);
       this.props.setCityForTransferFromEvent(currentUser.cityName);
@@ -156,7 +157,8 @@ class EventPurchasePage extends Component {
   render() {
     const {
       allCities, transferProps, currentEventInfo,
-      isEventInfoPending, isLoadAccommodationPending, accommodations
+      isEventInfoPending, isLoadAccommodationPending, accommodations, currentUser,
+      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
     } = this.props;
     return (
       <Fragment>
