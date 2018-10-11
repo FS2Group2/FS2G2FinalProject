@@ -44,7 +44,7 @@ export function setDaysBeforeEventInc() {
   return{type: SET_DAYS_BEFORE_EVENT_INC}
 }
 
-export function setDaysBeforEventDec() {
+export function setDaysBeforeEventDec() {
   return{type: SET_DAYS_BEFORE_EVENT_DEC}
 }
 

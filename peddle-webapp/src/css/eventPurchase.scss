@@ -16,22 +16,16 @@
 .accommodation-container {
   display: block;
   margin: 15px;
-  background-color: rgba(255, 255, 255, .6);
+  padding-bottom: 15px;
+  border-bottom: solid 1px #11bc91;
   font-size: 14px;
 }
 
 .transfer-container {
   display: block;
   margin: 15px;
-  border: white solid 1px;
-}
-
-.transfer-to {
-  background-color: rgba(255, 255, 255, .8);
-}
-
-.transfer-from {
-  background-color: rgba(255, 255, 255, .8);
+  padding-bottom: 15px;
+  border-bottom: solid 1px #11bc91;
 }
 
 .event-photo-container {
@@ -53,8 +47,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  padding: 7px;
-  padding-left: 16px;
+  padding: 7px 7px 7px 16px;
 }
 
 .event-purchase {
@@ -225,6 +218,54 @@
   border-radius: 4px;
   outline: none;
   color: #373737;
+}
+
+.select-transfer-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.select-city-input {
+  width: 160px;
+  height: 25px;
+  margin: 0 10px;
+  border: #12d4a7 1px solid;
+  border-radius: 3px;
+  outline: none;
+  background-color: #fff;
+  color: #11a178;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.transfer-input-label {
+  display: inline-block;
+  width: 230px;
+  margin: 0 15px;
+  color: #11a178;
+  font-size: 14px;
+  text-align: right;
+}
+
+.select-transfer-days {
+  min-width: 400px;
+}
+
+.btn-days-inc {
+  width: 50px;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid #11bc91;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #11a178;
+}
+
+.btn-days-inc:hover {
+  background-color: #11bc91;
+  color: #fff;
 }
 
 .transfer-item {
