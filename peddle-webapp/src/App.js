@@ -21,10 +21,12 @@ import Cart from "./containers/Cart";
 class App extends Component {
   render() {
     return (
+
       <div className="App">
+          <MainMenu/>
         <div className="container">
           {/*<div>*/}
-            <MainMenu/>
+
             <Switch>
               <Route exact path='/events' component={Events}/>
               <Route exact path='/' component={Categories}/>

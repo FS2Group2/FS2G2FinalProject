@@ -9,7 +9,7 @@ public class UserUpdateDtoRq {
   private String firstName;
   private String lastName;
   private String email;
-  private String password;
+  //private String password;
   private Long city;
   private Long role;
   private String profileCityLiving;

@@ -37,7 +37,7 @@ class Wishlist extends Component {
         </div>
 
         {wishListState[0] && wishListState.map(w =>
-          <div className="wishlist-list-element">
+          <div className="wishlist-list-element" key={w.id}>
             <div className="element-name">
               <button className="btn-item-remove" onClick={()=>this.removeEventFromWishList(w.id)}> </button>
               <Link to={'event/' + w.id}>

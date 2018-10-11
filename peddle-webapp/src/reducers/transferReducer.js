@@ -4,7 +4,12 @@ import {
   SET_CITY_FOR_TRANSFER_FROM_EVENT,
   SET_CITY_FOR_TRANSFER_TO_EVENT,
   SET_DATE_TRANSFER_FROM_EVENT,
-  SET_DATE_TRANSFER_TO_EVENT, SET_EVENT_CITY
+  SET_DATE_TRANSFER_TO_EVENT,
+  SET_DAYS_AFTER_EVENT_DEC,
+  SET_DAYS_AFTER_EVENT_INC,
+  SET_DAYS_BEFORE_EVENT_DEC,
+  SET_DAYS_BEFORE_EVENT_INC,
+  SET_EVENT_CITY
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -16,7 +21,9 @@ const initialState = {
   dateTransferFromEvent1: '',
   dateTransferFromEvent2: '',
   transfersForward: [],
-  transfersBackward: []
+  transfersBackward: [],
+  daysBeforeEvent: 0,
+  daysAfterEvent: 0
 };
 
 function transferReducer(state = initialState, action) {
@@ -27,6 +34,14 @@ function transferReducer(state = initialState, action) {
       return {...state, eventCity: action.city};
     case SET_CITY_FOR_TRANSFER_FROM_EVENT:
       return {...state, cityTransferArrivalFromEvent: action.city};
+    case SET_DAYS_BEFORE_EVENT_DEC:
+      return {...state, daysBeforeEvent: state.daysBeforeEvent - 1};
+    case SET_DAYS_BEFORE_EVENT_INC:
+      return {...state, daysBeforeEvent: state.daysBeforeEvent + 1};
+    case SET_DAYS_AFTER_EVENT_DEC:
+      return {...state, daysAfterEvent: state.daysAfterEvent - 1};
+    case SET_DAYS_AFTER_EVENT_INC:
+      return {...state, daysAfterEvent: state.daysAfterEvent + 1};
     case SET_DATE_TRANSFER_TO_EVENT:
       return {...state, dateTransferToEvent1: action.date1, dateTransferToEvent2: action.date2};
     case SET_DATE_TRANSFER_FROM_EVENT:

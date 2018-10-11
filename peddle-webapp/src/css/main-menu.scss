@@ -1,19 +1,20 @@
 .main-menu {
   display: flex;
-  flex-wrap: nowrap;
+  align-items: center;
   justify-content: space-between;
   position: relative;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: rgba(20, 30, 40, .1);
+  padding: 16px;
+  background-color: #f66;
 }
 
 .menu-left,
 .menu-right {
   display: flex;
+  align-items: center;
 }
 
 .menu-left {
+  align-items: center;
   font-weight: 700;
 }
 
@@ -26,7 +27,7 @@
   width: 100%;
   padding: 16px 40px;
   transition: all .2s;
-  color: #334;
+  color: #fff;
   font-size: 16px;
   //font-weight: 700;
   text-align: center;
@@ -38,23 +39,9 @@
   padding-bottom: 0;
 }
 
-.main-menu-link:hover {
-  color: midnightblue;
-}
-
-.main-menu-link:hover {
-  background-color: rgba(255, 255, 255, .2);
-  color: darkblue;
-}
-
-.main-menu-link:active {
-  color: #000;
-}
-
 .menu-cart-img {
-  position: absolute;
-  top: -20px;
-  left: -15px;
+  width: 30px;
+  height: 30px;
 }
 
 .menu-cart-sum {
@@ -70,20 +57,22 @@
 }
 
 .main-menu-item-container {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
+.main-menu-user-p {
+  font-size: 18px;
+}
+
 .menu-user-photo-container {
-  position: absolute;
-  top: -8px;
-  left: -35px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  overflow: hidden;
+  width: 45px;
+  height: 45px;
+  margin-right: 8px;
 }
 
 .main-menu-user-photo {
-  width: 30px;
+  width: 100%;
+  border-radius: 50%;
 }
