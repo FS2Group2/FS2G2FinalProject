@@ -1,11 +1,32 @@
+$md-color-blue-500: #2196f3;
+$md-color-blue-900: darken($md-color-blue-500, 10%); // #0c7cd5
+$md-color-blue-300: lighten($md-color-blue-500, 10%); // #51adf6
+$md-color-blue-50: lighten($md-color-blue-500, 35%); // #cae6fc
+$md-color-light-blue-500: #12075a;
+$md-color-light-blue-900: darken($md-color-light-blue-500, 10%); // #0286c2
+$md-color-light-blue-300: #4fc3f7;
+$md-color-light-blue-50: lighten($md-color-light-blue-500, 35%); // #ace4fe
+$md-color-blue-gray-500: #617e8b;
+$md-color-blue-gray-800: #37474f;
+$md-color-blue-gray-300: lighten($md-color-blue-gray-500, 5%); // #6d8b99
+$md-color-blue-gray-50: lighten($md-color-blue-gray-500, 35%); // #c7d2d8
+$md-color-blue-gray-900: #455a64;
+
+// Slate Green
+$md-color-slate-green-500: #009688;
+$md-color-slate-green-900: darken($md-color-slate-green-500, 10%); // #00635a
+$md-color-slate-green-300: lighten($md-color-slate-green-500, 5%); // #00b09f
+$md-color-slate-green-50: lighten($md-color-slate-green-500, 50%); // #96fff5
+
 .event-purchase-page {
   display: block;
 }
 
 .container-header-p {
   margin-bottom: 4px;
-  color: #737d9b;
-  font-size: 12px;
+  color: #12075a;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .event-extra-container {
@@ -17,7 +38,7 @@
   display: block;
   margin: 15px;
   padding-bottom: 15px;
-  border-bottom: solid 1px #11bc91;
+  border-bottom: solid 1px $md-color-slate-green-500;
   font-size: 14px;
 }
 
@@ -25,7 +46,7 @@
   display: block;
   margin: 15px;
   padding-bottom: 15px;
-  border-bottom: solid 1px #11bc91;
+  border-bottom: solid 1px $md-color-slate-green-500;
 }
 
 .event-photo-container {
@@ -96,7 +117,7 @@
 
 .event-info-p-name {
   margin-right: 8px;
-  color: #737d9b;
+  color: $md-color-slate-green-500;
 }
 
 .event-info-description {
