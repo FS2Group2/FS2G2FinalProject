@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import dataMap, {userPhotoPath} from '../constants/ApiSettings';
+import dataMap from '../constants/ApiSettings';
 import '../css/profile.css'
 import {connect} from "react-redux";
 import {setUpdateProfileError, updateProfile} from "../actions/userActions";

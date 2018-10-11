@@ -7,7 +7,6 @@ import {iconPath} from "../constants/ApiSettings";
 class MainMenu extends Component {
   render() {
     const {cart} = this.props;
-    // let userAvatar = '';
 
     let cartSum = ((cart.purchasedEvent && cart.purchasedEvent.price) || 0) +
       ((cart.purchasedAccommodation && cart.purchasedAccommodation.price) || 0) +
