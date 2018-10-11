@@ -60,12 +60,12 @@ class ProfileDetails extends Component {
   fileUploadHandler = () => {
     let img = this.state.selectedFile;
     let form = new FormData();
-    form.append("profilePhoto", img);
+    form.append("image", img);
     let ulr = dataMap.userPhoto;
     let headers = {
       'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-      'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
+      // 'Accept': 'application/json',
+      // 'Content-Type': 'multipart/form-data'
     };
     let reqParam = {
       method: 'post',
@@ -96,7 +96,9 @@ class ProfileDetails extends Component {
         <div className='profile-detail'>
           <div className="user-photo-section">
             <div className="user-photo-container">
-              <img className='user-photo' src={userPhotoPath + profilePhoto} alt="ProfileAvatar"/>
+              {profilePhoto ? <img className='user-photo' src={profilePhoto} alt="ProfileAvatar"/>:
+                <img className='user-photo' src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
+                     alt="ProfileAvatar"/>}
             </div>
             {editMode && <div>
               <label htmlFor="fileSelect" className='fileContainer'>

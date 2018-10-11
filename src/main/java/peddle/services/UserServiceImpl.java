@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import peddle.configuration.AmazonS3Configuration;
 import peddle.configuration.BadRequestException;
 import peddle.configuration.ErrorConstants;
-import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserAddDtoRq;
+import peddle.dto.UserChangePasswordDtoRq;
 import peddle.dto.UserDtoRs;
 import peddle.dto.UserLoginDtoRq;
 import peddle.dto.UserUpdateDtoRq;
@@ -77,6 +77,11 @@ public class UserServiceImpl implements UserService {
     }
     User userNew = userRepository.save(user);
     return modelMapper.map(userNew, UserDtoRs.class);
+  }
+
+  @Override
+  public UserDtoRs changePassword(UserChangePasswordDtoRq userChangePasswordDtoRq) {
+    return null;
   }
 
 //  @Override
