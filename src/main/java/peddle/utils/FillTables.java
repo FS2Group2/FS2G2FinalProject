@@ -41,7 +41,7 @@ import java.util.GregorianCalendar;
 import java.util.Arrays;
 
 
-@Configuration
+//@Configuration
 public class FillTables {
 
   @Autowired
