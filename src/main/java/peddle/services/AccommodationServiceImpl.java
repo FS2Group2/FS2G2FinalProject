@@ -26,7 +26,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
   @Override
   public List<AccommodationDto> getByCityName(String cityName) {
-    City city = cityRepository.findByName(cityName);
+    City city = cityRepository.findByName(cityName).get();
     List<Accommodation> accommodations = accommodationRepository.findByCity(city);
     List<AccommodationDto> accommodationDtos = accommodations.stream()
             .map(accommodation -> modelMapper.map(accommodation, AccommodationDto.class))

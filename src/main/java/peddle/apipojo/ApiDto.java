@@ -9,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ApiDto {
   private String name;
+  private String apiId;
   private List<String> photos;
   private String description;
   private List<String> category;

@@ -126,7 +126,7 @@ public class LoginServiceImpl implements LoginService {
     newUser.setLastName("");
     Profile profile = new Profile("", "", "");
     newUser.setProfile(profile);
-    Role role = roleRepository.findByName("CUSTOMER");
+    Role role = roleRepository.findByName("CUSTOMER").get();
     newUser.setRole(role);
     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
     newUser.setActive(false);

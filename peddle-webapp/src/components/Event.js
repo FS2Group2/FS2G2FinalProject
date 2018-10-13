@@ -26,7 +26,8 @@ class Event extends Component {
 
     let eventDate = new Date(e.date);
     let imgPath = eventImgPath + e.eventExtraPhoto;
-    let iconCatPath = `${categoryIconPath + e.categoryName.replace(/ /g, '_').toLowerCase()}.svg`;
+    // let iconCatPath = `${categoryIconPath + e.categoryName.replace(/ /g, '_').toLowerCase()}.svg`;
+    let iconCatPath = categoryIconPath + e.categoryIcon;
 
 
     return (
