@@ -1,10 +1,12 @@
 package peddle.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import peddle.entities.Role;
 
-public interface RoleRepository extends CrudRepository<Role, Long> {
+import java.util.Optional;
 
-  Role findByName(String name);
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
+  Optional<Role> findByName(String name);
 
 }
