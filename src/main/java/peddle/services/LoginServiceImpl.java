@@ -1,5 +1,7 @@
 package peddle.services;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import peddle.configuration.AmazonS3Configuration;
 import peddle.configuration.EmailService;
 import peddle.configuration.MailContentBuilder;
 import peddle.dto.ApiRs;
@@ -26,12 +31,28 @@ import peddle.repository.RoleRepository;
 import peddle.repository.UserRepository;
 import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
+import peddle.security.UserPrincipal;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class LoginServiceImpl implements LoginService {
+
+  final String bucket = AmazonS3Configuration.BUCKET_NAME;
+
+  private AmazonS3Configuration as3;
+
+
+  @Autowired
+  public LoginServiceImpl(UserRepository userRepository,
+                            AmazonS3Configuration as3) {
+    this.userRepository = userRepository;
+    this.as3 = as3;
+    this.modelMapper = new ModelMapper();
+  }
 
   @Autowired
   private UserRepository userRepository;
@@ -103,9 +124,9 @@ public class LoginServiceImpl implements LoginService {
     User newUser = modelMapper.map(userRegisterDtoRq, User.class);
     newUser.setFirstName("");
     newUser.setLastName("");
-    Profile profile = new Profile("","unknown_user.png", "");
+    Profile profile = new Profile("", "", "");
     newUser.setProfile(profile);
-    Role role = roleRepository.findByName("CUSTOMER");
+    Role role = roleRepository.findByName("CUSTOMER").get();
     newUser.setRole(role);
     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
     newUser.setActive(false);
@@ -148,7 +169,7 @@ public class LoginServiceImpl implements LoginService {
       userTokenRepository.delete(userToken.get());
       return ResponseEntity.ok(new ApiRs("User email confirmed successfully"));
     }
-    return new  ResponseEntity(new ApiRs("Token not found"),
+    return new ResponseEntity(new ApiRs("Token not found"),
         HttpStatus.BAD_REQUEST);
   }
 
@@ -200,7 +221,33 @@ public class LoginServiceImpl implements LoginService {
       userTokenRepository.delete(userToken.get());
       return ResponseEntity.ok(new ApiRs("Password Changed successfully"));
     }
-    return new  ResponseEntity(new ApiRs("Token not found"),
+    return new ResponseEntity(new ApiRs("Token not found"),
         HttpStatus.BAD_REQUEST);
+  }
+
+  @Override
+  @Transactional
+  public ResponseEntity<?> avatarUser(MultipartFile file) throws IOException {
+    UserPrincipal userPrincipal = UserPrincipal.getPrincipal();
+    User user = userRepository.findByProfileId(userPrincipal.getId());
+
+    AmazonS3 s3 = as3.getAmazonS3();
+    if (user.getProfile().getPhoto() != null) {
+      String oldName = "avatars/" + user.getName();
+      s3.deleteObject(bucket, oldName);
+    }
+    String key = "avatars/" + user.getName();
+    InputStream myFile = file.getInputStream();
+    s3.putObject(
+        bucket,
+        key,
+        myFile,
+        new ObjectMetadata());
+    String url = s3.getUrl(bucket, key).toString();
+    user.getProfile().setPhoto(url);
+    userRepository.save(user);
+
+
+    return new ResponseEntity(new ApiRs(url), HttpStatus.OK);
   }
 }

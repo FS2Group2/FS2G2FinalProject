@@ -16,6 +16,7 @@ public class EventFullDtoRs {
   private Date date;
   private Long categoryId;
   private String categoryName;
+  private String categoryIcon;
   private int duration;
   private int price;
   private String eventExtraPhoto;

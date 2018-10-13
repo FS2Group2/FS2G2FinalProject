@@ -8,4 +8,5 @@ public class CategoryDto {
   private String name;
   private Long count;
   private String photo;
+  private String icon;
 }
