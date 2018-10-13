@@ -63,7 +63,7 @@ import static peddle.configuration.Constants.ROLE_CUSTOMER;
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
 
-@Configuration
+//@Configuration
 public class FillTables {
 
   @Autowired
@@ -176,10 +176,6 @@ public class FillTables {
     eventsApi.forEach(eventApi -> {
       result.add(modelMapper.map(eventApi, ApiDto.class));
       ApiDto apiDto = modelMapper.map(eventApi, ApiDto.class);
-      //System.out.println(apiDto.getName() + " : " + apiDto.getDate() + " : " + apiDto.getPrice());
-      //System.out.println(apiDto.getPhotos());
-      //System.out.println(apiDto.getCategory());
-      //System.out.println(apiDto.getCities());
     });
     return result;
   }
@@ -240,54 +236,6 @@ public class FillTables {
       }
     });
   }
-
-
-  /*
-  private class EventDescription {
-    private String name;
-    private String photo;
-    private String description;
-    private String category;
-    private int duration;
-    private int price;
-
-    public EventDescription(String name, String category, String photo, String description, int duration, int price) {
-      this.name = name;
-      this.category = category;
-      this.photo = photo;
-      this.description = description;
-      this.duration = duration;
-      this.price = price;
-    }
-  }
-
-  private List<EventDescription> readerEvents() {
-    List<EventDescription> evetns = new ArrayList<>();
-    JSONParser parser = new JSONParser();
-
-    try {
-      Object obj = parser.parse(new FileReader("./src/main/resources/events.json"));
-
-      JSONArray eventsList = (JSONArray) obj;
-
-      eventsList.forEach( event -> {
-        JSONObject eventObject = (JSONObject) event;
-        String name = (String) eventObject.get("Name");
-        String category = (String) eventObject.get("Category");
-        String description = (String) eventObject.get("Description");
-        String photo = (String) eventObject.get("Photo");
-        int duration = ((Long) eventObject.get("Duration")).intValue();
-        int price = ((Long) eventObject.get("Price")).intValue();
-
-        evetns.add(new EventDescription(name, category, photo, description, duration, price));
-
-      });
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return evetns;
-  }
-  */
 
   private Date getCurrentDate() {
     Calendar cal = new GregorianCalendar();
@@ -451,21 +399,7 @@ public class FillTables {
       }
     };
   }
-  /*
-  @Bean
-  public CommandLineRunner addCities() {
-    return new CommandLineRunner() {
-      @Override
-      public void run(String... args) throws Exception {
-        Arrays.asList("Kyiv", "Lviv", "Dnipro", "Kharkiv", "Odessa",
-                "Ivano-Frankivsk", "Chernivci", "Mikolayv", "Kriviy Rig", "Kherson",
-                "Giromyr", "Chernigiv", "Uman")
-                .forEach(city -> cityRepository.save(new City(city)));
-        System.out.println("Added data to City table");
-      }
-    };
-  }
-  */
+
   @Bean
   public CommandLineRunner addAccommodation() {
     return new CommandLineRunner() {
@@ -507,60 +441,11 @@ public class FillTables {
     };
   }
 
-  /*
-  @Bean
-  public CommandLineRunner addEvent() {
-    return new CommandLineRunner() {
-      @Transactional
-      @Override
-      public void run(String... args) throws Exception {
-        List<City> cities = new ArrayList<>();
-        cityRepository.findAll().forEach(city -> cities.add(city));
-
-        Role role = roleRepository.findByName("EVENTS_SELLER");
-        Long ownerId = 0L;
-        if (userRepository.findFirstByRole(role).isPresent()) {
-          ownerId = userRepository.findFirstByRole(role).get().getId();
-        }
-
-        List<EventDescription> events = readerEvents();
-
-        Date currentDate = new Date();
-
-        for (City city :  cities) {
-          int quantityOfEvents = (int) (Math.random() * 10 + 1);
-          for (int i = 0; i < quantityOfEvents; i++) {
-            int eventNumber = (int) (Math.random() * events.size());
-            EventDescription event = events.get(eventNumber);
-
-            int shiftDate = (int) (Math.random() * DAYS_SCHEDULE);
-            Date eventsDate = addDays(currentDate, shiftDate);
-            Category category;
-
-            if (categoryRepository.findByName(event.category).isPresent()) {
-              category = categoryRepository.findByName(event.category).get();
-            } else {
-              Category newCategory = new Category(event.category,"nophoto.jpg");
-              category = categoryRepository.save(newCategory);
-            }
-
-            eventRepository.save(new Event(event.name, city, category, eventsDate, ownerId, event.duration,
-                    new EventExtra(event.photo, event.description),
-                    event.price));
-          }
-        }
-        System.out.println("Added data to Event table");
-      }
-    };
-  }
-  */
   @Bean
   public CommandLineRunner addTransfer() {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        //List<TransportType> transportTypes = new ArrayList<>();
-        //transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
         TransportType transportType = transportTypeRepository.findByName("Fly");
         List<City> cities = new ArrayList<>();
         cityRepository.findAll().forEach(city -> cities.add(city));
@@ -592,76 +477,4 @@ public class FillTables {
       }
     };
   }
-  /*
-  @Bean
-  public CommandLineRunner addPurchase() {
-    return new CommandLineRunner() {
-      @Override
-      @Transactional
-      public void run(String... args) throws Exception {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(user -> users.add(user));
-        List<Event> events = new ArrayList<>();
-        eventRepository.findAll().forEach(event -> events.add(event));
-        List<Transfer> transfers = new ArrayList<>();
-        transferRepository.findAll().forEach(transfer -> transfers.add(transfer));
-        List<Accommodation> accommodations = new ArrayList<>();
-        accommodationRepository.findAll().forEach(accommodation -> accommodations.add(accommodation));
-
-        User user1 = users.get(0);
-        List<Purchase> purchases = user1.getPurchases();
-
-        purchases.add(new Purchase(events.get(0),
-                transfers.get(0), transfers.get(1),
-                accommodations.get(1)));
-
-        purchases.add(new Purchase(events.get(1),
-                transfers.get(2), transfers.get(1),
-                accommodations.get(2)));
-
-        user1.setPurchases(purchases);
-        userRepository.save(user1);
-
-        user1 = users.get(1);
-        purchases = user1.getPurchases();
-
-        purchases.add(new Purchase(events.get(0),
-                transfers.get(0), transfers.get(1),
-                accommodations.get(2)));
-
-        user1.setPurchases(purchases);
-        userRepository.save(user1);
-
-        System.out.println("Added same purchases to Purchace table");
-      }
-    };
-  }
-
-  @Bean
-  public CommandLineRunner addWishList() {
-    return new CommandLineRunner() {
-      @Override
-      @Transactional
-      public void run(String... args) throws Exception {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(user -> users.add(user));
-        List<Event> events = new ArrayList<>();
-        eventRepository.findAll().forEach(event -> events.add(event));
-
-        User user1 = users.get(0);
-        List<Event> events1 = user1.getEvents();
-        events1.add(events.get(0));
-        events1.add(events.get(1));
-        userRepository.save(user1);
-
-        user1 = users.get(1);
-        events1 = user1.getEvents();
-        events1.add(events.get(0));
-        userRepository.save(user1);
-
-        System.out.println("Added same wishes Wish List table");
-      }
-    };
-  }
-  */
 }
