@@ -37,13 +37,13 @@ public class EmailService {
     emailSender.send(message);
   }
 
-  public void prepareAndSend(String to, String subject, String text) {
+  public void prepareAndSend(String to, String subject, String text, String url) {
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
       messageHelper.setFrom(sendersMail);
       messageHelper.setTo(to);
       messageHelper.setSubject(subject);
-      String content = mailContentBuilder.build(text);
+      String content = mailContentBuilder.build(text, url);
       messageHelper.setText(content, true);
     };
     emailSender.send(messagePreparator);
