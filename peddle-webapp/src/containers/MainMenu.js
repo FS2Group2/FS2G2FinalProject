@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import '../css/main-menu.css';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {iconPath, userPhotoPath} from "../constants/ApiSettings";
+import {iconPath} from "../constants/ApiSettings";
 
 class MainMenu extends Component {
   render() {
     const {cart} = this.props;
-    // let userAvatar = '';
 
     let cartSum = ((cart.purchasedEvent && cart.purchasedEvent.price) || 0) +
       ((cart.purchasedAccommodation && cart.purchasedAccommodation.price) || 0) +
@@ -31,18 +30,20 @@ class MainMenu extends Component {
             <Link className="main-menu-link" to={'/profile'}>
               <div className="main-menu-item-container">
                 <div className="menu-user-photo-container">
-                  <img className='main-menu-user-photo' src={userPhotoPath + userState.currentUser.profilePhoto}
-                       alt="user"/>
-                </div> <p className="main-menu-user-p">{userState.currentUser.name}</p>
+                  {userState.currentUser.profilePhoto ? <img className='main-menu-user-photo' src={userState.currentUser.profilePhoto} alt="ProfileAvatar"/> :
+                    <img className='main-menu-user-photo' src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
+                         alt="ProfileAvatar"/>}
+                </div>
+                <p className="main-menu-user-p">{userState.currentUser.name}</p>
               </div>
             </Link>}
 
             <Link className="main-menu-link" to={'/cart'}>
               <div className="main-menu-item-container">
                 {/*<p className="main-menu-cart-p">*/}
-                  {/*Cart*/}
+                {/*Cart*/}
                 {/*</p>*/}
-                <img className='menu-cart-img' src={iconPath+'cart-menu.svg'} alt=""/>
+                <img className='menu-cart-img' src={iconPath + 'cart-menu.svg'} alt=""/>
                 <p className='menu-cart-sum'>{cartSum}</p>
               </div>
             </Link>
