@@ -62,7 +62,6 @@ import static peddle.configuration.Constants.ROLE_ADMIN;
 import static peddle.configuration.Constants.ROLE_CUSTOMER;
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
-
 //@Configuration
 public class FillTables {
 
