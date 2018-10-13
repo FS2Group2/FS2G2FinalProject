@@ -16,7 +16,7 @@ public class EventsApi {
 
   @Override
   public String toString() {
-    String result ="";
+    String result = "";
     for (EventApi event:eventApiList) {
       result += event.toString() + "\n";
     }

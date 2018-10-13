@@ -15,12 +15,12 @@ public class DatesEventApi {
   private String timezone;
 
   public DatesEventApi() {
-    this.timezone ="";
+    this.timezone = "";
   }
 
   @Override
   public String toString() {
-    String start ="";
+    String start = "";
     if (startEvent != null) {
       start = startEvent.toString();
     }

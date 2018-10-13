@@ -17,8 +17,12 @@ public class VenueEventApi {
   @Override
   public String toString() {
     String result = "";
-    if (country != null) result = country.toString();
-    if (city != null) result += ", " + city.toString();
+    if (country != null) {
+      result = country.toString();
+    }
+    if (city != null) {
+      result += ", " + city.toString();
+    }
     return result;
   }
 }

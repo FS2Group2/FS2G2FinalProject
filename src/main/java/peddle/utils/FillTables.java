@@ -115,7 +115,7 @@ public class FillTables {
 
     ModelMapper modelMapper = new ModelMapper();
 
-    Converter<EventApi, ApiDto> customConverter= new Converter<EventApi, ApiDto>() {
+    Converter<EventApi, ApiDto> customConverter = new Converter<EventApi, ApiDto>() {
       @Override
       public ApiDto convert(MappingContext<EventApi, ApiDto> mappingContext) {
         EventApi source = mappingContext.getSource();
@@ -192,7 +192,7 @@ public class FillTables {
       if (userOwnerOptional.isPresent()) {
         ownerId = userOwnerOptional.get().getId();
       }
-    };
+    }
 
     Long finalOwnerId = ownerId;
     apiDtoList.forEach(eventDto -> {
@@ -435,7 +435,8 @@ public class FillTables {
       //final String apiUrl =
       final int maxEventsCount = 100;
       int eventsCount = 0;
-      int currentPage = 0, pageSize = 20;
+      int currentPage = 0;
+      int pageSize = 20;
       boolean hasNext = true;
       while (eventsCount < maxEventsCount && hasNext) {
         String url = String.format("https://app.ticketmaster.com/discovery/v2/events.json?countryCode=%s&size=%d&page=%d&apikey=9IU9ZLwAWRy2C14nazyZQQLX9mcjQhwZ", "US", pageSize, currentPage);
@@ -558,33 +559,32 @@ public class FillTables {
     return new CommandLineRunner() {
       @Override
       public void run(String... args) throws Exception {
-        List<TransportType> transportTypes = new ArrayList<>();
-        transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
+        //List<TransportType> transportTypes = new ArrayList<>();
+        //transportTypeRepository.findAll().forEach(transport -> transportTypes.add(transport));
+        TransportType transportType = transportTypeRepository.findByName("Fly");
         List<City> cities = new ArrayList<>();
         cityRepository.findAll().forEach(city -> cities.add(city));
         int numberOfTranspotr = 2;
         for (int i = 0; i < cities.size(); i++) {
           for (int j = i + 1; j < cities.size(); j++) {
-            for (int k = 0; k < transportTypes.size(); k++) {
-              Date currentDate = getCurrentDate();
-              currentDate = addDays(currentDate, -2);
-              for (int l = 0; l < DAYS_SCHEDULE; l++) {
-                int hours = (int) (Math.random() * 23);
-                int duration = (int) (Math.random() * 12);
+            Date currentDate = getCurrentDate();
+            currentDate = addDays(currentDate, -2);
+            for (int l = 0; l < DAYS_SCHEDULE; l++) {
+              int hours = (int) (Math.random() * 23);
+              int duration = (int) (Math.random() * 12);
 
-                transferRepository.save(new Transfer(transportTypes.get(k),
-                        ++numberOfTranspotr, 210 / (k + 1), 0L,
-                        addHours(currentDate, hours), duration,
-                        cities.get(i), cities.get(j)));
+              transferRepository.save(new Transfer(transportType,
+                      ++numberOfTranspotr, 210, 0L,
+                      addHours(currentDate, hours), duration,
+                      cities.get(i), cities.get(j)));
 
-                hours = (int) (Math.random() * 23);
-                transferRepository.save(new Transfer(transportTypes.get(k),
-                        ++numberOfTranspotr, 168 / (k + 1), 0L,
-                        addHours(currentDate, hours + duration), duration,
-                        cities.get(j), cities.get(i)));
+              hours = (int) (Math.random() * 23);
+              transferRepository.save(new Transfer(transportType,
+                      ++numberOfTranspotr, 168, 0L,
+                      addHours(currentDate, hours + duration), duration,
+                      cities.get(j), cities.get(i)));
 
-                currentDate = addDays(currentDate, 1);
-              }
+              currentDate = addDays(currentDate, 1);
             }
           }
         }
