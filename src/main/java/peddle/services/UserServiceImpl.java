@@ -7,11 +7,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import peddle.configuration.AmazonS3Configuration;
 import peddle.configuration.BadRequestException;
 import peddle.configuration.ErrorConstants;
-import peddle.dto.JwtAuthenticationRs;
 import peddle.dto.UserAddDtoRq;
 import peddle.dto.UserChangePasswordDtoRq;
 import peddle.dto.UserDtoRs;
@@ -41,10 +40,6 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private ModelMapper modelMapper;
-
-  @Autowired
-  private PasswordEncoder passwordEncoder;
-
 
   @Override
   public UserDtoRs getUserByName(UserLoginDtoRq userLoginDtoRq) {
@@ -86,17 +81,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDtoRs changePassword(UserChangePasswordDtoRq userChangePasswordDtoRq) {
-    User user = userRepository.findById(userChangePasswordDtoRq.getUserId())
-        .orElseThrow(()-> new BadRequestException(ErrorConstants.ERR_USER_NOT_FOUND));
-
-    if (!passwordEncoder.matches(userChangePasswordDtoRq.getOldPassword(), user.getPassword())) {
-      throw new BadRequestException(ErrorConstants.ERR_INCORRECT_PASSWORD);
-    }
-
-    String newPass = passwordEncoder.encode(userChangePasswordDtoRq.getNewPassword());
-    user.setPassword(newPass);
-    User userNew = userRepository.save(user);
-    return modelMapper.map(userNew, UserDtoRs.class);
+    return null;
   }
+
+//  @Override
+//  public UserDtoRs createUserAvatar(UserUpdateDtoRq userUpdateDtoRq) {
+//    return null;
+//  }
 
 }
