@@ -1,73 +1,134 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="mail_template.css" rel="stylesheet">
-    <title>Registration Mail</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Registration Mail</title>
+  <style>
+    h2 {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 0;
+      padding: 10px 0 24px;
+    }
+    h4 {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      padding: 14px 0;
+      text-align: center;
+    }
+    p {
+      margin: 0;
+      padding: 20px 0;
+    }
+    small {
+      color: #777;
+      font-size: 12px;
+    }
+    a {
+      border-bottom: #669900 1px solid;
+      color: #669900;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    table {
+      border-spacing: 0;
+      padding: 0;
+    }
+    .main-table {
+      width: 820px;
+      border: 1px solid #f2f2f2;
+      color: #000;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.2;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 820px;
+      min-width: 320px;
+      text-align: justify;
+      width: auto;
+    }
+    .inner-table {
+      width: 100%;
+      width: 100%;
+    }
+    .height-20 {
+      height: 20px ;
+    }
+    .width-20 {
+      width: 20px ;
+    }
+    .padding-28 {
+      padding-top: 28px;
+    }
+    .color-grey {
+      background-color: #f1f1f1;
+    }
+    .top-border {
+      border-top:#82af32 2px solid;
+    }
+    .text-center {
+      text-align: center;
+    }
+
+  </style>
 </head>
 <body>
-    <span class="main-spam">
-        <table class="main-table">
-            <tbody>
-                <tr>
-                    <td>
-                        <table class="inner-table"> 
-                            <tbody>
-                                <tr>
-                                    <td colspan="4" height="20" style="height:20px;"></td>
-                                </tr>
-                                <tr>
-                                    <td width="20" style="width:20px;"></td>
-                                    <td>
-                                        <img alt="UkrNet" width="140" height="41" src="mail-icon.png">
-                                    </td>
-                                    <td align="right" style="text-align:right;">
-                                        <img alt="action-icon" src="mail-icon.png">
-                                    </td>
-                                    <td width="20" style="width:20px;"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" height="20" style="height:20px;">
-                                        <h4>Уважаемый пользователь!</h4>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <table class="inner-table">
-                            <tbody>
-                                <tr>
-                                    <td width="20" style="width:20px;"></td>
-                                    <td>
-                                        <p>Этот e-mail был указан при регистрации как резервный почтовый ящик. Чтобы использовать его при восстановлении доступа и для получения оповещений, связанных с безопасностью почтового ящика, мы должны убедиться, что этот ящик принадлежит и доступен вам.</p>
-                                    </td>
-                                    <td width="20" style="width:20px;"></td>
-                                </tr>
-                                <tr bgcolor="#f1f1f1" style="background:#f1f1f1;">
-                                    <td width="20" style="border-radius:3px 0 0 0;border-top:#82af32 2px solid;width:20px;"></td>
-                                    <td align="center" style="border-top:#82af32 2px solid;text-align:center;">
-                                        <h4 class="p-28">Чтобы подтвердить указанный e-mail, перейдите по этой ссылке:</h4>
-                                        <h2><a th:href="${message}" rel="noreferrer noopener">Подтвердить</a></h2>
-                                    </td>
-                                    <td width="20" style="border-radius:0 3px 0 0;border-top:#82af32 2px solid;width:20px;"></td>
-                                </tr>
-                                <tr>
-                                    <td width="20" style="width:20px;"></td>
-                                    <td>
-                                        <p>Ссылка действительна в течение 24 часов с момента отправки данного письма.</p>
-                                        <p><small>Если вы не указывали адрес своей электронной почты в качестве резервной к ящику не ваш ящик, возможно, другой пользователь указал ваш e-mail в настройках восстановления по ошибке.<br>В таком случае просто проигнорируйте это письмо.</small></p>
-                                        <p><small>С уважением,<br>Команда fs2</p>
-                                    </td>
-                                    <td width="20" style="width:20px;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </span>
+<table class="main-table">
+  <tbody>
+  <tr>
+    <td>
+      <table class="inner-table">
+        <tbody>
+        <tr>
+          <td colspan="4" class="height-20"></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="height-20">
+            <h4>Dear friend!</h4>
+          </td>
+        </tr>
+        <tr>
+          <td class="width-20"></td>
+          <td>
+            <p th:text="${message}">This e-mail was specified during registration on the "Event Tour" website. Please confirm
+              your registration to be able to match the purchase of properties on the "Event Tour"
+              website.</p>
+          </td>
+          <td class="width-20"></td>
+        </tr>
+        <tr class="color-grey">
+          <td class="width-20 top-border"></td>
+          <td class="top-border text-center">
+            <h4 class="padding-28">To confirm, follow this link:</h4>
+            <h2><a th:href="${reference}" rel="noreferrer noopener">Confirm</a></h2>
+          </td>
+          <td class="width-20 top-border"></td>
+        </tr>
+        <tr>
+          <td class="width-20"></td>
+          <td>
+            <p>
+              <small>If you have not registered on the "Event Tour", another user may have entered your
+                e-mail when registering by mistake.
+              </small>
+            </p>
+            <p>
+              <small>Best regards,<br>The team of "Event Tour".</small>
+            </p>
+          </td>
+          <td class="width-20"></td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
 </body>
 </html>

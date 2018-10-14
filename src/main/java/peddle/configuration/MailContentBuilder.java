@@ -8,6 +8,8 @@ import org.thymeleaf.context.Context;
 @Service
 public class MailContentBuilder {
 
+  public static final String TEMPLATE_EMAIL = "mailTemplate";
+
   private TemplateEngine templateEngine;
 
   @Autowired
@@ -15,10 +17,11 @@ public class MailContentBuilder {
     this.templateEngine = templateEngine;
   }
 
-  public String build(String message) {
+  public String build(String message, String url) {
     Context context = new Context();
     context.setVariable("message", message);
-    return templateEngine.process("mailTemplateSimple", context);
+    context.setVariable("reference", url);
+    return templateEngine.process(TEMPLATE_EMAIL, context);
   }
 
 }

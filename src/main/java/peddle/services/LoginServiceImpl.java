@@ -139,15 +139,16 @@ public class LoginServiceImpl implements LoginService {
     userToken.setToken(token);
     userTokenRepository.save(userToken);
 
-    String message = "Thank you for registering in Peddle service! To finish your "
-        + "registration, please follow the link: "
-        + "http://localhost:3000/registration/" + token;
     String to = newUser.getEmail();
     String subject = "Confirm your email";
+    String message = "This e-mail was specified during registration on the \"Event Tour\" website. Please confirm"
+        + " your registration to be able to match the purchase of properties on the \"Event Tour\""
+        + " website.";
+    String url = "http://localhost:3000/registration/" + token;
 
     try {
       //emailService.sendSimpleMessage(to, subject, message);
-      emailService.prepareAndSend(to, subject, message);
+      emailService.prepareAndSend(to, subject, message, url);
     } catch (MailException e) {
       userTokenRepository.delete(userToken);
       userRepository.delete(newUser);
@@ -190,14 +191,16 @@ public class LoginServiceImpl implements LoginService {
     userToken.setToken(token);
     userTokenRepository.save(userToken);
 
-    String message = "You have to change you password. To finish "
-        + "please follow the link: "
-        + "http://localhost:3000/changePass/" + token;
     String to = user.getEmail();
     String subject = "Change your password";
+    String message = "You have to change you password. To finish "
+        + "please follow the link: ";
+    String url = "http://localhost:3000/changePass/" + token;
+
 
     try {
-      emailService.sendSimpleMessage(to, subject, message);
+      //emailService.sendSimpleMessage(to, subject, message);
+      emailService.prepareAndSend(to, subject, message, url);
     } catch (MailException e) {
       userTokenRepository.delete(userToken);
       return new ResponseEntity(new ApiRs("Sorry, I can't send email :("),
