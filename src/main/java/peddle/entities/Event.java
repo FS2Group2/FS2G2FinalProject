@@ -28,6 +28,9 @@ public class Event {
   @Column(name = "e_id")
   private Long id;
 
+  @Column(name = "e_api_id")
+  private String apiId;
+
   @Column(name = "e_name")
   private String name;
 

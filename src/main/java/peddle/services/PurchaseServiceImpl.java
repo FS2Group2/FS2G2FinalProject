@@ -94,16 +94,26 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     User userResult = userRepository.save(user);
 
+    String message = "Hello, " + user.getFirstName() + "!\n\n"
+        + "You bought new event: " + event.getName() + "\n\n"
+        + "Best regards,\nThe team of \"Event Tour\".";
+
+    String to = user.getEmail();
+    String subject = "You nought new event!";
+    //System.out.println( message + to + subject);
+    emailService.sendSimpleMessage(to, subject, message);
+
     if (event.getOwner() > 0 && userRepository.findById(event.getOwner()).isPresent()) {
       User owner = userRepository.findById(event.getOwner()).get();
       if (!owner.getEmail().isEmpty()) {
-        String message = "User " + user.getEmail() + " bought you events \""  + event.getName() + "\"";
-        String to = owner.getEmail();
-        String subject = "Bought  your event!";
-        System.out.println( message + to + subject);
+        message = "User " + user.getEmail() + " bought you events \""  + event.getName() + "\"";
+        to = owner.getEmail();
+        subject = "Bought  your event!";
+        //System.out.println( message + to + subject);
         emailService.sendSimpleMessage(to, subject, message);
       }
     }
+
     return getAllPurchase(userResult.getId());
   }
 }
