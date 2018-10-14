@@ -1,3 +1,36 @@
+@import "./css/variables.scss";
+
 body {
   font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  height: 30px;
+  margin-bottom: 10px;
+  border: solid 1px $md-color-green-500;
+  background-color: $md-color-green-500;
+  color: $md-color-white;
+}
+
+.btn:hover {
+  background-color: $md-color-green-500;
+  color: $md-color-white;
+  box-shadow: $md-shadow3;
+}
+
+.btn:hover:disabled {
+  border-color: $md-color-green-50;
+  background-color: $md-color-green-50;
+}
+
+.btn:active {
+  background-color: $md-color-green-900;
+  color: $md-color-white;
+  box-shadow: $md-shadow2;
+}
+
+.btn:disabled {
+  border-color: $md-color-green-50;
+  color: $md-color-green-50;
 }

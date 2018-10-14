@@ -20,7 +20,7 @@ class MainMenu extends Component {
         <div className='main-menu'>
           <div className="menu-left">
             <Link className="main-menu-link logo-main-menu-link" to={'/'}>
-              <img className={'logo-main-menu'} src="/img/logo.png" alt=""/>
+              <img className={'logo-main-menu'} src="/img/eventtour.png" alt=""/>
             </Link>
             <Link className="main-menu-link" to={'/'}>Events</Link>
           </div>
