@@ -44,6 +44,8 @@ class App extends Component {
             </Switch>
           {/*</div>*/}
           <LoadListsComponent/>
+        </div>
+        <div className="footer-container">
           <AppFooter/>
         </div>
       </div>

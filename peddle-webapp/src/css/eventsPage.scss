@@ -1,6 +1,8 @@
+@import "variables.scss";
+
 .events-header {
   margin: 16px;
-  color: #0a1331;
+  color: $md-color-green-900;
   font-size: 18px;
   font-weight: 700;
   text-align: center;
@@ -15,9 +17,10 @@
 .filters-container {
   display: inline-block;
   width: 176px;
+  height: 100%;
   margin: 7px;
   padding: 5px;
-  border: solid 2px rgba(255, 255, 255, .3);
+  border: solid 2px $md-color-green-500;
   border-radius: 5px;
 }
 
@@ -34,7 +37,7 @@
 
 .filter-label {
   margin-bottom: 3px;
-  color: #737d9b;
+  color: $md-color-green-500;
   font-size: 12px;
   font-weight: 400;
 }
@@ -44,36 +47,44 @@
   height: 25px;
   margin-top: 2px;
   margin-bottom: 18px;
-  border-radius: 3px;
-  outline: none;
-  background-color: #f0f2f7;
-  color: #0a1331;
+  border: solid 1px $md-color-green-500;
+  border-radius: 4px;
+  outline: solid 1px transparent;
+  background-color: $md-color-white;
+  color: $md-color-green-900;
   font-size: 12px;
   cursor: pointer;
 }
 
 .btn {
   display: inline-block;
-  border: solid 1px transparent;
+  height: 30px;
+  margin-bottom: 10px;
+  border: solid 1px $md-color-green-500;
+  background-color: $md-color-green-500;
+  color: $md-color-white;
 }
 
 .btn:hover {
-  background-color: rgba(0, 0, 0, .3);
+  background-color: $md-color-green-500;
+  color: $md-color-white;
+  box-shadow: $md-shadow3;
 }
 
 .btn:hover:disabled {
-  border-color: #a5a5a5;
-  background-color: buttonface;
+  border-color: $md-color-green-50;
+  background-color: $md-color-green-50;
 }
 
 .btn:active {
-  border: gray 1px solid;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: $md-color-green-900;
+  color: $md-color-white;
+  box-shadow: $md-shadow2;
 }
 
 .btn:disabled {
-  border-color: #a5a5a5;
-  color: #a3a3a3;
+  border-color: $md-color-green-50;
+  color: $md-color-green-50;
 }
 
 .nav-btn {
@@ -81,16 +92,24 @@
   bottom: 0;
   min-width: 80px;
   padding: 16px;
+  border: 3px solid $md-color-red-500;
   border-radius: 15px;
   outline: none;
-  background-color: #ee374f;
-  color: #fff;
+  background-color: $md-color-white;
+  color: $md-color-red-500;
   font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .nav-btn:hover {
-  opacity: .8;
+  border: 3px solid $md-color-red-900;
+  color: $md-color-red-900;
+}
+
+.nav-btn:disabled {
+  border: 3px solid $md-color-red-50;
+  color: $md-color-red-50;
 }
 
 .nav-btn:active {
