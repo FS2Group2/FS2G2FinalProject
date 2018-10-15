@@ -3,7 +3,7 @@ import {
   SET_LOAD_ACCOMMODATION_ERROR,
   SET_LOAD_ACCOMMODATION_PENDING,
   SET_LOAD_ACCOMMODATION_SUCCESS
-} from "./actionsTypes";
+} from "../actions/actionsTypes";
 
 const initialState = {
   isLoadAccommodationSuccess: false,

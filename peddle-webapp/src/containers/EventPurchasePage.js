@@ -5,6 +5,8 @@ import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import {connect} from "react-redux";
 import {
+  loadTransfersBackward,
+  loadTransfersForward, resetDaysDelta,
   setCityForTransferFromEvent,
   setCityForTransferToEvent,
   setDatesForTransferFromEvent,
@@ -50,6 +52,42 @@ class EventPurchasePage extends Component {
     let date = new Date(this.props.currentEventInfo.date);
     date.setDate(date.getDate() - n - daysBeforeEvent);
     return date.toLocaleDateString('en-GB');
+  };
+
+  setTransferCityTo = (v) => this.props.setCityForTransferToEvent(v);
+  setTransferCityFrom = (v) => this.props.setCityForTransferFromEvent(v);
+
+  // ===== LOAD TRANSFERS ==========
+  fetchTransfersForward = () => {
+    const {transferProps, loadTransfersForward} = this.props;
+    let cityFrom, cityTo, dateFrom, dateTo;
+    cityFrom = transferProps.cityTransferDepartToEvent;
+    cityTo = transferProps.eventCity;
+    dateFrom = transferProps.dateTransferToEvent1;
+    dateTo = transferProps.dateTransferToEvent2;
+    const query = {
+      cityFrom: cityFrom,
+      cityTo: cityTo,
+      dateFrom: dateFrom,
+      dateTo: dateTo
+    };
+    if (cityFrom && cityTo && dateFrom && dateTo) loadTransfersForward(query);
+  };
+
+  fetchTransfersBackward = () => {
+    const {transferProps, loadTransfersBackward} = this.props;
+    let cityFrom, cityTo, dateFrom, dateTo;
+    cityFrom = transferProps.eventCity;
+    cityTo = transferProps.cityTransferArrivalFromEvent;
+    dateFrom = transferProps.dateTransferFromEvent1;
+    dateTo = transferProps.dateTransferFromEvent2;
+    const query = {
+      cityFrom: cityFrom,
+      cityTo: cityTo,
+      dateFrom: dateFrom,
+      dateTo: dateTo
+    };
+    if (cityFrom && cityTo && dateFrom && dateTo) loadTransfersBackward(query);
   };
 
   addEventToBasket = () => {
@@ -117,18 +155,16 @@ class EventPurchasePage extends Component {
     const {
       isLogged, currentUser,
       setCityForTransferToEvent, setCityForTransferFromEvent,
-      fetchEventInfo
-    } = this.props;
+      fetchEventInfo, resetDaysDelta
+  } = this.props;
 
     fetchEventInfo(this.state.eventId);
     if (isLogged) {
       setCityForTransferToEvent(currentUser.cityName);
       setCityForTransferFromEvent(currentUser.cityName);
     }
+    resetDaysDelta();
   };
-
-  setTransferCityTo = (v) => this.props.setCityForTransferToEvent(v);
-  setTransferCityFrom = (v) => this.props.setCityForTransferFromEvent(v);
 
   componentDidUpdate(prevProps) {
     const {currentUser, currentEventInfo, loadAccommodations} = this.props;
@@ -152,13 +188,30 @@ class EventPurchasePage extends Component {
       this.props.setDatesForTransferFromEvent(this.dateEventEnd(0), this.dateEventEnd(1));
       loadAccommodations(currentEventInfo.cityName);
     }
+
+    if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
+      prevProps.currentUser.cityName !== this.props.currentUser.cityName ||
+      prevProps.transferProps.eventCity !== this.props.transferProps.eventCity ||
+      prevProps.transferProps.dateTransferToEvent1 !== this.props.transferProps.dateTransferToEvent1
+    ) {
+      this.fetchTransfersForward()
+    }
+
+    if (prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent ||
+      prevProps.currentUser.cityName !== this.props.currentUser.cityName ||
+      prevProps.transferProps.eventCity !== this.props.transferProps.eventCity ||
+      prevProps.transferProps.dateTransferFromEvent1 !== this.props.transferProps.dateTransferFromEvent1
+    ) {
+      this.fetchTransfersBackward()
+    }
   }
 
   render() {
     const {
       allCities, transferProps, currentEventInfo,
       isEventInfoPending, isLoadAccommodationPending, accommodations, currentUser,
-      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
+      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec,
+      isTransfersForwardPending, isTransfersBackwardPending
     } = this.props;
     return (
       <Fragment>
@@ -166,10 +219,10 @@ class EventPurchasePage extends Component {
           {isEventInfoPending ?
             <Preloader/> :
             <div className='event-extra-container'>
-            <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
-                       addToWishList={this.addEventToWishList.bind(this)}
-                       removeFromWishList={this.removeEventFromWishList.bind(this)}/>
-          </div>}
+              <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
+                         addToWishList={this.addEventToWishList.bind(this)}
+                         removeFromWishList={this.removeEventFromWishList.bind(this)}/>
+            </div>}
 
           {isLoadAccommodationPending ?
             <Preloader/> :
@@ -196,25 +249,25 @@ class EventPurchasePage extends Component {
               </select>
 
               <div className="select-transfer-days">
-                <p className="transfer-input-label">Days before event:</p>
+                <p className="transfer-input-label">Departure date:</p>
                 <button className="btn-days-inc"
                         onClick={() => {
                           setDaysBeforeEventInc()
                         }}> -
                 </button>
+                <p className="transfer-input-label transfer-date">{transferProps.dateTransferToEvent1}</p>
                 <button className="btn-days-inc" onClick={() => {
                   if (transferProps.daysBeforeEvent) setDaysBeforeEventDec()
-                }}> +
+                }} disabled={!transferProps.daysBeforeEvent}> +
                 </button>
               </div>
             </div>
 
-            <Transfers cityFrom={transferProps.cityTransferDepartToEvent}
-                       cityTo={transferProps.eventCity}
-                       dateFrom={transferProps.dateTransferToEvent1}
-                       dateTo={transferProps.dateTransferToEvent2}
-                       transferType='FORWARD'
-                       addTransfer={this.addTransferToToBasket.bind(this)}/>
+            {isTransfersForwardPending ? <Preloader/> :
+              <Transfers cityFrom={transferProps.cityTransferDepartToEvent}
+                         cityTo={transferProps.eventCity}
+                         transfers={transferProps.transfersForward}
+                         addTransfer={this.addTransferToToBasket.bind(this)}/>}
           </div>
 
           {/*=======TRANSFER FROM EVENT CITY==== (<<<==)*/}
@@ -234,23 +287,23 @@ class EventPurchasePage extends Component {
               </select>
 
               <div className="select-transfer-days">
-                <p className="transfer-input-label">Days after event:</p>
+                <p className="transfer-input-label">Departure date:</p>
                 <button className="btn-days-inc"
                         onClick={() => {
                           if (transferProps.daysAfterEvent) setDaysAfterEventDec()
-                        }}> -
+                        }} disabled={!transferProps.daysAfterEvent}> -
                 </button>
+                <p className="transfer-input-label transfer-date">{transferProps.dateTransferFromEvent1}</p>
                 <button className="btn-days-inc" onClick={setDaysAfterEventInc}> +
                 </button>
               </div>
             </div>
 
-            <Transfers cityFrom={transferProps.eventCity}
-                       cityTo={transferProps.cityTransferArrivalFromEvent}
-                       dateFrom={transferProps.dateTransferFromEvent1}
-                       dateTo={transferProps.dateTransferFromEvent2}
-                       transferType='BACKWARD'
-                       addTransfer={this.addTransferFromToBasket.bind(this)}/>
+            {isTransfersBackwardPending ? <Preloader/> :
+              <Transfers cityFrom={transferProps.eventCity}
+                         cityTo={transferProps.cityTransferArrivalFromEvent}
+                         transfers={transferProps.transfersBackward}
+                         addTransfer={this.addTransferFromToBasket.bind(this)}/>}
           </div>
         </div>
         <div id='event-purchase'/>
@@ -269,7 +322,9 @@ const mapStateToProps = (state) => {
     isLoadAccommodationPending: state.accommodationReducer.isLoadAccommodationPending,
     accommodations: state.accommodationReducer.accommodations,
     isEventInfoSuccess: state.eventReducer.isEventInfoSuccess,
-    isEventInfoPending: state.eventReducer.isEventInfoPending
+    isEventInfoPending: state.eventReducer.isEventInfoPending,
+    isTransfersForwardPending: state.transferReducer.isTransfersForwardPending,
+    isTransfersBackwardPending: state.transferReducer.isTransfersBackwardPending
   }
 };
 
@@ -288,10 +343,14 @@ const mapDispatchToProps = (dispatch) => {
     setDaysBeforeEventDec: () => dispatch(setDaysBeforeEventDec()),
     setDaysAfterEventInc: () => dispatch(setDaysAfterEventInc()),
     setDaysAfterEventDec: () => dispatch(setDaysAfterEventDec()),
+    resetDaysDelta:() => dispatch(resetDaysDelta()),
 
     fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
 
+    // ====== TRANSFER ACTIONS ============
+    loadTransfersForward: (query) => dispatch(loadTransfersForward(query)),
+    loadTransfersBackward: (query) => dispatch(loadTransfersBackward(query)),
     // === CART ACTIONS ===
     addEventToCart: (event) => dispatch(addEventToCart(event)),
     addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
