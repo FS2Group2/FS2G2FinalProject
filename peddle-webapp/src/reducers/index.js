@@ -8,7 +8,7 @@ import transferReducer from "./transferReducer";
 import fetchDataReducer from "./fetchDataReducer";
 import filterReducer from "./filterReducer";
 import cartReducer from "./cartReducer";
-import accommodationReducer from "../actions/accommodationReducer";
+import accommodationReducer from "./accommodationReducer";
 
 const reducer = combineReducers({
   eventReducer,
