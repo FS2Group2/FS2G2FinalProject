@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {fetchDataFromApi} from "../actions/fetchDataActions";
-import {transfersBackward, transfersForward} from "../constants/queryTypes";
+import {loadTransfersBackward, loadTransfersForward} from "../actions/transferActions";
 
 class Transfers extends Component {
 
@@ -12,20 +12,20 @@ class Transfers extends Component {
   };
 
   fetchTransfer() {
-    const {transferType, transferProps, loadTransfers} = this.props;
+    const {transferType, transferProps, loadTransfers, loadTransfersForward, loadTransfersBackward} = this.props;
     let cityFrom, cityTo, dateFrom, dateTo, queryType;
     if (transferType === 'FORWARD') {
       cityFrom = transferProps.cityTransferDepartToEvent;
       cityTo = transferProps.eventCity;
       dateFrom = transferProps.dateTransferToEvent1;
       dateTo = transferProps.dateTransferToEvent2;
-      queryType = transfersForward;
+      // queryType = transfersForward;
     } else if (transferType === 'BACKWARD') {
       cityFrom = transferProps.eventCity;
       cityTo = transferProps.cityTransferArrivalFromEvent;
       dateFrom = transferProps.dateTransferFromEvent1;
       dateTo = transferProps.dateTransferFromEvent2;
-      queryType = transfersBackward;
+      // queryType = transfersBackward;
     }
     const query = {
       cityFrom: cityFrom,
@@ -34,7 +34,9 @@ class Transfers extends Component {
       dateTo: dateTo
     };
 
-    if (cityFrom && cityTo && dateFrom && dateTo) loadTransfers(queryType, query)
+    // cityFrom && cityTo && dateFrom && dateTo && loadTransfers(queryType, query)
+    cityFrom && cityTo && dateFrom && dateTo &&
+    (transferType === 'FORWARD') ? loadTransfersForward(query) : loadTransfersBackward(query)
   }
 
   componentDidMount() {
@@ -139,7 +141,9 @@ const
     return {
       loadTransfers: (queryType, query) => {
         dispatch(fetchDataFromApi(queryType, query))
-      }
+      },
+      loadTransfersForward: (query) => dispatch(loadTransfersForward(query)),
+      loadTransfersBackward: (query) => dispatch(loadTransfersBackward(query))
     }
   };
 

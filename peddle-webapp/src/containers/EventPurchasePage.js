@@ -292,6 +292,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
 
+    // ====== TRANSFER ACTIONS ============
+
     // === CART ACTIONS ===
     addEventToCart: (event) => dispatch(addEventToCart(event)),
     addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),

@@ -1,4 +1,6 @@
 import {
+  LOAD_TRANSFERS_BACKWARD,
+  LOAD_TRANSFERS_FORWARD,
   SET_CITY_FOR_TRANSFER_FROM_EVENT,
   SET_CITY_FOR_TRANSFER_TO_EVENT,
   SET_DATE_TRANSFER_FROM_EVENT,
@@ -8,10 +10,12 @@ import {
   SET_DAYS_BEFORE_EVENT_DEC,
   SET_DAYS_BEFORE_EVENT_INC,
   SET_EVENT_CITY, SET_TRANSFERS_BACKWARD_ERROR, SET_TRANSFERS_BACKWARD_PENDING, SET_TRANSFERS_BACKWARD_SUCCESS,
-  SET_TRANSFERS_FORVARD_ERROR,
-  SET_TRANSFERS_FORVARD_PENDING,
-  SET_TRANSFERS_FORVARD_SUCCESS
+  SET_TRANSFERS_FORWARD_ERROR,
+  SET_TRANSFERS_FORWARD_PENDING,
+  SET_TRANSFERS_FORWARD_SUCCESS
 } from "./actionsTypes";
+import dataMap from "../constants/ApiSettings";
+import {fetchData} from "../components/fetchData";
 
 export function setEventCity(city) {
   return {
@@ -60,15 +64,15 @@ export function setDaysAfterEventDec() {
 }
 
 export function setTransfersForwardPending(isTransfersForwardPending) {
-  return {type: SET_TRANSFERS_FORVARD_PENDING, payload: isTransfersForwardPending}
+  return {type: SET_TRANSFERS_FORWARD_PENDING, payload: isTransfersForwardPending}
 }
 
 export function setTransfersForwardSuccess(isTransfersForwardSuccess) {
-  return {type: SET_TRANSFERS_FORVARD_SUCCESS, payload: isTransfersForwardSuccess}
+  return {type: SET_TRANSFERS_FORWARD_SUCCESS, payload: isTransfersForwardSuccess}
 }
 
 export function setTransfersForwardError(transferForwardError) {
-  return {type: SET_TRANSFERS_FORVARD_ERROR, payload: transferForwardError}
+  return {type: SET_TRANSFERS_FORWARD_ERROR, payload: transferForwardError}
 }
 
 export function setTransfersBackwardPending(isTransfersBackwardPending) {
@@ -81,4 +85,64 @@ export function setTransfersBackwardSuccess(isTransfersBackwardSuccess) {
 
 export function setTransfersBackwardError(transfersBackwardError) {
   return {type: SET_TRANSFERS_BACKWARD_ERROR, payload: transfersBackwardError}
+}
+
+export function setTransfersForward(transfersData) {
+  return{type: LOAD_TRANSFERS_FORWARD, payload: transfersData}
+}
+
+export function setTransfersBackward(transfersData) {
+  return{type: LOAD_TRANSFERS_BACKWARD, payload: transfersData}
+}
+
+export function loadTransfersForward(query) {
+  return dispatch => {
+    dispatch(setTransfersForwardPending(true));
+    dispatch(setTransfersForwardSuccess(false));
+    dispatch(setTransfersForwardError(null));
+    let responseStatus = false;
+    let apiUrl = dataMap.transfer;
+
+    fetchData(apiUrl, 'post', query)
+      .then(response => {
+        dispatch(setTransfersForwardPending(false));
+        responseStatus = response.ok;
+        return response;
+      })
+      .then(response => response.json())
+      .then(json =>{
+        if (responseStatus){
+          dispatch(setTransfersForward(json));
+          dispatch(setTransfersForwardSuccess(true));
+        } else {
+          dispatch(setTransfersForwardError(json))
+        }
+      })
+  }
+}
+
+export function loadTransfersBackward(query) {
+  return dispatch => {
+    dispatch(setTransfersBackwardPending(true));
+    dispatch(setTransfersBackwardSuccess(false));
+    dispatch(setTransfersBackwardError(null));
+    let responseStatus = false;
+    let apiUrl = dataMap.transfer;
+
+    fetchData(apiUrl, 'post', query)
+      .then(response => {
+        dispatch(setTransfersBackwardPending(false));
+        responseStatus = response.ok;
+        return response;
+      })
+      .then(response => response.json())
+      .then(json =>{
+        if (responseStatus){
+          dispatch(setTransfersBackward(json));
+          dispatch(setTransfersBackwardSuccess(true));
+        } else {
+          dispatch(setTransfersBackwardError(json))
+        }
+      })
+  }
 }

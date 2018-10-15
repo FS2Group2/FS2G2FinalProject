@@ -9,7 +9,13 @@ import {
   SET_DAYS_AFTER_EVENT_INC,
   SET_DAYS_BEFORE_EVENT_DEC,
   SET_DAYS_BEFORE_EVENT_INC,
-  SET_EVENT_CITY
+  SET_EVENT_CITY,
+  SET_TRANSFERS_BACKWARD_ERROR,
+  SET_TRANSFERS_BACKWARD_PENDING,
+  SET_TRANSFERS_BACKWARD_SUCCESS,
+  SET_TRANSFERS_FORWARD_ERROR,
+  SET_TRANSFERS_FORWARD_PENDING,
+  SET_TRANSFERS_FORWARD_SUCCESS
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -23,7 +29,13 @@ const initialState = {
   transfersForward: [],
   transfersBackward: [],
   daysBeforeEvent: 0,
-  daysAfterEvent: 0
+  daysAfterEvent: 0,
+  isTransfersForwardPending: false,
+  isTransfersForwardSuccess: false,
+  transferForwardError: null,
+  isTransfersBackwardPending: false,
+  isTransfersBackwardSuccess: false,
+  transfersBackwardError: null
 };
 
 function transferReducer(state = initialState, action) {
@@ -50,6 +62,18 @@ function transferReducer(state = initialState, action) {
       return {...state, transfersForward: action.payload};
     case LOAD_TRANSFERS_BACKWARD:
       return {...state, transfersBackward: action.payload};
+    case SET_TRANSFERS_FORWARD_PENDING:
+      return {...state, isTransfersForwardPending: action.payload};
+    case SET_TRANSFERS_FORWARD_SUCCESS:
+      return {...state, isTransfersForwardSuccess: action.payload};
+    case SET_TRANSFERS_FORWARD_ERROR:
+      return {...state, transferForwardError: action.payload};
+    case SET_TRANSFERS_BACKWARD_PENDING:
+      return {...state, isTransfersBackwardPending: action.payload};
+    case SET_TRANSFERS_BACKWARD_SUCCESS:
+      return {...state, isTransfersBackwardSuccess: action.payload};
+    case SET_TRANSFERS_BACKWARD_ERROR:
+      return {...state, transfersBackwardError: action.payload};
     default:
       return state;
   }
