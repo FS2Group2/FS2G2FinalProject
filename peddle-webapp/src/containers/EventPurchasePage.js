@@ -5,6 +5,8 @@ import Accommodations from "../components/Accommodations";
 import Transfers from "../components/Transfers";
 import {connect} from "react-redux";
 import {
+  loadTransfersBackward,
+  loadTransfersForward,
   setCityForTransferFromEvent,
   setCityForTransferToEvent,
   setDatesForTransferFromEvent,
@@ -158,7 +160,8 @@ class EventPurchasePage extends Component {
     const {
       allCities, transferProps, currentEventInfo,
       isEventInfoPending, isLoadAccommodationPending, accommodations, currentUser,
-      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec
+      setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec,
+      isTransfersForwardPending, isTransfersBackwardPending
     } = this.props;
     return (
       <Fragment>
@@ -166,10 +169,10 @@ class EventPurchasePage extends Component {
           {isEventInfoPending ?
             <Preloader/> :
             <div className='event-extra-container'>
-            <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
-                       addToWishList={this.addEventToWishList.bind(this)}
-                       removeFromWishList={this.removeEventFromWishList.bind(this)}/>
-          </div>}
+              <EventInfo event={currentEventInfo} add={this.addEventToBasket.bind(this)}
+                         addToWishList={this.addEventToWishList.bind(this)}
+                         removeFromWishList={this.removeEventFromWishList.bind(this)}/>
+            </div>}
 
           {isLoadAccommodationPending ?
             <Preloader/> :
@@ -269,7 +272,9 @@ const mapStateToProps = (state) => {
     isLoadAccommodationPending: state.accommodationReducer.isLoadAccommodationPending,
     accommodations: state.accommodationReducer.accommodations,
     isEventInfoSuccess: state.eventReducer.isEventInfoSuccess,
-    isEventInfoPending: state.eventReducer.isEventInfoPending
+    isEventInfoPending: state.eventReducer.isEventInfoPending,
+    isTransfersForwardPending: state.transferReducer.isTransfersForwardPending,
+    isTransfersBackwardPending: state.transferReducer.isTransfersBackwardPending
   }
 };
 
@@ -293,7 +298,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
 
     // ====== TRANSFER ACTIONS ============
-
+    loadTransfersForward: (query) => dispatch(loadTransfersForward(query)),
+    loadTransfersBackward: (query) => dispatch(loadTransfersBackward(query)),
     // === CART ACTIONS ===
     addEventToCart: (event) => dispatch(addEventToCart(event)),
     addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),

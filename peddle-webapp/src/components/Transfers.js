@@ -12,20 +12,18 @@ class Transfers extends Component {
   };
 
   fetchTransfer() {
-    const {transferType, transferProps, loadTransfers, loadTransfersForward, loadTransfersBackward} = this.props;
-    let cityFrom, cityTo, dateFrom, dateTo, queryType;
+    const {transferType, transferProps, loadTransfersForward, loadTransfersBackward} = this.props;
+    let cityFrom, cityTo, dateFrom, dateTo;
     if (transferType === 'FORWARD') {
       cityFrom = transferProps.cityTransferDepartToEvent;
       cityTo = transferProps.eventCity;
       dateFrom = transferProps.dateTransferToEvent1;
       dateTo = transferProps.dateTransferToEvent2;
-      // queryType = transfersForward;
     } else if (transferType === 'BACKWARD') {
       cityFrom = transferProps.eventCity;
       cityTo = transferProps.cityTransferArrivalFromEvent;
       dateFrom = transferProps.dateTransferFromEvent1;
       dateTo = transferProps.dateTransferFromEvent2;
-      // queryType = transfersBackward;
     }
     const query = {
       cityFrom: cityFrom,
@@ -34,9 +32,8 @@ class Transfers extends Component {
       dateTo: dateTo
     };
 
-    // cityFrom && cityTo && dateFrom && dateTo && loadTransfers(queryType, query)
-    cityFrom && cityTo && dateFrom && dateTo &&
-    (transferType === 'FORWARD') ? loadTransfersForward(query) : loadTransfersBackward(query)
+    if(cityFrom && cityTo && dateFrom && dateTo){
+    (transferType === 'FORWARD') ? loadTransfersForward(query) : loadTransfersBackward(query)}
   }
 
   componentDidMount() {
@@ -139,9 +136,6 @@ const
 const
   mapDispatchToProps = (dispatch) => {
     return {
-      loadTransfers: (queryType, query) => {
-        dispatch(fetchDataFromApi(queryType, query))
-      },
       loadTransfersForward: (query) => dispatch(loadTransfersForward(query)),
       loadTransfersBackward: (query) => dispatch(loadTransfersBackward(query))
     }
