@@ -189,7 +189,7 @@ class EventPurchasePage extends Component {
                 <p className='transfer-input-label'>You may select a city for transfer or use your default city:</p>
               }
 
-              <select id='transferCityTo' className='select-city-input' name="cityFilter"
+              <select id='transferCityTo' className='filter-input select-city-input' name="cityFilter"
                       onChange={() => this.setTransferCityTo(document.getElementById('transferCityTo').valueOf().value)}>
                 <option value={currentUser.cityName || ''}>{currentUser.cityName || 'Select city'}</option>
                 {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
@@ -227,7 +227,7 @@ class EventPurchasePage extends Component {
                 <p className='transfer-input-label'>You may select a city for transfer or use your default city:</p>
               }
 
-              <select id='transferCityFrom' className='select-city-input' name="cityFilter"
+              <select id='transferCityFrom' className='filter-input select-city-input' name="cityFilter"
                       onChange={() => this.setTransferCityFrom(document.getElementById('transferCityFrom').valueOf().value)}>
                 <option value={currentUser.cityName || ''}>{currentUser.cityName || 'Select city'}</option>
                 {allCities[0] && allCities.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}

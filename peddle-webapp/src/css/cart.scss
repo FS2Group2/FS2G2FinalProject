@@ -1,16 +1,20 @@
+@import "variables.scss";
+
 .purchase-summary {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 5px;
   padding: 5px;
-  border: #8a8a8a solid 1px;
+  border: $md-color-green-300 solid 1px;
   font-size: 14px;
 }
 
 .cart-header {
   margin: 30px 0 10px;
+  color: $md-color-green-900;
   font-size: 18px;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -19,17 +23,17 @@
   width: 150px;
   margin-bottom: 10px;
   padding: 9px 0 9px 30px;
-  border: 2px solid #11bc91;
+  border: 2px solid $md-color-green-500;
   border-radius: 4px;
   outline: none;
-  background-color: #fff;
-  color: #11bc91;
+  background-color: $md-color-white;
+  color: $md-color-green-500;
   font-size: 14px;
   cursor: pointer;
 }
 
 .btn-purchase:hover {
-  background-color: #11bc91;
+  background-color: $md-color-green-500;
   color: #fff;
 }
 
@@ -62,7 +66,7 @@
 }
 
 .purchased-item-header {
-  color: #0d4d22;
+  color: $md-color-green-500;
   font-size: 14px;
   font-weight: 700;
 }
@@ -90,7 +94,7 @@
 
 .purchased-event-name {
   width: 240px;
-  color: #03038b;
+  color: $md-color-green-900;
   font-size: 18px;
   font-weight: 700;
 }
@@ -111,13 +115,13 @@
 }
 
 .purchased-item-h3 {
-  color: #03038b;
+  color: $md-color-green-900;
   font-size: 16px;
   font-weight: 700;
 }
 
 .item-elem-name {
-  color: #323232;
+  color: $md-color-green-500;
   font-size: 12px;
   font-style: italic;
   font-weight: 400;
@@ -138,17 +142,18 @@
   justify-content: flex-end;
   min-width: 150px;
   padding-bottom: 10px;
-  color: #11a178;
 }
 
 .summary-total-header {
   margin: 15px;
+  color: $md-color-green-900;
   font-size: 14px;
   text-align: center;
 }
 
 .purchase-summary-total {
   margin-bottom: 20px;
+  color: $md-color-red-900;
   font-size: 24px;
   font-weight: 700;
   text-align: center;
