@@ -15,6 +15,16 @@ public class DateOperationUtils {
     return cal.getTime();
   }
 
+  public static Date clearTimeInDate(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    cal.clear(Calendar.HOUR_OF_DAY);
+    cal.clear(Calendar.MINUTE);
+    cal.clear(Calendar.SECOND);
+    cal.clear(Calendar.MILLISECOND);
+    return cal.getTime();
+  }
+
   public static Date addDays(Date date, int days) {
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);

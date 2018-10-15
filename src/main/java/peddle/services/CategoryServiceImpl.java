@@ -45,8 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
   public List<CategoryDto> getAllFromCurrentDate() {
     List<CategoryDto> categoriesDto = new ArrayList<>();
     Date currentDate = DateOperationUtils.getCurrentDate();
-    currentDate = DateOperationUtils.addHours(currentDate, -1);
-    System.out.println("Current Date - " + currentDate);
+    currentDate = DateOperationUtils.addDays(currentDate, -1);
+    //System.out.println("Current Date - " + currentDate);
     Date finalCurrentDate = currentDate;
     categoryRepository.findAll().forEach(category -> {
       Long countEvent = eventRepository.countByCategoryAndDateIsAfter(category, finalCurrentDate);

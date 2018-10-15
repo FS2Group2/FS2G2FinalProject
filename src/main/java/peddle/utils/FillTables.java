@@ -29,8 +29,7 @@ import static peddle.configuration.Constants.ROLE_ADMIN;
 import static peddle.configuration.Constants.ROLE_CUSTOMER;
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
-
-@Configuration
+//@Configuration
 public class FillTables {
 
   @Autowired
@@ -153,12 +152,11 @@ public class FillTables {
         categories.add(new Category("Music", "concerts.jpg", "concerts.svg"));
         categories.add(new Category("Arts & Theatre", "theatre.jpg", "theatre.svg"));
         categories.add(new Category("Miscellaneous", "festivals.jpg", "festivals.svg"));
-        //categories.add(new Category("Arts", "arts.jpg"));
-        //categories.add(new Category("Ethno tour", "ethnos.jpg"));
-        //categories.add(new Category("Gastro tour", "gastro.jpg"));
-        //categories.add(new Category("Education", "education.jpg"));
-        //categories.add(new Category("Exhibitions", "exhibitions.jpg"));
-
+        categories.add(new Category("Arts", "arts.jpg", "arts.svg"));
+        categories.add(new Category("Ethno tour", "ethnos.jpg", "ethnos.svg"));
+        categories.add(new Category("Gastro tour", "gastro.jpg", "gastro.svg"));
+        categories.add(new Category("Education", "education.jpg", "education.svg"));
+        categories.add(new Category("Exhibitions", "exhibitions.jpg", "exhibitions.svg"));
         categories.forEach(category -> categoryRepository.save(category));
 
         System.out.println("Added  data to Category table");

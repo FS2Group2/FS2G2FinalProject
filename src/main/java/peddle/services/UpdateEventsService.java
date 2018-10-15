@@ -206,8 +206,8 @@ public class UpdateEventsService {
             City cityCreate = new City(cityName);
             city = cityRepository.save(cityCreate);
             addAccommodationToCity(city);
-            addTransferToCity(city, eventDate);
           }
+          addTransferToCity(city, eventDate);
 
           for (int j = 0; j < eventDto.getCategory().size(); j++) {
             String categoryName = eventDto.getCategory().get(i);
@@ -289,49 +289,29 @@ public class UpdateEventsService {
       if (!city.getId().equals(eventCity.getId())) {
         int numberOfTranspotr = (int) (eventCity.getId() * 100 + city.getId() * 10);
         Date currentDate = DateOperationUtils.addDays(eventDate, (-1) * days_shedule);
+        //currentDate = DateOperationUtils.clearTimeInDate(currentDate);
         for (int i = 0; i < (days_shedule * 2); i++) {
-          int hours = (int) (Math.random() * 23);
-          int duration = (int) (Math.random() * 12);
+          int countOfTransfers = 2;
+          for (int j = 0; j < countOfTransfers ; j++) {
+            int hours = (int) (Math.random() * 23);
+            int duration = (int) (Math.random() * 12);
 
-          transferRepository.save(new Transfer(transportType,
-              ++numberOfTranspotr, 210, 0L,
-              DateOperationUtils.addHours(currentDate, hours), duration,
-              city, eventCity));
+            transferRepository.save(new Transfer(transportType,
+                ++numberOfTranspotr, 210, 0L,
+                DateOperationUtils.addHours(currentDate, hours), duration,
+                city, eventCity));
 
-          hours = (int) (Math.random() * 23);
-          transferRepository.save(new Transfer(transportType,
-              ++numberOfTranspotr, 168, 0L,
-              DateOperationUtils.addHours(currentDate, hours + duration), duration,
-              eventCity, city));
+            hours = (int) (Math.random() * 23);
+            transferRepository.save(new Transfer(transportType,
+                ++numberOfTranspotr, 168, 0L,
+                DateOperationUtils.addHours(currentDate, hours + duration), duration,
+                eventCity, city));
 
-          currentDate = DateOperationUtils.addDays(currentDate, 1);
+            currentDate = DateOperationUtils.addDays(currentDate, 1);
+          }
         }
       }
     });
     System.out.println("Added Transfer from city - " + eventCity.getName());
   }
-  /*
-  private Date getCurrentDate() {
-    Calendar cal = new GregorianCalendar();
-    cal.clear(Calendar.HOUR_OF_DAY);
-    cal.clear(Calendar.MINUTE);
-    cal.clear(Calendar.SECOND);
-    cal.clear(Calendar.MILLISECOND);
-    return cal.getTime();
-  }
-
-  private Date addDays(Date date, int days) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(date);
-    cal.add(Calendar.DATE, days);
-    return cal.getTime();
-  }
-
-  private Date addHours(Date date, int hours) {
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(date);
-    cal.add(Calendar.HOUR, hours);
-    return cal.getTime();
-  }
-  */
 }

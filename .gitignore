@@ -20,3 +20,4 @@ log/
 .stylelintcache
 config.properties
 src/main/resources/config.properties
+!/src/main/resources/mail.css
