@@ -12,6 +12,7 @@ import peddle.dto.TransferDtoRs;
 import peddle.dto.TransferDtoRq;
 import peddle.services.TransferServiceImpl;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
 
@@ -23,8 +24,7 @@ public class TransferController {
   private TransferServiceImpl transferService;
 
   @PostMapping(path = "")
-  @ResponseBody
-  public List<TransferDtoRs> getTransferByCitiesAndDates(@RequestBody TransferDtoRq transferDtoRq) throws ParseException {
+  public List<TransferDtoRs> getTransferByCitiesAndDates(@Valid @RequestBody TransferDtoRq transferDtoRq) {
     List<TransferDtoRs> transfersDto = transferService.getTransferByCitiesAndDates(transferDtoRq);
     return transfersDto;
   }

@@ -24,6 +24,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   Long countByCategory(Category category);
 
+  Long countByCategoryAndDateIsAfter(Category category, Date dateStart);
+
   Optional<Event> findFirstByApiId(String apiId);
 
 }

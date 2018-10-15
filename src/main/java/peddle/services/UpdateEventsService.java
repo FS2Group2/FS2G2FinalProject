@@ -32,6 +32,7 @@ import peddle.repository.RoleRepository;
 import peddle.repository.TransferRepository;
 import peddle.repository.TransportTypeRepository;
 import peddle.repository.UserRepository;
+import peddle.utils.DateOperationUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -78,7 +79,7 @@ public class UpdateEventsService {
   @Autowired
   private RestTemplate restTemplate;
 
-  @Scheduled(cron = "0 */20 * * * *")
+  @Scheduled(cron = "0 */30 * * * *")
   public void updateSchedule() throws Exception {
     addEventsFromApi();
     System.out.println("Update DataBase Events");
@@ -188,7 +189,7 @@ public class UpdateEventsService {
       if (!eventRepository.findFirstByApiId(eventDto.getApiId()).isPresent()) {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
-        Date eventDate = getCurrentDate();
+        Date eventDate = DateOperationUtils.getCurrentDate();
         try {
           eventDate = dateFormat.parse(eventDto.getDate());
         } catch (ParseException e) {
@@ -287,29 +288,29 @@ public class UpdateEventsService {
     cityRepository.findAll().forEach(city -> {
       if (!city.getId().equals(eventCity.getId())) {
         int numberOfTranspotr = (int) (eventCity.getId() * 100 + city.getId() * 10);
-        Date currentDate = addDays(eventDate, (-1) * days_shedule);
+        Date currentDate = DateOperationUtils.addDays(eventDate, (-1) * days_shedule);
         for (int i = 0; i < (days_shedule * 2); i++) {
           int hours = (int) (Math.random() * 23);
           int duration = (int) (Math.random() * 12);
 
           transferRepository.save(new Transfer(transportType,
               ++numberOfTranspotr, 210, 0L,
-              addHours(currentDate, hours), duration,
+              DateOperationUtils.addHours(currentDate, hours), duration,
               city, eventCity));
 
           hours = (int) (Math.random() * 23);
           transferRepository.save(new Transfer(transportType,
               ++numberOfTranspotr, 168, 0L,
-              addHours(currentDate, hours + duration), duration,
+              DateOperationUtils.addHours(currentDate, hours + duration), duration,
               eventCity, city));
 
-          currentDate = addDays(currentDate, 1);
+          currentDate = DateOperationUtils.addDays(currentDate, 1);
         }
       }
     });
     System.out.println("Added Transfer from city - " + eventCity.getName());
   }
-
+  /*
   private Date getCurrentDate() {
     Calendar cal = new GregorianCalendar();
     cal.clear(Calendar.HOUR_OF_DAY);
@@ -332,4 +333,5 @@ public class UpdateEventsService {
     cal.add(Calendar.HOUR, hours);
     return cal.getTime();
   }
+  */
 }
