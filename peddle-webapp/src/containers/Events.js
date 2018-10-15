@@ -70,7 +70,7 @@ class Events extends Component {
     } else if (isFetchSuccess) {
       return (
         <div className='page-content'>
-          <h2 className='events-header'>upcoming events in Ukraine</h2>
+          <h2 className='events-header'>Upcoming events</h2>
           <div className='events-page'>
             <div className='filters-container'>
               <EventFilters filterStyle={''}/>

@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .event-item {
   display: inline-block;
   position: relative;
@@ -5,18 +7,19 @@
   margin: 4px;
   padding-bottom: 6px;
   transition: all .3s;
-  border: 2px solid #f0f2f7;
+  border: 1px solid $md-color-green-300;
   border-radius: 6px;
 }
 
 .event-item:hover {
-  box-shadow: 2px 3px 15px rgba(0, 0, 0, .5);
+  box-shadow: $md-shadow3;
 }
 
 .event-item-img-container {
   width: 100%;
   height: 230px;
   margin-bottom: 5px;
+  border-radius: 4px 4px 0 0;
   overflow: hidden;
 }
 
@@ -44,21 +47,21 @@
   right: 0;
   bottom: 15px;
   padding: 6px 6px 6px 15px;
-  color: #790202;
+  color: $md-color-green-900;
   font-size: 20px;
   font-weight: 700;
 }
 
 .event-item-date {
   margin: 8px;
-  color: #737d9b;
+  color: $md-color-green-900;
   font-size: 12px;
   text-transform: uppercase;
 }
 
 .event-item-city {
   margin: 8px;
-  color: #5f0202;
+  color: $md-color-green-900;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;

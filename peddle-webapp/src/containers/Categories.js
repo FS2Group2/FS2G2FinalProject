@@ -6,10 +6,11 @@ import {connect} from "react-redux";
 import {setFilterCategory} from "../actions/filterActions";
 import EventFilters from "../components/EventFilters";
 import {eventImgPath} from "../constants/ApiSettings";
+import Preloader from "./Preloader";
 
 class Categories extends Component {
   render() {
-    const {categories, setFilterCategory, topEvents} = this.props;
+    const {categories, setFilterCategory, topEvents, isFetchPending} = this.props;
     setFilterCategory(0);
     return (
       <div className="categories-page">
@@ -31,6 +32,7 @@ class Categories extends Component {
 
         </div>
         }
+
         <h2 className={'categories-header'}>upcoming events in Ukraine</h2>
         <div>
           {/*==== HORIZONTAL FILTER ======*/}
@@ -38,12 +40,16 @@ class Categories extends Component {
             <EventFilters filterStyle={'-horizontal'}/>
           </div>
 
-          <div className='categories-container'>
-            <Link className='link-to-all-events' onClick={() => setFilterCategory(0)} to='/events'> See all
-              events </Link>
-            {categories.map(cat => <Link onClick={() => setFilterCategory(cat.id)} key={cat.id} className='link'
-                                         to={'/events'}><Category category={cat}/></Link>)}
-          </div>
+          {/*==== CATEGORIES LIST ======*/}
+          {(!categories[0] && isFetchPending) ? <Preloader/> :
+            <div className='categories-container'>
+              <Link className='link-to-all-events' onClick={() => setFilterCategory(0)} to='/events'> See all
+                events </Link>
+              {categories.map(cat => <Link onClick={() => setFilterCategory(cat.id)} key={cat.id} className='link'
+                                           to={'/events'}><Category category={cat}/></Link>)}
+            </div>
+          }
+
         </div>
 
       </div>
@@ -55,7 +61,8 @@ class Categories extends Component {
 const mapStateToProps = (state) => {
   return {
     categories: state.fillListsReducer.categories,
-    topEvents: state.fillListsReducer.topEvents
+    topEvents: state.fillListsReducer.topEvents,
+    isFetchPending: state.fetchDataReducer.isFetchPending
   }
 };
 

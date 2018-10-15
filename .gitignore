@@ -18,6 +18,4 @@ target/
 log/
 *.css
 .stylelintcache
-config.properties
-src/main/resources/config.properties
-!/src/main/resources/mail.css
+/src/main/resources/config.properties

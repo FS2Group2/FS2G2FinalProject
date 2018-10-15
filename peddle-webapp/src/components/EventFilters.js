@@ -71,7 +71,7 @@ class EventFilters extends Component {
             <Link to={'/events'}><input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='submit'
                                         value='Apply filter'/>
             </Link>
-            <input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='reset' value='Reset'
+            <input className={'btn'+filterStyle + ' filter-input'+filterStyle} type='button' formAction='reset' value='Reset'
                    onClick={() => filterReset()} onMouseUp={() => document.getElementById('filter-form').reset()}/>
           </div>
 

@@ -1,0 +1,227 @@
+//-- Material design colors ----------------------------------------------------
+// Black
+$md-color-black-500: #000;
+$md-color-black-900: #000;
+$md-color-black-50: #000;
+// Blue
+$md-color-blue-500: #2179cd;
+$md-color-blue-900: darken($md-color-blue-500, 10%); // #0c7cd5
+$md-color-blue-300: lighten($md-color-blue-500, 10%); // #51adf6
+$md-color-blue-50: lighten($md-color-blue-500, 35%); // #cae6fc
+$md-color-light-blue-500: #03a9f4;
+$md-color-light-blue-900: darken($md-color-light-blue-500, 10%); // #0286c2
+$md-color-light-blue-300: #4fc3f7;
+$md-color-light-blue-50: lighten($md-color-light-blue-500, 35%); // #ace4fe
+$md-color-blue-gray-500: #617e8b;
+$md-color-blue-gray-800: #37474f;
+$md-color-blue-gray-300: lighten($md-color-blue-gray-500, 5%); // #6d8b99
+$md-color-blue-gray-50: lighten($md-color-blue-gray-500, 35%); // #c7d2d8
+$md-color-blue-gray-900: #455a64;
+
+$md-color-light-blue: #ebf2fe;
+$md-color-blue-alt: #1266f1;
+// Cyan
+$md-color-cyan-500: #1bacc0;
+$md-color-cyan-900: darken($md-color-cyan-500, 10%); // #158493
+$md-color-cyan-300: #4dd0e1;
+$md-color-cyan-50: lighten($md-color-cyan-500, 50%); // #dff7fb
+// Gray
+$md-color-darker-gray: #424242;
+$md-color-dark-gray: #363636;
+$md-color-medium-gray-alt: #717171;
+$md-color-medium-gray: #888;
+$md-color-light-gray: #ccc;
+$md-color-gray-out: #b3b3b3;
+$md-color-gray-hover: #efefef;
+// Green
+$md-color-green-500: #50ae55;
+$md-color-green-900: darken($md-color-green-500, 15%); // #439247
+$md-color-green-50: lighten($md-color-green-500, 45%); // #edf7ed
+$md-color-green-300: lighten($md-color-green-500, 15%); // #61b666
+// Indigo
+$md-color-indigo-500: #3f51b5;
+$md-color-indigo-900: darken($md-color-indigo-500, 15%); // #2b387c
+$md-color-indigo-50: lighten($md-color-indigo-500, 25%); // #98a2db
+$md-color-indigo-300: lighten($md-color-indigo-500, 5%); // #4d5ec1
+// Lime
+$md-color-lime-500: #d4e157;
+$md-color-lime-900: darken($md-color-lime-500, 15%); // #b8c824
+$md-color-lime-50: lighten($md-color-lime-500, 25%); // #f0f4c3
+// Orange
+$md-color-orange-500: #f4b400;
+$md-color-orange-900: darken($md-color-orange-500, 8%); // #cb9600
+$md-color-orange-50: lighten($md-color-orange-500, 35%); // #ffe8a8
+$md-color-deep-orange-500: #ff5722;
+$md-color-deep-orange-900: darken($md-color-deep-orange-500, 8%); // #f83c00
+$md-color-deep-orange-50: lighten($md-color-deep-orange-500, 35%); // #ffdfd4
+// Purple
+$md-color-purple-500: #7e5bbf;
+$md-color-purple-900: darken($md-color-purple-500, 10%); // #6441a6
+$md-color-purple-300: lighten($md-color-purple-500, 5%); // #8c6dc6
+$md-color-purple-50: lighten($md-color-purple-500, 35%); // #e3dbf1
+// Red
+$md-color-red-500: #db4437;
+$md-color-red-900: darken($md-color-red-500, 10%); // #bd2e22
+$md-color-red-300: lighten($md-color-red-500, 10%); // #e36c62
+$md-color-red-50: lighten($md-color-red-500, 35%); // #f6d1ce
+// Slate
+$md-color-slate-500: #455a64;
+$md-color-slate-900: darken($md-color-slate-500, 10%); // #303f46
+$md-color-slate-300: darken($md-color-slate-500, 10%); // #303f46
+$md-color-slate-50: lighten($md-color-slate-500, 45%); // #bdcbd1
+// Slate Green
+$md-color-slate-green-500: #009688;
+$md-color-slate-green-900: darken($md-color-slate-green-500, 10%); // #00635a
+$md-color-slate-green-300: lighten($md-color-slate-green-500, 5%); // #00b09f
+$md-color-slate-green-50: lighten($md-color-slate-green-500, 50%); // #96fff5
+// Teal
+$md-color-teal-500: #009688;
+$md-color-teal-900: darken($md-color-teal-500, 10%); // #00635a
+$md-color-teal-300: #4db6ac;
+$md-color-teal-50: lighten($md-color-teal-500, 35%); // #49ffee
+// Yellow
+$md-color-yellow-500: #fdd835;
+$md-color-yellow-900: darken($md-color-yellow-500, 10%); // #fdce02
+$md-color-yellow-50: lighten($md-color-yellow-500, 35%); // #fffae6
+
+// White
+$md-color-white: #fff;
+$md-color-white-alt: #f9f9f9;
+
+//-- Contextual ----------------------------------------------------------------
+
+$md-color-background: #f2f2f2;
+$md-color-border: #e9e9e9;
+$md-table-header-hover: $md-color-gray-hover;
+
+$md-color-highlight-hover: #f7faff;
+
+// People
+$md-people: $md-color-blue-500;
+$md-people-selected: $md-color-blue-300;
+
+// Companies
+$md-company: $md-color-cyan-500;
+$md-company-selected: $md-color-cyan-300;
+
+// Opportunities
+$md-opportunity: $md-color-green-500;
+$md-opportunity-selected: $md-color-green-300;
+
+// Leads
+$md-lead: $md-color-teal-500;
+$md-lead-selected: $md-color-teal-300;
+
+// Tasks
+$md-task: $md-color-blue-gray-500;
+$md-task-selected: $md-color-blue-gray-300;
+
+// Projects
+$md-project: $md-color-purple-500;
+$md-project-selected: $md-color-purple-300;
+
+$pw-color-border-alt: #bbb;
+$pw-color-border-alt: #d8dadb;
+$pw-color-primary-button: $md-color-blue-500;
+$pw-color-primary-button-border: $md-color-blue-900;
+$pw-color-link: $md-color-blue-500;
+$pw-color-global-background: #f2f2f2;
+$pw-color-lightbox-background: #f2f2f2;
+$pw-color-focus: $md-color-blue-500;
+$opp-drag-color: #e1f5fe;
+$opp-hover-color: rgba(66, 133, 244, .04);
+
+// Shadows
+$md-shadow1: 0 1px 1.5px 0 rgba(0, 0, 0, .12);
+$md-shadow2: 2px 3px 5px 0 rgba(0, 0, 0, .4), 0 1px 6px rgba(0, 0, 0, .12);
+$md-shadow3: 3px 5px 7px 0 rgba(0, 0, 0, .2), 0 1px 6px rgba(0, 0, 0, .12);
+$md-shadow4: 0 14px 14px 0 rgba(0, 0, 0, .25), 0 1px 6px rgba(0, 0, 0, .12);
+$md-shadow5: 0 19px 19px 0 rgba(0, 0, 0, .3), 0 1px 6px rgba(0, 0, 0, .12);
+
+//-- Material design font constants ------
+//-- Font size ------
+
+$md-font-size-h1: 24px;
+$md-font-size-h2: 20px;
+$md-font-size-h3: 16px;
+$md-font-size-h4: 13px;
+$md-font-size-h5: 12px;
+$md-font-size-h6: 10px;
+
+//-- Line height ------
+
+$md-line-height-h1: 32px;
+$md-line-height-h2: 28px;
+$md-line-height-h3: 24px;
+$md-line-height-h4: 24px;
+$md-line-height-h5: 20px;
+$md-line-height-h6: 20px;
+
+//-- Font weight ------
+$md-font-weight-light: 100;
+$md-font-weight-regular: 400;
+$md-font-weight-medium: 500;
+$md-font-weight-bold: 700;
+
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: $md-color-dark-gray;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+a {
+  color: $md-color-blue-500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+//p {
+//  color: $md-color-red-900;
+//}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: $md-font-weight-regular;
+}
+
+h1 {
+  font-size: $md-font-size-h1;
+  line-height: $md-line-height-h1;
+}
+
+h2 {
+  font-size: $md-font-size-h2;
+  line-height: $md-line-height-h2;
+}
+
+h3 {
+  font-size: $md-font-size-h3;
+  line-height: $md-line-height-h3;
+}
+
+h4 {
+  font-size: $md-font-size-h4;
+  line-height: $md-line-height-h4;
+}
+
+h5 {
+  font-size: $md-font-size-h5;
+  line-height: $md-line-height-h5;
+}
+
+h6 {
+  font-size: $md-font-size-h6;
+  line-height: $md-line-height-h6;
+}

@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .message-container {
   display: inline-block;
   position: absolute;
@@ -6,16 +8,16 @@
   width: 300px;
   height: 200px;
   transition: all 2s;
+  border: 3px solid $md-color-green-500;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: $md-color-white;
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .52);
 }
 
 .message-p {
   margin-top: 75px;
   padding: 15px;
-  color: white;
-  font-family: 'Verdana', sans-serif;
+  color: $md-color-green-900;
   font-size: 20px;
   text-align: center;
 }
