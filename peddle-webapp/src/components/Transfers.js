@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {fetchDataFromApi} from "../actions/fetchDataActions";
 import {loadTransfersBackward, loadTransfersForward} from "../actions/transferActions";
 
 class Transfers extends Component {
@@ -11,67 +10,11 @@ class Transfers extends Component {
     return t;
   };
 
-  fetchTransfer() {
-    const {transferType, transferProps, loadTransfersForward, loadTransfersBackward} = this.props;
-    let cityFrom, cityTo, dateFrom, dateTo;
-    if (transferType === 'FORWARD') {
-      cityFrom = transferProps.cityTransferDepartToEvent;
-      cityTo = transferProps.eventCity;
-      dateFrom = transferProps.dateTransferToEvent1;
-      dateTo = transferProps.dateTransferToEvent2;
-    } else if (transferType === 'BACKWARD') {
-      cityFrom = transferProps.eventCity;
-      cityTo = transferProps.cityTransferArrivalFromEvent;
-      dateFrom = transferProps.dateTransferFromEvent1;
-      dateTo = transferProps.dateTransferFromEvent2;
-    }
-    const query = {
-      cityFrom: cityFrom,
-      cityTo: cityTo,
-      dateFrom: dateFrom,
-      dateTo: dateTo
-    };
-
-    if(cityFrom && cityTo && dateFrom && dateTo){
-    (transferType === 'FORWARD') ? loadTransfersForward(query) : loadTransfersBackward(query)}
-  }
-
-  componentDidMount() {
-    this.fetchTransfer()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.transferProps.cityTransferDepartToEvent !== this.props.transferProps.cityTransferDepartToEvent ||
-      prevProps.transferProps.cityTransferArrivalFromEvent !== this.props.transferProps.cityTransferArrivalFromEvent ||
-      prevProps.loggedUser.currentUser.cityName !== this.props.loggedUser.currentUser.cityName ||
-      prevProps.transferProps.eventCity !== this.props.transferProps.eventCity ||
-      prevProps.transferProps.dateTransferToEvent1 !== this.props.transferProps.dateTransferToEvent1 ||
-      prevProps.transferProps.dateTransferFromEvent1 !== this.props.transferProps.dateTransferFromEvent1
-    ) {
-      this.fetchTransfer()
-    }
-
-  }
-
-
   render() {
-    const {addTransfer, transferProps, transferType} = this.props;
-    let transfers = [];
-
-    let cityFrom, cityTo;
-    if (transferType === 'FORWARD') {
-      cityFrom = transferProps.cityTransferDepartToEvent;
-      cityTo = transferProps.eventCity;
-      transfers = transferProps.transfersForward;
-    } else if (transferType === 'BACKWARD') {
-      cityFrom = transferProps.eventCity;
-      cityTo = transferProps.cityTransferArrivalFromEvent;
-      transfers = transferProps.transfersBackward;
-    }
+    const {addTransfer, cityFrom, cityTo, transfers} = this.props;
 
     return (
       <div>
-        {/*<input type="button" onClick={() => this.fetchTransfers()} value={'Find transfers'}/>*/}
         <p className='container-header-p'>Transfer from {cityFrom} to {cityTo}</p>
         {transfers[0] && transfers.map(t =>
           <div key={t.id} className='transfer-item'>

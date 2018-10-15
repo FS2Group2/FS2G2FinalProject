@@ -1,6 +1,6 @@
 import {
   LOAD_TRANSFERS_BACKWARD,
-  LOAD_TRANSFERS_FORWARD,
+  LOAD_TRANSFERS_FORWARD, RESET_DAYS_DELTA,
   SET_CITY_FOR_TRANSFER_FROM_EVENT,
   SET_CITY_FOR_TRANSFER_TO_EVENT,
   SET_DATE_TRANSFER_FROM_EVENT,
@@ -61,6 +61,10 @@ export function setDaysAfterEventInc() {
 
 export function setDaysAfterEventDec() {
   return {type: SET_DAYS_AFTER_EVENT_DEC}
+}
+
+export function resetDaysDelta() {
+  return{type: RESET_DAYS_DELTA}
 }
 
 export function setTransfersForwardPending(isTransfersForwardPending) {

@@ -1,6 +1,6 @@
 import {
   LOAD_TRANSFERS_BACKWARD,
-  LOAD_TRANSFERS_FORWARD,
+  LOAD_TRANSFERS_FORWARD, RESET_DAYS_DELTA,
   SET_CITY_FOR_TRANSFER_FROM_EVENT,
   SET_CITY_FOR_TRANSFER_TO_EVENT,
   SET_DATE_TRANSFER_FROM_EVENT,
@@ -58,6 +58,8 @@ function transferReducer(state = initialState, action) {
       return {...state, dateTransferToEvent1: action.date1, dateTransferToEvent2: action.date2};
     case SET_DATE_TRANSFER_FROM_EVENT:
       return {...state, dateTransferFromEvent1: action.date1, dateTransferFromEvent2: action.date2};
+    case RESET_DAYS_DELTA:
+      return{...state, daysAfterEvent: 0, daysBeforeEvent: 0};
     case LOAD_TRANSFERS_FORWARD:
       return {...state, transfersForward: action.payload};
     case LOAD_TRANSFERS_BACKWARD:
