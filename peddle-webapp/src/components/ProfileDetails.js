@@ -4,6 +4,8 @@ import '../css/profile.css'
 import {connect} from "react-redux";
 import {setUpdateProfileError, updateProfile} from "../actions/userActions";
 import Preloader from "../containers/Preloader";
+import {userData} from "../constants/queryTypes";
+import {fetchDataFromApi} from "../actions/fetchDataActions";
 
 
 class ProfileDetails extends Component {
@@ -18,7 +20,9 @@ class ProfileDetails extends Component {
       profilePhoto: this.props.user.profilePhoto,
       profileCityLiving: this.props.user.profileCityLiving,
       firstName: this.props.user.firstName,
-      lastName: this.props.user.lastName
+      lastName: this.props.user.lastName,
+      loadPhotoPending: false,
+      loadPhotoSuccess: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -64,18 +68,28 @@ class ProfileDetails extends Component {
     let ulr = dataMap.userPhoto;
     let headers = {
       'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
-      // 'Accept': 'application/json',
-      // 'Content-Type': 'multipart/form-data'
     };
     let reqParam = {
       method: 'post',
       headers: headers,
       body: form
     };
+    let responseStatus = false;
+    this.setState({loadPhotoPending: true, loadPhotoSuccess: false});
+
     fetch(ulr, reqParam)
+      .then(response => {
+        this.setState({loadPhotoPending: false});
+        responseStatus = response.ok;
+        return response;
+      })
       .then(response => response.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => console.log('Success:', response));
+      .then(json => {
+        if (responseStatus) {
+          this.setState({loadPhotoSuccess: true, profilePhoto: json.message});
+          this.props.fetchDataFromApi(userData, {name: this.props.user.name});
+        }
+      })
   };
 
   componentWillReceiveProps(nextProps) {
@@ -93,10 +107,11 @@ class ProfileDetails extends Component {
     const editMode = this.state.editMode;
     return (
       <div className='profile'>
+        {this.state.loadPhotoPending && <Preloader/>}
         <div className='profile-detail'>
           <div className="user-photo-section">
             <div className="user-photo-container">
-              {profilePhoto ? <img className='user-photo' src={profilePhoto} alt="ProfileAvatar"/>:
+              {profilePhoto ? <img className='user-photo' src={profilePhoto} alt="ProfileAvatar"/> :
                 <img className='user-photo' src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
                      alt="ProfileAvatar"/>}
             </div>
@@ -185,7 +200,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserProfile: (profileData) => dispatch(updateProfile(profileData)),
-    setUpdateProfileError: (error) => dispatch(setUpdateProfileError(error))
+    setUpdateProfileError: (error) => dispatch(setUpdateProfileError(error)),
+    fetchDataFromApi: (queryType, query) => {
+      dispatch(fetchDataFromApi(queryType, query))
+    }
   }
 };
 

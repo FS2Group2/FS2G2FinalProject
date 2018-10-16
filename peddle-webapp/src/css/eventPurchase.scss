@@ -253,10 +253,13 @@
 
 .transfer-date {
   width: 80px;
+  color: $md-color-red-900;
   text-align: center;
 }
 
 .select-transfer-days {
+  display: flex;
+  align-items: center;
   min-width: 400px;
 }
 

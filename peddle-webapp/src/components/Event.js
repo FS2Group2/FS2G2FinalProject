@@ -25,7 +25,10 @@ class Event extends Component {
     let inWishes = wishlist.some(w => w.id === e.id);
 
     let eventDate = new Date(e.date);
-    let imgPath = eventImgPath + e.eventExtraPhoto;
+    let imgPath =  ~e.eventExtraPhoto.indexOf('http') ? (e.eventExtraPhoto) : (eventImgPath +e.eventExtraPhoto);
+    // let imgPath = eventImgPath + e.eventExtraPhoto;
+
+
     // let iconCatPath = `${categoryIconPath + e.categoryName.replace(/ /g, '_').toLowerCase()}.svg`;
     let iconCatPath = categoryIconPath + e.categoryIcon;
 

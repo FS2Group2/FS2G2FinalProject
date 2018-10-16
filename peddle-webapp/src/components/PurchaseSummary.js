@@ -72,6 +72,8 @@ class PurchaseSummary extends Component {
     const accommodation = this.props.cart.purchasedAccommodation;
     const transferTo = this.props.cart.purchasedTransferTo;
     const transferFrom = this.props.cart.purchasedTransferFrom;
+    let imgPath = event.eventExtraPhoto && (~event.eventExtraPhoto.indexOf('http') ?
+      (event.eventExtraPhoto) : (eventImgPath + event.eventExtraPhoto));
     return (
       <Fragment>
         {(event.name || accommodation.name || transferFrom.number || transferFrom.number) ?
@@ -86,7 +88,7 @@ class PurchaseSummary extends Component {
                   <div className="purchased-event">
                     <div className= "purchased-event-photo">
                       <button className="btn-item-remove" onClick={()=>this.props.addEventToCart({})}></button>
-                      <img src={eventImgPath + event.eventExtraPhoto} alt="" className="element-name-img"/>
+                      <img src={imgPath} alt="" className="element-name-img"/>
                     </div>
                     <div className='purchased-event-name '>
                       <h3 className="purchased-event-header">{event.name}</h3>
