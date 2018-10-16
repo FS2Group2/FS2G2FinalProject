@@ -19,3 +19,4 @@ log/
 *.css
 .stylelintcache
 /src/main/resources/config.properties
+/src/main/resources/amazon.properties
