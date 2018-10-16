@@ -12,6 +12,9 @@ class Categories extends Component {
   render() {
     const {categories, setFilterCategory, topEvents, isFetchPending} = this.props;
     setFilterCategory(0);
+    const imgPath = event => event.eventExtraPhoto && (~event.eventExtraPhoto.indexOf('http') ?
+      (event.eventExtraPhoto) : (eventImgPath + event.eventExtraPhoto));
+
     return (
       <div className="categories-page">
 
@@ -24,7 +27,7 @@ class Categories extends Component {
             {topEvents.map((event) =>
               <Link to={'/event/' + event.id} title={event.name} className={'link-to-top-event'}>
                 <div className="event-thumbnail-container">
-                  <img src={eventImgPath + event.eventExtraPhoto} className={'event-thumbnail'} alt=""/>
+                  <img src={imgPath(event)} className={'event-thumbnail'} alt=""/>
                 </div>
               </Link>
             )}

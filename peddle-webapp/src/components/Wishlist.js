@@ -19,6 +19,9 @@ class Wishlist extends Component {
 
   render() {
     const {wishListState} = this.props;
+    const imgPath = event => event.eventExtraPhoto && (~event.eventExtraPhoto.indexOf('http') ?
+      (event.eventExtraPhoto) : (eventImgPath + event.eventExtraPhoto));
+
     return (
       <div className="wishlist-list">
         <div className="wishlist-list-titles ">
@@ -41,7 +44,7 @@ class Wishlist extends Component {
             <div className="element-name">
               <button className="btn-item-remove" onClick={()=>this.removeEventFromWishList(w.id)}> </button>
               <Link to={'event/' + w.id}>
-                <img src={eventImgPath + w.eventExtraPhoto} alt="" className="element-name-img"/>
+                <img src={imgPath(w)} alt="" className="element-name-img"/>
               </Link>
               <Link className='element-name-link' to={'event/' + w.id}>
                 <span>{w.name}</span></Link>

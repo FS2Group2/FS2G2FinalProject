@@ -255,7 +255,8 @@ class EventPurchasePage extends Component {
                           setDaysBeforeEventInc()
                         }}> -
                 </button>
-                <p className="transfer-input-label transfer-date">{transferProps.dateTransferToEvent1}</p>
+                <p className="transfer-input-label transfer-date">
+                  {transferProps.dateTransferToEvent1 + ' to '+ transferProps.dateTransferToEvent2}</p>
                 <button className="btn-days-inc" onClick={() => {
                   if (transferProps.daysBeforeEvent) setDaysBeforeEventDec()
                 }} disabled={!transferProps.daysBeforeEvent}> +
@@ -293,7 +294,8 @@ class EventPurchasePage extends Component {
                           if (transferProps.daysAfterEvent) setDaysAfterEventDec()
                         }} disabled={!transferProps.daysAfterEvent}> -
                 </button>
-                <p className="transfer-input-label transfer-date">{transferProps.dateTransferFromEvent1}</p>
+                <p className="transfer-input-label transfer-date">
+                  {transferProps.dateTransferFromEvent1 + ' to '+ transferProps.dateTransferFromEvent2}</p>
                 <button className="btn-days-inc" onClick={setDaysAfterEventInc}> +
                 </button>
               </div>
