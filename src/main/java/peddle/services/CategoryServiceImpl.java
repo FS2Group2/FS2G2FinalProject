@@ -11,8 +11,10 @@ import peddle.entities.Category;
 import peddle.entities.Event;
 import peddle.repository.CategoryRepository;
 import peddle.repository.EventRepository;
+import peddle.utils.DateOperationUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,13 +33,28 @@ public class CategoryServiceImpl implements CategoryService {
   public List<CategoryDto> getAll() {
     List<CategoryDto> categoryDtos = new ArrayList<>();
     categoryRepository.findAll().forEach(category -> {
-      //int countEvent = eventRepository.findEventByCategory(category).size();
       Long countEvent = eventRepository.countByCategory(category);
       CategoryDto categoryDto = modelMapper.map(category, CategoryDto.class);
       categoryDto.setCount(countEvent);
       categoryDtos.add(categoryDto);
     });
     return categoryDtos;
+  }
+
+  @Override
+  public List<CategoryDto> getAllFromCurrentDate() {
+    List<CategoryDto> categoriesDto = new ArrayList<>();
+    Date currentDate = DateOperationUtils.getCurrentDate();
+    currentDate = DateOperationUtils.addDays(currentDate, -1);
+    //System.out.println("Current Date - " + currentDate);
+    Date finalCurrentDate = currentDate;
+    categoryRepository.findAll().forEach(category -> {
+      Long countEvent = eventRepository.countByCategoryAndDateIsAfter(category, finalCurrentDate);
+      CategoryDto categoryDto = modelMapper.map(category, CategoryDto.class);
+      categoryDto.setCount(countEvent);
+      categoriesDto.add(categoryDto);
+    });
+    return categoriesDto;
   }
 
 }

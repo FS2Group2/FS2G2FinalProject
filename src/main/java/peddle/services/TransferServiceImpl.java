@@ -9,8 +9,11 @@ import peddle.dto.TransferDtoRs;
 import peddle.dto.TransferDtoRq;
 import peddle.entities.Transfer;
 import peddle.repository.TransferRepository;
+import peddle.utils.DateOperationUtils;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,10 +28,13 @@ public class TransferServiceImpl implements TransferService {
 
   @Override
   public List<TransferDtoRs> getAll() {
-    List<TransferDtoRs> transfersDto = transferRepository
-            .findAll().stream()
-            .map(transfer -> modelMapper.map(transfer, TransferDtoRs.class))
-            .collect(Collectors.toList());
+    List<Transfer> transfers = transferRepository.findAll();
+
+    List<TransferDtoRs> transfersDto = new ArrayList<>();
+    transfers.forEach(transfer -> {
+      transfersDto.add(modelMapper.map(transfer, TransferDtoRs.class));
+    });
+
     return transfersDto;
   }
 
@@ -38,9 +44,10 @@ public class TransferServiceImpl implements TransferService {
             transferDtoRq.getCityFrom(),
             transferDtoRq.getCityTo());
 
-    List<TransferDtoRs> transfersDto = transfers.stream()
-            .map(transfer -> modelMapper.map(transfer, TransferDtoRs.class))
-            .collect(Collectors.toList());
+    List<TransferDtoRs> transfersDto = new ArrayList<>();
+    transfers.forEach(transfer -> {
+      transfersDto.add(modelMapper.map(transfer, TransferDtoRs.class));
+    });
 
     return transfersDto;
   }
@@ -49,18 +56,26 @@ public class TransferServiceImpl implements TransferService {
   public List<TransferDtoRs> getTransferByCitiesAndDates(TransferDtoRq transferDtoRq) {
     List<Transfer> transfers;
     try {
+      Date dateFrom = transferDtoRq.getDateFromConverted();
+      Date dateTo = DateOperationUtils.addDays(transferDtoRq.getDateToConverted(), 1);
+
+      System.out.printf("\n from %s to %s", transferDtoRq.getCityFrom(), transferDtoRq.getCityTo());
+      System.out.printf("\n Date from(%s): %td-%<tm-%<tY, to(%s): %td-%<tm-%<tY\n", transferDtoRq.getDateFrom(), dateFrom,
+          transferDtoRq.getDateTo(), dateTo);
+
       transfers = transferRepository.findByFromCity_NameAndToCity_NameAndDepartTimeBetween(
               transferDtoRq.getCityFrom(),
               transferDtoRq.getCityTo(),
-              transferDtoRq.getDateFromConverted(),
-              transferDtoRq.getDateToConverted());
+              dateFrom, dateTo);
     } catch (ParseException e) {
       throw new BadRequestException(ErrorConstants.ERR_DATA_DOES_NOT_EXIST);
     }
 
-    List<TransferDtoRs> transfersDto = transfers.stream()
-            .map(transfer -> modelMapper.map(transfer, TransferDtoRs.class))
-            .collect(Collectors.toList());
+    List<TransferDtoRs> transfersDto = new ArrayList<>();
+    transfers.forEach(transfer -> {
+      transfersDto.add(modelMapper.map(transfer, TransferDtoRs.class));
+    });
+
     return transfersDto;
   }
 }
