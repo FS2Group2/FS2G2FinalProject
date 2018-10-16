@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 public class TransferDtoRq {
-  private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
   private String cityFrom;
   private String cityTo;
@@ -29,5 +29,13 @@ public class TransferDtoRq {
 
   public String getCityTo() {
     return cityTo;
+  }
+
+  public String getDateFrom() {
+    return dateFrom;
+  }
+
+  public String getDateTo() {
+    return dateTo;
   }
 }

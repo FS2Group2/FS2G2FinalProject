@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import peddle.dto.CategoryDto;
 import peddle.services.CategoryService;
+import peddle.utils.DateOperationUtils;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,7 +21,8 @@ public class CategoryController {
 
   @GetMapping("/categories/all")
   public List<CategoryDto> getAllCategories() {
-    List<CategoryDto> categoryDtos = categoryService.getAll();
+    //List<CategoryDto> categoryDtos = categoryService.getAll();
+    List<CategoryDto> categoryDtos = categoryService.getAllFromCurrentDate();
     return categoryDtos;
   }
 
