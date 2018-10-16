@@ -14,7 +14,7 @@ class Transfers extends Component {
     const {addTransfer, cityFrom, cityTo, transfers} = this.props;
 
     return (
-      <div>
+      <div className='transfers'>
         <p className='container-header-p'>Transfer from {cityFrom} to {cityTo}</p>
         {transfers[0] && transfers.map(t =>
           <div key={t.id} className='transfer-item'>
