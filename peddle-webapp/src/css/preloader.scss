@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .preloader {
   display: inline-block;
   position: absolute;
@@ -7,7 +9,7 @@
   height: 300px;
   border: transparent;
   border-radius: 50px;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: $md-color-green-500;
   letter-spacing: 5px;
   text-align: center;
   box-shadow: 0 0 30px 1px #fff inset;
@@ -17,6 +19,28 @@
   width: 66px;
   height: 12px;
   margin: 130px auto 0;
+  letter-spacing: 5px;
+}
+
+.preloader-min {
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 40px);
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 80px;
+  border: transparent;
+  border-radius: 20px;
+  background-color: $md-color-green-500;
+  letter-spacing: 5px;
+  text-align: center;
+  box-shadow: 0 0 30px 1px #fff inset;
+}
+
+.preloader-min-1 {
+  width: 66px;
+  height: 12px;
+  margin: 20px auto 0;
   letter-spacing: 5px;
 }
 
@@ -31,6 +55,16 @@
 }
 
 .preloader-1 .line {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  margin: 0 3px;
+  background: #fff;
+  letter-spacing: 5px;
+  animation: opacity-1 1000ms infinite ease-in-out;
+}
+
+.preloader-min-1 .line {
   display: inline-block;
   width: 1px;
   height: 20px;
@@ -69,6 +103,38 @@
 }
 
 .preloader-1 .line-9 {
+  animation-delay: 800ms;
+}
+
+.preloader-min-1 .line-1 {
+  animation-delay: 800ms;
+}
+
+.preloader-min-1 .line-2 {
+  animation-delay: 600ms;
+}
+
+.preloader-min-1 .line-3 {
+  animation-delay: 400ms;
+}
+
+.preloader-min-1 .line-4 {
+  animation-delay: 200ms;
+}
+
+.preloader-min-1 .line-6 {
+  animation-delay: 200ms;
+}
+
+.preloader-min-1 .line-7 {
+  animation-delay: 400ms;
+}
+
+.preloader-min-1 .line-8 {
+  animation-delay: 600ms;
+}
+
+.preloader-min-1 .line-9 {
   animation-delay: 800ms;
 }
 

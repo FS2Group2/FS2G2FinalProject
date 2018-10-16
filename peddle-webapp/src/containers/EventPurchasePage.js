@@ -29,6 +29,7 @@ import {
 } from "../actions/cartActions";
 import {loadAccommodations} from "../actions/accommodationActions";
 import Preloader from "./Preloader";
+import PreloaderMini from "./PreloaderMini";
 
 
 class EventPurchasePage extends Component {
@@ -225,7 +226,7 @@ class EventPurchasePage extends Component {
             </div>}
 
           {isLoadAccommodationPending ?
-            <Preloader/> :
+            <PreloaderMini/> :
             <div className='accommodation-container'>
               <Accommodations accommodations={accommodations} city={currentEventInfo.cityName}
                               addA={this.addAccommodationToBasket.bind(this)}/>
@@ -263,7 +264,7 @@ class EventPurchasePage extends Component {
               </div>
             </div>
 
-            {isTransfersForwardPending ? <Preloader/> :
+            {isTransfersForwardPending ? <PreloaderMini/> :
               <Transfers cityFrom={transferProps.cityTransferDepartToEvent}
                          cityTo={transferProps.eventCity}
                          transfers={transferProps.transfersForward}
@@ -299,7 +300,7 @@ class EventPurchasePage extends Component {
               </div>
             </div>
 
-            {isTransfersBackwardPending ? <Preloader/> :
+            {isTransfersBackwardPending ? <PreloaderMini/> :
               <Transfers cityFrom={transferProps.eventCity}
                          cityTo={transferProps.cityTransferArrivalFromEvent}
                          transfers={transferProps.transfersBackward}
