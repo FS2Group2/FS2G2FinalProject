@@ -84,9 +84,4 @@ public class UserServiceImpl implements UserService {
     return null;
   }
 
-//  @Override
-//  public UserDtoRs createUserAvatar(UserUpdateDtoRq userUpdateDtoRq) {
-//    return null;
-//  }
-
 }

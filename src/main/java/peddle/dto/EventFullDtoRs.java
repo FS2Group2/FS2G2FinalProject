@@ -1,13 +1,11 @@
 package peddle.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class EventFullDtoRs {
   private Long id;

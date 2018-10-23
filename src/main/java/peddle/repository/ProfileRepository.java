@@ -5,7 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 import peddle.entities.Profile;
 
 public interface ProfileRepository extends JpaRepository<Profile,Long> {
-
-//  Profile findByUserId(Long id);
-
 }

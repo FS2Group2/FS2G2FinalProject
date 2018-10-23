@@ -1,6 +1,8 @@
 package peddle.services;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peddle.configuration.BadRequestException;
@@ -25,6 +27,9 @@ public class TransferServiceImpl implements TransferService {
 
   @Autowired
   private ModelMapper modelMapper;
+
+  private static final Logger logger = LoggerFactory.getLogger(TransferServiceImpl.class);
+
 
   @Override
   public List<TransferDtoRs> getAll() {
@@ -59,9 +64,11 @@ public class TransferServiceImpl implements TransferService {
       Date dateFrom = transferDtoRq.getDateFromConverted();
       Date dateTo = DateOperationUtils.addDays(transferDtoRq.getDateToConverted(), 1);
 
-      System.out.printf("\n from %s to %s", transferDtoRq.getCityFrom(), transferDtoRq.getCityTo());
-      System.out.printf("\n Date from(%s): %td-%<tm-%<tY, to(%s): %td-%<tm-%<tY\n", transferDtoRq.getDateFrom(), dateFrom,
-          transferDtoRq.getDateTo(), dateTo);
+      String logStr = String.format("\n from %s to %s", transferDtoRq.getCityFrom(), transferDtoRq.getCityTo());
+      logger.info(logStr);
+      logStr = String.format("\n Date from(%s): %td-%<tm-%<tY, to(%s): %td-%<tm-%<tY\n",
+          transferDtoRq.getDateFrom(), dateFrom, transferDtoRq.getDateTo(), dateTo);
+      logger.info(logStr);
 
       transfers = transferRepository.findByFromCity_NameAndToCity_NameAndDepartTimeBetween(
               transferDtoRq.getCityFrom(),
