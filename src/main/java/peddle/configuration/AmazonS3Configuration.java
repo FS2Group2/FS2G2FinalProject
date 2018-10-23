@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-@PropertySource("config.properties")
+@PropertySource("amazon.properties")
 @Component
 public class AmazonS3Configuration {
 
