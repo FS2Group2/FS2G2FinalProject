@@ -48,8 +48,8 @@ import java.util.stream.Collectors;
 
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
-@EnableScheduling
-@Service
+//@EnableScheduling
+//@Service
 public class UpdateEventsService {
 
   @Autowired
