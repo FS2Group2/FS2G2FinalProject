@@ -1,0 +1,23 @@
+{
+  "name": "eventtour",
+  "version": "1.0.0",
+  "description": "FS2 group Final Project Puddle",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FS2Group2/peddle.git"
+  },
+  "author": "FS2 Dan.IT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FS2Group2/peddle/issues"
+  },
+  "homepage": "https://github.com/FS2Group2/peddle#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-http-proxy": "^1.4.0"
+  }
+}
