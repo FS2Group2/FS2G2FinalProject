@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import peddle.apipojo.ApiDto;
 import peddle.apipojo.ClassificationsApi;
@@ -79,15 +80,16 @@ public class UpdateEventsService {
   @Autowired
   private RestTemplate restTemplate;
 
-  @Scheduled(cron = "0 */30 * * * *")
+  @Scheduled(cron = "0 */50 * * * *")
   public void updateSchedule() throws Exception {
     addEventsFromApi();
     System.out.println("Update DataBase Events");
   }
 
+  @Transactional
   public void addEventsFromApi() throws Exception {
     final int maxEventsCount = 10;
-    final int pageSize = 10;
+    final int pageSize = 20;
     int eventsCount = 0;
     int currentPage = 0;
     boolean hasNext = true;
