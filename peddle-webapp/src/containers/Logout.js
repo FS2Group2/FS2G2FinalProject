@@ -10,6 +10,7 @@ import {
   addTransferFromEventToCart,
   addTransferToEventToCart
 } from "../actions/cartActions";
+import {Link} from "react-router-dom";
 
 class Logout extends Component {
 
@@ -46,7 +47,11 @@ class Logout extends Component {
               {this.props.userState.currentUser.name}! Waiting for you again!</p> :
             <div>
               <p className="logout-msg">Are you sure you want to quit?</p>
-              <input type="button" className="login-btn" value={'Log out'} onClick={() => this.logout()}/>
+              <div className="button-group">
+                <Link  to={'/'}><button className="btn logout-btn">Cancel</button></Link>
+                <input type="button" className="btn logout-btn" value={'Log out'} onClick={() => this.logout()}/>
+              </div>
+
             </div>}
         </div>
       </div>

@@ -1,77 +1,31 @@
+@import "variables.scss";
+
 .register-box {
   width: 444px;
-  margin-top: 64px;
-  margin-bottom: 100px;
-  margin-left: 350px;
+  margin: 100px auto;
   padding: 10px;
+  border: solid 1px $md-color-green-300;
   border-radius: 20px;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .52);
+  background-color: $md-color-white;
+  box-shadow: $md-shadow4;
 }
 
 .register-box-header-left {
   margin-bottom: 10px;
   margin-left: 200px;
   color: white;
-  font-family: 'Verdana', sans-serif;
   font-size: 20px;
 }
 
-.register-input-box {
-  width: 284px;
-  height: 46px;
-  margin-bottom: 9px;
-  margin-left: 62px;
-  padding-right: 19px;
-  padding-left: 19px;
-  border: 1px solid #eaeaea;
-  border-radius: 3px;
-  background-color: rgba(220, 220, 220, .7);
-  color: #434343;
-  font-family: 'Verdana', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-  text-align: left;
-}
-
 :invalid {
-  color: #8b0c00;
-}
-
-::placeholder {
-  color: white;
-  font-family: 'Verdana', sans-serif;
-}
-
-.reg-btn {
-  display: block;
-  width: 322px;
-  height: 46px;
-  margin-top: 9px;
-  margin-bottom: 10px;
-  margin-left: 62px;
-  border-radius: 3px;
-  background-color: rgba(20, 30, 40, .5);
-  text-align: center;
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .8);
-}
-
-.reg-btn:focus {
-  outline: none;
-}
-
-.reg-btn:active {
-  outline: none;
-  background-color: rgba(20, 30, 40, .8);
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 1);
+  color: $md-color-red-500;
 }
 
 .register-login-span {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 200px;
-  color: #12075a;
+  color: $md-color-green-500;
   font-family: 'Verdana', sans-serif;
   font-size: 14px;
   text-align: left;
@@ -83,7 +37,6 @@
   margin-bottom: 10px;
   margin-left: 15px;
   color: white;
-  font-family: 'Verdana', sans-serif;
   font-size: 18px;
   text-align: left;
   text-decoration: none;
@@ -91,27 +44,25 @@
 
 .register-message {
   display: block;
-  width: 302px;
-  margin-top: 9px;
-  margin-bottom: 10px;
-  margin-left: 62px;
-  padding: 10px;
-  border-radius: 3px;
-  background-color: rgba(200, 230, 240, .3);
+  width: 294px;
+  margin: 10px auto;
+  padding: 15px;
+  //border: solid 1px $md-color-green-300;
+  border-radius: 5px;
+  background-color: $md-color-white;
+  color: $md-color-green-500;
   text-align: center;
-  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, .2);
+  //box-shadow: $md-shadow4;
   overflow: hidden;
 }
 
 .err-msg-p {
-  color: #8b0c00;
-  font-family: 'Roboto', sans-serif;
+  color: $md-color-red-500;
   text-align: center;
 }
 
 .success-msg-p {
-  color: #03038b;
-  font-family: 'Roboto', sans-serif;
+  color: $md-color-green-500;
   font-size: 14px;
   text-align: center;
 }

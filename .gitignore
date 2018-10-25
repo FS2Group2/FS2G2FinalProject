@@ -20,3 +20,4 @@ log/
 .stylelintcache
 /src/main/resources/config.properties
 /src/main/resources/amazon.properties
+/peddle-webapp/build/

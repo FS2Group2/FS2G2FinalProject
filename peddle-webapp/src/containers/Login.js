@@ -184,7 +184,7 @@ class Login extends Component {
               <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
             </div>
 
-            <input className="login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
+            <input className="btn login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
             {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
             <span className="register-login-span">Still not registered? >></span>
             <Link to="/register" className="login-reg-link">Register</Link>

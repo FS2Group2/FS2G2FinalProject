@@ -45,25 +45,25 @@ class MyPurchases extends Component {
       <div className="purchase-list">
         <div className="purchase-list-titles">
           <div className="element-title purchased-item-name">
-            <span>Name</span>
+            <h4 className='element-title-name'>Name</h4>
           </div>
           <div className="element-title purchased-item-city">
-            <span>City</span>
+            <h4>City</h4>
           </div>
           <div className="element-title purchased-item-date">
-            <span>Event date</span>
+            <h4>Event date</h4>
           </div>
           <div className="element-title purchased-item-accommodation">
-            <span>Accommodation</span>
+            <h4>Accommodation</h4>
           </div>
           <div className="element-title purchased-item-transfer-to">
-            <span>Transfer forward</span>
+            <h4>Transfer forward</h4>
           </div>
           <div className="element-title purchased-item-transfer-from">
-            <span>Transfer backward</span>
+            <h4>Transfer backward</h4>
           </div>
           <div className="element-title purchased-item-sum">
-            <span>total</span>
+            <h4>total</h4>
           </div>
         </div>
 
@@ -96,17 +96,17 @@ class MyPurchases extends Component {
 
             <div className="purchased-item-detail" id={p.id}>
               {p.accommodationName &&
-              <p>{'Hotel reserved: ' + p.accommodationName + ', ' + p.accommodationCityName + ' $' + p.accommodationPrice}</p>}
+              <p>{'Hotel reserved: ' + p.accommodationName + ', ' + p.accommodationCityName + '     $' + p.accommodationPrice}</p>}
 
               {p.transfertoTransporttypeName &&
               <p>{p.transfertoTransporttypeName + ' #' + p.transfertoNumber + ' from '
               + p.transfertoFromcityName + ' to ' + p.transfertoTocityName + ', depart. time ' +
-              new Date(p.transfertoDeparttime).toLocaleString() + ', $' + p.transferToPrice}</p>}
+              new Date(p.transfertoDeparttime).toLocaleString() + ',      $' + p.transferToPrice}</p>}
 
               {p.transferfromTransporttypeName &&
               <p>{p.transferfromTransporttypeName + ' #' + p.transferfromNumber + ' from '
               + p.transferfromFromcityName + ' to ' + p.transferfromTocityName + ', depart. time ' +
-              new Date(p.transferfromDeparttime).toLocaleString() + ', $' + p.transferfromPrice}</p>}
+              new Date(p.transferfromDeparttime).toLocaleString() + ',     $' + p.transferfromPrice}</p>}
 
             </div>
           </Fragment>

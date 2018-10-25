@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Register.css'
 import {fetchRegister, setRegisterError} from "../actions/userActions";
@@ -58,7 +58,7 @@ class RegisterPage extends Component {
     let {name, email, password1, password2} = this.state;
 
     return (
-      <Fragment>
+      <div className="page-content">
         {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
@@ -76,7 +76,7 @@ class RegisterPage extends Component {
                    value={password1} onChange={this.handleChange}/>
             <input className="login-input-box" type="password" name="password2" placeholder="Confirm Password"
                    value={password2} onChange={this.handleChange}/>
-            <input className="login-btn" type="button" value="Register"
+            <input className="btn login-btn" type="button" value="Register"
                    onClick={this.handleSubmit}/>
             {(regState.registerError ||
               this.state.errMsg) &&
@@ -88,7 +88,7 @@ class RegisterPage extends Component {
             <span className="register-login-span">Already registered? >></span>
             <Link to="/login" className="login-reg-link">Login</Link>
           </div>}
-      </Fragment>
+      </div>
 
     )
   }

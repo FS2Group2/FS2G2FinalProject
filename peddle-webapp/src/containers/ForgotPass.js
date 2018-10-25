@@ -74,7 +74,7 @@ class ForgotPass extends Component {
             <input className="login-input-box" type="email" name="email" id='email' placeholder="Email"
                    value={email} onChange={this.handleChange}/>
 
-            <input className="login-btn" type="button" value="Remind password"
+            <input className="btn login-btn" type="button" value="Remind password"
                    onClick={this.handleSubmit}/>
             {(regState.registerError || this.state.errMsg) &&
             <div className="register-message">

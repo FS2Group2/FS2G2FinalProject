@@ -106,9 +106,15 @@
 
 .filter-horizontal {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 18px;
+}
+
+.filter-block-horizontal {
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 .category-item {
