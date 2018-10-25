@@ -83,7 +83,7 @@ public class UpdateEventsService {
   private static final Logger logger = LoggerFactory.getLogger(UpdateEventsService.class);
 
 
-  @Scheduled(cron = "0 */50 * * * *")
+  @Scheduled(cron = "0 */45 * * * *")
   public void updateSchedule() throws Exception {
     addEventsFromApi();
     logger.info("Update DataBase Events");
