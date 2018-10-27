@@ -1,14 +1,21 @@
+@import "variables.scss";
+
 .wishlist-list {
-  margin: 0 10px;
+  margin: 10px;
+  border: solid 1px $md-color-green-300;
+  border-radius: 5px;
+  background-color: $md-color-green-50;
 }
 
 .wishlist-list-titles {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  min-height: 48px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: $md-color-green-500;
 }
 
 .wishlist-list-element {
@@ -19,6 +26,7 @@
   padding: 10px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, .6);
+  color: $md-color-green-500;
 }
 
 .element-name {
@@ -35,12 +43,12 @@
 
 .element-name-link {
   margin-left: 10px;
-  color: #15024b;
+  color: $md-color-green-900;
   text-decoration: none;
 }
 
 .element-name-link:hover {
-  color: #03038b;
+  text-shadow: 3px 3px 8px $md-color-green-900;
 }
 
 .element-city {
@@ -60,8 +68,12 @@
 
 .element-title {
   color: #fff;
-  font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  text-align: center;
+}
+
+.element-title-name {
+  margin-left: 80px;
 }
 
 .btn-item-remove {

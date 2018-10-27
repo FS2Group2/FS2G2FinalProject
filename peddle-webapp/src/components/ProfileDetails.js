@@ -123,7 +123,7 @@ class ProfileDetails extends Component {
                        onChange={this.fileSelectedHandler}/>
               </label>
               {this.state.selectedFile &&
-              <button className='btn-upload' onClick={this.fileUploadHandler}>Upload</button>
+              <button className='btn btn-upload' onClick={this.fileUploadHandler}>Upload</button>
               }
 
             </div>}
@@ -172,14 +172,14 @@ class ProfileDetails extends Component {
                 <input className="profile-input" type="text" name="profileInfo"
                        value={this.state.profileInfo} onChange={this.handleChange}/>
 
-                <button className="btn-save" onClick={this.handleSubmit}>Save to profile</button>
+                <button className="btn btn-save" onClick={this.handleSubmit}>Save to profile</button>
                 {profileUpdateError && <p className="err-message">{profileUpdateError.message}</p>}
               </form>
             </div>
           }
         </div>
 
-        {!editMode && <button className="btn-edit" onClick={() => this.setState({editMode: true})}
+        {!editMode && <button className="btn btn-edit" onClick={() => this.setState({editMode: true})}
                               disabled={this.state.editMode}> Edit
         </button>}
       </div>

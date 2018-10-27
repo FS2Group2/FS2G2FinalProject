@@ -42,7 +42,7 @@ class EventFilters extends Component {
             </Fragment>
           }
 
-          <div>
+          <div className={'filter-block' + filterStyle}>
             <p className={'filter-label' + filterStyle}>City:</p>
             <select id='sc' className={'filter-input'+filterStyle} name="cityFilter" value={filter.city}
                     onChange={() => setFilterCity(document.getElementById('sc').valueOf().value)}>
@@ -51,7 +51,7 @@ class EventFilters extends Component {
             </select>
           </div>
 
-          <div>
+          <div className={'filter-block' + filterStyle}>
             <p className={'filter-label' + filterStyle}>Date from:</p>
             <input className={'filter-input'+filterStyle} type="date" id='date-from'
                    defaultValue={dayToStr(filter.dateStart)}
@@ -59,7 +59,7 @@ class EventFilters extends Component {
                    onChange={() => this.setDateStart(document.getElementById('date-from').valueOf().value)}/>
           </div>
 
-          <div>
+          <div className={'filter-block' + filterStyle}>
             <p className={'filter-label' + filterStyle}>Date to:</p>
             <input className={'filter-input'+filterStyle} type="date" id='date-to'
                    defaultValue={dayToStr(filter.dateFin)}
@@ -67,7 +67,7 @@ class EventFilters extends Component {
                    onChange={() => this.setDateFin(document.getElementById('date-to').valueOf().value)}/>
           </div>
 
-          <div>
+          <div className={'filter-block' + filterStyle}>
             <Link to={'/events'}><input className={'filter-input'+filterStyle + ' btn'+filterStyle} type='button' formAction='submit'
                                         value='Apply filter'/>
             </Link>

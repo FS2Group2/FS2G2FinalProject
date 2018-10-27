@@ -26,16 +26,16 @@ class Wishlist extends Component {
       <div className="wishlist-list">
         <div className="wishlist-list-titles ">
           <div className="element-title element-name">
-            <span>Name</span>
+            <h4 className='element-title-name'>Name</h4>
           </div>
           <div className="element-title element-city">
-            <span>City</span>
+            <h4>City</h4>
           </div>
           <div className="element-title element-date">
-            <p>Date</p>
+            <h4>Date</h4>
           </div>
           <div className="element-title element-sum">
-            <span>$</span>
+            <h4 className="element-title">$</h4>
           </div>
         </div>
 

@@ -77,7 +77,7 @@ class ChangePass extends Component {
                    value={password1} onChange={this.handleChange}/>
             <input className="login-input-box" type="password" name="password2" placeholder="Confirm Password"
                    value={password2} onChange={this.handleChange}/>
-            <input className="login-btn" type="button" value="Change password"
+            <input className="btn login-btn" type="button" value="Change password"
                    onClick={this.handleSubmit}/>
             {(regState.registerError || this.state.errMsg) &&
             <div className="register-message">

@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .profile {
   display: flex;
   justify-content: space-between;
@@ -28,20 +30,20 @@
 }
 
 .user-info-name {
-  font-family: 'Verdana', sans-serif;
+  color: $md-color-green-900;
   font-size: 18px;
   font-weight: 700;
 }
 
 .user-info-item-header {
-  font-family: 'Roboto', sans-serif;
+  color: $md-color-green-500;
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .user-info-item-p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
+  color: $md-color-green-900;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -50,39 +52,36 @@
   margin-left: 10px;
 }
 
-.profile-event-content {
-  margin-left: 10px;
-  font-family: 'Verdana', sans-serif;
-  font-size: 18px;
-}
-
 .tab {
+  display: inline-block;
   margin-right: 10px;
   margin-left: 10px;
   padding: 0 auto;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  border: 1px solid $md-color-green-500;
+  border-radius: 6px;
+  background-color: $md-color-green-50;
+  color: $md-color-green-500;
   overflow: hidden;
 }
 
 .tablink {
   padding: 10px;
-  font-family: 'Verdana', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
+  border-radius: 4px;
 }
 
 .link-to-list {
+  width: 120px;
   margin: 0 auto;
-  color: black;
-  font-family: 'Verdana', sans-serif;
+  border-radius: 4px;
+  color: $md-color-green-500;
   font-size: 16px;
+  font-weight: 400;
   text-decoration: none;
 }
 
 .active-link {
   padding: 10px;
-  background-color: #6b6b6b;
+  background-color: $md-color-green-500;
   color: #fff;
 }
 
@@ -92,17 +91,10 @@
   height: 35px;
   margin: 10px;
   padding-left: 15px;
-  border: solid 1px #12075a;
   border-radius: 10px;
   outline: none;
-  color: #12075a;
   content: ' ';
   cursor: pointer;
-  opacity: .7;
-}
-
-.btn-edit:hover {
-  opacity: 1;
 }
 
 .btn-edit:disabled {
@@ -128,17 +120,10 @@
   height: 35px;
   margin: 10px 90px;
   padding-left: 15px;
-  border: solid 1px #12075a;
   border-radius: 10px;
   outline: none;
-  color: #12075a;
   content: ' ';
   cursor: pointer;
-  opacity: .7;
-}
-
-.btn-save:hover {
-  opacity: 1;
 }
 
 .btn-save:disabled {
@@ -158,13 +143,14 @@
 }
 
 .edit-form-header {
+  color: $md-color-green-900;
   font-size: 18px;
   font-weight: 700;
 }
 
 .user-info-input-header {
   display: block;
-  font-family: 'Roboto', sans-serif;
+  color: $md-color-green-500;
   font-size: 12px;
   font-weight: 300;
 }
@@ -175,11 +161,10 @@
   margin-bottom: 9px;
   padding-right: 19px;
   padding-left: 19px;
-  border: 1px solid #eaeaea;
+  border: 1px solid $md-color-green-500;
   border-radius: 3px;
-  background-color: rgba(220, 220, 220, .7);
+  background-color: $md-color-green-50;
   color: #434343;
-  font-family: 'Verdana', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
@@ -191,7 +176,7 @@
   align-items: center;
   position: relative;
   margin: 20px;
-  color: #12075a;
+  color: $md-color-green-900;
   font-size: 12px;
   cursor: pointer;
   overflow: hidden;
@@ -223,17 +208,10 @@
   height: 35px;
   margin: 0 20px;
   padding-left: 20px;
-  border: solid 1px #12075a;
   border-radius: 10px;
   outline: none;
-  color: #12075a;
   content: ' ';
   cursor: pointer;
-  opacity: .7;
-}
-
-.btn-upload:hover {
-  opacity: 1;
 }
 
 .btn-upload::before {

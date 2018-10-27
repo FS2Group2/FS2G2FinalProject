@@ -1,17 +1,21 @@
+@import "variables.scss";
+
 .purchase-list {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 10px;
+  border: solid 1px $md-color-green-300;
+  border-radius: 5px;
+  background-color: $md-color-green-50;
 }
 
 .purchase-list-titles {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 48px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: $md-color-green-500;
 }
 
 .purchase-list-element {
@@ -22,6 +26,7 @@
   padding: 10px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, .6);
+  color: $md-color-green-500;
 }
 
 .purchased-item-name {
@@ -29,6 +34,8 @@
   align-content: center;
   align-items: center;
   width: 300px;
+  color: $md-color-green-900;
+  cursor: pointer;
 }
 
 .purchased-item-city {
@@ -44,6 +51,7 @@
 .purchased-item-sum {
   width: 80px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .purchased-item-accommodation {
@@ -67,8 +75,10 @@
   height: 20px;
   margin-right: 10px;
   outline: none;
+  background-color: transparent;
   content: ' ';
-  opacity: .7;
+  cursor: pointer;
+  opacity: .8;
 }
 
 .btn-down:active {
@@ -93,7 +103,9 @@
   height: 20px;
   margin-right: 10px;
   outline: none;
+  background-color: transparent;
   content: ' ';
+  cursor: pointer;
   opacity: .7;
 }
 
@@ -113,10 +125,10 @@
 .purchased-item-detail {
   height: 0;
   margin-bottom: 0;
-  padding: 0 10px;
-  color: #131313;
+  padding: 0 0 10px 30px;
+  color: $md-color-green-500;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
   visibility: hidden;
 }
 
