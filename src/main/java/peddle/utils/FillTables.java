@@ -111,7 +111,7 @@ public class FillTables {
             "ch.yuriy@ukr.net",
             passwordEncoder.encode("pwdAlex"), true,
             city, role,
-            new Profile("Kiev", "userphoto01.jpg", "Alex info"),
+            new Profile("Kiev", "userphoto01.jpg", "Alex info", null),
             new ArrayList<>(), new ArrayList<>()));
 
         userRepository.save(new User("Jon",
@@ -120,7 +120,7 @@ public class FillTables {
             "jon@gmail.com",
             passwordEncoder.encode("pwdJon"), true,
             city, role,
-            new Profile("Boston", "userphoto02.jpg", "Jon info"),
+            new Profile("Boston", "userphoto02.jpg", "Jon info", null),
             new ArrayList<>(), new ArrayList<>()));
 
         roleOptional = roleRepository.findByName(ROLE_EVENTS_SELLER);
@@ -137,7 +137,7 @@ public class FillTables {
             "peddle@ukr.net",
             passwordEncoder.encode("pwdOwner"), true,
             city, role,
-            new Profile("Boston", "userphoto03.jpg", "Event Owner"),
+            new Profile("Boston", "userphoto03.jpg", "Event Owner", null),
             new ArrayList<>(), new ArrayList<>()));
 
         logger.info("Added users to User table");
