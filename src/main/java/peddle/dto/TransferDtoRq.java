@@ -1,12 +1,14 @@
 package peddle.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class TransferDtoRq {
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -23,19 +25,4 @@ public class TransferDtoRq {
     return dateFormat.parse(this.dateTo);
   }
 
-  public String getCityFrom() {
-    return cityFrom;
-  }
-
-  public String getCityTo() {
-    return cityTo;
-  }
-
-  public String getDateFrom() {
-    return dateFrom;
-  }
-
-  public String getDateTo() {
-    return dateTo;
-  }
 }

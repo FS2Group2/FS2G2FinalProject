@@ -3,6 +3,8 @@ package peddle.services;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,18 +41,16 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
-@EnableScheduling
-@Service
+//@EnableScheduling
+//@Service
 public class UpdateEventsService {
 
   @Autowired
@@ -80,10 +80,13 @@ public class UpdateEventsService {
   @Autowired
   private RestTemplate restTemplate;
 
-  @Scheduled(cron = "0 */50 * * * *")
+  private static final Logger logger = LoggerFactory.getLogger(UpdateEventsService.class);
+
+
+  @Scheduled(cron = "0 */45 * * * *")
   public void updateSchedule() throws Exception {
     addEventsFromApi();
-    System.out.println("Update DataBase Events");
+    logger.info("Update DataBase Events");
   }
 
   @Transactional
@@ -99,7 +102,7 @@ public class UpdateEventsService {
       List<ApiDto> apiEventsDto = eventApiPojoToDto(fullEventsApi);
       apiDtoToEntity(apiEventsDto);
 
-      System.out.println(fullEventsApi.toString());
+      logger.info(fullEventsApi.toString());
 
       eventsCount += fullEventsApi.getPageApi().getSize();
       hasNext = ++currentPage < fullEventsApi.getPageApi().getTotalPages();
@@ -279,7 +282,7 @@ public class UpdateEventsService {
           hotels.get(hotelNumber).minOrderTime));
       hotelNumber = (hotelNumber + 1) % hotels.size();
     }
-    System.out.println("Added data Accommodation to city - " + city.getName());
+    logger.info("Added data Accommodation to city - " + city.getName());
   }
 
 
@@ -314,6 +317,6 @@ public class UpdateEventsService {
         }
       }
     });
-    System.out.println("Added Transfer from city - " + eventCity.getName());
+    logger.info("Added Transfer from city - " + eventCity.getName());
   }
 }

@@ -1,5 +1,7 @@
 package peddle.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +55,8 @@ public class FillTables {
   @Autowired
   private UpdateEventsService updateEventsService;
 
+  private static final Logger logger = LoggerFactory.getLogger(FillTables.class);
+
   @Bean
   public CommandLineRunner addRoles() {
     return new CommandLineRunner() {
@@ -60,7 +64,7 @@ public class FillTables {
       public void run(String... args) throws Exception {
         Arrays.asList(ROLE_ADMIN, ROLE_CUSTOMER, ROLE_EVENTS_SELLER)
                 .forEach(role -> roleRepository.save(new Role(role)));
-        System.out.println("Added data to Role table");
+        logger.info("Added data to Role table");
       }
     };
   }
@@ -72,7 +76,7 @@ public class FillTables {
       public void run(String... args) throws Exception {
         Arrays.asList("Fly", "Train", "Bus")
             .forEach(transport -> transportTypeRepository.save(new TransportType(transport)));
-        System.out.println("Added data to TransportType table");
+        logger.info("Added data to TransportType table");
       }
     };
   }
@@ -136,7 +140,7 @@ public class FillTables {
             new Profile("Boston", "userphoto03.jpg", "Event Owner"),
             new ArrayList<>(), new ArrayList<>()));
 
-        System.out.println("Added users to User table");
+        logger.info("Added users to User table");
       }
     };
   }
@@ -159,7 +163,7 @@ public class FillTables {
         categories.add(new Category("Exhibitions", "exhibitions.jpg", "exhibitions.svg"));
         categories.forEach(category -> categoryRepository.save(category));
 
-        System.out.println("Added  data to Category table");
+        logger.info("Added  data to Category table");
       }
     };
   }
@@ -170,7 +174,7 @@ public class FillTables {
       @Override
       public void run(String... args) throws Exception {
         updateEventsService.addEventsFromApi();
-        System.out.println("Update DataBase Events first time");
+        logger.info("Update DataBase Events first time");
       }
     };
   }
