@@ -1,6 +1,7 @@
 package peddle.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "event")
 public class Event {
@@ -64,8 +66,6 @@ public class Event {
   @ManyToMany(fetch = FetchType.LAZY, mappedBy = "events")
   private List<User> users;
 
-  public Event(){}
-
   public Event(String name, String apiId, City city, Category category, Date date, Long owner,
                int duration, EventExtra eventExtra, int price) {
     this.name = name;
@@ -79,43 +79,4 @@ public class Event {
     this.price = price;
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public City getCity() {
-    return city;
-  }
-
-  public Date getDate() {
-    return date;
-  }
-
-  public Long getOwner() {
-    return owner;
-  }
-
-  public int getDuration() {
-    return duration;
-  }
-
-  public EventExtra getEventExtra() {
-    return eventExtra;
-  }
-
-  public int getPrice() {
-    return price;
-  }
-
-  public List<User> getUsers() {
-    return users;
-  }
-
-  public void setUsers(List<User> users) {
-    this.users = users;
-  }
 }

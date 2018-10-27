@@ -1,10 +1,12 @@
 package peddle.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class PurchaseDtoRs {
   private Long id;
 
@@ -37,51 +39,5 @@ public class PurchaseDtoRs {
   private String accommodationCityName;
   private int accommodationPrice;
 
-  /*
-   private Transfer transferTo;
-  private Transfer transferfrom;
-  private Accommodation accommodation;
-   */
-
   private int summ;
-
-  public int getEventPrice() {
-    return eventPrice;
-  }
-
-  public int getTransferToPrice() {
-    return transferToPrice;
-  }
-
-  public int getTransferfromPrice() {
-    return transferfromPrice;
-  }
-
-  public int getAccommodationPrice() {
-    return accommodationPrice;
-  }
-
-  public void setSumm(int summ) {
-    this.summ = summ;
-  }
 }
-/*
-@Data
-class Accommodation {
-  private Long id;
-  private String name;
-  private String cityName;
-  private int price;
-}
-
-@Data
-class Transfer {
-  private Long id;
-  private String transportTypeName;
-  private String fromcityName;
-  private String toCityName;
-  private int number;
-  private Date departTime;
-  private int price;
-}
-*/

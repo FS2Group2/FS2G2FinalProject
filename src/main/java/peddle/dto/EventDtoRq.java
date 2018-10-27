@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class EventDtoRq {
-  private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
   private int page;
   private int pageSize;
@@ -25,25 +25,5 @@ public class EventDtoRq {
 
   public Date getDateFinConverted() throws ParseException {
     return dateFormat.parse(this.dateFin);
-  }
-
-  public int getPage() {
-    return page;
-  }
-
-  public int getPageSize() {
-    return pageSize;
-  }
-
-  public String getCityName() {
-    return cityName;
-  }
-
-  public String getDateStart() {
-    return dateStart;
-  }
-
-  public String getDateFin() {
-    return dateFin;
   }
 }

@@ -1,21 +1,11 @@
 package peddle.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class PageDtoRq {
   private int page;
   private int pageSize;
-
-  public int getPage() {
-    return page;
-  }
-
-  public int getPageSize() {
-    return pageSize;
-  }
 }

@@ -1,10 +1,7 @@
 package peddle.entities;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "city")
 public class City {
@@ -31,13 +25,5 @@ public class City {
 
   public City(String name) {
     this.name = name;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
   }
 }

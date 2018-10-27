@@ -98,28 +98,4 @@ public class User {
   public List<String> getRoles() {
     return Arrays.asList("ROLE_USER");
   }
-
-  public void setPurchases(List<Purchase> purchases) {
-    this.purchases = purchases;
-  }
-
-  public List<Purchase> getPurchases() {
-    return purchases;
-  }
-
-  public List<Event> getEvents() {
-    return events;
-  }
-
-  public boolean isActive() {
-    return isActive;
-  }
-
-  public void setActive(boolean isActive) {
-    this.isActive = isActive;
-  }
-
-  public void setEvents(List<Event> events) {
-    this.events = events;
-  }
 }

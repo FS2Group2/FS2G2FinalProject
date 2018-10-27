@@ -45,7 +45,6 @@ public class LoginServiceImpl implements LoginService {
 
   private AmazonS3Configuration as3;
 
-
   @Autowired
   public LoginServiceImpl(UserRepository userRepository,
                             AmazonS3Configuration as3) {

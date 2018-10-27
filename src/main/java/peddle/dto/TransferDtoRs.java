@@ -1,10 +1,12 @@
 package peddle.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class TransferDtoRs {
   private Long id;
   private String transportTypeName;

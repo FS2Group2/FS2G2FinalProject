@@ -100,7 +100,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     String to = user.getEmail();
     String subject = "You nought new event!";
-    //System.out.println( message + to + subject);
     emailService.sendSimpleMessage(to, subject, message);
 
     if (event.getOwner() > 0 && userRepository.findById(event.getOwner()).isPresent()) {
@@ -109,7 +108,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         message = "User " + user.getEmail() + " bought you events \""  + event.getName() + "\"";
         to = owner.getEmail();
         subject = "Bought  your event!";
-        //System.out.println( message + to + subject);
         emailService.sendSimpleMessage(to, subject, message);
       }
     }

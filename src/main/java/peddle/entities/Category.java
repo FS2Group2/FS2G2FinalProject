@@ -1,6 +1,7 @@
 package peddle.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.GenerationType;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "category")
 public class Category {
@@ -26,8 +28,6 @@ public class Category {
 
   @Column(name = "cat_icon")
   private String icon;
-
-  public Category(){}
 
   public Category(String name, String photo, String icon) {
     this.name = name;
