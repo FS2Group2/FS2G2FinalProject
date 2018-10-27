@@ -49,8 +49,8 @@ import java.util.stream.Collectors;
 
 import static peddle.configuration.Constants.ROLE_EVENTS_SELLER;
 
-//@EnableScheduling
-//@Service
+@EnableScheduling
+@Service
 public class UpdateEventsService {
 
   @Autowired
@@ -91,7 +91,7 @@ public class UpdateEventsService {
 
   @Transactional
   public void addEventsFromApi() throws Exception {
-    final int maxEventsCount = 10;
+    final int maxEventsCount = 100;
     final int pageSize = 20;
     int eventsCount = 0;
     int currentPage = 0;

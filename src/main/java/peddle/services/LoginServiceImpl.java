@@ -35,8 +35,10 @@ import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
 import peddle.security.UserPrincipal;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -132,7 +134,7 @@ public class LoginServiceImpl implements LoginService {
     User newUser = modelMapper.map(userRegisterDtoRq, User.class);
     newUser.setFirstName("");
     newUser.setLastName("");
-    Profile profile = new Profile("", "", "");
+    Profile profile = new Profile("", "", "","");
     newUser.setProfile(profile);
     Role role = roleRepository.findByName(ROLE_CUSTOMER).get();
     newUser.setRole(role);
@@ -240,11 +242,14 @@ public class LoginServiceImpl implements LoginService {
     User user = userRepository.findByProfileId(userPrincipal.getId());
 
     AmazonS3 s3 = as3.getAmazonS3();
-    if (user.getProfile().getPhoto() != null) {
-      String oldName = "avatars/" + user.getName();
+    if (user.getProfile().getBucketKey() != null) {
+      String oldName = user.getProfile().getBucketKey();
       s3.deleteObject(bucket, oldName);
     }
-    String key = "avatars/" + user.getName();
+
+    String fileNamePrefix = String.format("photo_%tY-%<tm-%<td-%<tH-%<tM-%<tS_", new Date());
+    String key = "avatars/" + fileNamePrefix + user.getName();
+
     InputStream myFile = file.getInputStream();
     s3.putObject(
         bucket,
@@ -252,6 +257,7 @@ public class LoginServiceImpl implements LoginService {
         myFile,
         new ObjectMetadata());
     String url = s3.getUrl(bucket, key).toString();
+    user.getProfile().setBucketKey(key);
     user.getProfile().setPhoto(url);
     userRepository.save(user);
 

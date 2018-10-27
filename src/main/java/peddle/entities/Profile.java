@@ -29,9 +29,13 @@ public class Profile {
   @Column(name = "pr_info")
   private String info;
 
-  public Profile(String cityLiving, String photo, String info) {
+  @Column(name = "pr_bucket_key")
+  private String bucketKey;
+
+  public Profile(String cityLiving, String photo, String info, String bucketKey) {
     this.cityLiving = cityLiving;
     this.photo = photo;
     this.info = info;
+    this.info = bucketKey;
   }
 }
