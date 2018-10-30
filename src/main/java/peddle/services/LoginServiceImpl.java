@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
@@ -33,13 +35,22 @@ import peddle.repository.UserTokenRepository;
 import peddle.security.JwtTokenProvider;
 import peddle.security.UserPrincipal;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import static peddle.configuration.Constants.ROLE_CUSTOMER;
+
 @Service
+@PropertySource("config.properties")
 public class LoginServiceImpl implements LoginService {
+
+  @Value("${urlServer}")
+  private String urlServer;
+
 
   final String bucket = AmazonS3Configuration.BUCKET_NAME;
 
@@ -123,9 +134,9 @@ public class LoginServiceImpl implements LoginService {
     User newUser = modelMapper.map(userRegisterDtoRq, User.class);
     newUser.setFirstName("");
     newUser.setLastName("");
-    Profile profile = new Profile("", "", "");
+    Profile profile = new Profile("", "", "","");
     newUser.setProfile(profile);
-    Role role = roleRepository.findByName("CUSTOMER").get();
+    Role role = roleRepository.findByName(ROLE_CUSTOMER).get();
     newUser.setRole(role);
     newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
     newUser.setActive(false);
@@ -143,7 +154,7 @@ public class LoginServiceImpl implements LoginService {
     String message = "This e-mail was specified during registration on the \"Event Tour\" website. Please confirm"
         + " your registration to be able to match the purchase of properties on the \"Event Tour\""
         + " website.";
-    String url = "http://localhost:3000/registration/" + token;
+    String url = urlServer + "/registration/" + token;
 
     try {
       //emailService.sendSimpleMessage(to, subject, message);
@@ -194,7 +205,7 @@ public class LoginServiceImpl implements LoginService {
     String subject = "Change your password";
     String message = "You have to change you password. To finish "
         + "please follow the link: ";
-    String url = "http://localhost:3000/changePass/" + token;
+    String url = urlServer + "/changePass/" + token;
 
 
     try {
@@ -231,11 +242,14 @@ public class LoginServiceImpl implements LoginService {
     User user = userRepository.findByProfileId(userPrincipal.getId());
 
     AmazonS3 s3 = as3.getAmazonS3();
-    if (user.getProfile().getPhoto() != null) {
-      String oldName = "avatars/" + user.getName();
+    if (user.getProfile().getBucketKey() != null) {
+      String oldName = user.getProfile().getBucketKey();
       s3.deleteObject(bucket, oldName);
     }
-    String key = "avatars/" + user.getName();
+
+    String fileNamePrefix = String.format("photo_%tY-%<tm-%<td-%<tH-%<tM-%<tS_", new Date());
+    String key = "avatars/" + fileNamePrefix + user.getName();
+
     InputStream myFile = file.getInputStream();
     s3.putObject(
         bucket,
@@ -243,6 +257,7 @@ public class LoginServiceImpl implements LoginService {
         myFile,
         new ObjectMetadata());
     String url = s3.getUrl(bucket, key).toString();
+    user.getProfile().setBucketKey(key);
     user.getProfile().setPhoto(url);
     userRepository.save(user);
 
