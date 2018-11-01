@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class UserLoginDtoRq {
   private String name;
   private String password;
+  private boolean isRemembered;
 }

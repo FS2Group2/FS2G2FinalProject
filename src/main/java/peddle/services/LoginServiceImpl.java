@@ -113,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
     );
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = tokenProvider.generateToken(authentication);
+    String jwt = tokenProvider.generateToken(authentication, userLoginDtoRq.isRemembered());
     return ResponseEntity.ok(new JwtAuthenticationRs(jwt));
   }
 
