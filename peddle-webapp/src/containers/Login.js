@@ -15,7 +15,7 @@ class Login extends Component {
       userId: 0,
       username: '',
       password: '',
-      rememberMe: false,
+      isRemembered: false,
       wishlist: [],
       error: ''
     };
@@ -64,7 +64,7 @@ class Login extends Component {
     let query = {
       name: this.state.username,
       password: this.state.password,
-      rememberMe: this.state.rememberMe
+      isRemembered: this.state.isRemembered
     };
     let reqParam = {
       method: 'POST',
@@ -177,9 +177,9 @@ class Login extends Component {
             }
             <div className="input-group">
               <div>
-                <input type="checkbox" name={'rememberMe'} id={'rememberMe'}
+                <input type="checkbox" name={'isRemembered'} id={'isRemembered'}
                        onChange={this.handleCheck}/>
-                <label htmlFor="rememberMe" className={'login-input-label'}>Remember me</label>
+                <label htmlFor="isRemembered" className={'login-input-label'}>Remember me</label>
               </div>
               <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
             </div>
