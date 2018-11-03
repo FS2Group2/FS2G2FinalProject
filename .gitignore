@@ -21,3 +21,4 @@ log/
 /src/main/resources/config.properties
 /src/main/resources/amazon.properties
 /peddle-webapp/build/
+!/src/main/resources/config.properties
