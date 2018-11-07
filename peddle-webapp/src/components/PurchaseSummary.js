@@ -43,7 +43,9 @@ class PurchaseSummary extends Component {
       eventId: event.id,
       transfertoId: transferTo.id || '0',
       transferfromId: transferFrom.id || '0',
-      accommodationId: accommodation.id || '0'
+      accommodationId: accommodation.id || '0',
+      translatorId: '0',
+      photographer: true
     };
     fetchDataFromApi(purchaseAdd, query);
     this.renderMsg('Your purchases were successfully saved.', 2000);

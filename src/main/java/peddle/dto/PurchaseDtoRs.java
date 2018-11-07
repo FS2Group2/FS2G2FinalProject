@@ -39,5 +39,10 @@ public class PurchaseDtoRs {
   private String accommodationCityName;
   private int accommodationPrice;
 
+  private Long translatorId;
+  private String language;
+
+  private Boolean photographer;
+
   private int summ;
 }
