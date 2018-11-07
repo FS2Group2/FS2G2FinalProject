@@ -22,3 +22,4 @@ log/
 /src/main/resources/amazon.properties
 /peddle-webapp/build/
 !/src/main/resources/config.properties
+!/.idea/vcs.xml

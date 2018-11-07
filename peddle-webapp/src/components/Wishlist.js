@@ -24,25 +24,27 @@ class Wishlist extends Component {
 
     return (
       <div className="wishlist-list">
-        <div className="wishlist-list-titles ">
-          <div className="element-title element-name">
-            <h4 className='element-title-name'>Name</h4>
-          </div>
-          <div className="element-title element-city">
-            <h4>City</h4>
-          </div>
-          <div className="element-title element-date">
-            <h4>Date</h4>
-          </div>
-          <div className="element-title element-sum">
-            <h4 className="element-title">$</h4>
-          </div>
-        </div>
+        {(!wishListState[0] && !this.props.listPending) ?
+          <h3>Your wish list is empty, but you can always add a few events to it</h3> :
+          <div className="wishlist-list-titles ">
+            <div className="element-title element-name">
+              <h4 className='element-title-name'>Name</h4>
+            </div>
+            <div className="element-title element-city">
+              <h4>City</h4>
+            </div>
+            <div className="element-title element-date">
+              <h4>Date</h4>
+            </div>
+            <div className="element-title element-sum">
+              <h4 className="element-title">$</h4>
+            </div>
+          </div>}
 
         {wishListState[0] && wishListState.map(w =>
           <div className="wishlist-list-element" key={w.id}>
             <div className="element-name">
-              <button className="btn-item-remove" onClick={()=>this.removeEventFromWishList(w.id)}> </button>
+              <button className="btn-item-remove" onClick={() => this.removeEventFromWishList(w.id)}></button>
               <Link to={'event/' + w.id}>
                 <img src={imgPath(w)} alt="" className="element-name-img"/>
               </Link>
@@ -68,7 +70,8 @@ class Wishlist extends Component {
 const mapStateToProps = (state) => {
   return {
     wishListState: state.wishListReducer,
-    currentUser: state.userReducer.currentUser
+    currentUser: state.userReducer.currentUser,
+    listPending: state.fetchDataReducer.isFetchPending
   }
 };
 

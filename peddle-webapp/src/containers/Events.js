@@ -76,10 +76,11 @@ class Events extends Component {
               <EventFilters filterStyle={''}/>
             </div>
             <div className='events-container'>
-              {events[0] && events.map(event =>
+              {events[0] ? events.map(event =>
                 <Link key={event.id} to={'/event/' + event.id} onClick={() => setChosenEvent(event.id)}>
                   <Event theEvent={event}/>
-                </Link>)}
+                </Link>):
+              <h3>No events at this time. Please select a different period, city or event category.</h3>}
 
               <input type='button' className='nav-btn previous' value='previous'
                      onClick={this.goToPrevious.bind(this)} disabled={!this.state.page}/>

@@ -59,7 +59,7 @@ class ForgotPass extends Component {
     let {email} = this.state;
 
     return (
-      <div className='page-content'>
+      <div>
         {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
