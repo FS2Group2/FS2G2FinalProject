@@ -30,8 +30,11 @@ class MainMenu extends Component {
             <Link className="main-menu-link" to={'/profile'}>
               <div className="main-menu-item-container">
                 <div className="menu-user-photo-container">
-                  {userState.currentUser.profilePhoto ? <img className='main-menu-user-photo' src={userState.currentUser.profilePhoto} alt="ProfileAvatar"/> :
-                    <img className='main-menu-user-photo' src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
+                  {userState.currentUser.profilePhoto ?
+                    <img className='main-menu-user-photo' src={userState.currentUser.profilePhoto}
+                         alt="ProfileAvatar"/> :
+                    <img className='main-menu-user-photo'
+                         src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
                          alt="ProfileAvatar"/>}
                 </div>
                 <p className="main-menu-user-p">{userState.currentUser.name}</p>
@@ -40,11 +43,8 @@ class MainMenu extends Component {
 
             <Link className="main-menu-link" to={'/cart'}>
               <div className="main-menu-item-container">
-                {/*<p className="main-menu-cart-p">*/}
-                {/*Cart*/}
-                {/*</p>*/}
                 <img className='menu-cart-img' src={iconPath + 'cart-menu.svg'} alt=""/>
-                <p className='menu-cart-sum'>{cartSum}</p>
+                <p className='menu-cart-sum'>{cartSum && '$' + cartSum}</p>
               </div>
             </Link>
 

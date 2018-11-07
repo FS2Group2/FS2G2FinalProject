@@ -3,12 +3,17 @@ import {Link} from "react-router-dom";
 import '../css/categoriesPage.css';
 import Category from "../components/Category";
 import {connect} from "react-redux";
-import {setFilterCategory} from "../actions/filterActions";
+import {filterReset, setFilterCategory} from "../actions/filterActions";
 import EventFilters from "../components/EventFilters";
 import {eventImgPath} from "../constants/ApiSettings";
 import Preloader from "./Preloader";
 
 class Categories extends Component {
+
+  componentDidMount(){
+    this.props.filterReset();
+  }
+
   render() {
     const {categories, setFilterCategory, topEvents, isFetchPending} = this.props;
     setFilterCategory(0);
@@ -73,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setFilterCategory: (categoryId) => {
       dispatch(setFilterCategory(categoryId))
+    },
+    filterReset: () => {
+      dispatch(filterReset())
     }
   }
 };

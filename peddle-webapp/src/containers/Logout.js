@@ -41,7 +41,7 @@ class Logout extends Component {
   render() {
 
     return (
-      <div className="page-content">
+      <div>
         <div className="about-page-root">
           {!this.props.userState.loggedIn ? <p className='logout-msg'>Good buy,
               {this.props.userState.currentUser.name}! Waiting for you again!</p> :

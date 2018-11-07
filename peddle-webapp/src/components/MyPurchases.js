@@ -43,35 +43,37 @@ class MyPurchases extends Component {
     const {purchase} = this.props;
     return (
       <div className="purchase-list">
-        <div className="purchase-list-titles">
-          <div className="element-title purchased-item-name">
-            <h4 className='element-title-name'>Name</h4>
-          </div>
-          <div className="element-title purchased-item-city">
-            <h4>City</h4>
-          </div>
-          <div className="element-title purchased-item-date">
-            <h4>Event date</h4>
-          </div>
-          <div className="element-title purchased-item-accommodation">
-            <h4>Accommodation</h4>
-          </div>
-          <div className="element-title purchased-item-transfer-to">
-            <h4>Transfer forward</h4>
-          </div>
-          <div className="element-title purchased-item-transfer-from">
-            <h4>Transfer backward</h4>
-          </div>
-          <div className="element-title purchased-item-sum">
-            <h4>total</h4>
-          </div>
-        </div>
+        {!purchase[0] ?
+          <h3>You have not made a purchase on our site. It's time to do it: select an event to your liking</h3> :
+          <div className="purchase-list-titles">
+            <div className="element-title purchased-item-name">
+              <h4 className='element-title-name'>Name</h4>
+            </div>
+            <div className="element-title purchased-item-city">
+              <h4>City</h4>
+            </div>
+            <div className="element-title purchased-item-date">
+              <h4>Event date</h4>
+            </div>
+            <div className="element-title purchased-item-accommodation">
+              <h4>Accommodation</h4>
+            </div>
+            <div className="element-title purchased-item-transfer-to">
+              <h4>Transfer forward</h4>
+            </div>
+            <div className="element-title purchased-item-transfer-from">
+              <h4>Transfer backward</h4>
+            </div>
+            <div className="element-title purchased-item-sum">
+              <h4>total</h4>
+            </div>
+          </div>}
 
         {purchase[0] && purchase.map(p =>
           <Fragment>
             <div className="purchase-list-element" key={p.id}>
               <div className="purchased-item-name">
-                <button className='btn-down' id={'btn' + p.id} onClick={() => this.showDetail(p.id)}> </button>
+                <button className='btn-down' id={'btn' + p.id} onClick={() => this.showDetail(p.id)}></button>
                 <span onClick={() => this.showDetail(p.id)}>{p.eventName}</span>
               </div>
               <div className="purchased-item-city">

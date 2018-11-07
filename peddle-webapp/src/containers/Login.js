@@ -154,41 +154,39 @@ class Login extends Component {
           </div>
         </div>
         :
-        <div className='page-content'>
-          <div className="login-box">
-            <div className="login-box-header">
-              <p className="login-box-header-center">Log In</p>
-            </div>
-            <input className="login-input-box" type="text" name="username" placeholder="Your Name"
-                   value={username} onChange={this.handleChange}/>
-            {submitted && !username &&
-            <div className="login-help-block">
-              <p className="warning-text">Username is required</p>
-              <span className="warn-close" onClick={this.closeWarning}>&times;</span>
-            </div>
-            }
-            <input className="login-input-box" type="password" name="password" placeholder="Password"
-                   value={password} onChange={this.handleChange}/>
-            {submitted && !password &&
-            <div className="login-help-block">
-              <p className="warning-text">Password is required</p>
-              <span className="warn-close" onClick={this.closeWarning}>&times;</span>
-            </div>
-            }
-            <div className="input-group">
-              <div>
-                <input type="checkbox" name={'isRemembered'} id={'isRemembered'}
-                       onChange={this.handleCheck}/>
-                <label htmlFor="isRemembered" className={'login-input-label'}>Remember me</label>
-              </div>
-              <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
-            </div>
-
-            <input className="btn login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
-            {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
-            <span className="register-login-span">Still not registered? >></span>
-            <Link to="/register" className="login-reg-link">Register</Link>
+        <div className="login-box">
+          <div className="login-box-header">
+            <p className="login-box-header-center">Log In</p>
           </div>
+          <input className="login-input-box" type="text" name="username" placeholder="Your Name"
+                 value={username} onChange={this.handleChange}/>
+          {submitted && !username &&
+          <div className="login-help-block">
+            <p className="warning-text">Username is required</p>
+            <span className="warn-close" onClick={this.closeWarning}>&times;</span>
+          </div>
+          }
+          <input className="login-input-box" type="password" name="password" placeholder="Password"
+                 value={password} onChange={this.handleChange}/>
+          {submitted && !password &&
+          <div className="login-help-block">
+            <p className="warning-text">Password is required</p>
+            <span className="warn-close" onClick={this.closeWarning}>&times;</span>
+          </div>
+          }
+          <div className="input-group">
+            <div>
+              <input type="checkbox" name={'isRemembered'} id={'isRemembered'}
+                     onChange={this.handleCheck}/>
+              <label htmlFor="isRemembered" className={'login-input-label'}>Remember me</label>
+            </div>
+            <Link to={'/forgotPass'} className={'forgot-pass-link'}>Forgot your password?</Link>
+          </div>
+
+          <input className="btn login-btn" type="button" value="Login" onClick={this.handleSubmit}/>
+          {error && <p className='login-msg error-msg'>{'error login failed - username or password is incorrect'}</p>}
+          <span className="register-login-span">Still not registered? >></span>
+          <Link to="/register" className="login-reg-link">Register</Link>
         </div>
     )
   }
