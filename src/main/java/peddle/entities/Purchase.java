@@ -39,10 +39,20 @@ public class Purchase {
   @JoinColumn(name = "p_accommodation")
   private Accommodation accommodation;
 
-  public Purchase(Event event, Transfer transferTo, Transfer transferFrom, Accommodation accommodation) {
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "p_translator")
+  private Translator translator;
+
+  @Column(name = "p_photographer")
+  private Boolean photographer;
+
+  public Purchase(Event event, Transfer transferTo, Transfer transferFrom,
+                  Accommodation accommodation, Translator translator, Boolean photographer) {
     this.event = event;
     this.transferTo = transferTo;
     this.transferFrom = transferFrom;
     this.accommodation = accommodation;
+    this.translator = translator;
+    this.photographer = photographer;
   }
 }
