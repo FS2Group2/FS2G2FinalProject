@@ -6,7 +6,8 @@ import Transfers from "../components/Transfers";
 import {connect} from "react-redux";
 import {
   loadTransfersBackward,
-  loadTransfersForward, resetDaysDelta,
+  loadTransfersForward,
+  resetDaysDelta,
   setCityForTransferFromEvent,
   setCityForTransferToEvent,
   setDatesForTransferFromEvent,
@@ -24,8 +25,10 @@ import * as ReactDOM from "react-dom";
 import {
   addAccommodationToCart,
   addEventToCart,
+  addPhotographerToCart,
   addTransferFromEventToCart,
-  addTransferToEventToCart
+  addTransferToEventToCart,
+  addTranslatorToCart
 } from "../actions/cartActions";
 import {loadAccommodations} from "../actions/accommodationActions";
 import Preloader from "./Preloader";
@@ -121,6 +124,23 @@ class EventPurchasePage extends Component {
       ' add to card', 2500);
   };
 
+  handleChange(event) {
+    const {name, value} = event.target;
+    this.setState({[name]: value});
+  }
+
+  handleCheck(event) {
+    const {name, checked} = event.target;
+    switch (name) {
+      case 'guide':
+        return this.props.addTranslatorToCart({guide: checked});
+      case 'photographer':
+        return this.props.addPhotographerToCart({photographer: checked});
+      default:
+        return null;
+    }
+  }
+
   addEventToWishList = () => {
     const {fetchDataFromApi, currentUser, isLogged} = this.props;
     let query = {
@@ -157,7 +177,7 @@ class EventPurchasePage extends Component {
       isLogged, currentUser,
       setCityForTransferToEvent, setCityForTransferFromEvent,
       fetchEventInfo, resetDaysDelta
-  } = this.props;
+    } = this.props;
 
     fetchEventInfo(this.state.eventId);
     if (isLogged) {
@@ -257,7 +277,7 @@ class EventPurchasePage extends Component {
                         }}> -
                 </button>
                 <p className="transfer-input-label transfer-date">
-                  {transferProps.dateTransferToEvent1 + ' to '+ transferProps.dateTransferToEvent2}</p>
+                  {transferProps.dateTransferToEvent1 + ' to ' + transferProps.dateTransferToEvent2}</p>
                 <button className="btn-days-inc" onClick={() => {
                   if (transferProps.daysBeforeEvent) setDaysBeforeEventDec()
                 }} disabled={!transferProps.daysBeforeEvent}> +
@@ -296,7 +316,7 @@ class EventPurchasePage extends Component {
                         }} disabled={!transferProps.daysAfterEvent}> -
                 </button>
                 <p className="transfer-input-label transfer-date">
-                  {transferProps.dateTransferFromEvent1 + ' to '+ transferProps.dateTransferFromEvent2}</p>
+                  {transferProps.dateTransferFromEvent1 + ' to ' + transferProps.dateTransferFromEvent2}</p>
                 <button className="btn-days-inc" onClick={setDaysAfterEventInc}> +
                 </button>
               </div>
@@ -310,6 +330,26 @@ class EventPurchasePage extends Component {
           </div>
         </div>
         <div id='event-purchase'/>
+        <div className="additional-service-container">
+          <div>
+            <p className='additional-service-p'>You can also order the services of a guide interpreter. Service is paid
+              separately.</p>
+            <input type="checkbox" name={'guide'} id={'guide'}
+                   onChange={this.handleCheck.bind(this)}/>
+            <label htmlFor="guide" className={'login-input-label'}>interpreter guide services</label>
+            <select name="language" id="language" className='filter-input select-city-input'>select language</select>
+          </div>
+          <div>
+            <p className='additional-service-p'>We can also provide the services of a photographer - as a separate photo
+              session,
+              as well as accompanying you to your chosen location.</p>
+            <input type="checkbox" name={'photographer'} id={'photographer'}
+                   onChange={this.handleCheck.bind(this)}/>
+            <label htmlFor="photographer" className={'login-input-label'}>Photographer service</label>
+          </div>
+        </div>
+
+
       </Fragment>
     );
   }
@@ -346,7 +386,7 @@ const mapDispatchToProps = (dispatch) => {
     setDaysBeforeEventDec: () => dispatch(setDaysBeforeEventDec()),
     setDaysAfterEventInc: () => dispatch(setDaysAfterEventInc()),
     setDaysAfterEventDec: () => dispatch(setDaysAfterEventDec()),
-    resetDaysDelta:() => dispatch(resetDaysDelta()),
+    resetDaysDelta: () => dispatch(resetDaysDelta()),
 
     fetchEventInfo: (eventId) => dispatch(fetchEventInfo(eventId)),
     fetchDataFromApi: (queryType, query) => dispatch(fetchDataFromApi(queryType, query)),
@@ -358,7 +398,9 @@ const mapDispatchToProps = (dispatch) => {
     addEventToCart: (event) => dispatch(addEventToCart(event)),
     addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
     addTransferToEventToCart: (transfer) => dispatch(addTransferToEventToCart(transfer)),
-    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer))
+    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer)),
+    addTranslatorToCart: (translator) => dispatch(addTranslatorToCart(translator)),
+    addPhotographerToCart: (photographer) => dispatch(addPhotographerToCart(photographer))
   }
 };
 
