@@ -95,6 +95,13 @@ public class User {
     this.events = events;
   }
 
+  public User(String name, String email, String password, boolean isActive) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.isActive = isActive;
+  }
+
   public List<String> getRoles() {
     return Arrays.asList("ROLE_USER");
   }
