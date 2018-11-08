@@ -58,7 +58,7 @@ class RegisterPage extends Component {
     let {name, email, password1, password2} = this.state;
 
     return (
-      <div className="page-content">
+      <div>
         {regState.message.message ? <div className="register-box">
             <div className="register-message">
               <p className="success-msg-p">{regState.message.message}</p>
