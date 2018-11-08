@@ -23,8 +23,8 @@ export function addTransferFromEventToCart(transfer) {
   return {type: ADD_TRANSFER_FROM_EVENT_TO_CARD, payload: transfer}
 }
 
-export function addTranslatorToCart(tarnslator) {
-  return {type: ADD_TRANSLATOR_TO_CART, payload: tarnslator}
+export function addTranslatorToCart(translator) {
+  return {type: ADD_TRANSLATOR_TO_CART, payload: translator}
 }
 
 export function addPhotographerToCart(photographer) {

@@ -40,7 +40,7 @@ public class PurchaseDtoRs {
   private int accommodationPrice;
 
   private Long translatorId;
-  private String language;
+  private String translatorLanguage;
 
   private Boolean photographer;
 

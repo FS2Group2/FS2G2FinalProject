@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
 import {changeUser, setLoggedIn} from "../actions/userActions";
 import {fetchDataFromApi} from "../actions/fetchDataActions";
-import {categoriesList, citiesList, topEvents, userData, wishList} from "../constants/queryTypes";
+import {categoriesList, citiesList, languagesList, topEvents, userData, wishList} from "../constants/queryTypes";
 
 class LoadListsComponent extends Component {
   componentDidMount() {
@@ -18,6 +18,7 @@ class LoadListsComponent extends Component {
       dateFin: '01/01/2050',
       categoryId: 0
     });
+    fetchDataFromApi(languagesList, '');
 
     if (localStorage.getItem('logged') && localStorage.getItem('accessToken')) {
       let userQuery = {name: localStorage.getItem('usr')};

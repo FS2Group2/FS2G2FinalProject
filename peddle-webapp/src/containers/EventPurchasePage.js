@@ -125,8 +125,8 @@ class EventPurchasePage extends Component {
   };
 
   handleChange(event) {
-    const {name, value} = event.target;
-    this.setState({[name]: value});
+    const {value} = event.target;
+    this.props.addTranslatorToCart({guide: true, translatorId: value});
   }
 
   handleCheck(event) {
@@ -135,7 +135,7 @@ class EventPurchasePage extends Component {
       case 'guide':
         return this.props.addTranslatorToCart({guide: checked});
       case 'photographer':
-        return this.props.addPhotographerToCart({photographer: checked});
+        return this.props.addPhotographerToCart(checked);
       default:
         return null;
     }
@@ -229,10 +229,10 @@ class EventPurchasePage extends Component {
 
   render() {
     const {
-      allCities, transferProps, currentEventInfo,
+      allCities, languages, transferProps, currentEventInfo,
       isEventInfoPending, isLoadAccommodationPending, accommodations, currentUser,
       setDaysBeforeEventInc, setDaysBeforeEventDec, setDaysAfterEventInc, setDaysAfterEventDec,
-      isTransfersForwardPending, isTransfersBackwardPending
+      isTransfersForwardPending, isTransfersBackwardPending, translator
     } = this.props;
     return (
       <Fragment>
@@ -335,16 +335,21 @@ class EventPurchasePage extends Component {
             <p className='additional-service-p'>You can also order the services of a guide interpreter. Service is paid
               separately.</p>
             <input type="checkbox" name={'guide'} id={'guide'}
-                   onChange={this.handleCheck.bind(this)}/>
+                   onChange={this.handleCheck.bind(this)}
+                   checked={this.props.translator.guide}/>
             <label htmlFor="guide" className={'login-input-label'}>interpreter guide services</label>
-            <select name="language" id="language" className='filter-input select-city-input'>select language</select>
+            {translator.guide && <select name="language" id="language" className='filter-input select-city-input'
+                                         onChange={this.handleChange.bind(this)} value={this.props.translator.translatorId ||'0'}>
+              <option value='0'>Select language</option>
+              {languages[0] && languages.map(l => <option key={l.id} value={l.id}>{l.language}</option>)}
+            </select>}
           </div>
           <div>
             <p className='additional-service-p'>We can also provide the services of a photographer - as a separate photo
               session,
               as well as accompanying you to your chosen location.</p>
             <input type="checkbox" name={'photographer'} id={'photographer'}
-                   onChange={this.handleCheck.bind(this)}/>
+                   onChange={this.handleCheck.bind(this)} checked={this.props.photographer}/>
             <label htmlFor="photographer" className={'login-input-label'}>Photographer service</label>
           </div>
         </div>
@@ -361,13 +366,16 @@ const mapStateToProps = (state) => {
     currentEventInfo: state.eventReducer.eventInfo,
     isLogged: state.userReducer.loggedIn,
     allCities: state.fillListsReducer.cities,
+    languages: state.fillListsReducer.languages,
     transferProps: state.transferReducer,
     isLoadAccommodationPending: state.accommodationReducer.isLoadAccommodationPending,
     accommodations: state.accommodationReducer.accommodations,
     isEventInfoSuccess: state.eventReducer.isEventInfoSuccess,
     isEventInfoPending: state.eventReducer.isEventInfoPending,
     isTransfersForwardPending: state.transferReducer.isTransfersForwardPending,
-    isTransfersBackwardPending: state.transferReducer.isTransfersBackwardPending
+    isTransfersBackwardPending: state.transferReducer.isTransfersBackwardPending,
+    translator: state.cartReducer.translator,
+    photographer: state.cartReducer.photographer
   }
 };
 
@@ -396,7 +404,7 @@ const mapDispatchToProps = (dispatch) => {
     loadTransfersBackward: (query) => dispatch(loadTransfersBackward(query)),
     // === CART ACTIONS ===
     addEventToCart: (event) => dispatch(addEventToCart(event)),
-    addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
+    addAccommodationToCart: (accommodation) => dispatch(addAccommodationToCart(accommodation)),
     addTransferToEventToCart: (transfer) => dispatch(addTransferToEventToCart(transfer)),
     addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer)),
     addTranslatorToCart: (translator) => dispatch(addTranslatorToCart(translator)),

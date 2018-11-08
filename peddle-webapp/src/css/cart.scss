@@ -136,6 +136,13 @@
   text-align: right;
 }
 
+.additional-service-header {
+  display: inline-block;
+  margin-left: 10px;
+  color: $md-color-green-500;
+  font-size: 14px;
+}
+
 .summary {
   display: flex;
   flex-direction: column;

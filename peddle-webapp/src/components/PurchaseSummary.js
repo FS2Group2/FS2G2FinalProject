@@ -6,9 +6,9 @@ import * as ReactDOM from "react-dom";
 import {fetchDataFromApi} from "../actions/fetchDataActions";
 import {
   addAccommodationToCart,
-  addEventToCart,
+  addEventToCart, addPhotographerToCart,
   addTransferFromEventToCart,
-  addTransferToEventToCart
+  addTransferToEventToCart, addTranslatorToCart
 } from "../actions/cartActions";
 import '../css/cart.css';
 import {eventImgPath} from "../constants/ApiSettings";
@@ -38,14 +38,16 @@ class PurchaseSummary extends Component {
     const accommodation = this.props.cart.purchasedAccommodation;
     const transferTo = this.props.cart.purchasedTransferTo;
     const transferFrom = this.props.cart.purchasedTransferFrom;
+    const translator = this.props.cart.translator;
+    const photographer = this.props.cart.photographer;
     let query = {
       id: userState.currentUser.id,
       eventId: event.id,
       transfertoId: transferTo.id || '0',
       transferfromId: transferFrom.id || '0',
       accommodationId: accommodation.id || '0',
-      translatorId: '0',
-      photographer: true
+      translatorId: (translator.guide && translator.translatorId) || '0',
+      photographer: photographer
     };
     fetchDataFromApi(purchaseAdd, query);
     this.renderMsg('Your purchases were successfully saved.', 2000);
@@ -74,6 +76,8 @@ class PurchaseSummary extends Component {
     const accommodation = this.props.cart.purchasedAccommodation;
     const transferTo = this.props.cart.purchasedTransferTo;
     const transferFrom = this.props.cart.purchasedTransferFrom;
+    const translator = this.props.cart.translator;
+    const photographer = this.props.cart.photographer;
     let imgPath = event.eventExtraPhoto && (~event.eventExtraPhoto.indexOf('http') ?
       (event.eventExtraPhoto) : (eventImgPath + event.eventExtraPhoto));
     return (
@@ -183,6 +187,14 @@ class PurchaseSummary extends Component {
                     </div>
                   </div>
                 </Fragment>}
+                {translator.guide && <div>
+                  <button className="btn-item-remove" onClick={()=>this.props.addTranslatorToCart({})}></button>
+                  <p className="additional-service-header">Guide service pre-ordered</p>
+                </div>}
+                {photographer && <div>
+                 <button className="btn-item-remove" onClick={()=>this.props.addPhotographerToCart(false)}></button>
+                 <p className="additional-service-header">Service of photographer pre-ordered</p>
+               </div>}
 
               </div>
 
@@ -222,7 +234,9 @@ const mapDispatchToProps = (dispatch) => {
     addEventToCart: (event) => dispatch(addEventToCart(event)),
     addAccommodationToCart: (accommdation) => dispatch(addAccommodationToCart(accommdation)),
     addTransferToEventToCart: (transfer) => dispatch(addTransferToEventToCart(transfer)),
-    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer))
+    addTransferFromEventToCart: (transfer) => dispatch(addTransferFromEventToCart(transfer)),
+    addTranslatorToCart: (translator) => dispatch(addTranslatorToCart(translator)),
+    addPhotographerToCart: (photographer) => dispatch(addPhotographerToCart(photographer))
   }
 };
 
