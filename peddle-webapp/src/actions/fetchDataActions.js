@@ -2,7 +2,7 @@ import {
   ADD_TO_PURCHASES,
   ADD_TO_WISHLIST,
   FILL_CATEGORIES_LIST,
-  FILL_CITIES_LIST,
+  FILL_CITIES_LIST, FILL_LANGUAGES_LIST,
   LOAD_EVENT_INFO,
   LOAD_EVENTS,
   LOAD_TOP_EVENTS,
@@ -79,7 +79,11 @@ export function setFetchData(fetchData, dataType) {
         type: FILL_CATEGORIES_LIST,
         payload: fetchData
       };
-
+    case 'LANGUAGES_LIST':
+      return{
+        type: FILL_LANGUAGES_LIST,
+        payload: fetchData
+      };
     case 'TOP_EVENTS':
       return{
         type: LOAD_TOP_EVENTS,

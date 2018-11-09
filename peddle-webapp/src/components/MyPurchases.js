@@ -97,6 +97,8 @@ class MyPurchases extends Component {
             </div>
 
             <div className="purchased-item-detail" id={p.id}>
+              <p>Event: {p.eventName}, {p.eventCityName},
+                date: {new Date(p.eventDate).toLocaleDateString()}, ${p.eventPrice}</p>
               {p.accommodationName &&
               <p>{'Hotel reserved: ' + p.accommodationName + ', ' + p.accommodationCityName + '     $' + p.accommodationPrice}</p>}
 
@@ -109,7 +111,10 @@ class MyPurchases extends Component {
               <p>{p.transferfromTransporttypeName + ' #' + p.transferfromNumber + ' from '
               + p.transferfromFromcityName + ' to ' + p.transferfromTocityName + ', depart. time ' +
               new Date(p.transferfromDeparttime).toLocaleString() + ',     $' + p.transferfromPrice}</p>}
-
+              {p.translatorId &&
+              <p>Services of a guide interpreter, language: {p.translatorLanguage}</p>}
+              {p.photographer &&
+              <p>Pre-ordered photographer service.</p>}
             </div>
           </Fragment>
         )}

@@ -11,4 +11,6 @@ public class PurchaseAddDto {
   private Long transfertoId;
   private Long transferfromId;
   private Long accommodationId;
+  private Long translatorId;
+  private Boolean photographer;
 }

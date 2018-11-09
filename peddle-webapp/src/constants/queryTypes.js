@@ -1,6 +1,7 @@
 import dataMap from "./ApiSettings";
 
 export const citiesList = {apiUrl: dataMap.allCities, method: 'GET', dataType: 'ALL_CITIES_LIST'};
+export const languagesList = {apiUrl: dataMap.languagesPath, method: 'GET', dataType: 'LANGUAGES_LIST'};
 export const categoriesList = {apiUrl: dataMap.categoryPath, method: 'GET', dataType: 'ALL_CATEGORIES_LIST'};
 export const wishList = {apiUrl: dataMap.wishlist, method: 'GET', dataType: 'LOAD_WISH_LIST'};
 export const wishListAdd = {apiUrl: dataMap.wishlistAdd, method: 'post', dataType: 'ADD_TO_WISH_LIST'};
