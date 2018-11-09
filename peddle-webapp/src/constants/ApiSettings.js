@@ -8,7 +8,6 @@ const apiSettings = {
 const dataPath = apiSettings.apiPath;
 
 export const eventImgPath = 'https://eventtour-bucket.s3.amazonaws.com/events/';
-// export const eventImgPath = '';
 // export const eventImgPath = '/img/';
 // export const categoryImgPath = '/img/categories/';
 // export const categoryImgPath = 'https://peddle-bucket.s3.amazonaws.com/categories/';

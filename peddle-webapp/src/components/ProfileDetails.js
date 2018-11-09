@@ -112,7 +112,7 @@ class ProfileDetails extends Component {
           <div className="user-photo-section">
             <div className="user-photo-container">
               {profilePhoto ? <img className='user-photo' src={profilePhoto} alt="ProfileAvatar"/> :
-                <img className='user-photo' src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
+                <img className='user-photo' src='https://s3.us-east-2.amazonaws.com/eventtour-bucket/avatars/unknown_user.png'
                      alt="ProfileAvatar"/>}
             </div>
             {editMode && <div>

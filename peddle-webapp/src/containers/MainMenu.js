@@ -34,7 +34,7 @@ class MainMenu extends Component {
                     <img className='main-menu-user-photo' src={userState.currentUser.profilePhoto}
                          alt="ProfileAvatar"/> :
                     <img className='main-menu-user-photo'
-                         src='https://peddle-bucket.s3.amazonaws.com/avatars/unknown_user.png'
+                         src='https://s3.us-east-2.amazonaws.com/eventtour-bucket/avatars/unknown_user.png'
                          alt="ProfileAvatar"/>}
                 </div>
                 <p className="main-menu-user-p">{userState.currentUser.name}</p>
