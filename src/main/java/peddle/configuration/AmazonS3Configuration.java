@@ -19,13 +19,13 @@ public class AmazonS3Configuration {
   @Value("${Secret_key}")
   private String secretKey;
 
-  public static final String BUCKET_NAME = "peddle-bucket";
+  public static final String BUCKET_NAME = "eventtour-bucket";
 
   public AmazonS3 getAmazonS3() {
     return AmazonS3ClientBuilder.standard()
             .withCredentials(new AWSStaticCredentialsProvider(
                     new BasicAWSCredentials(accessKey,
                             secretKey)))
-            .withRegion(Regions.US_EAST_1) .build() ;
+            .withRegion(Regions.US_EAST_2) .build() ;
   }
 }
