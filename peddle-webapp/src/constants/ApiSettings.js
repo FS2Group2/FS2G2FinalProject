@@ -36,7 +36,8 @@ const dataMap = {
   wishlistRemove: dataPath + '/wishlist/delete-event-from-user',
   purchace: dataPath + '/purchase/all/',
   purchaseAdd: dataPath + '/purchase/add',
-  categoryPath: dataPath + "/categories/all"
+  categoryPath: dataPath + "/categories/all",
+  languagesPath: dataPath + "/languages/all"
 };
 
 export default dataMap;

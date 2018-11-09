@@ -10,13 +10,15 @@ import peddle.configuration.UserException;
 import peddle.dto.PurchaseAddDto;
 import peddle.dto.PurchaseDtoRs;
 import peddle.entities.Accommodation;
+import peddle.entities.Event;
 import peddle.entities.Purchase;
 import peddle.entities.Transfer;
+import peddle.entities.Translator;
 import peddle.entities.User;
-import peddle.entities.Event;
 import peddle.repository.AccommodationRepository;
 import peddle.repository.EventRepository;
 import peddle.repository.TransferRepository;
+import peddle.repository.TranslatorRepository;
 import peddle.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
   @Autowired
   private AccommodationRepository accommodationRepository;
+
+  @Autowired
+  private TranslatorRepository translatorRepository;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -83,7 +88,17 @@ public class PurchaseServiceImpl implements PurchaseService {
     Event event = eventRepository.findById(purchaseAddDto.getEventId())
         .orElseThrow(() -> new UserException(ErrorConstants.ERR_EVENT_NOT_FOUND));
 
-    Purchase purchase = new Purchase(event, transferTo, transferFrom, accommodation);
+    Translator translator = null;
+    if (purchaseAddDto.getTranslatorId() > 0) {
+      translator = translatorRepository.findById(purchaseAddDto.getTranslatorId())
+          .orElseThrow(() -> new BadRequestException(ErrorConstants.ERR_TRANSLATOR_NOT_FOUND));
+    }
+
+    Boolean photographer = false;
+    photographer = purchaseAddDto.getPhotographer();
+
+
+    Purchase purchase = new Purchase(event, transferTo, transferFrom, accommodation, translator, photographer);
 
     User user = userRepository.findById(purchaseAddDto.getId())
         .orElseThrow(() -> new UserException(ErrorConstants.ERR_USER_NOT_FOUND));

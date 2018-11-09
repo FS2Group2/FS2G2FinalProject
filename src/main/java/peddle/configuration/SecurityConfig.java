@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/manifest.json",
             "/events", "/event/**", "/cart", "/login","/profile/**",
             "/api/login", "/api/register/**", "/api/remind/**",
-            "/api/city/**", "/api/categories/**", "/api/events/**",
+            "/api/city/**", "/api/categories/**", "/api/events/**", "/api/languages/**",
             "/api/transfer/**", "/api/accommodations/**")
         .permitAll()
         .anyRequest()
