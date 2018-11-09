@@ -15,7 +15,7 @@ import peddle.repository.CityRepository;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @SpringBootTest(classes = Application.class)
-public class CityRepositoryTest {
+public class CityRepositoryTest2 {
 
     private final static String CITY_NAME = "Kiev";
     private final static String CITY_NAME2 = "Lviv";
